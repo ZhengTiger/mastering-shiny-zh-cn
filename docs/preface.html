@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Preface | Mastering Shiny</title>
+<meta name="author" content="Hadley Wickham">
+<meta name="generator" content="bookdown 0.34.2 with bs4_book()">
+<meta property="og:title" content="Preface | Mastering Shiny">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Preface | Mastering Shiny">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="0.1 What is Shiny? If you’ve never used Shiny before, welcome! Shiny is an R package that allows you to easily create rich, interactive web apps. Shiny allows you to take your work in R and expose...">
+<meta property="og:description" content="0.1 What is Shiny? If you’ve never used Shiny before, welcome! Shiny is an R package that allows you to easily create rich, interactive web apps. Shiny allows you to take your work in R and expose...">
+<meta name="twitter:description" content="0.1 What is Shiny? If you’ve never used Shiny before, welcome! Shiny is an R package that allows you to easily create rich, interactive web apps. Shiny allows you to take your work in R and expose...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Mastering Shiny</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="active" href="preface.html">Preface</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/mastering-shiny">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="preface" class="section level1 unnumbered">
+<h1>Preface<a class="anchor" aria-label="anchor" href="#preface"><i class="fas fa-link"></i></a>
+</h1>
+<div id="what-is-shiny" class="section level2" number="0.1">
+<h2>
+<span class="header-section-number">0.1</span> What is Shiny?<a class="anchor" aria-label="anchor" href="#what-is-shiny"><i class="fas fa-link"></i></a>
+</h2>
+<p>If you’ve never used Shiny before, welcome!
+Shiny is an R package that allows you to easily create rich, interactive web apps.
+Shiny allows you to take your work in R and expose it via a web browser so that anyone can use it.
+Shiny makes you look awesome by making it easy to produce polished web apps with a minimum amount of pain.</p>
+<p>In the past, creating web apps was hard for most R users because:</p>
+<ul>
+<li><p>You need a deep knowledge of web technologies like HTML, CSS and JavaScript.</p></li>
+<li><p>Making complex interactive apps requires careful analysis of interaction flows to make sure that when an input changes, only the related outputs are updated.</p></li>
+</ul>
+<p>Shiny makes it significantly easier for the R programmer to create web apps by:</p>
+<ul>
+<li><p>Providing a carefully curated set of user interface (<strong>UI</strong> for short) functions that generate the HTML, CSS, and JavaScript needed for common tasks.
+This means that you don’t need to know the details of HTML/CSS/JavaScript until you want to go beyond the basics that Shiny provides for you.</p></li>
+<li><p>Introducing a new style of programming called <strong>reactive programming</strong> which automatically tracks the dependencies of pieces of code.
+This means that whenever an input changes, Shiny can automatically figure out how to do the smallest amount of work to update all the related outputs.</p></li>
+</ul>
+<p>People use Shiny to:</p>
+<ul>
+<li><p>Create dashboards that track important high-level performance indicators, while facilitating drill down into metrics that need more investigation.</p></li>
+<li><p>Replace hundreds of pages of PDFs with interactive apps that allow the user to jump to the exact slice of the results that they care about.</p></li>
+<li><p>Communicate complex models to a non-technical audience with informative visualisations and interactive sensitivity analysis.</p></li>
+<li><p>Provide self-service data analysis for common workflows, replacing email requests with a Shiny app that allows people to upload their own data and perform standard analyses.
+You can make sophisticated R analyses available to users with no programming skills.</p></li>
+<li><p>Create interactive demos for teaching statistics and data science concepts that allow learners to tweak inputs and observe the downstream effects of those changes in an analysis.</p></li>
+</ul>
+<p>In short, Shiny gives you the ability to pass on some of your R superpowers to anyone who can use the web.</p>
+</div>
+<div id="who-should-read-this-book" class="section level2" number="0.2">
+<h2>
+<span class="header-section-number">0.2</span> Who should read this book?<a class="anchor" aria-label="anchor" href="#who-should-read-this-book"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book is aimed at two main audiences:</p>
+<ul>
+<li><p>R users who are interested in learning about Shiny in order to turn their analyses into interactive web apps.
+To get the most out of this book, you should be comfortable using R to do data analysis, and should have written at least a few functions.</p></li>
+<li><p>Existing Shiny users who want to improve their knowledge of the theory underlying Shiny in order to write higher-quality apps faster and more easily.
+You should find this book particularly helpful if your apps are starting to get bigger and you’re starting to have problems managing the complexity.</p></li>
+</ul>
+</div>
+<div id="what-will-you-learn" class="section level2" number="0.3">
+<h2>
+<span class="header-section-number">0.3</span> What will you learn?<a class="anchor" aria-label="anchor" href="#what-will-you-learn"><i class="fas fa-link"></i></a>
+</h2>
+<p>The book is divided into four parts:</p>
+<ol style="list-style-type: decimal">
+<li><p>In “Getting started”, you’ll learn the basics of Shiny so you can get up and running as quickly as possible.
+You’ll learn about the basics of app structure, useful UI components, and the foundations of reactive programming.</p></li>
+<li><p>“Shiny in action” builds on the basics to help you solve common problems including giving feedback to the user, uploading and downloading data, generating UI with code, reducing code duplication, and using Shiny to program the tidyverse.</p></li>
+<li><p>In “Mastering reactivity”, you’ll go deep into the theory and practice of reactive programming, the programming paradigm that underlies Shiny.
+If you’re an existing Shiny user, you’ll get the most value out of this chapter as it will give you a solid theoretical underpinning that will allow you to create new tools specifically tailored for your problems.</p></li>
+<li><p>Finally, in “Best practices” we’ll finish up with a survey of useful techniques for making your Shiny apps work well in production.
+You’ll learn how to decompose complex apps into functions and modules, how to use packages to organise your code, how to test your code to ensure it’s correct, and how to measure and improve performance.</p></li>
+</ol>
+</div>
+<div id="what-wont-you-learn" class="section level2" number="0.4">
+<h2>
+<span class="header-section-number">0.4</span> What won’t you learn?<a class="anchor" aria-label="anchor" href="#what-wont-you-learn"><i class="fas fa-link"></i></a>
+</h2>
+<p>The focus of this book is making effective Shiny apps and understanding the underlying theory of reactivity.
+I’ll do my best to showcase best practices for data science, R programming, and software engineering, but you’ll need other references to master these important skills.
+If you enjoy my writing in this book, you might enjoy my other books on these topics: <a href="http://r4ds.had.co.nz/">R for Data Science</a>, <a href="http://adv-r.hadley.nz/">Advanced R</a>, and <a href="http://r-pkgs.org/">R Packages</a>.</p>
+<p>There are also a number of important topics specific to Shiny that I don’t cover:</p>
+<ul>
+<li><p>This book only covers the built-in user interface toolkit.
+This doesn’t provide the sexiest possible design, but it’s simple to learn and gets you a long way.
+If you have additional needs (or just get bored with the defaults), there are number of other packages that provide alternative front ends.
+See Section <a href="#other-tools"><strong>??</strong></a> for more details.</p></li>
+<li><p>Deployment of Shiny apps.
+Putting Shiny “into production” is outside the scope of this book because it hugely varies from company to company, and much of it is unrelated to R (the majority of challenges tend to be cultural or organisational, not technical).
+If you’re new to Shiny in production, I recommend by starting with Joe Cheng’s 2019 rstudio::conf keynote: <a href="https://rstudio.com/resources/rstudioconf-2019/shiny-in-production-principles-practices-and-tools/" class="uri">https://rstudio.com/resources/rstudioconf-2019/shiny-in-production-principles-practices-and-tools/</a>.
+That will give you the lay of the land, discussing broadly what putting Shiny into production entails and how to overcome some of the challenges that you’re likely to face.
+Once you’ve done that, see the <a href="https://rstudio.com/products/connect/">RStudio Connect website</a> to learn about RStudio’s product for deploying apps within your company and the <a href="https://shiny.rstudio.com/articles/#deployment">Shiny website</a> for other common deployment scenarios.</p></li>
+</ul>
+</div>
+<div id="prerequisites" class="section level2" number="0.5">
+<h2>
+<span class="header-section-number">0.5</span> Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"><i class="fas fa-link"></i></a>
+</h2>
+<p>Before we continue, make sure you have all the software you need for this book:</p>
+<ul>
+<li><p><strong>R</strong>: If you don’t have R installed already, you may be reading the wrong book; I assume a basic familiarity with R throughout this book.
+If you’d like to learn how to use R, I’d recommend my <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> which is designed to get you up and running with R with a minimum of fuss.</p></li>
+<li><p><strong>RStudio</strong>: RStudio is a free and open source integrated development environment (IDE) for R.
+While you can write and use Shiny apps with any R environment (including R GUI and <a href="http://ess.r-project.org">ESS</a>), RStudio has some nice features specifically for authoring, debugging, and deploying Shiny apps.
+We recommend giving it a try, but it’s not required to be successful with Shiny or with this book.
+You can download RStudio Desktop from <a href="https://www.rstudio.com/products/rstudio/download" class="uri">https://www.rstudio.com/products/rstudio/download</a></p></li>
+<li>
+<p><strong>R packages</strong>: This book uses a bunch of R packages.
+You can install them all at once by running:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"gapminder"</span>, <span class="st">"ggforce"</span>, <span class="st">"gh"</span>, <span class="st">"globals"</span>, <span class="st">"openintro"</span>, <span class="st">"profvis"</span>, </span>
+<span>  <span class="st">"RSQLite"</span>, <span class="st">"shiny"</span>, <span class="st">"shinycssloaders"</span>, <span class="st">"shinyFeedback"</span>, </span>
+<span>  <span class="st">"shinythemes"</span>, <span class="st">"testthat"</span>, <span class="st">"thematic"</span>, <span class="st">"tidyverse"</span>, <span class="st">"vroom"</span>, </span>
+<span>  <span class="st">"waiter"</span>, <span class="st">"xml2"</span>, <span class="st">"zeallot"</span> </span>
+<span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>If you’ve downloaded Shiny in the past, make sure that you have at least version 1.6.0.</p>
+</li>
+</ul>
+</div>
+<div id="acknowledgements" class="section level2" number="0.6">
+<h2>
+<span class="header-section-number">0.6</span> Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book was written in the open and chapters were advertised on twitter when complete.
+It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content.
+Without those contributors, the book wouldn’t be nearly as good as it is, and I’m deeply grateful for their help.</p>
+<pre><code>#&gt; Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
+<p>A big thank you to all 83 people who contributed specific improvements via GitHub pull requests (in alphabetical order by username): Adam Pearce (@1wheel), Adi Sarid (@adisarid), Alexandros Melemenidis (@alex-m-ffm), Anton Klåvus (@antonvsdata), Betsy Rosalen (@betsyrosalen), Michael Beigelmacher (@brooklynbagel), Bryan Smith (@BSCowboy), c1au6io_hh (@c1au6i0), @canovasjm, Chris Beeley (@ChrisBeeley), @chsafouane, Chuliang Xiao (@ChuliangXiao), Conor Neilson (@condwanaland), @d-edison, Dean Attali (@daattali), DanielDavid521 (@Danieldavid521), David Granjon (@DivadNojnarg), Eduardo Vásquez (@edovtp), Emil Hvitfeldt (@EmilHvitfeldt), Emilio (@emilopezcano), Emily Riederer (@emilyriederer), Eric Simms (@esimms999), Federico Marini (@federicomarini), Frederik Kok Hansen (@fkoh111), Frans van Dunné (@FvD), Giorgio Comai (@giocomai), Hedley (@heds1), Henning (@henningsway), Hlynur (@hlynurhallgrims), @hsm207, @jacobxk, James Pooley (@jamespooley), Joe Cheng (@jcheng5), Julien Colomb (@jcolomb), Juan C Rodriguez (@jcrodriguez1989), Jennifer (Jenny) Bryan (@jennybc), Jim Hester (@jimhester), Joachim Gassen (@joachim-gassen), Jon Calder (@jonmcalder), Jonathan Carroll (@jonocarroll), Julian Stanley (@julianstanley), @jyuu, @kaanpekel, Karandeep Singh (@kdpsingh), Robert Kirk DeLisle (@KirkDCO), Elaine (@loomalaine), Malcolm Barrett (@malcolmbarrett), Marly Gotti (@marlycormar), Matthew Wilson (@MattW-Geospatial), Matthew T. Warkentin (@mattwarkentin), Mauro Lepore (@maurolepore), Maximilian Rohde (@maxdrohde), Matthew Berginski (@mbergins), Michael Dewar (@michael-dewar), Mine Cetinkaya-Rundel (@mine-cetinkaya-rundel), Maria Paula Caldas (@mpaulacaldas), nthobservation (@nthobservation), Pietro Monticone (@pitmonticone), psychometrician (@psychometrician), Ram Thapa (@raamthapa), Janko Thyson (@rappster), Rebecca Janis (@rbjanis), Tom Palmer (@remlapmot), Russ Hyde (@russHyde), Barret Schloerke (@schloerke), Scott (@scottyd22), Matthew Sedaghatfar (@sedaghatfar), Shixiang Wang (@ShixiangWang), Praer (Suthira Owlarn) (@sowla), Sébastien Rochette (@statnmap), @stevensbr, André Calero Valdez (@Sumidu), Tanner Stauss (@tmstauss), Tony Fujs (@tonyfujs), Stefan Moog (@trekonom), Jeff Allen (@trestletech), Trey Gilliland (@treygilliland), Albrecht (@Tungurahua), Valeri Voev (@ValeriVoev), Vickus (@Vickusr), William Doane (@WilDoane), 黄湘云 (@XiangyunHuang), gXcloud (@xwydq).</p>
+</div>
+<div id="colophon" class="section level2" number="0.7">
+<h2>
+<span class="header-section-number">0.7</span> Colophon<a class="anchor" aria-label="anchor" href="#colophon"><i class="fas fa-link"></i></a>
+</h2>
+<p>This book was written in <a href="http://www.rstudio.com/ide/">RStudio</a> using <a href="http://bookdown.org/">bookdown</a>.
+The <a href="http://mastering-shiny.org/">website</a> is hosted with <a href="http://netlify.com/">netlify</a>, and automatically updated after every commit by <a href="https://github.com/features/actions">Github Actions</a>.
+The complete source is available from <a href="https://github.com/hadley/mastering-shiny">GitHub</a>.</p>
+<p>This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and the following packages:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left">package</th>
+<th align="left">version</th>
+<th align="left">source</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">gapminder</td>
+<td align="left">1.0.0</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">ggforce</td>
+<td align="left">0.4.1</td>
+<td align="left">CRAN (R 4.2.1)</td>
+</tr>
+<tr class="odd">
+<td align="left">gh</td>
+<td align="left">1.4.0</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">globals</td>
+<td align="left">0.16.2</td>
+<td align="left">CRAN (R 4.2.2)</td>
+</tr>
+<tr class="odd">
+<td align="left">openintro</td>
+<td align="left">2.4.0</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">profvis</td>
+<td align="left">0.3.8</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="odd">
+<td align="left">RSQLite</td>
+<td align="left">2.3.1</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">shiny</td>
+<td align="left">1.7.4</td>
+<td align="left">CRAN (R 4.2.2)</td>
+</tr>
+<tr class="odd">
+<td align="left">shinycssloaders</td>
+<td align="left">1.0.0</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">shinyFeedback</td>
+<td align="left">0.4.0</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="odd">
+<td align="left">shinythemes</td>
+<td align="left">1.2.0</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">testthat</td>
+<td align="left">3.1.8</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="odd">
+<td align="left">thematic</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">tidyverse</td>
+<td align="left">2.0.0</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="odd">
+<td align="left">vroom</td>
+<td align="left">1.6.3</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">waiter</td>
+<td align="left">0.2.5</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="odd">
+<td align="left">xml2</td>
+<td align="left">1.3.4</td>
+<td align="left">CRAN (R 4.2.3)</td>
+</tr>
+<tr class="even">
+<td align="left">zeallot</td>
+<td align="left">0.1.0</td>
+<td align="left">CRAN (R 4.2.2)</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html">Welcome</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#preface">Preface</a></li>
+<li><a class="nav-link" href="#what-is-shiny"><span class="header-section-number">0.1</span> What is Shiny?</a></li>
+<li><a class="nav-link" href="#who-should-read-this-book"><span class="header-section-number">0.2</span> Who should read this book?</a></li>
+<li><a class="nav-link" href="#what-will-you-learn"><span class="header-section-number">0.3</span> What will you learn?</a></li>
+<li><a class="nav-link" href="#what-wont-you-learn"><span class="header-section-number">0.4</span> What won’t you learn?</a></li>
+<li><a class="nav-link" href="#prerequisites"><span class="header-section-number">0.5</span> Prerequisites</a></li>
+<li><a class="nav-link" href="#acknowledgements"><span class="header-section-number">0.6</span> Acknowledgements</a></li>
+<li><a class="nav-link" href="#colophon"><span class="header-section-number">0.7</span> Colophon</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/mastering-shiny/blob/master/introduction.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/mastering-shiny/edit/master/introduction.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Mastering Shiny</strong>" was written by Hadley Wickham. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

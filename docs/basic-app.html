@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 1 Your first Shiny app | Mastering Shiny</title>
+<meta name="author" content="Hadley Wickham">
+<meta name="generator" content="bookdown 0.34.2 with bs4_book()">
+<meta property="og:title" content="Chapter 1 Your first Shiny app | Mastering Shiny">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 1 Your first Shiny app | Mastering Shiny">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="1.1 Introduction In this chapter, we’ll create a simple Shiny app. I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it. Next...">
+<meta property="og:description" content="1.1 Introduction In this chapter, we’ll create a simple Shiny app. I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it. Next...">
+<meta name="twitter:description" content="1.1 Introduction In this chapter, we’ll create a simple Shiny app. I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it. Next...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Mastering Shiny</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="basic-intro.html">Introduction</a></li>
+<li><a class="active" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
+<li><a class="" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
+<li><a class="" href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></li>
+<li><a class="" href="basic-case-study.html"><span class="header-section-number">4</span> Case study: ER injuries</a></li>
+<li class="book-part">Shiny in action</li>
+<li><a class="" href="action-intro.html">Introduction</a></li>
+<li><a class="" href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></li>
+<li><a class="" href="action-layout.html"><span class="header-section-number">6</span> Layout, themes, HTML</a></li>
+<li><a class="" href="action-graphics.html"><span class="header-section-number">7</span> Graphics</a></li>
+<li><a class="" href="action-feedback.html"><span class="header-section-number">8</span> User feedback</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/hadley/mastering-shiny">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="basic-app" class="section level1" number="1">
+<h1>
+<span class="header-section-number">1</span> Your first Shiny app<a class="anchor" aria-label="anchor" href="#basic-app"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction" class="section level2" number="1.1">
+<h2>
+<span class="header-section-number">1.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this chapter, we’ll create a simple Shiny app.
+I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it.
+Next you’ll learn the two key components of every Shiny app: the <strong>UI</strong> (short for user interface) which defines how your app <em>looks</em>, and the <strong>server function</strong> which defines how your app <em>works</em>.
+Shiny uses <strong>reactive programming</strong> to automatically update outputs when inputs change so we’ll finish off the chapter by learning the third important component of Shiny apps: reactive expressions.</p>
+<p>If you haven’t already installed Shiny, install it now with:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"shiny"</span><span class="op">)</span></span></code></pre></div>
+<p>If you’ve already installed Shiny, use <code>packageVersion("shiny")</code> to check that you have version 1.5.0 or greater.</p>
+<p>Then load in your current R session:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span></code></pre></div>
+</div>
+<div id="create-app" class="section level2" number="1.2">
+<h2>
+<span class="header-section-number">1.2</span> Create app directory and file<a class="anchor" aria-label="anchor" href="#create-app"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are several ways to create a Shiny app.
+The simplest is to create a new directory for your app, and put a single file called <code>app.R</code> in it.
+This <code>app.R</code> file will be used to tell Shiny both how your app should look, and how it should behave.</p>
+<p>Try it out by creating a new directory, and adding an <code>app.R</code> file that looks like this:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="st">"Hello, world!"</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>This is a complete, if trivial, Shiny app!
+Looking closely at the code above, our <code>app.R</code> does four things:</p>
+<ol style="list-style-type: decimal">
+<li><p>It calls <code><a href="https://shiny.rstudio.com/">library(shiny)</a></code> to load the shiny package.</p></li>
+<li><p>It defines the user interface, the HTML webpage that humans interact with.
+In this case, it’s a page containing the words “Hello, world!”.</p></li>
+<li><p>It specifies the behaviour of our app by defining a <code>server</code> function.
+It’s currently empty, so our app doesn’t <em>do</em> anything, but we’ll be back to revisit this shortly.</p></li>
+<li><p>It executes <code>shinyApp(ui, server)</code> to construct and start a Shiny application from UI and server.</p></li>
+</ol>
+<div class="rmdnote">
+<p><strong>RStudio Tip</strong>: There are two convenient ways to create a new app in RStudio:</p>
+<ul>
+<li><p>Create a new directory and an <code>app.R</code> file containing a basic app in one step by clicking <strong>File | New Project</strong>, then selecting <strong>New Directory</strong> and <strong>Shiny Web Application</strong>.</p></li>
+<li><p>If you’ve already created the <code>app.R</code> file, you can quickly add the app boilerplate by typing “shinyapp” and pressing Shift+Tab.</p></li>
+</ul>
+</div>
+</div>
+<div id="running" class="section level2" number="1.3">
+<h2>
+<span class="header-section-number">1.3</span> Running and stopping<a class="anchor" aria-label="anchor" href="#running"><i class="fas fa-link"></i></a>
+</h2>
+<p>There are a few ways you can run this app:</p>
+<ul>
+<li><p>Click the <strong>Run App</strong> (Figure <a href="basic-app.html#fig:run-app">1.1</a>) button in the document toolbar.</p></li>
+<li><p>Use a keyboard shortcut: <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code>.</p></li>
+<li><p>If you’re not using RStudio, you can <code>(source())</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The extra &lt;code&gt;()&lt;/code&gt; on the outside are important.
+&lt;code&gt;shinyApp()&lt;/code&gt; only creates an app when printed, and &lt;code&gt;()&lt;/code&gt; forces the printing of the last result in the file being source, which is otherwise returned invisibly.&lt;/p&gt;"><sup>1</sup></a> the whole document, or call <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html">shiny::runApp()</a></code> with the path to the directory containing <code>app.R</code>.</p></li>
+</ul>
+<div class="figure">
+<span style="display:block;" id="fig:run-app"></span>
+<img src="images/basic-app/run-app.png" alt="The Run App button can be found at the top-right of the source pane." width="617"><p class="caption">
+Figure 1.1: The Run App button can be found at the top-right of the source pane.
+</p>
+</div>
+<p>Pick one of these options, and check that you see the same app as in Figure <a href="basic-app.html#fig:hello-world">1.2</a>.
+Congratulations!
+You’ve made your first Shiny app.</p>
+<div class="figure">
+<span style="display:block;" id="fig:hello-world"></span>
+<img src="images/basic-app/hello-world.png" alt="The very basic shiny app you'll see when you run the code above" width="440"><p class="caption">
+Figure 1.2: The very basic shiny app you’ll see when you run the code above
+</p>
+</div>
+<p>Before you close the app, go back to RStudio and look at the R console.
+You’ll notice that it says something like:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#&gt; Listening on http://127.0.0.1:3827</span></span></code></pre></div>
+<p>This tells you the URL where your app can be found: 127.0.0.1 is a standard address that means “this computer” and 3827 is a randomly assigned port number.
+You can enter that URL into any compatible<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Shiny strives to support all modern browsers, and you can see the set currently supported at &lt;a href="https://www.rstudio.com/about/platform-support/" class="uri"&gt;https://www.rstudio.com/about/platform-support/&lt;/a&gt;.
+Note that Internet Explorer versions prior to IE11 are not compatible when running Shiny directly from your R session.
+However, Shiny apps deployed on Shiny Server or ShinyApps.io can work with IE10 (earlier versions of IE are no longer supported).&lt;/p&gt;'><sup>2</sup></a> web browser to open another copy of your app.</p>
+<p>Also notice that R is busy: the R prompt isn’t visible, and the console toolbar displays a stop sign icon.
+While a Shiny app is running, it “blocks” the R console.
+This means that you can’t run new commands at the R console until the Shiny app stops.</p>
+<p>You can stop the app and return access to the console using any one of these options:</p>
+<ul>
+<li><p>Click the stop sign icon on the R console toolbar.</p></li>
+<li><p>Click on the console, then press <code>Esc</code> (or press <code>Ctrl</code> + <code>C</code> if you’re not using RStudio).</p></li>
+<li><p>Close the Shiny app window.</p></li>
+</ul>
+<p>The basic workflow of Shiny app development is to write some code, start the app, play with the app, write some more code, and repeat.
+If you’re using RStudio, you don’t even need to stop and re-start the app to see your changes — you can either press the <strong>Reload app</strong> button in the toolbox or use the <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code> keyboard shortcut.
+I’ll cover other workflow patterns in Chapter <a href="action-workflow.html#action-workflow">5</a>.</p>
+</div>
+<div id="adding-ui" class="section level2" number="1.4">
+<h2>
+<span class="header-section-number">1.4</span> Adding UI controls<a class="anchor" aria-label="anchor" href="#adding-ui"><i class="fas fa-link"></i></a>
+</h2>
+<p>Next, we’ll add some inputs and outputs to our UI so it’s not <em>quite</em> so minimal.
+We’re going to make a very simple app that shows you all the built-in data frames included in the datasets package.</p>
+<p>Replace your <code>ui</code> with this code:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"dataset"</span>, label <span class="op">=</span> <span class="st">"Dataset"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="st">"package:datasets"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"summary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>This example uses four new functions:</p>
+<ul>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code> is a <strong>layout function</strong> that sets up the basic visual structure of the page.
+You’ll learn more about them in Section <a href="action-layout.html#layout">6.2</a>.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> is an <strong>input control</strong> that lets the user interact with the app by providing a value.
+In this case, it’s a select box with the label “Dataset” and lets you choose one of the built-in datasets that come with R.
+You’ll learn more about inputs in Section <a href="basic-ui.html#inputs">2.2</a>.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> are <strong>output controls</strong> that tell Shiny <em>where</em> to put rendered output (we’ll get into the <em>how</em> in a moment).
+<code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> displays code and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> displays tables.
+You’ll learn more about outputs in Section <a href="basic-ui.html#outputs">2.3</a>.</p></li>
+</ul>
+<p>Layout functions, inputs, and outputs have different uses, but they are fundamentally the same under the covers: they’re all just fancy ways to generate HTML, and if you call any of them outside of a Shiny app, you’ll see HTML printed out at the console.
+Don’t be afraid to poke around to see how these various layouts and controls work under the hood.</p>
+<p>Go ahead and run the app again.
+You’ll now see Figure <a href="basic-app.html#fig:basic-ui">1.3</a>, a page containing a select box.
+We only see the input, not the two outputs, because we haven’t yet told Shiny how the input and outputs are related.</p>
+<div class="figure">
+<span style="display:block;" id="fig:basic-ui"></span>
+<img src="demos/basic-app/ui.png" alt="The datasets app with UI" width="600"><p class="caption">
+Figure 1.3: The datasets app with UI
+</p>
+</div>
+</div>
+<div id="server-function" class="section level2" number="1.5">
+<h2>
+<span class="header-section-number">1.5</span> Adding behaviour<a class="anchor" aria-label="anchor" href="#server-function"><i class="fas fa-link"></i></a>
+</h2>
+<p>Next, we’ll bring the outputs to life by defining them in the server function.</p>
+<p>Shiny uses reactive programming to make apps interactive.
+You’ll learn more about reactive programming in Chapter <a href="basic-reactivity.html#basic-reactivity">3</a>, but for now, just be aware that it involves telling Shiny <em>how</em> to perform a computation, not ordering Shiny to actually go <em>do it</em>.
+It’s like the difference between giving someone a recipe versus demanding that they go make you a sandwich.</p>
+<p>We’ll tell Shiny how to fill in the <code>summary</code> and <code>table</code> outputs in the sample app by providing the “recipes” for those outputs.
+Replace your empty <code>server</code> function with this:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span>
+<span>    <span class="va">dataset</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>The left-hand side of the assignment operator (<code>&lt;-</code>), <code>output$ID</code>, indicates that you’re providing the recipe for the Shiny output with that ID.
+The right-hand side of the assignment uses a specific <strong>render function</strong> to wrap some code that you provide.
+Each <code>render{Type}</code> function is designed to produce a particular type of output (e.g. text, tables, and plots), and is often paired with a <code>{type}Output</code> function.
+For example, in this app, <code><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint()</a></code> is paired with <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> to display a statistical summary with fixed-width (verbatim) text, and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable()</a></code> is paired with <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> to show the input data in a table.</p>
+<p>Run the app again and play around, watching what happens to the output when you change an input.
+Figure <a href="basic-app.html#fig:basic-server">1.4</a> shows what you should see when you open the app.</p>
+<div class="figure">
+<span style="display:block;" id="fig:basic-server"></span>
+<img src="demos/basic-app/server.png" alt="Now that we've provided a server function that connects outputs and inputs, we have a fully functional app" width="75%"><p class="caption">
+Figure 1.4: Now that we’ve provided a server function that connects outputs and inputs, we have a fully functional app
+</p>
+</div>
+<p>Notice that the summary and table update whenever you change the input dataset.
+This dependency is created implicitly because we’ve referred to <code>input$dataset</code> within the output functions.
+<code>input$dataset</code> is populated with the current value of the UI component with id <code>dataset</code>, and will cause the outputs to automatically update whenever that value changes.
+This is the essence of <strong>reactivity</strong>: outputs automatically <em>react</em> (recalculate) when their inputs change.</p>
+</div>
+<div id="reactive-expr" class="section level2" number="1.6">
+<h2>
+<span class="header-section-number">1.6</span> Reducing duplication with reactive expressions<a class="anchor" aria-label="anchor" href="#reactive-expr"><i class="fas fa-link"></i></a>
+</h2>
+<p>Even in this simple example, we have some code that’s duplicated: the following line is present in both outputs.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span></code></pre></div>
+<p>In every kind of programming, it’s poor practice to have duplicated code; it can be computationally wasteful, and more importantly, it increases the difficulty of maintaining or debugging the code.
+It’s not that important here, but I wanted to illustrate the basic idea in a very simple context.</p>
+<p>In traditional R scripting, we use two techniques to deal with duplicated code: either we capture the value using a variable, or capture the computation with a function.
+Unfortunately neither of these approaches work here, for reasons you’ll learn about in Section <a href="#motivation"><strong>??</strong></a>, and we need a new mechanism: <strong>reactive expressions</strong>.</p>
+<p>You create a reactive expression by wrapping a block of code in <code>reactive({...})</code> and assigning it to a variable, and you use a reactive expression by calling it like a function.
+But while it looks like you’re calling a function, a reactive expression has an important difference: it only runs the first time it is called and then it caches its result until it needs to be updated.</p>
+<p>We can update our <code>server()</code> to use reactive expressions, as shown below.
+The app behaves identically, but works a little more efficiently because it only needs to retrieve the dataset once, not twice.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="co"># Create a reactive expression</span></span>
+<span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="co"># Use a reactive expression by calling it like a function</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu">dataset</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">table</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">dataset</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>We’ll come back to reactive programming multiple times, but even armed with a cursory knowledge of inputs, outputs, and reactive expressions, it’s possible to build quite useful Shiny apps!</p>
+</div>
+<div id="summary" class="section level2" number="1.7">
+<h2>
+<span class="header-section-number">1.7</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
+</h2>
+<p>In this chapter you’ve created a simple app — it’s not very exciting or useful, but seen how easy it is to construct a web app using your existing R knowledge.
+In the next two chapters, you’ll learn more about user interfaces and reactive programming, the two basic building blocks of Shiny.
+Now is a great time to grab a copy of the <a href="https://github.com/rstudio/cheatsheets/raw/master/shiny.pdf">Shiny cheatsheet</a>.
+This is a great resource to help jog your memory of the main components of a Shiny app.</p>
+<div class="figure">
+<span style="display:block;" id="fig:cheatsheet"></span>
+<img src="images/basic-app/cheatsheet.png" alt="Shiny cheatsheet, available from https://www.rstudio.com/resources/cheatsheets/" width="352"><p class="caption">
+Figure 1.5: Shiny cheatsheet, available from <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a>
+</p>
+</div>
+</div>
+<div id="exercises" class="section level2" number="1.8">
+<h2>
+<span class="header-section-number">1.8</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>
+<p>Create an app that greets the user by name.
+You don’t know all the functions you need to do this yet, so I’ve included some lines of code below.
+Think about which lines you’ll use and then copy and paste them into the right place in a Shiny app.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"mortgage"</span><span class="op">)</span></span>
+<span><span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Hello "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
+<span><span class="op">}</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"How old are you?"</span>, value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"What's your name?"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"greeting"</span><span class="op">)</span></span>
+<span><span class="va">output</span><span class="op">$</span><span class="va">histogram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1000</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span></code></pre></div>
+</li>
+<li>
+<p>Suppose your friend wants to design an app that allows the user to set a number (<code>x</code>) between 1 and 50, and displays the result of multiplying this number by 5.
+This is their first attempt:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"x"</span>, label <span class="op">=</span> <span class="st">"If x is"</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">50</span>, value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>  <span class="st">"then x times 5 is"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"product"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">product</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span> </span>
+<span>    <span class="va">x</span> <span class="op">*</span> <span class="fl">5</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>But unfortunately it has an error:</p>
+<div class="inline-figure"><img src="demos/basic-app/ex-x-times-5.png" width="600"></div>
+<p>Can you help them find and correct the error?</p>
+</li>
+<li>
+<p>Extend the app from the previous exercise to allow the user to set the value of the multiplier, <code>y</code>, so that the app yields the value of <code>x * y</code>.
+The final result should look like this:.</p>
+<div class="inline-figure"><img src="demos/basic-app/ex-x-times-y.png" width="600"></div>
+</li>
+<li>
+<p>Take the following app which adds some additional functionality to the last app described in the last exercise.
+What’s new?
+How could you reduce the amount of duplicated code in the app by using a reactive expression.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"If x is"</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">50</span>, value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"and y is"</span>, min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">50</span>, value <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>,</span>
+<span>  <span class="st">"then, (x * y) is"</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"product"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"and, (x * y) + 5 is"</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"product_plus5"</span><span class="op">)</span>,</span>
+<span>  <span class="st">"and (x * y) + 10 is"</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"product_plus10"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">product</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span> </span>
+<span>    <span class="va">product</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">x</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">y</span></span>
+<span>    <span class="va">product</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">product_plus5</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span> </span>
+<span>    <span class="va">product</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">x</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">y</span></span>
+<span>    <span class="va">product</span> <span class="op">+</span> <span class="fl">5</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">product_plus10</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span> </span>
+<span>    <span class="va">product</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">x</span> <span class="op">*</span> <span class="va">input</span><span class="op">$</span><span class="va">y</span></span>
+<span>    <span class="va">product</span> <span class="op">+</span> <span class="fl">10</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+</li>
+<li>
+<p>The following app is very similar to one you’ve seen earlier in the chapter: you select a dataset from a package (this time we’re using the <strong>ggplot2</strong> package) and the app prints out a summary and plot of the data.
+It also follows good practice and makes use of reactive expressions to avoid redundancy of code.
+However there are three bugs in the code provided below.
+Can you find and fix them?</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.2.3</span></span>
+<span></span>
+<span><span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"economics"</span>, <span class="st">"faithfuld"</span>, <span class="st">"seals"</span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"dataset"</span>, <span class="st">"Dataset"</span>, choices <span class="op">=</span> <span class="va">datasets</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"summary"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:ggplot2"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">summmry</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu">dataset</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dataset</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+</li>
+</ol>
+</div>
+</div>
+
+  <div class="chapter-nav">
+<div class="prev"><a href="basic-intro.html">Introduction</a></div>
+<div class="next"><a href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#basic-app"><span class="header-section-number">1</span> Your first Shiny app</a></li>
+<li><a class="nav-link" href="#introduction"><span class="header-section-number">1.1</span> Introduction</a></li>
+<li><a class="nav-link" href="#create-app"><span class="header-section-number">1.2</span> Create app directory and file</a></li>
+<li><a class="nav-link" href="#running"><span class="header-section-number">1.3</span> Running and stopping</a></li>
+<li><a class="nav-link" href="#adding-ui"><span class="header-section-number">1.4</span> Adding UI controls</a></li>
+<li><a class="nav-link" href="#server-function"><span class="header-section-number">1.5</span> Adding behaviour</a></li>
+<li><a class="nav-link" href="#reactive-expr"><span class="header-section-number">1.6</span> Reducing duplication with reactive expressions</a></li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">1.7</span> Summary</a></li>
+<li><a class="nav-link" href="#exercises"><span class="header-section-number">1.8</span> Exercises</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/hadley/mastering-shiny/blob/master/basic-app.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/hadley/mastering-shiny/edit/master/basic-app.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Mastering Shiny</strong>" was written by Hadley Wickham. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

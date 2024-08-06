@@ -1,0 +1,868 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 8 User feedback | Mastering Shiny</title>
+
+    <meta name="author" content="Hadley Wickham" />
+  
+   
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 8 User feedback | Mastering Shiny" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 User feedback | Mastering Shiny" />
+  
+  
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.0/transition.js"></script>
+    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+    
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Mastering Shiny</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="action-feedback" class="section level1" number="8">
+<h1><span class="header-section-number">Chapter 8</span> User feedback</h1>
+<p>You can often make your app more usable by giving the user more insight into what is happening.
+This might take the form of better messages when inputs don’t make sense, or progress bars for operations that take a long time.
+Some feedback occurs naturally through outputs, which you already know how to use, but you’ll often need something else.
+The goal of this chapter is to show you some of your other options.</p>
+<p>We’ll start with techniques for <strong>validation</strong>, informing the user when an input (or combination of inputs) is in an invalid state.
+We’ll then continue on to <strong>notification</strong>, sending general messages to the user, and <strong>progress bars</strong>, which give details for time consuming operations made up of many small steps.
+We’ll finish up by discussing dangerous actions, and how you give your users peace of mind with <strong>confirmation</strong> dialogs or the ability to <strong>undo</strong> an action.</p>
+<p>In this chapter we’ll use <a href="https://github.com/merlinoa/shinyFeedback">shinyFeedback</a>, by Andy Merlino, and <a href="http://waiter.john-coene.com/">waiter</a>, by John Coene.
+You should also keep your eyes open for <a href="https://rstudio.github.io/shinyvalidate/">shinyvalidate</a>, a package by Joe Cheng, that is currently under development.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="action-feedback.html#cb155-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span></code></pre></div>
+<div id="validate" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Validation</h2>
+<p>The first and most important feedback you can give to the user is that they’ve given you bad input.
+This is analogous to writing good functions in R: user-friendly functions give clear error messages describing what the expected input is and how you have violated those expectations.
+Thinking through how the user might misuse your app allows you to provide informative messages in the UI, rather than allowing errors to trickle through into the R code and generate uninformative errors.</p>
+<div id="validating-input" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Validating input</h3>
+<p>A great way to give additional feedback to the user is via the <a href="https://github.com/merlinoa/shinyFeedback">shinyFeedback</a> package.
+Using it is a two step process.
+First, you add <code>useShinyFeedback()</code> to the <code>ui</code>.
+This sets up the needed HTML and JavaScript for attractive error message display:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="action-feedback.html#cb156-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb156-2"><a href="action-feedback.html#cb156-2" tabindex="-1"></a>  shinyFeedback<span class="sc">::</span><span class="fu">useShinyFeedback</span>(),</span>
+<span id="cb156-3"><a href="action-feedback.html#cb156-3" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;n&quot;</span>, <span class="at">value =</span> <span class="dv">10</span>),</span>
+<span id="cb156-4"><a href="action-feedback.html#cb156-4" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;half&quot;</span>)</span>
+<span id="cb156-5"><a href="action-feedback.html#cb156-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>Then in your <code>server()</code> function, you call one of the feedback functions: <code>feedback()</code>, <code>feedbackWarning()</code>, <code>feedbackDanger()</code>, and <code>feedbackSuccess()</code>.
+They all have three key arguments:</p>
+<ul>
+<li><code>inputId</code>, the id of the input where the feedback should be placed.</li>
+<li><code>show</code>, a logical determining whether or not to show the feedback.</li>
+<li><code>text</code>, the text to display.</li>
+</ul>
+<p>They also have <code>color</code> and <code>icon</code> arguments that you can use to further customise the appearance.
+See the documentation for more details.</p>
+<p>Lets see how this comes together in a real example, pretending that we only want to allow even numbers.
+Figure <a href="action-feedback.html#fig:feedback">8.1</a> shows the results.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="action-feedback.html#cb157-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb157-2"><a href="action-feedback.html#cb157-2" tabindex="-1"></a>  half <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb157-3"><a href="action-feedback.html#cb157-3" tabindex="-1"></a>    even <span class="ot">&lt;-</span> input<span class="sc">$</span>n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb157-4"><a href="action-feedback.html#cb157-4" tabindex="-1"></a>    shinyFeedback<span class="sc">::</span><span class="fu">feedbackWarning</span>(<span class="st">&quot;n&quot;</span>, <span class="sc">!</span>even, <span class="st">&quot;Please select an even number&quot;</span>)</span>
+<span id="cb157-5"><a href="action-feedback.html#cb157-5" tabindex="-1"></a>    input<span class="sc">$</span>n <span class="sc">/</span> <span class="dv">2</span>    </span>
+<span id="cb157-6"><a href="action-feedback.html#cb157-6" tabindex="-1"></a>  })</span>
+<span id="cb157-7"><a href="action-feedback.html#cb157-7" tabindex="-1"></a>  </span>
+<span id="cb157-8"><a href="action-feedback.html#cb157-8" tabindex="-1"></a>  output<span class="sc">$</span>half <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">half</span>())</span>
+<span id="cb157-9"><a href="action-feedback.html#cb157-9" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:feedback"></span>
+<img src="demos/action-feedback/feedback-even.png" alt="Using `feedbackWarning()` to display warning for invalid inputs. The app on the left shows a valid input, the app on the right shows an invalid (odd) input with warning message. See live at &lt;https://hadley.shinyapps.io/ms-feedback&gt;." width="50%" /><img src="demos/action-feedback/feedback-odd.png" alt="Using `feedbackWarning()` to display warning for invalid inputs. The app on the left shows a valid input, the app on the right shows an invalid (odd) input with warning message. See live at &lt;https://hadley.shinyapps.io/ms-feedback&gt;." width="50%" />
+<p class="caption">
+Figure 8.1: Using <code>feedbackWarning()</code> to display warning for invalid inputs. The app on the left shows a valid input, the app on the right shows an invalid (odd) input with warning message. See live at <a href="https://hadley.shinyapps.io/ms-feedback" class="uri">https://hadley.shinyapps.io/ms-feedback</a>.
+</p>
+</div>
+<p>Notice that the error message is displayed, but the output is still updated.
+Typically you don’t want that because invalid inputs are likely to cause uninformative R errors that you don’t want to show to the user.
+To stop inputs from triggering reactive changes, you need a new tool: <code>req()</code>, short for “required”.
+It looks like this:</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="action-feedback.html#cb158-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb158-2"><a href="action-feedback.html#cb158-2" tabindex="-1"></a>  half <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb158-3"><a href="action-feedback.html#cb158-3" tabindex="-1"></a>    even <span class="ot">&lt;-</span> input<span class="sc">$</span>n <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb158-4"><a href="action-feedback.html#cb158-4" tabindex="-1"></a>    shinyFeedback<span class="sc">::</span><span class="fu">feedbackWarning</span>(<span class="st">&quot;n&quot;</span>, <span class="sc">!</span>even, <span class="st">&quot;Please select an even number&quot;</span>)</span>
+<span id="cb158-5"><a href="action-feedback.html#cb158-5" tabindex="-1"></a>    <span class="fu">req</span>(even)</span>
+<span id="cb158-6"><a href="action-feedback.html#cb158-6" tabindex="-1"></a>    input<span class="sc">$</span>n <span class="sc">/</span> <span class="dv">2</span>    </span>
+<span id="cb158-7"><a href="action-feedback.html#cb158-7" tabindex="-1"></a>  })</span>
+<span id="cb158-8"><a href="action-feedback.html#cb158-8" tabindex="-1"></a>  </span>
+<span id="cb158-9"><a href="action-feedback.html#cb158-9" tabindex="-1"></a>  output<span class="sc">$</span>half <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">half</span>())</span>
+<span id="cb158-10"><a href="action-feedback.html#cb158-10" tabindex="-1"></a>}</span></code></pre></div>
+<p>When the input to <code>req()</code> is not true, it sends a special signal to tell Shiny that the reactive does not have all the inputs that it requires, so it should be “paused”.
+We’ll take a brief digression to talk about this before we come back to using it in concert with <code>validate()</code>.</p>
+</div>
+<div id="cancelling-execution-with-req" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Cancelling execution with <code>req()</code></h3>
+<p>It’s easiest to understand <code>req()</code> by starting outside of validation.
+You may have noticed that when you start an app, the complete reactive graph is computed even before the user does anything.
+This works well when you can choose meaningful default <code>value</code>s for your inputs.
+But that’s not always possible, and sometimes you want to wait until the user actually does something.
+This tends to crop up with three controls:</p>
+<ul>
+<li><p>In <code>textInput()</code>, you’ve used <code>value = ""</code> and you don’t want to do anything until the user types something.</p></li>
+<li><p>In <code>selectInput()</code>, you’ve provide an empty choice, <code>""</code>, and you don’t want to do anything until the user makes a selection.</p></li>
+<li><p>In <code>fileInput()</code>, which has an empty result before the user has uploaded anything.
+We’ll come back to this in Section <a href="#upload"><strong>??</strong></a>.</p></li>
+</ul>
+<p>We need some way to “pause” reactives so that nothing happens until some condition is true.
+That’s the job of <code>req()</code>, which checks for required values before allowing a reactive producer to continue.</p>
+<p>For example, consider the following app which will generate a greeting in English or Maori.
+If you run this app, you’ll see an error, as in Figure <a href="action-feedback.html#fig:require-simple">8.2</a>, because there’s no entry in the <code>greetings</code> vector that corresponds to the default choice of <code>""</code>.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="action-feedback.html#cb159-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb159-2"><a href="action-feedback.html#cb159-2" tabindex="-1"></a>  <span class="fu">selectInput</span>(<span class="st">&quot;language&quot;</span>, <span class="st">&quot;Language&quot;</span>, <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;&quot;</span>, <span class="st">&quot;English&quot;</span>, <span class="st">&quot;Maori&quot;</span>)),</span>
+<span id="cb159-3"><a href="action-feedback.html#cb159-3" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;Name&quot;</span>),</span>
+<span id="cb159-4"><a href="action-feedback.html#cb159-4" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;greeting&quot;</span>)</span>
+<span id="cb159-5"><a href="action-feedback.html#cb159-5" tabindex="-1"></a>)</span>
+<span id="cb159-6"><a href="action-feedback.html#cb159-6" tabindex="-1"></a></span>
+<span id="cb159-7"><a href="action-feedback.html#cb159-7" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb159-8"><a href="action-feedback.html#cb159-8" tabindex="-1"></a>  greetings <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb159-9"><a href="action-feedback.html#cb159-9" tabindex="-1"></a>    <span class="at">English =</span> <span class="st">&quot;Hello&quot;</span>, </span>
+<span id="cb159-10"><a href="action-feedback.html#cb159-10" tabindex="-1"></a>    <span class="at">Maori =</span> <span class="st">&quot;Kia ora&quot;</span></span>
+<span id="cb159-11"><a href="action-feedback.html#cb159-11" tabindex="-1"></a>  )</span>
+<span id="cb159-12"><a href="action-feedback.html#cb159-12" tabindex="-1"></a>  output<span class="sc">$</span>greeting <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb159-13"><a href="action-feedback.html#cb159-13" tabindex="-1"></a>    <span class="fu">paste0</span>(greetings[[input<span class="sc">$</span>language]], <span class="st">&quot; &quot;</span>, input<span class="sc">$</span>name, <span class="st">&quot;!&quot;</span>)</span>
+<span id="cb159-14"><a href="action-feedback.html#cb159-14" tabindex="-1"></a>  })</span>
+<span id="cb159-15"><a href="action-feedback.html#cb159-15" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:require-simple"></span>
+<img src="demos/action-feedback/require-simple.png" alt="The app displays an uninformative error when it is loaded because a language hasn't been selected yet" width="75%" />
+<p class="caption">
+Figure 8.2: The app displays an uninformative error when it is loaded because a language hasn’t been selected yet
+</p>
+</div>
+<p>We can fix this problem by using <code>req()</code>, as below.
+Now nothing will be displayed until the user has supplied values for both language and name, as shown in Figure <a href="action-feedback.html#fig:require-simple2">8.3</a>.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="action-feedback.html#cb160-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb160-2"><a href="action-feedback.html#cb160-2" tabindex="-1"></a>  greetings <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb160-3"><a href="action-feedback.html#cb160-3" tabindex="-1"></a>    <span class="at">English =</span> <span class="st">&quot;Hello&quot;</span>, </span>
+<span id="cb160-4"><a href="action-feedback.html#cb160-4" tabindex="-1"></a>    <span class="at">Maori =</span> <span class="st">&quot;Kia ora&quot;</span></span>
+<span id="cb160-5"><a href="action-feedback.html#cb160-5" tabindex="-1"></a>  )</span>
+<span id="cb160-6"><a href="action-feedback.html#cb160-6" tabindex="-1"></a>  output<span class="sc">$</span>greeting <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb160-7"><a href="action-feedback.html#cb160-7" tabindex="-1"></a>    <span class="fu">req</span>(input<span class="sc">$</span>language, input<span class="sc">$</span>name)</span>
+<span id="cb160-8"><a href="action-feedback.html#cb160-8" tabindex="-1"></a>    <span class="fu">paste0</span>(greetings[[input<span class="sc">$</span>language]], <span class="st">&quot; &quot;</span>, input<span class="sc">$</span>name, <span class="st">&quot;!&quot;</span>)</span>
+<span id="cb160-9"><a href="action-feedback.html#cb160-9" tabindex="-1"></a>  })</span>
+<span id="cb160-10"><a href="action-feedback.html#cb160-10" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:require-simple2"></span>
+<img src="demos/action-feedback/require-simple2-on-load.png" alt="By using `req()`, the output is only shown once both language and name have been supplied See live at &lt;https://hadley.shinyapps.io/ms-require-simple2&gt;." width="33%" /><img src="demos/action-feedback/require-simple2-langauge.png" alt="By using `req()`, the output is only shown once both language and name have been supplied See live at &lt;https://hadley.shinyapps.io/ms-require-simple2&gt;." width="33%" /><img src="demos/action-feedback/require-simple2-name.png" alt="By using `req()`, the output is only shown once both language and name have been supplied See live at &lt;https://hadley.shinyapps.io/ms-require-simple2&gt;." width="33%" />
+<p class="caption">
+Figure 8.3: By using <code>req()</code>, the output is only shown once both language and name have been supplied See live at <a href="https://hadley.shinyapps.io/ms-require-simple2" class="uri">https://hadley.shinyapps.io/ms-require-simple2</a>.
+</p>
+</div>
+<p><code>req()</code> works by signalling a special <strong>condition</strong><a href="#fn27" class="footnote-ref" id="fnref27"><sup>27</sup></a>.
+This special condition causes all downstream reactives and outputs to stop executing.
+Technically, it leaves any downstream reactive consumers in an invalidated state.
+We’ll come back to this terminology in Chapter <a href="#reactivity-components"><strong>??</strong></a>.</p>
+<p><code>req()</code> is designed so that <code>req(input$x)</code> will only proceed if the user has supplied a value, regardless of the type of the input control<a href="#fn28" class="footnote-ref" id="fnref28"><sup>28</sup></a>.
+You can also use <code>req()</code> with your own logical statement if needed.
+For example, <code>req(input$a &gt; 0)</code> will permit computation to proceed when <code>a</code> is greater than 0; this is typically the form you’ll use when performing validation, as we’ll see next.</p>
+</div>
+<div id="req-and-validation" class="section level3" number="8.1.3">
+<h3><span class="header-section-number">8.1.3</span> <code>req()</code> and validation</h3>
+<p>Let’s combine <code>req()</code> and shinyFeedback to solve a more challenging problem.
+I’m going to return to the simple app we made in Chapter <a href="basic-app.html#basic-app">1</a> which allowed you to select a built-in dataset and see its contents.
+I’m going to make it more general and more complex by using <code>textInput()</code> instead of <code>selectInput()</code>.
+The UI changes very little:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="action-feedback.html#cb161-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb161-2"><a href="action-feedback.html#cb161-2" tabindex="-1"></a>  shinyFeedback<span class="sc">::</span><span class="fu">useShinyFeedback</span>(),</span>
+<span id="cb161-3"><a href="action-feedback.html#cb161-3" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;dataset&quot;</span>, <span class="st">&quot;Dataset name&quot;</span>), </span>
+<span id="cb161-4"><a href="action-feedback.html#cb161-4" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">&quot;data&quot;</span>)</span>
+<span id="cb161-5"><a href="action-feedback.html#cb161-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>But the server function needs to get a little more complex.
+We’re going to use <code>req()</code> in two ways:</p>
+<ul>
+<li><p>We only want to proceed with computation if the user has entered a value so we do <code>req(input$dataset)</code>.</p></li>
+<li><p>Then we check to see if the supplied name actually exists.
+If it doesn’t, we display an error message, and then use <code>req()</code> to cancel computation.
+Note the use of <code>cancelOutput = TRUE</code>: normally cancelling a reactive will reset all downstream outputs; using <code>cancelOutput = TRUE</code> leaves them displaying the last good value.
+This is important for <code>textInput()</code> which may trigger an update while you’re in the middle of typing a name.</p></li>
+</ul>
+<p>The results are shown in Figure <a href="action-feedback.html#fig:require-cancel">8.4</a>.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="action-feedback.html#cb162-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb162-2"><a href="action-feedback.html#cb162-2" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb162-3"><a href="action-feedback.html#cb162-3" tabindex="-1"></a>    <span class="fu">req</span>(input<span class="sc">$</span>dataset)</span>
+<span id="cb162-4"><a href="action-feedback.html#cb162-4" tabindex="-1"></a>    </span>
+<span id="cb162-5"><a href="action-feedback.html#cb162-5" tabindex="-1"></a>    exists <span class="ot">&lt;-</span> <span class="fu">exists</span>(input<span class="sc">$</span>dataset, <span class="st">&quot;package:datasets&quot;</span>)</span>
+<span id="cb162-6"><a href="action-feedback.html#cb162-6" tabindex="-1"></a>    shinyFeedback<span class="sc">::</span><span class="fu">feedbackDanger</span>(<span class="st">&quot;dataset&quot;</span>, <span class="sc">!</span>exists, <span class="st">&quot;Unknown dataset&quot;</span>)</span>
+<span id="cb162-7"><a href="action-feedback.html#cb162-7" tabindex="-1"></a>    <span class="fu">req</span>(exists, <span class="at">cancelOutput =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb162-8"><a href="action-feedback.html#cb162-8" tabindex="-1"></a></span>
+<span id="cb162-9"><a href="action-feedback.html#cb162-9" tabindex="-1"></a>    <span class="fu">get</span>(input<span class="sc">$</span>dataset, <span class="st">&quot;package:datasets&quot;</span>)</span>
+<span id="cb162-10"><a href="action-feedback.html#cb162-10" tabindex="-1"></a>  })</span>
+<span id="cb162-11"><a href="action-feedback.html#cb162-11" tabindex="-1"></a>  </span>
+<span id="cb162-12"><a href="action-feedback.html#cb162-12" tabindex="-1"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb162-13"><a href="action-feedback.html#cb162-13" tabindex="-1"></a>    <span class="fu">head</span>(<span class="fu">data</span>())</span>
+<span id="cb162-14"><a href="action-feedback.html#cb162-14" tabindex="-1"></a>  })</span>
+<span id="cb162-15"><a href="action-feedback.html#cb162-15" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:require-cancel"></span>
+<img src="demos/action-feedback/require-cancel-empty.png" alt="On load, the table is empty because the dataset name is empty. The data is shown after we type a valid dataset name (iris), and continues to be shown when press backspace in order to type a new dataset name. See live at &lt;https://hadley.shinyapps.io/ms-require-cancel&gt;." width="33%" /><img src="demos/action-feedback/require-cancel-ok.png" alt="On load, the table is empty because the dataset name is empty. The data is shown after we type a valid dataset name (iris), and continues to be shown when press backspace in order to type a new dataset name. See live at &lt;https://hadley.shinyapps.io/ms-require-cancel&gt;." width="33%" /><img src="demos/action-feedback/require-cancel-error.png" alt="On load, the table is empty because the dataset name is empty. The data is shown after we type a valid dataset name (iris), and continues to be shown when press backspace in order to type a new dataset name. See live at &lt;https://hadley.shinyapps.io/ms-require-cancel&gt;." width="33%" />
+<p class="caption">
+Figure 8.4: On load, the table is empty because the dataset name is empty. The data is shown after we type a valid dataset name (iris), and continues to be shown when press backspace in order to type a new dataset name. See live at <a href="https://hadley.shinyapps.io/ms-require-cancel" class="uri">https://hadley.shinyapps.io/ms-require-cancel</a>.
+</p>
+</div>
+</div>
+<div id="validate-output" class="section level3" number="8.1.4">
+<h3><span class="header-section-number">8.1.4</span> Validate output</h3>
+<p>shinyFeedback is great when the problem is related to a single input.
+But sometimes the invalid state is a result of a combination of inputs.
+In this case it doesn’t really make sense to put the error next to an input (which one would you put it beside?) and instead it makes more sense to put it in the output.</p>
+<p>You can do so with a tool built into shiny: <code>validate()</code>.
+When called inside a reactive or an output, <code>validate(message)</code> stops execution of the rest of the code and instead displays <code>message</code> in any downstream outputs.
+The following code shows a simple example where we don’t want to log or square-root negative values.
+You can see the results in Figure <a href="action-feedback.html#fig:validate">8.5</a>.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="action-feedback.html#cb163-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb163-2"><a href="action-feedback.html#cb163-2" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="at">value =</span> <span class="dv">0</span>),</span>
+<span id="cb163-3"><a href="action-feedback.html#cb163-3" tabindex="-1"></a>  <span class="fu">selectInput</span>(<span class="st">&quot;trans&quot;</span>, <span class="st">&quot;transformation&quot;</span>, </span>
+<span id="cb163-4"><a href="action-feedback.html#cb163-4" tabindex="-1"></a>    <span class="at">choices =</span> <span class="fu">c</span>(<span class="st">&quot;square&quot;</span>, <span class="st">&quot;log&quot;</span>, <span class="st">&quot;square-root&quot;</span>)</span>
+<span id="cb163-5"><a href="action-feedback.html#cb163-5" tabindex="-1"></a>  ),</span>
+<span id="cb163-6"><a href="action-feedback.html#cb163-6" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;out&quot;</span>)</span>
+<span id="cb163-7"><a href="action-feedback.html#cb163-7" tabindex="-1"></a>)</span>
+<span id="cb163-8"><a href="action-feedback.html#cb163-8" tabindex="-1"></a></span>
+<span id="cb163-9"><a href="action-feedback.html#cb163-9" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb163-10"><a href="action-feedback.html#cb163-10" tabindex="-1"></a>  output<span class="sc">$</span>out <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb163-11"><a href="action-feedback.html#cb163-11" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>x <span class="sc">&lt;</span> <span class="dv">0</span> <span class="sc">&amp;&amp;</span> input<span class="sc">$</span>trans <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;log&quot;</span>, <span class="st">&quot;square-root&quot;</span>)) {</span>
+<span id="cb163-12"><a href="action-feedback.html#cb163-12" tabindex="-1"></a>      <span class="fu">validate</span>(<span class="st">&quot;x can not be negative for this transformation&quot;</span>)</span>
+<span id="cb163-13"><a href="action-feedback.html#cb163-13" tabindex="-1"></a>    }</span>
+<span id="cb163-14"><a href="action-feedback.html#cb163-14" tabindex="-1"></a>    </span>
+<span id="cb163-15"><a href="action-feedback.html#cb163-15" tabindex="-1"></a>    <span class="cf">switch</span>(input<span class="sc">$</span>trans,</span>
+<span id="cb163-16"><a href="action-feedback.html#cb163-16" tabindex="-1"></a>      <span class="at">square =</span> input<span class="sc">$</span>x <span class="sc">^</span> <span class="dv">2</span>,</span>
+<span id="cb163-17"><a href="action-feedback.html#cb163-17" tabindex="-1"></a>      <span class="st">&quot;square-root&quot;</span> <span class="ot">=</span> <span class="fu">sqrt</span>(input<span class="sc">$</span>x),</span>
+<span id="cb163-18"><a href="action-feedback.html#cb163-18" tabindex="-1"></a>      <span class="at">log =</span> <span class="fu">log</span>(input<span class="sc">$</span>x)</span>
+<span id="cb163-19"><a href="action-feedback.html#cb163-19" tabindex="-1"></a>    )</span>
+<span id="cb163-20"><a href="action-feedback.html#cb163-20" tabindex="-1"></a>  })</span>
+<span id="cb163-21"><a href="action-feedback.html#cb163-21" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:validate"></span>
+<img src="demos/action-feedback/validate-init.png" alt="If the inputs are valid, the output shows the transformation. If the combination of inputs is invalid, then the output is replaced with an informative message." width="50%" /><img src="demos/action-feedback/validate-log.png" alt="If the inputs are valid, the output shows the transformation. If the combination of inputs is invalid, then the output is replaced with an informative message." width="50%" />
+<p class="caption">
+Figure 8.5: If the inputs are valid, the output shows the transformation. If the combination of inputs is invalid, then the output is replaced with an informative message.
+</p>
+</div>
+<!--
+### Exercises
+
+1.  How do you use a single `req()` to verify that multiple inputs have been successfully filled in?
+
+2.  A common alternative approach to using `if` + `validate()` above is to use `validate()` + `need()`:
+
+    
+    ```r
+    validate(
+      need(
+        input$x < 0 && input$trans %in% c("log", "square-root"),
+        "x can not be negative for this transformation"
+      )
+    )
+    ```
+
+    Read `?need` and then discuss the pros and cons of the two approaches.
+-->
+</div>
+</div>
+<div id="notifications" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> Notifications</h2>
+<p>If there isn’t a problem and you just want to let the user know what’s happening, then you want a <strong>notification</strong>.
+In Shiny, notifications are created with <code>showNotification()</code>, and stack in the bottom right of the page.
+There are three basic ways to use <code>showNotification()</code>:</p>
+<ul>
+<li><p>To show a transient notification that automatically disappears after a fixed amount of time.</p></li>
+<li><p>To show a notification when a process starts and remove it when the process ends.</p></li>
+<li><p>To update a single notification with progressive updates.</p></li>
+</ul>
+<p>These three techniques are discussed below.</p>
+<div id="transient-notification" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Transient notification</h3>
+<p>The simplest way to use <code>showNotification()</code> is to call it with a single argument: the message that you want to display.
+It’s very hard to capture this behaviour with a screenshot, so go to <a href="https://hadley.shinyapps.io/ms-notification-transient" class="uri">https://hadley.shinyapps.io/ms-notification-transient</a> if you want to see it in action.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="action-feedback.html#cb164-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb164-2"><a href="action-feedback.html#cb164-2" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;goodnight&quot;</span>, <span class="st">&quot;Good night&quot;</span>)</span>
+<span id="cb164-3"><a href="action-feedback.html#cb164-3" tabindex="-1"></a>)</span>
+<span id="cb164-4"><a href="action-feedback.html#cb164-4" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb164-5"><a href="action-feedback.html#cb164-5" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>goodnight, {</span>
+<span id="cb164-6"><a href="action-feedback.html#cb164-6" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;So long&quot;</span>)</span>
+<span id="cb164-7"><a href="action-feedback.html#cb164-7" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb164-8"><a href="action-feedback.html#cb164-8" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Farewell&quot;</span>)</span>
+<span id="cb164-9"><a href="action-feedback.html#cb164-9" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb164-10"><a href="action-feedback.html#cb164-10" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Auf Wiedersehen&quot;</span>)</span>
+<span id="cb164-11"><a href="action-feedback.html#cb164-11" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb164-12"><a href="action-feedback.html#cb164-12" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Adieu&quot;</span>)</span>
+<span id="cb164-13"><a href="action-feedback.html#cb164-13" tabindex="-1"></a>  })</span>
+<span id="cb164-14"><a href="action-feedback.html#cb164-14" tabindex="-1"></a>}</span></code></pre></div>
+<p>By default, the message will disappear after 5 seconds, which you can override by setting <code>duration</code>, or the user can dismiss it earlier by clicking the close button.
+If you want to make the notification more prominent, you can set the <code>type</code> argument to one of “message”, “warning”, or “error”.
+Figure <a href="action-feedback.html#fig:notify">8.6</a> gives a sense of what this looks like.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="action-feedback.html#cb165-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb165-2"><a href="action-feedback.html#cb165-2" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>goodnight, {</span>
+<span id="cb165-3"><a href="action-feedback.html#cb165-3" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;So long&quot;</span>)</span>
+<span id="cb165-4"><a href="action-feedback.html#cb165-4" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb165-5"><a href="action-feedback.html#cb165-5" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Farewell&quot;</span>, <span class="at">type =</span> <span class="st">&quot;message&quot;</span>)</span>
+<span id="cb165-6"><a href="action-feedback.html#cb165-6" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb165-7"><a href="action-feedback.html#cb165-7" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Auf Wiedersehen&quot;</span>, <span class="at">type =</span> <span class="st">&quot;warning&quot;</span>)</span>
+<span id="cb165-8"><a href="action-feedback.html#cb165-8" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb165-9"><a href="action-feedback.html#cb165-9" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Adieu&quot;</span>, <span class="at">type =</span> <span class="st">&quot;error&quot;</span>)</span>
+<span id="cb165-10"><a href="action-feedback.html#cb165-10" tabindex="-1"></a>  })</span>
+<span id="cb165-11"><a href="action-feedback.html#cb165-11" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:notify"></span>
+<img src="images/action-feedback/notify-1.png" alt="The progression of notifications after clicking 'Good night': the first notification appears, after three more seconds all notifications are shown, then the notifications start to fade away. See live at &lt;https://hadley.shinyapps.io/ms-notify-persistent&gt;." width="70%" /><img src="images/action-feedback/notify-2.png" alt="The progression of notifications after clicking 'Good night': the first notification appears, after three more seconds all notifications are shown, then the notifications start to fade away. See live at &lt;https://hadley.shinyapps.io/ms-notify-persistent&gt;." width="70%" /><img src="images/action-feedback/notify-3.png" alt="The progression of notifications after clicking 'Good night': the first notification appears, after three more seconds all notifications are shown, then the notifications start to fade away. See live at &lt;https://hadley.shinyapps.io/ms-notify-persistent&gt;." width="70%" />
+<p class="caption">
+Figure 8.6: The progression of notifications after clicking ‘Good night’: the first notification appears, after three more seconds all notifications are shown, then the notifications start to fade away. See live at <a href="https://hadley.shinyapps.io/ms-notify-persistent" class="uri">https://hadley.shinyapps.io/ms-notify-persistent</a>.
+</p>
+</div>
+</div>
+<div id="removing-on-completion" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Removing on completion</h3>
+<p>It’s often useful to tie the presence of a notification to a long-running task.
+In this case, you want to show the notification when the task starts, and remove the notification when the task completes.
+To do this, you’ll need to:</p>
+<ul>
+<li><p>Set <code>duration = NULL</code> and <code>closeButton = FALSE</code> so that the notification stays visible until the task is complete.</p></li>
+<li><p>Store the <code>id</code> returned by <code>showNotification()</code>, and then pass this value to <code>removeNotification()</code>.
+The most reliable way to do so is to use <code>on.exit()</code>, which ensures that the notification is removed regardless of how the task completes (either successfully or with an error).
+You can learn more about <code>on.exit()</code> in <a href="https://withr.r-lib.org/articles/changing-and-restoring-state.html">Changing and restoring state</a>.</p></li>
+</ul>
+<p>The following example puts the pieces together to show how you might keep the user up to date when reading in a large csv file<a href="#fn29" class="footnote-ref" id="fnref29"><sup>29</sup></a>:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="action-feedback.html#cb166-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb166-2"><a href="action-feedback.html#cb166-2" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
+<span id="cb166-3"><a href="action-feedback.html#cb166-3" tabindex="-1"></a>    id <span class="ot">&lt;-</span> <span class="fu">showNotification</span>(<span class="st">&quot;Reading data...&quot;</span>, <span class="at">duration =</span> <span class="cn">NULL</span>, <span class="at">closeButton =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb166-4"><a href="action-feedback.html#cb166-4" tabindex="-1"></a>    <span class="fu">on.exit</span>(<span class="fu">removeNotification</span>(id), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb166-5"><a href="action-feedback.html#cb166-5" tabindex="-1"></a>    </span>
+<span id="cb166-6"><a href="action-feedback.html#cb166-6" tabindex="-1"></a>    <span class="fu">read.csv</span>(input<span class="sc">$</span>file<span class="sc">$</span>datapath)</span>
+<span id="cb166-7"><a href="action-feedback.html#cb166-7" tabindex="-1"></a>  })</span>
+<span id="cb166-8"><a href="action-feedback.html#cb166-8" tabindex="-1"></a>}</span></code></pre></div>
+<p>Generally, these sort of notifications will live in a reactive, because that ensures that the long-running computation is only re-run when needed.</p>
+</div>
+<div id="progressive-updates" class="section level3" number="8.2.3">
+<h3><span class="header-section-number">8.2.3</span> Progressive updates</h3>
+<p>As you saw in the first example, multiple calls to <code>showNotification()</code> usually create multiple notifications.
+You can instead update a single notification by capturing the <code>id</code> from the first call and using it in subsequent calls.
+This is useful if your long-running task has multiple subcomponents.
+You can see the results in <a href="https://hadley.shinyapps.io/ms-notification-updates" class="uri">https://hadley.shinyapps.io/ms-notification-updates</a>.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="action-feedback.html#cb167-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb167-2"><a href="action-feedback.html#cb167-2" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">&quot;data&quot;</span>)</span>
+<span id="cb167-3"><a href="action-feedback.html#cb167-3" tabindex="-1"></a>)</span>
+<span id="cb167-4"><a href="action-feedback.html#cb167-4" tabindex="-1"></a></span>
+<span id="cb167-5"><a href="action-feedback.html#cb167-5" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb167-6"><a href="action-feedback.html#cb167-6" tabindex="-1"></a>  notify <span class="ot">&lt;-</span> <span class="cf">function</span>(msg, <span class="at">id =</span> <span class="cn">NULL</span>) {</span>
+<span id="cb167-7"><a href="action-feedback.html#cb167-7" tabindex="-1"></a>    <span class="fu">showNotification</span>(msg, <span class="at">id =</span> id, <span class="at">duration =</span> <span class="cn">NULL</span>, <span class="at">closeButton =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb167-8"><a href="action-feedback.html#cb167-8" tabindex="-1"></a>  }</span>
+<span id="cb167-9"><a href="action-feedback.html#cb167-9" tabindex="-1"></a></span>
+<span id="cb167-10"><a href="action-feedback.html#cb167-10" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">reactive</span>({ </span>
+<span id="cb167-11"><a href="action-feedback.html#cb167-11" tabindex="-1"></a>    id <span class="ot">&lt;-</span> <span class="fu">notify</span>(<span class="st">&quot;Reading data...&quot;</span>)</span>
+<span id="cb167-12"><a href="action-feedback.html#cb167-12" tabindex="-1"></a>    <span class="fu">on.exit</span>(<span class="fu">removeNotification</span>(id), <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb167-13"><a href="action-feedback.html#cb167-13" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb167-14"><a href="action-feedback.html#cb167-14" tabindex="-1"></a>      </span>
+<span id="cb167-15"><a href="action-feedback.html#cb167-15" tabindex="-1"></a>    <span class="fu">notify</span>(<span class="st">&quot;Reticulating splines...&quot;</span>, <span class="at">id =</span> id)</span>
+<span id="cb167-16"><a href="action-feedback.html#cb167-16" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb167-17"><a href="action-feedback.html#cb167-17" tabindex="-1"></a>    </span>
+<span id="cb167-18"><a href="action-feedback.html#cb167-18" tabindex="-1"></a>    <span class="fu">notify</span>(<span class="st">&quot;Herding llamas...&quot;</span>, <span class="at">id =</span> id)</span>
+<span id="cb167-19"><a href="action-feedback.html#cb167-19" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb167-20"><a href="action-feedback.html#cb167-20" tabindex="-1"></a></span>
+<span id="cb167-21"><a href="action-feedback.html#cb167-21" tabindex="-1"></a>    <span class="fu">notify</span>(<span class="st">&quot;Orthogonalizing matrices...&quot;</span>, <span class="at">id =</span> id)</span>
+<span id="cb167-22"><a href="action-feedback.html#cb167-22" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">1</span>)</span>
+<span id="cb167-23"><a href="action-feedback.html#cb167-23" tabindex="-1"></a>        </span>
+<span id="cb167-24"><a href="action-feedback.html#cb167-24" tabindex="-1"></a>    mtcars</span>
+<span id="cb167-25"><a href="action-feedback.html#cb167-25" tabindex="-1"></a>  })</span>
+<span id="cb167-26"><a href="action-feedback.html#cb167-26" tabindex="-1"></a>  </span>
+<span id="cb167-27"><a href="action-feedback.html#cb167-27" tabindex="-1"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(<span class="fu">head</span>(<span class="fu">data</span>()))</span>
+<span id="cb167-28"><a href="action-feedback.html#cb167-28" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="progress-bars" class="section level2" number="8.3">
+<h2><span class="header-section-number">8.3</span> Progress bars</h2>
+<p>For long-running tasks, the best type of feedback is a progress bar.
+As well as telling you where you are in the process, it also helps you estimate how much longer it’s going to be: should you take a deep breath, go get a coffee, or come back tomorrow?
+In this section, I’ll show two techniques for displaying progress bars, one built into Shiny, and one from the <a href="https://waiter.john-coene.com/">waiter</a> package developed by John Coene.</p>
+<p>Unfortunately both techniques suffer from the same major drawback: to use a progress bar you need to be able to divide the big task into a known number of small pieces that each take roughly the same amount of time.
+This is often hard, particularly since the underlying code is often written in C and it has no way to communicate progress updates to you.
+We are working on tools in the <a href="https://github.com/r-lib/progress">progress package</a> so that packages like dplyr, readr, and vroom will one day generate progress bars that you can easily forward to Shiny.</p>
+<div id="shiny" class="section level3" number="8.3.1">
+<h3><span class="header-section-number">8.3.1</span> Shiny</h3>
+<p>To create a progress bar with Shiny, you need to use <code>withProgress()</code> and <code>incProgress()</code>.
+Imagine you have some slow running code that looks like this<a href="#fn30" class="footnote-ref" id="fnref30"><sup>30</sup></a>:</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="action-feedback.html#cb168-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(step)) {</span>
+<span id="cb168-2"><a href="action-feedback.html#cb168-2" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">function_that_takes_a_long_time</span>(x)     </span>
+<span id="cb168-3"><a href="action-feedback.html#cb168-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>You start by wrapping it in <code>withProgress()</code>.
+This shows the progress bar when the code starts, and automatically removes it when it’s done:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="action-feedback.html#cb169-1" tabindex="-1"></a><span class="fu">withProgress</span>({</span>
+<span id="cb169-2"><a href="action-feedback.html#cb169-2" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(step)) {</span>
+<span id="cb169-3"><a href="action-feedback.html#cb169-3" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">function_that_takes_a_long_time</span>(x)     </span>
+<span id="cb169-4"><a href="action-feedback.html#cb169-4" tabindex="-1"></a>  }</span>
+<span id="cb169-5"><a href="action-feedback.html#cb169-5" tabindex="-1"></a>})</span></code></pre></div>
+<p>Then call <code>incProgress()</code> after each step:</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="action-feedback.html#cb170-1" tabindex="-1"></a><span class="fu">withProgress</span>({</span>
+<span id="cb170-2"><a href="action-feedback.html#cb170-2" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(step)) {</span>
+<span id="cb170-3"><a href="action-feedback.html#cb170-3" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">function_that_takes_a_long_time</span>(x)</span>
+<span id="cb170-4"><a href="action-feedback.html#cb170-4" tabindex="-1"></a>    <span class="fu">incProgress</span>(<span class="dv">1</span> <span class="sc">/</span> <span class="fu">length</span>(step))</span>
+<span id="cb170-5"><a href="action-feedback.html#cb170-5" tabindex="-1"></a>  }</span>
+<span id="cb170-6"><a href="action-feedback.html#cb170-6" tabindex="-1"></a>})</span></code></pre></div>
+<p>The first argument of <code>incProgress()</code> is the amount to increment the progress bar.
+By default, the progress bar starts at 0 and ends at 1, so the incrementing by 1 divided by the number of steps will ensure that the progress bar is complete at the end of the loop.</p>
+<p>Here’s how that might look in a complete Shiny app, as shown in Figure <a href="action-feedback.html#fig:progress">8.7</a>.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="action-feedback.html#cb171-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb171-2"><a href="action-feedback.html#cb171-2" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">&quot;steps&quot;</span>, <span class="st">&quot;How many steps?&quot;</span>, <span class="dv">10</span>),</span>
+<span id="cb171-3"><a href="action-feedback.html#cb171-3" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;go&quot;</span>, <span class="st">&quot;go&quot;</span>),</span>
+<span id="cb171-4"><a href="action-feedback.html#cb171-4" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;result&quot;</span>)</span>
+<span id="cb171-5"><a href="action-feedback.html#cb171-5" tabindex="-1"></a>)</span>
+<span id="cb171-6"><a href="action-feedback.html#cb171-6" tabindex="-1"></a></span>
+<span id="cb171-7"><a href="action-feedback.html#cb171-7" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb171-8"><a href="action-feedback.html#cb171-8" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">eventReactive</span>(input<span class="sc">$</span>go, {</span>
+<span id="cb171-9"><a href="action-feedback.html#cb171-9" tabindex="-1"></a>    <span class="fu">withProgress</span>(<span class="at">message =</span> <span class="st">&quot;Computing random number&quot;</span>, {</span>
+<span id="cb171-10"><a href="action-feedback.html#cb171-10" tabindex="-1"></a>      <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(input<span class="sc">$</span>steps)) {</span>
+<span id="cb171-11"><a href="action-feedback.html#cb171-11" tabindex="-1"></a>        <span class="fu">Sys.sleep</span>(<span class="fl">0.5</span>)</span>
+<span id="cb171-12"><a href="action-feedback.html#cb171-12" tabindex="-1"></a>        <span class="fu">incProgress</span>(<span class="dv">1</span> <span class="sc">/</span> input<span class="sc">$</span>steps)</span>
+<span id="cb171-13"><a href="action-feedback.html#cb171-13" tabindex="-1"></a>      }</span>
+<span id="cb171-14"><a href="action-feedback.html#cb171-14" tabindex="-1"></a>      <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb171-15"><a href="action-feedback.html#cb171-15" tabindex="-1"></a>    })</span>
+<span id="cb171-16"><a href="action-feedback.html#cb171-16" tabindex="-1"></a>  })</span>
+<span id="cb171-17"><a href="action-feedback.html#cb171-17" tabindex="-1"></a>  </span>
+<span id="cb171-18"><a href="action-feedback.html#cb171-18" tabindex="-1"></a>  output<span class="sc">$</span>result <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">round</span>(<span class="fu">data</span>(), <span class="dv">2</span>))</span>
+<span id="cb171-19"><a href="action-feedback.html#cb171-19" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:progress"></span>
+<img src="images/action-feedback/progress-2.png" alt="A progress bar helps indicate how much longer a calculation has to run. See live at &lt;https://hadley.shinyapps.io/ms-progress&gt;." width="359" />
+<p class="caption">
+Figure 8.7: A progress bar helps indicate how much longer a calculation has to run. See live at <a href="https://hadley.shinyapps.io/ms-progress" class="uri">https://hadley.shinyapps.io/ms-progress</a>.
+</p>
+</div>
+<p>A few things to note:</p>
+<ul>
+<li><p>I used the optional <code>message</code> argument to add some explanatory text to the progress bar.</p></li>
+<li><p>I used <code>Sys.sleep()</code> to simulate a long running operation; in your code this would be a slow function.</p></li>
+<li><p>I allowed the user to control when the event starts by combining a button with <code>eventReactive()</code>.
+This is good practice for any task that requires a progress bar.</p></li>
+</ul>
+</div>
+<div id="waiter" class="section level3" number="8.3.2">
+<h3><span class="header-section-number">8.3.2</span> Waiter</h3>
+<p>The built-in progress bar is great for the basics, but if you want something that provides more visual options, you might try the <a href="https://waiter.john-coene.com/" title="⌘+Click to follow link">waiter</a> package.
+Adapting the above code to work with Waiter is straightforward.
+In the UI, we add <code>use_waitress()</code>:</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="action-feedback.html#cb172-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb172-2"><a href="action-feedback.html#cb172-2" tabindex="-1"></a>  waiter<span class="sc">::</span><span class="fu">use_waitress</span>(),</span>
+<span id="cb172-3"><a href="action-feedback.html#cb172-3" tabindex="-1"></a>  <span class="fu">numericInput</span>(<span class="st">&quot;steps&quot;</span>, <span class="st">&quot;How many steps?&quot;</span>, <span class="dv">10</span>),</span>
+<span id="cb172-4"><a href="action-feedback.html#cb172-4" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;go&quot;</span>, <span class="st">&quot;go&quot;</span>),</span>
+<span id="cb172-5"><a href="action-feedback.html#cb172-5" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;result&quot;</span>)</span>
+<span id="cb172-6"><a href="action-feedback.html#cb172-6" tabindex="-1"></a>)</span></code></pre></div>
+<p>The interface for waiter’s progress bars are a little different.
+The waiter package uses an R6 object to bundle all progress related functions into a single object.
+If you’ve never used an R6 object before, don’t worry too much about the details; you can just copy and paste this template.
+The basic lifecycle looks like this:</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="action-feedback.html#cb173-1" tabindex="-1"></a><span class="co"># Create a new progress bar</span></span>
+<span id="cb173-2"><a href="action-feedback.html#cb173-2" tabindex="-1"></a>waitress <span class="ot">&lt;-</span> waiter<span class="sc">::</span>Waitress<span class="sc">$</span><span class="fu">new</span>(<span class="at">max =</span> input<span class="sc">$</span>steps)</span>
+<span id="cb173-3"><a href="action-feedback.html#cb173-3" tabindex="-1"></a><span class="co"># Automatically close it when done</span></span>
+<span id="cb173-4"><a href="action-feedback.html#cb173-4" tabindex="-1"></a><span class="fu">on.exit</span>(waitress<span class="sc">$</span><span class="fu">close</span>())</span>
+<span id="cb173-5"><a href="action-feedback.html#cb173-5" tabindex="-1"></a></span>
+<span id="cb173-6"><a href="action-feedback.html#cb173-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(input<span class="sc">$</span>steps)) {</span>
+<span id="cb173-7"><a href="action-feedback.html#cb173-7" tabindex="-1"></a>  <span class="fu">Sys.sleep</span>(<span class="fl">0.5</span>)</span>
+<span id="cb173-8"><a href="action-feedback.html#cb173-8" tabindex="-1"></a>  <span class="co"># increment one step</span></span>
+<span id="cb173-9"><a href="action-feedback.html#cb173-9" tabindex="-1"></a>  waitress<span class="sc">$</span><span class="fu">inc</span>(<span class="dv">1</span>)</span>
+<span id="cb173-10"><a href="action-feedback.html#cb173-10" tabindex="-1"></a>}</span></code></pre></div>
+<p>And we can use it in a Shiny app as follows:</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="action-feedback.html#cb174-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb174-2"><a href="action-feedback.html#cb174-2" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">eventReactive</span>(input<span class="sc">$</span>go, {</span>
+<span id="cb174-3"><a href="action-feedback.html#cb174-3" tabindex="-1"></a>    waitress <span class="ot">&lt;-</span> waiter<span class="sc">::</span>Waitress<span class="sc">$</span><span class="fu">new</span>(<span class="at">max =</span> input<span class="sc">$</span>steps)</span>
+<span id="cb174-4"><a href="action-feedback.html#cb174-4" tabindex="-1"></a>    <span class="fu">on.exit</span>(waitress<span class="sc">$</span><span class="fu">close</span>())</span>
+<span id="cb174-5"><a href="action-feedback.html#cb174-5" tabindex="-1"></a>    </span>
+<span id="cb174-6"><a href="action-feedback.html#cb174-6" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(input<span class="sc">$</span>steps)) {</span>
+<span id="cb174-7"><a href="action-feedback.html#cb174-7" tabindex="-1"></a>      <span class="fu">Sys.sleep</span>(<span class="fl">0.5</span>)</span>
+<span id="cb174-8"><a href="action-feedback.html#cb174-8" tabindex="-1"></a>      waitress<span class="sc">$</span><span class="fu">inc</span>(<span class="dv">1</span>)</span>
+<span id="cb174-9"><a href="action-feedback.html#cb174-9" tabindex="-1"></a>    }</span>
+<span id="cb174-10"><a href="action-feedback.html#cb174-10" tabindex="-1"></a>    </span>
+<span id="cb174-11"><a href="action-feedback.html#cb174-11" tabindex="-1"></a>    <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb174-12"><a href="action-feedback.html#cb174-12" tabindex="-1"></a>  })</span>
+<span id="cb174-13"><a href="action-feedback.html#cb174-13" tabindex="-1"></a>  </span>
+<span id="cb174-14"><a href="action-feedback.html#cb174-14" tabindex="-1"></a>  output<span class="sc">$</span>result <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">round</span>(<span class="fu">data</span>(), <span class="dv">2</span>))</span>
+<span id="cb174-15"><a href="action-feedback.html#cb174-15" tabindex="-1"></a>}</span></code></pre></div>
+<p>The default display is a thin progress bar at the top of the page (which you can see <a href="https://hadley.shinyapps.io/ms-waiter" class="uri">https://hadley.shinyapps.io/ms-waiter</a>), but there are a number of ways to customise the output:</p>
+<ul>
+<li><p>You can override the default <code>theme</code> to use one of:</p>
+<ul>
+<li><code>overlay</code>: an opaque progress bar that hides the whole page</li>
+<li><code>overlay-opacity</code>: a translucent progress bar that covers the whole page</li>
+<li><code>overlay-percent</code>: an opaque progress bar that also displays a numeric percentage.</li>
+</ul></li>
+<li><p>Instead of showing a progress bar for the entire page, you can overlay it on an existing input or output by setting the <code>selector</code> parameter, e.g.:</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="action-feedback.html#cb175-1" tabindex="-1"></a>waitress <span class="ot">&lt;-</span> Waitress<span class="sc">$</span><span class="fu">new</span>(<span class="at">selector =</span> <span class="st">&quot;#steps&quot;</span>, <span class="at">theme =</span> <span class="st">&quot;overlay&quot;</span>)</span></code></pre></div></li>
+</ul>
+</div>
+<div id="spinners" class="section level3" number="8.3.3">
+<h3><span class="header-section-number">8.3.3</span> Spinners</h3>
+<p>Sometimes you don’t know exactly how long an operation will take, and you just want to display an animated spinner that reassures the user that something is happening.
+You can also use the waiter package for this task; just switch from using a <code>Waitress</code> to using a <code>Waiter</code>:</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="action-feedback.html#cb176-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb176-2"><a href="action-feedback.html#cb176-2" tabindex="-1"></a>  waiter<span class="sc">::</span><span class="fu">use_waiter</span>(),</span>
+<span id="cb176-3"><a href="action-feedback.html#cb176-3" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;go&quot;</span>, <span class="st">&quot;go&quot;</span>),</span>
+<span id="cb176-4"><a href="action-feedback.html#cb176-4" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;result&quot;</span>)</span>
+<span id="cb176-5"><a href="action-feedback.html#cb176-5" tabindex="-1"></a>)</span>
+<span id="cb176-6"><a href="action-feedback.html#cb176-6" tabindex="-1"></a></span>
+<span id="cb176-7"><a href="action-feedback.html#cb176-7" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb176-8"><a href="action-feedback.html#cb176-8" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">eventReactive</span>(input<span class="sc">$</span>go, {</span>
+<span id="cb176-9"><a href="action-feedback.html#cb176-9" tabindex="-1"></a>    waiter <span class="ot">&lt;-</span> waiter<span class="sc">::</span>Waiter<span class="sc">$</span><span class="fu">new</span>()</span>
+<span id="cb176-10"><a href="action-feedback.html#cb176-10" tabindex="-1"></a>    waiter<span class="sc">$</span><span class="fu">show</span>()</span>
+<span id="cb176-11"><a href="action-feedback.html#cb176-11" tabindex="-1"></a>    <span class="fu">on.exit</span>(waiter<span class="sc">$</span><span class="fu">hide</span>())</span>
+<span id="cb176-12"><a href="action-feedback.html#cb176-12" tabindex="-1"></a>    </span>
+<span id="cb176-13"><a href="action-feedback.html#cb176-13" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="fu">sample</span>(<span class="dv">5</span>, <span class="dv">1</span>))</span>
+<span id="cb176-14"><a href="action-feedback.html#cb176-14" tabindex="-1"></a>    <span class="fu">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb176-15"><a href="action-feedback.html#cb176-15" tabindex="-1"></a>  })</span>
+<span id="cb176-16"><a href="action-feedback.html#cb176-16" tabindex="-1"></a>  output<span class="sc">$</span>result <span class="ot">&lt;-</span> <span class="fu">renderText</span>(<span class="fu">round</span>(<span class="fu">data</span>(), <span class="dv">2</span>))</span>
+<span id="cb176-17"><a href="action-feedback.html#cb176-17" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:spinner-1"></span>
+<img src="images/action-feedback/spinner-1.png" alt="A 'Waiter' displays a whole app spinner while something is happen. See live at &lt;https://hadley.shinyapps.io/ms-spinner-1&gt;." width="351" />
+<p class="caption">
+Figure 8.8: A ‘Waiter’ displays a whole app spinner while something is happen. See live at <a href="https://hadley.shinyapps.io/ms-spinner-1" class="uri">https://hadley.shinyapps.io/ms-spinner-1</a>.
+</p>
+</div>
+<p>Like <code>Waitress</code>, you can also use <code>Waiter</code>s for specific outputs.
+These waiters can automatically remove the spinner when the output updates, so the code is even simpler:</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="action-feedback.html#cb177-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb177-2"><a href="action-feedback.html#cb177-2" tabindex="-1"></a>  waiter<span class="sc">::</span><span class="fu">use_waiter</span>(),</span>
+<span id="cb177-3"><a href="action-feedback.html#cb177-3" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;go&quot;</span>, <span class="st">&quot;go&quot;</span>),</span>
+<span id="cb177-4"><a href="action-feedback.html#cb177-4" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>),</span>
+<span id="cb177-5"><a href="action-feedback.html#cb177-5" tabindex="-1"></a>)</span>
+<span id="cb177-6"><a href="action-feedback.html#cb177-6" tabindex="-1"></a></span>
+<span id="cb177-7"><a href="action-feedback.html#cb177-7" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb177-8"><a href="action-feedback.html#cb177-8" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">eventReactive</span>(input<span class="sc">$</span>go, {</span>
+<span id="cb177-9"><a href="action-feedback.html#cb177-9" tabindex="-1"></a>    waiter<span class="sc">::</span>Waiter<span class="sc">$</span><span class="fu">new</span>(<span class="at">id =</span> <span class="st">&quot;plot&quot;</span>)<span class="sc">$</span><span class="fu">show</span>()</span>
+<span id="cb177-10"><a href="action-feedback.html#cb177-10" tabindex="-1"></a>    </span>
+<span id="cb177-11"><a href="action-feedback.html#cb177-11" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb177-12"><a href="action-feedback.html#cb177-12" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">50</span>), <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">50</span>))</span>
+<span id="cb177-13"><a href="action-feedback.html#cb177-13" tabindex="-1"></a>  })</span>
+<span id="cb177-14"><a href="action-feedback.html#cb177-14" tabindex="-1"></a>  </span>
+<span id="cb177-15"><a href="action-feedback.html#cb177-15" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">plot</span>(<span class="fu">data</span>()), <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb177-16"><a href="action-feedback.html#cb177-16" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:spinner-2"></span>
+<img src="images/action-feedback/spinner-2.png" alt="You can instead display a spinner for single output. See live at &lt;https://hadley.shinyapps.io/ms-spinner-2&gt;." width="351" />
+<p class="caption">
+Figure 8.9: You can instead display a spinner for single output. See live at <a href="https://hadley.shinyapps.io/ms-spinner-2" class="uri">https://hadley.shinyapps.io/ms-spinner-2</a>.
+</p>
+</div>
+<p>The waiter package provides a large variety of spinners to choose from; see your options at <code>?waiter::spinners</code> and then choose one with (e.g.) <code>Waiter$new(html = spin_ripple())</code>.</p>
+<p>An even simpler alternative is to use the <a href="https://github.com/daattali/shinycssloaders">shinycssloaders</a> package by Dean Attali.
+It uses JavaScript to listen to Shiny events, so it doesn’t even need any code on the server side.
+Instead, you just use <code>shinycssloaders::withSpinner()</code> to wrap outputs that you want to automatically get a spinner when they have been invalidated.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="action-feedback.html#cb178-1" tabindex="-1"></a><span class="fu">library</span>(shinycssloaders)</span>
+<span id="cb178-2"><a href="action-feedback.html#cb178-2" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;shinycssloaders&#39; was built under R version 4.2.3</span></span>
+<span id="cb178-3"><a href="action-feedback.html#cb178-3" tabindex="-1"></a></span>
+<span id="cb178-4"><a href="action-feedback.html#cb178-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb178-5"><a href="action-feedback.html#cb178-5" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;go&quot;</span>, <span class="st">&quot;go&quot;</span>),</span>
+<span id="cb178-6"><a href="action-feedback.html#cb178-6" tabindex="-1"></a>  <span class="fu">withSpinner</span>(<span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>)),</span>
+<span id="cb178-7"><a href="action-feedback.html#cb178-7" tabindex="-1"></a>)</span>
+<span id="cb178-8"><a href="action-feedback.html#cb178-8" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb178-9"><a href="action-feedback.html#cb178-9" tabindex="-1"></a>  data <span class="ot">&lt;-</span> <span class="fu">eventReactive</span>(input<span class="sc">$</span>go, {</span>
+<span id="cb178-10"><a href="action-feedback.html#cb178-10" tabindex="-1"></a>    <span class="fu">Sys.sleep</span>(<span class="dv">3</span>)</span>
+<span id="cb178-11"><a href="action-feedback.html#cb178-11" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">runif</span>(<span class="dv">50</span>), <span class="at">y =</span> <span class="fu">runif</span>(<span class="dv">50</span>))</span>
+<span id="cb178-12"><a href="action-feedback.html#cb178-12" tabindex="-1"></a>  })</span>
+<span id="cb178-13"><a href="action-feedback.html#cb178-13" tabindex="-1"></a>  </span>
+<span id="cb178-14"><a href="action-feedback.html#cb178-14" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(<span class="fu">plot</span>(<span class="fu">data</span>()), <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb178-15"><a href="action-feedback.html#cb178-15" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+</div>
+<div id="confirming-and-undoing" class="section level2" number="8.4">
+<h2><span class="header-section-number">8.4</span> Confirming and undoing</h2>
+<p>Sometimes an action is potentially dangerous, and you either want to make sure that the user <em>really</em> wants to do it, or you want to give them the ability to back out before it’s too late.
+The three techniques in this section lay out your basic options and give you some tips for how you might implement them in your app.</p>
+<div id="feedback-modal" class="section level3" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> Explicit confirmation</h3>
+<p>The simplest approach to protecting the user from accidentally performing a dangerous action is to require an explicit confirmation.
+The easiest way is to use a dialog box which forces the user to pick from one of a small set of actions.
+In Shiny, you create a dialog box with <code>modalDialog()</code>.
+This is called a “modal” dialog because it creates a new “mode” of interaction; you can’t interact with the main application until you have dealt with the dialog.</p>
+<p>Imagine you have a Shiny app that deletes some files from a directory (or rows in a database etc).
+This is hard to undo so you want to make sure that the user is really sure.
+You could create a dialog box, as shown in Figure <a href="action-feedback.html#fig:dialog">8.10</a>, that requires an explicit confirmation as follows:</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="action-feedback.html#cb179-1" tabindex="-1"></a>modal_confirm <span class="ot">&lt;-</span> <span class="fu">modalDialog</span>(</span>
+<span id="cb179-2"><a href="action-feedback.html#cb179-2" tabindex="-1"></a>  <span class="st">&quot;Are you sure you want to continue?&quot;</span>,</span>
+<span id="cb179-3"><a href="action-feedback.html#cb179-3" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">&quot;Deleting files&quot;</span>,</span>
+<span id="cb179-4"><a href="action-feedback.html#cb179-4" tabindex="-1"></a>  <span class="at">footer =</span> <span class="fu">tagList</span>(</span>
+<span id="cb179-5"><a href="action-feedback.html#cb179-5" tabindex="-1"></a>    <span class="fu">actionButton</span>(<span class="st">&quot;cancel&quot;</span>, <span class="st">&quot;Cancel&quot;</span>),</span>
+<span id="cb179-6"><a href="action-feedback.html#cb179-6" tabindex="-1"></a>    <span class="fu">actionButton</span>(<span class="st">&quot;ok&quot;</span>, <span class="st">&quot;Delete&quot;</span>, <span class="at">class =</span> <span class="st">&quot;btn btn-danger&quot;</span>)</span>
+<span id="cb179-7"><a href="action-feedback.html#cb179-7" tabindex="-1"></a>  )</span>
+<span id="cb179-8"><a href="action-feedback.html#cb179-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:dialog"></span>
+<img src="demos/action-feedback/dialog.png" alt="A dialog box checking whether or not you want to delete some files." width="400" />
+<p class="caption">
+Figure 8.10: A dialog box checking whether or not you want to delete some files.
+</p>
+</div>
+<p>There are a few small, but important, details to consider when creating a dialog box:</p>
+<ul>
+<li><p>What should you call the buttons?
+It’s best to be descriptive, so avoid yes/no or continue/cancel in favour of recapitulating the key verb.</p></li>
+<li><p>How should you order the buttons?
+Do you put cancel first (like the Mac), or continue first (like Windows)?
+Your best option is to mirror the platform that you think most people will be using.</p></li>
+<li><p>Can you make the dangerous option more obvious?
+Here I’ve used <code>class = "btn btn-danger"</code> to style the button prominently.</p></li>
+</ul>
+<p>Jakob Nielsen has more good advice at <a href="http://www.useit.com/alertbox/ok-cancel.html" class="uri">http://www.useit.com/alertbox/ok-cancel.html</a>.</p>
+<p>Let’s use this dialog in a real (if very simple) app.
+Our UI exposes a single button to “delete all the files”:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="action-feedback.html#cb180-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb180-2"><a href="action-feedback.html#cb180-2" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;delete&quot;</span>, <span class="st">&quot;Delete all files?&quot;</span>)</span>
+<span id="cb180-3"><a href="action-feedback.html#cb180-3" tabindex="-1"></a>)</span></code></pre></div>
+<p>There are two new ideas in the <code>server()</code>:</p>
+<ul>
+<li><p>We use <code>showModal()</code> and <code>removeModal()</code> to show and hide the dialog.</p></li>
+<li><p>We observe events generated by the UI from <code>modal_confirm</code>.
+These objects aren’t created statically in the <code>ui</code>, but are instead dynamically added in the <code>server()</code> by <code>showModal()</code>.
+You’ll see that idea in much more detail in Chapter <a href="#action-dynamic"><strong>??</strong></a>.</p></li>
+</ul>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="action-feedback.html#cb181-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb181-2"><a href="action-feedback.html#cb181-2" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>delete, {</span>
+<span id="cb181-3"><a href="action-feedback.html#cb181-3" tabindex="-1"></a>    <span class="fu">showModal</span>(modal_confirm)</span>
+<span id="cb181-4"><a href="action-feedback.html#cb181-4" tabindex="-1"></a>  })</span>
+<span id="cb181-5"><a href="action-feedback.html#cb181-5" tabindex="-1"></a>  </span>
+<span id="cb181-6"><a href="action-feedback.html#cb181-6" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>ok, {</span>
+<span id="cb181-7"><a href="action-feedback.html#cb181-7" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Files deleted&quot;</span>)</span>
+<span id="cb181-8"><a href="action-feedback.html#cb181-8" tabindex="-1"></a>    <span class="fu">removeModal</span>()</span>
+<span id="cb181-9"><a href="action-feedback.html#cb181-9" tabindex="-1"></a>  })</span>
+<span id="cb181-10"><a href="action-feedback.html#cb181-10" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>cancel, {</span>
+<span id="cb181-11"><a href="action-feedback.html#cb181-11" tabindex="-1"></a>    <span class="fu">removeModal</span>()</span>
+<span id="cb181-12"><a href="action-feedback.html#cb181-12" tabindex="-1"></a>  })</span>
+<span id="cb181-13"><a href="action-feedback.html#cb181-13" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="undoing-an-action" class="section level3" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Undoing an action</h3>
+<p>Explicit confirmation is most useful for destructive actions that are only performed infrequently.
+You should avoid it if you want to reduce the errors made by frequent actions.
+For example, this technique would not work for twitter — if there was a dialog box that said “Are you sure you want to tweet this?” you would soon learn to automatically click yes, and still feel the same feeling of regret when you notice a typo 10s after tweeting.</p>
+<p>In this situation a better approach is to wait few seconds before actually performing the action, giving the user a chance to notice any problems and undo them.
+This isn’t really an undo (since you’re not actually doing anything), but it’s an evocative word that users will understand.</p>
+<p>I illustrate the technique with a website that I personally wish had an undo button: Twitter.
+The essence of the Twitter UI is very simple: there’s a text area to compose your tweet and a button to send it:</p>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="action-feedback.html#cb182-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb182-2"><a href="action-feedback.html#cb182-2" tabindex="-1"></a>  <span class="fu">textAreaInput</span>(<span class="st">&quot;message&quot;</span>, </span>
+<span id="cb182-3"><a href="action-feedback.html#cb182-3" tabindex="-1"></a>    <span class="at">label =</span> <span class="cn">NULL</span>, </span>
+<span id="cb182-4"><a href="action-feedback.html#cb182-4" tabindex="-1"></a>    <span class="at">placeholder =</span> <span class="st">&quot;What&#39;s happening?&quot;</span>,</span>
+<span id="cb182-5"><a href="action-feedback.html#cb182-5" tabindex="-1"></a>    <span class="at">rows =</span> <span class="dv">3</span></span>
+<span id="cb182-6"><a href="action-feedback.html#cb182-6" tabindex="-1"></a>  ),</span>
+<span id="cb182-7"><a href="action-feedback.html#cb182-7" tabindex="-1"></a>  <span class="fu">actionButton</span>(<span class="st">&quot;tweet&quot;</span>, <span class="st">&quot;Tweet&quot;</span>)</span>
+<span id="cb182-8"><a href="action-feedback.html#cb182-8" tabindex="-1"></a>)</span></code></pre></div>
+<p>The server function is quite complex and requires some techniques that we haven’t talked about.
+Don’t worry too much about understanding the code, focus on the basic idea: we use some special arguments to <code>observeEvent()</code> to run some code after a few seconds.
+The big new idea is that we capture the result of <code>observeEvent()</code> and save it to a variable; this allows us to destroy the observer so the code that would really send the tweet is never run.
+You can try out the live app at <a href="https://hadley.shinyapps.io/ms-undo" class="uri">https://hadley.shinyapps.io/ms-undo</a>.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="action-feedback.html#cb183-1" tabindex="-1"></a>runLater <span class="ot">&lt;-</span> <span class="cf">function</span>(action, <span class="at">seconds =</span> <span class="dv">3</span>) {</span>
+<span id="cb183-2"><a href="action-feedback.html#cb183-2" tabindex="-1"></a>  <span class="fu">observeEvent</span>(</span>
+<span id="cb183-3"><a href="action-feedback.html#cb183-3" tabindex="-1"></a>    <span class="fu">invalidateLater</span>(seconds <span class="sc">*</span> <span class="dv">1000</span>), action, </span>
+<span id="cb183-4"><a href="action-feedback.html#cb183-4" tabindex="-1"></a>    <span class="at">ignoreInit =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb183-5"><a href="action-feedback.html#cb183-5" tabindex="-1"></a>    <span class="at">once =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb183-6"><a href="action-feedback.html#cb183-6" tabindex="-1"></a>    <span class="at">ignoreNULL =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb183-7"><a href="action-feedback.html#cb183-7" tabindex="-1"></a>    <span class="at">autoDestroy =</span> <span class="cn">FALSE</span></span>
+<span id="cb183-8"><a href="action-feedback.html#cb183-8" tabindex="-1"></a>  )</span>
+<span id="cb183-9"><a href="action-feedback.html#cb183-9" tabindex="-1"></a>}</span>
+<span id="cb183-10"><a href="action-feedback.html#cb183-10" tabindex="-1"></a></span>
+<span id="cb183-11"><a href="action-feedback.html#cb183-11" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb183-12"><a href="action-feedback.html#cb183-12" tabindex="-1"></a>  waiting <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb183-13"><a href="action-feedback.html#cb183-13" tabindex="-1"></a>  last_message <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb183-14"><a href="action-feedback.html#cb183-14" tabindex="-1"></a>  </span>
+<span id="cb183-15"><a href="action-feedback.html#cb183-15" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>tweet, {</span>
+<span id="cb183-16"><a href="action-feedback.html#cb183-16" tabindex="-1"></a>    notification <span class="ot">&lt;-</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;Tweeted &#39;{input$message}&#39;&quot;</span>)</span>
+<span id="cb183-17"><a href="action-feedback.html#cb183-17" tabindex="-1"></a>    last_message <span class="ot">&lt;&lt;-</span> input<span class="sc">$</span>message</span>
+<span id="cb183-18"><a href="action-feedback.html#cb183-18" tabindex="-1"></a>    <span class="fu">updateTextAreaInput</span>(session, <span class="st">&quot;message&quot;</span>, <span class="at">value =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb183-19"><a href="action-feedback.html#cb183-19" tabindex="-1"></a></span>
+<span id="cb183-20"><a href="action-feedback.html#cb183-20" tabindex="-1"></a>    <span class="fu">showNotification</span>(</span>
+<span id="cb183-21"><a href="action-feedback.html#cb183-21" tabindex="-1"></a>      notification,</span>
+<span id="cb183-22"><a href="action-feedback.html#cb183-22" tabindex="-1"></a>      <span class="at">action =</span> <span class="fu">actionButton</span>(<span class="st">&quot;undo&quot;</span>, <span class="st">&quot;Undo?&quot;</span>),</span>
+<span id="cb183-23"><a href="action-feedback.html#cb183-23" tabindex="-1"></a>      <span class="at">duration =</span> <span class="cn">NULL</span>,</span>
+<span id="cb183-24"><a href="action-feedback.html#cb183-24" tabindex="-1"></a>      <span class="at">closeButton =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb183-25"><a href="action-feedback.html#cb183-25" tabindex="-1"></a>      <span class="at">id =</span> <span class="st">&quot;tweeted&quot;</span>,</span>
+<span id="cb183-26"><a href="action-feedback.html#cb183-26" tabindex="-1"></a>      <span class="at">type =</span> <span class="st">&quot;warning&quot;</span></span>
+<span id="cb183-27"><a href="action-feedback.html#cb183-27" tabindex="-1"></a>    )</span>
+<span id="cb183-28"><a href="action-feedback.html#cb183-28" tabindex="-1"></a></span>
+<span id="cb183-29"><a href="action-feedback.html#cb183-29" tabindex="-1"></a>    waiting <span class="ot">&lt;&lt;-</span> <span class="fu">runLater</span>({</span>
+<span id="cb183-30"><a href="action-feedback.html#cb183-30" tabindex="-1"></a>      <span class="fu">cat</span>(<span class="st">&quot;Actually sending tweet...</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb183-31"><a href="action-feedback.html#cb183-31" tabindex="-1"></a>      <span class="fu">removeNotification</span>(<span class="st">&quot;tweeted&quot;</span>)</span>
+<span id="cb183-32"><a href="action-feedback.html#cb183-32" tabindex="-1"></a>    })</span>
+<span id="cb183-33"><a href="action-feedback.html#cb183-33" tabindex="-1"></a>  })</span>
+<span id="cb183-34"><a href="action-feedback.html#cb183-34" tabindex="-1"></a>  </span>
+<span id="cb183-35"><a href="action-feedback.html#cb183-35" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>undo, {</span>
+<span id="cb183-36"><a href="action-feedback.html#cb183-36" tabindex="-1"></a>    waiting<span class="sc">$</span><span class="fu">destroy</span>()</span>
+<span id="cb183-37"><a href="action-feedback.html#cb183-37" tabindex="-1"></a>    <span class="fu">showNotification</span>(<span class="st">&quot;Tweet retracted&quot;</span>, <span class="at">id =</span> <span class="st">&quot;tweeted&quot;</span>)</span>
+<span id="cb183-38"><a href="action-feedback.html#cb183-38" tabindex="-1"></a>    <span class="fu">updateTextAreaInput</span>(session, <span class="st">&quot;message&quot;</span>, <span class="at">value =</span> last_message)</span>
+<span id="cb183-39"><a href="action-feedback.html#cb183-39" tabindex="-1"></a>  })</span>
+<span id="cb183-40"><a href="action-feedback.html#cb183-40" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="trash" class="section level3" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Trash</h3>
+<p>For actions that you might regret days later, a more sophisticated pattern is to implement something like the trash or recycling bin on your computer.
+When you delete a file, it isn’t permanently deleted but instead is moved to a holding cell, which requires a separate action to empty.
+This is like the “undo” option on steroids; you have a lot of time to regret your action.
+It’s also a bit like the confirmation; you have to do two separate actions to make deletion permanent.</p>
+<p>The primary downside of this technique is that it is substantially more complicated to implement (you have to have a separate “holding cell” that stores the information needed to undo the action), and requires regular intervention from the user to avoid accumulating.
+For that reason, I think it’s beyond the scope of all but the most complicated Shiny apps, so I’m not going to show an implementation here.</p>
+</div>
+</div>
+<div id="summary-7" class="section level2" number="8.5">
+<h2><span class="header-section-number">8.5</span> Summary</h2>
+<p>This chapter has given you a number of tools to help communicate to the user what’s happening with your app.
+In some sense, these techniques are mostly optional.
+But while your app will work without them, their thoughtful application can have a huge impact on the quality of the user experience.
+You can often omit feedback when you’re the only user of an app, but the more people use it, the more that thoughtful notification will pay off.</p>
+<p>In the next chapter, you’ll learn how to transfer files to and from the user.</p>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="footnotes">
+<hr />
+<ol start="27">
+<li id="fn27"><p>“Condition” is a technical term that includes errors, warnings, and messages.
+If you’re interested, you can learn more of the details of R’s condition system in <a href="https://adv-r.hadley.nz/conditions.html" class="uri">https://adv-r.hadley.nz/conditions.html</a>.<a href="action-feedback.html#fnref27" class="footnote-back">↩︎</a></p></li>
+<li id="fn28"><p>More precisely, <code>req()</code> proceeds only if its inputs are <strong>truthy</strong>, i.e. any value apart from <code>FALSE</code>, <code>NULL</code> , <code>""</code>, or a handful of other special cases described in <code>?isTruthy</code>.<a href="action-feedback.html#fnref28" class="footnote-back">↩︎</a></p></li>
+<li id="fn29"><p>If reading csv files is a bottleneck in your application should consider using <code>data.table::fread()</code> and <code>vroom::vroom()</code> instead; they can be orders of magnitude faster than <code>read.csv()</code>.<a href="action-feedback.html#fnref29" class="footnote-back">↩︎</a></p></li>
+<li id="fn30"><p>If your code doesn’t involve a for loop or a apply/map function, it’s going to be very difficult to make a progress bar.<a href="action-feedback.html#fnref30" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Mastering Shiny</strong>" was written by Hadley Wickham. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+</body>
+
+</html>

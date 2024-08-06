@@ -1,0 +1,32 @@
+---
+title: "Mastering Shiny"
+author: "Hadley Wickham"
+site: bookdown::bookdown_site
+bibliography: references.bib
+csl: "chicago-fullnote-bibliography.csl"
+suppress-bibliography: true
+---
+
+
+
+# Welcome {.unnumbered}
+
+<img src="cover.png" class="cover" width="250" height="328"/>这是 *Mastering Shiny* 的在线版本，该书**目前正在早期开发中**，预计由 [O'Reilly Media](https://www.oreilly.com/) 于 2020 年底发行。
+
+[Shiny](https://shiny.rstudio.com/) 是一个使用 R 代码创建 Web 应用程序的框架。它的设计主要考虑了数据科学家的需求，为此，您可以在不了解 HTML、CSS 或 JavaScript 的情况下创建相当复杂的 Shiny 应用程序。另一方面，Shiny 并不限制您创建琐碎或预制的应用程序：它的用户界面组件可以轻松自定义或扩展，并且它的服务器使用反应式编程来让您创建您想要的任何类型的后端逻辑。
+Shiny 的设计初衷是让您在刚开始使用时感觉非常简单，但您越深入地了解它的工作原理，您就越会意识到它是由通用构建块构建而成，而这些构建块背后都有强大的软件工程原理。
+
+如今，Shiny 的应用领域和行业几乎与 R 本身一样多。
+它在学术界被用作统计概念的教学工具，一种让本科生对学习编写代码感到兴奋的方式，一种炫耀新颖统计方法或模型的引人注目的媒介。
+大型制药公司使用它来加速药物开发过程中科学家和分析师之间的合作。
+硅谷科技公司使用它来设置包含高级分析的实时指标仪表盘。
+
+本书旨在帮助您从对 Shiny 一无所知到成为一名专家开发人员，能够编写仍然可维护且高性能的大型复杂应用程序。您将深入了解 Shiny 背后的反应式编程模型，并构建一个包含有用技术的工具箱来解决常见的应用程序挑战。
+
+## License {.unnumbered}
+
+This book is licensed to you under [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+The code samples in this book are licensed under [Creative Commons CC0 1.0 Universal (CC0 1.0)](https://creativecommons.org/publicdomain/zero/1.0/), i.e. public domain.
+
+

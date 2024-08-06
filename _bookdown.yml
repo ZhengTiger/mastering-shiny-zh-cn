@@ -1,0 +1,48 @@
+book_filename: "mastering-shiny-zh-cn"
+repo: https://github.com/zhenghu159/mastering-shiny-zh-cn
+output_dir: "docs"
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true
+new_session: yes
+
+rmd_files:
+  [
+    "index.Rmd",
+
+    "introduction.Rmd",
+
+    #"basic.Rmd",
+    #"basic-app.Rmd",
+    #"basic-ui.Rmd",
+    #"basic-reactivity.Rmd",
+    #"basic-case-study.Rmd",
+
+    #"action.Rmd",
+    #"action-workflow.Rmd",
+    #"action-layout.Rmd",
+    #"action-graphics.Rmd",
+    #"action-feedback.Rmd",
+    #"action-transfer.Rmd",
+    #"action-dynamic.Rmd",
+    #"action-bookmark.Rmd",
+    #"action-tidy.Rmd",
+
+    #"reactivity.Rmd",
+    #"reactivity-motivation.Rmd",
+    #"reactivity-graph.Rmd",
+    #"reactivity-foundations.Rmd",
+    #"reactivity-escaping.Rmd",
+
+    #"scaling.Rmd",
+    #"scaling-general.Rmd",
+    #"scaling-functions.Rmd",
+    #"scaling-modules.Rmd",
+    #"scaling-packages.Rmd",
+    #"scaling-testing.Rmd",
+    #"scaling-security.Rmd",
+    #"scaling-performance.Rmd",
+  ]
+
+

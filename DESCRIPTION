@@ -1,0 +1,39 @@
+Package: masteringshiny
+Title: Mastering Shiny
+Version: 0.0.1
+Imports: 
+    gapminder,
+    gh,
+    ggforce,
+    globals,
+    openintro,
+    profvis,
+    RSQLite,
+    shiny (>= 1.6.0),
+    shinycssloaders,
+    shinyFeedback,
+    shinythemes,
+    testthat,
+    thematic (>= 0.1.1),
+    tidyverse,
+    vroom,
+    waiter,
+    xml2,
+    zeallot
+Suggests:
+    bookdown,
+    bslib,
+    desc,
+    downlit,
+    jsonlite,
+    png,
+    sessioninfo,
+    shinyloadtest,
+    shinytest (>= 1.5.0),
+    waldo,
+    webshot (>= 0.5.0.9000)
+Remotes: 
+    rstudio/bookdown,
+    rstudio/rmarkdown
+Encoding: UTF-8
+Config/testthat/edition: 3

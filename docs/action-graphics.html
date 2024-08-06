@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 7 Graphics | Mastering Shiny</title>
+
+    <meta name="author" content="Hadley Wickham" />
+  
+   
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 7 Graphics | Mastering Shiny" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 7 Graphics | Mastering Shiny" />
+  
+  
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.0/transition.js"></script>
+    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+    
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Mastering Shiny</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="action-graphics" class="section level1" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Graphics</h1>
+<p>We talked briefly about <code>renderPlot()</code> in Chapter <a href="basic-ui.html#basic-ui">2</a>; it’s a powerful tool for displaying graphics in your app.
+This chapter will show you how to use it to its full extent to create interactive plots, plots that respond to mouse events.
+You’ll also learn a couple of other useful techniques, including making plots with dynamic width and height and displaying images with the <code>renderImage()</code>.</p>
+<p>In this chapter, we’ll need ggplot2 as well as Shiny, since that’s what I’ll use for the majority of the graphics.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="action-graphics.html#cb141-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
+<span id="cb141-2"><a href="action-graphics.html#cb141-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb141-3"><a href="action-graphics.html#cb141-3" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;ggplot2&#39; was built under R version 4.2.3</span></span></code></pre></div>
+<div id="interactivity" class="section level2" number="7.1">
+<h2><span class="header-section-number">7.1</span> Interactivity</h2>
+<p>One of the coolest things about <code>plotOutput()</code> is that as well as being an output that displays plots, it can also be an input that responds to pointer events.
+That allows you to create interactive graphics where the user interacts directly with the data on the plot.
+Interactive graphics are a powerful tool, with a wide range of applications.
+I don’t have space to show you all the possibilities, so here I’ll focus on the basics, then point you towards resources to learn more.</p>
+<div id="basics" class="section level3" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Basics</h3>
+<p>A plot can respond to four different mouse<a href="#fn23" class="footnote-ref" id="fnref23"><sup>23</sup></a> events: <code>click</code>, <code>dblclick</code> (double click), <code>hover</code> (when the mouse stays in the same place for a little while), and <code>brush</code> (a rectangular selection tool).
+To turn these events into Shiny inputs, you supply a string to the corresponding <code>plotOutput()</code> argument, e.g. <code>plotOutput("plot", click = "plot_click")</code>. This creates an <code>input$plot_click</code> that you can use to handle mouse clicks on the plot.</p>
+<p>Here’s a very simple example of handling a mouse click.
+We register the <code>plot_click</code> input, and then use that to update an output with the coordinates of the mouse click.
+Figure <a href="action-graphics.html#fig:click">7.1</a> shows the results.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="action-graphics.html#cb142-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb142-2"><a href="action-graphics.html#cb142-2" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">click =</span> <span class="st">&quot;plot_click&quot;</span>),</span>
+<span id="cb142-3"><a href="action-graphics.html#cb142-3" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;info&quot;</span>)</span>
+<span id="cb142-4"><a href="action-graphics.html#cb142-4" tabindex="-1"></a>)</span>
+<span id="cb142-5"><a href="action-graphics.html#cb142-5" tabindex="-1"></a></span>
+<span id="cb142-6"><a href="action-graphics.html#cb142-6" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output) {</span>
+<span id="cb142-7"><a href="action-graphics.html#cb142-7" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb142-8"><a href="action-graphics.html#cb142-8" tabindex="-1"></a>    <span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb142-9"><a href="action-graphics.html#cb142-9" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb142-10"><a href="action-graphics.html#cb142-10" tabindex="-1"></a></span>
+<span id="cb142-11"><a href="action-graphics.html#cb142-11" tabindex="-1"></a>  output<span class="sc">$</span>info <span class="ot">&lt;-</span> <span class="fu">renderPrint</span>({</span>
+<span id="cb142-12"><a href="action-graphics.html#cb142-12" tabindex="-1"></a>    <span class="fu">req</span>(input<span class="sc">$</span>plot_click)</span>
+<span id="cb142-13"><a href="action-graphics.html#cb142-13" tabindex="-1"></a>    x <span class="ot">&lt;-</span> <span class="fu">round</span>(input<span class="sc">$</span>plot_click<span class="sc">$</span>x, <span class="dv">2</span>)</span>
+<span id="cb142-14"><a href="action-graphics.html#cb142-14" tabindex="-1"></a>    y <span class="ot">&lt;-</span> <span class="fu">round</span>(input<span class="sc">$</span>plot_click<span class="sc">$</span>y, <span class="dv">2</span>)</span>
+<span id="cb142-15"><a href="action-graphics.html#cb142-15" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">&quot;[&quot;</span>, x, <span class="st">&quot;, &quot;</span>, y, <span class="st">&quot;]&quot;</span>, <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb142-16"><a href="action-graphics.html#cb142-16" tabindex="-1"></a>  })</span>
+<span id="cb142-17"><a href="action-graphics.html#cb142-17" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:click"></span>
+<img src="images/action-graphics/click.png" alt="Clicking on the top-left point updates the printed coordinates See live at &lt;https://hadley.shinyapps.io/ms-click&gt;." width="543" />
+<p class="caption">
+Figure 7.1: Clicking on the top-left point updates the printed coordinates See live at <a href="https://hadley.shinyapps.io/ms-click" class="uri">https://hadley.shinyapps.io/ms-click</a>.
+</p>
+</div>
+<p>(Note the use of <code>req()</code>, to make sure the app doesn’t do anything before the first click, and that the coordinates are in terms of the underlying <code>wt</code> and <code>mpg</code> variables.)</p>
+<p>The following sections describe the events in more details.
+We’ll start with the click events, then briefly discuss the closely related <code>dblclick</code> and <code>hover</code>.
+Then you’ll learn about the <code>brush</code> event, which provides a rectangular “brush” defined by its four sides (<code>xmin</code>, <code>xmax</code>, <code>ymin</code>, and <code>ymax</code>).
+I’ll then give a couple of examples of updating the plot with the results of the action, and then discuss some of the limitations of interactive graphics in Shiny.</p>
+</div>
+<div id="clicking" class="section level3" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Clicking</h3>
+<p>The point events return a relatively rich list containing a lot of information.
+The most important components are <code>x</code> and <code>y</code>, which give the location of the event in data coordinates.
+But I’m not going to talk about this data structure, since you’ll only need in relatively rare situations (If you do want the details, use <a href="https://gallery.shinyapps.io/095-plot-interaction-advanced/">this app</a> in the Shiny gallery).
+Instead, you’ll use the <code>nearPoints()</code> helper, which returns a data frame containing rows near<a href="#fn24" class="footnote-ref" id="fnref24"><sup>24</sup></a> the click, taking care of a bunch of fiddly details.</p>
+<p>Here’s a simple example of <code>nearPoints()</code> in action, showing a table of data about the points near the event.
+Figure <a href="action-graphics.html#fig:nearPoints">7.2</a> shows a screenshot of the app.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="action-graphics.html#cb143-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb143-2"><a href="action-graphics.html#cb143-2" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">click =</span> <span class="st">&quot;plot_click&quot;</span>),</span>
+<span id="cb143-3"><a href="action-graphics.html#cb143-3" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">&quot;data&quot;</span>)</span>
+<span id="cb143-4"><a href="action-graphics.html#cb143-4" tabindex="-1"></a>)</span>
+<span id="cb143-5"><a href="action-graphics.html#cb143-5" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb143-6"><a href="action-graphics.html#cb143-6" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb143-7"><a href="action-graphics.html#cb143-7" tabindex="-1"></a>    <span class="fu">plot</span>(mtcars<span class="sc">$</span>wt, mtcars<span class="sc">$</span>mpg)</span>
+<span id="cb143-8"><a href="action-graphics.html#cb143-8" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb143-9"><a href="action-graphics.html#cb143-9" tabindex="-1"></a>  </span>
+<span id="cb143-10"><a href="action-graphics.html#cb143-10" tabindex="-1"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb143-11"><a href="action-graphics.html#cb143-11" tabindex="-1"></a>    <span class="fu">nearPoints</span>(mtcars, input<span class="sc">$</span>plot_click, <span class="at">xvar =</span> <span class="st">&quot;wt&quot;</span>, <span class="at">yvar =</span> <span class="st">&quot;mpg&quot;</span>)</span>
+<span id="cb143-12"><a href="action-graphics.html#cb143-12" tabindex="-1"></a>  })</span>
+<span id="cb143-13"><a href="action-graphics.html#cb143-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:nearPoints"></span>
+<img src="images/action-graphics/nearPoints.png" alt="`nearPoints()` translates plot coordinates to data rows, making it easy to show the underlying data for a point you clicked on See live at &lt;https://hadley.shinyapps.io/ms-nearPoints&gt;." width="614" />
+<p class="caption">
+Figure 7.2: <code>nearPoints()</code> translates plot coordinates to data rows, making it easy to show the underlying data for a point you clicked on See live at <a href="https://hadley.shinyapps.io/ms-nearPoints" class="uri">https://hadley.shinyapps.io/ms-nearPoints</a>.
+</p>
+</div>
+<p>Here we give <code>nearPoints()</code> four arguments: the data frame that underlies the plot, the input event, and the names of the variables on the axes.
+If you use ggplot2, you only need to provide the first two arguments since <code>xvar</code> and <code>yvar</code> can be automatically imputed from the plot data structure.
+For that reason, I’ll use ggplot2 throughout the rest of the chapter.
+Here’s that previous example reimplemented with ggplot2:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="action-graphics.html#cb144-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb144-2"><a href="action-graphics.html#cb144-2" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">click =</span> <span class="st">&quot;plot_click&quot;</span>),</span>
+<span id="cb144-3"><a href="action-graphics.html#cb144-3" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">&quot;data&quot;</span>)</span>
+<span id="cb144-4"><a href="action-graphics.html#cb144-4" tabindex="-1"></a>)</span>
+<span id="cb144-5"><a href="action-graphics.html#cb144-5" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb144-6"><a href="action-graphics.html#cb144-6" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb144-7"><a href="action-graphics.html#cb144-7" tabindex="-1"></a>    <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb144-8"><a href="action-graphics.html#cb144-8" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb144-9"><a href="action-graphics.html#cb144-9" tabindex="-1"></a>  </span>
+<span id="cb144-10"><a href="action-graphics.html#cb144-10" tabindex="-1"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb144-11"><a href="action-graphics.html#cb144-11" tabindex="-1"></a>    <span class="fu">req</span>(input<span class="sc">$</span>plot_click)</span>
+<span id="cb144-12"><a href="action-graphics.html#cb144-12" tabindex="-1"></a>    <span class="fu">nearPoints</span>(mtcars, input<span class="sc">$</span>plot_click)</span>
+<span id="cb144-13"><a href="action-graphics.html#cb144-13" tabindex="-1"></a>  })</span>
+<span id="cb144-14"><a href="action-graphics.html#cb144-14" tabindex="-1"></a>}</span></code></pre></div>
+<p>You might wonder exactly what <code>nearPoints()</code> returns.
+This is a good place to use <code>browser()</code>, which we discussed in Section <a href="action-workflow.html#browser">5.2.3</a>:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="action-graphics.html#cb145-1" tabindex="-1"></a>...</span>
+<span id="cb145-2"><a href="action-graphics.html#cb145-2" tabindex="-1"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb145-3"><a href="action-graphics.html#cb145-3" tabindex="-1"></a>    <span class="fu">req</span>(input<span class="sc">$</span>plot_click)</span>
+<span id="cb145-4"><a href="action-graphics.html#cb145-4" tabindex="-1"></a>    <span class="fu">browser</span>()</span>
+<span id="cb145-5"><a href="action-graphics.html#cb145-5" tabindex="-1"></a>    <span class="fu">nearPoints</span>(mtcars, input<span class="sc">$</span>plot_click)</span>
+<span id="cb145-6"><a href="action-graphics.html#cb145-6" tabindex="-1"></a>  })</span>
+<span id="cb145-7"><a href="action-graphics.html#cb145-7" tabindex="-1"></a>...</span></code></pre></div>
+<p>Now after I start the app and clicking on a point, I’m dropped into the interactive debugger, where I can run <code>nearPoints()</code> and see what it returns:</p>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="action-graphics.html#cb146-1" tabindex="-1"></a><span class="fu">nearPoints</span>(mtcars, input<span class="sc">$</span>plot_click)</span>
+<span id="cb146-2"><a href="action-graphics.html#cb146-2" tabindex="-1"></a><span class="co">#&gt;             mpg cyl disp hp drat   wt  qsec vs am gear carb</span></span>
+<span id="cb146-3"><a href="action-graphics.html#cb146-3" tabindex="-1"></a><span class="co">#&gt; Datsun 710 22.8   4  108 93 3.85 2.32 18.61  1  1    4    1</span></span></code></pre></div>
+<p>Another way to use <code>nearPoints()</code> is with <code>allRows = TRUE</code> and <code>addDist = TRUE</code>.
+That will return the original data frame with two new columns:</p>
+<ul>
+<li><code>dist_</code> gives the distance between the row and the event (in pixels).</li>
+<li><code>selected_</code> says whether or not it’s near the click event (i.e. whether or not its a row that would be returned when <code>allRows = FALSE)</code>.</li>
+</ul>
+<p>We’ll see an example of that a little later.</p>
+</div>
+<div id="other-point-events" class="section level3" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Other point events</h3>
+<p>The same approach works equally well with <code>click</code>, <code>dblclick</code>, and <code>hover</code>: just change the name of the argument.
+If needed, you can get additional control over the events by supplying <code>clickOpts()</code>, <code>dblclickOpts()</code>, or <code>hoverOpts()</code> instead of a string giving the input id.
+These are rarely needed, so I won’t discuss them here; see the documentation for details.</p>
+<p>You can use multiple interactions types on one plot.
+Just make sure to explain to the user what they can do: one downside of using mouse events to interact with an app is that they’re not immediately discoverable<a href="#fn25" class="footnote-ref" id="fnref25"><sup>25</sup></a>.</p>
+</div>
+<div id="brushing" class="section level3" number="7.1.4">
+<h3><span class="header-section-number">7.1.4</span> Brushing</h3>
+<p>Another way of selecting points on a plot is to use a <strong>brush</strong>, a rectangular selection defined by four edges.
+In Shiny, using a brush is straightforward once you’ve mastered <code>click</code> and <code>nearPoints()</code>: you just switch to <code>brush</code> argument and the <code>brushedPoints()</code> helper.</p>
+<p>Here’s another simple example that shows which points have been selected by the brush.
+Figure <a href="action-graphics.html#fig:brushedPoints">7.3</a> shows the results.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="action-graphics.html#cb147-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb147-2"><a href="action-graphics.html#cb147-2" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">brush =</span> <span class="st">&quot;plot_brush&quot;</span>),</span>
+<span id="cb147-3"><a href="action-graphics.html#cb147-3" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">&quot;data&quot;</span>)</span>
+<span id="cb147-4"><a href="action-graphics.html#cb147-4" tabindex="-1"></a>)</span>
+<span id="cb147-5"><a href="action-graphics.html#cb147-5" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb147-6"><a href="action-graphics.html#cb147-6" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb147-7"><a href="action-graphics.html#cb147-7" tabindex="-1"></a>    <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb147-8"><a href="action-graphics.html#cb147-8" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb147-9"><a href="action-graphics.html#cb147-9" tabindex="-1"></a>  </span>
+<span id="cb147-10"><a href="action-graphics.html#cb147-10" tabindex="-1"></a>  output<span class="sc">$</span>data <span class="ot">&lt;-</span> <span class="fu">renderTable</span>({</span>
+<span id="cb147-11"><a href="action-graphics.html#cb147-11" tabindex="-1"></a>    <span class="fu">brushedPoints</span>(mtcars, input<span class="sc">$</span>plot_brush)</span>
+<span id="cb147-12"><a href="action-graphics.html#cb147-12" tabindex="-1"></a>  })</span>
+<span id="cb147-13"><a href="action-graphics.html#cb147-13" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:brushedPoints"></span>
+<img src="images/action-graphics/brushedPoints.png" alt="Setting the `brush` argument provides the user with a draggable 'brush'. In this app, the points beneath the brush are shown in a table. See live at &lt;https://hadley.shinyapps.io/ms-brushedPoints&gt;." width="614" />
+<p class="caption">
+Figure 7.3: Setting the <code>brush</code> argument provides the user with a draggable ‘brush’. In this app, the points beneath the brush are shown in a table. See live at <a href="https://hadley.shinyapps.io/ms-brushedPoints" class="uri">https://hadley.shinyapps.io/ms-brushedPoints</a>.
+</p>
+</div>
+<p>Use <code>brushOpts()</code> to control the colour (<code>fill</code> and <code>stroke</code>), or restrict brushing to a single dimension with <code>direction = "x"</code> or <code>"y"</code> (useful, e.g., for brushing time series).</p>
+</div>
+<div id="modifying-the-plot" class="section level3" number="7.1.5">
+<h3><span class="header-section-number">7.1.5</span> Modifying the plot</h3>
+<p>So far we’ve displayed the results of the interaction in another output.
+But the true beauty of interactivity comes when you display the changes in the same plot you’re interacting with.
+Unfortunately this requires an advanced reactivity technique that you have not yet learned about: <code>reactiveVal()</code>.
+We’ll come back to <code>reactiveVal()</code> in Chapter <a href="#reactivity-components"><strong>??</strong></a>, but I wanted to show it here because it’s such a useful technique.
+You’ll probably need to re-read this section after you’ve read that chapter, but hopefully even without all the theory you’ll get a sense of the potential applications.</p>
+<p>As you might guess from the name, <code>reactiveVal()</code> is rather similar to <code>reactive()</code>.
+You create a reactive value by calling <code>reactiveVal()</code> with its initial value, and retrieve that value in the same way as a reactive:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="action-graphics.html#cb148-1" tabindex="-1"></a>val <span class="ot">&lt;-</span> <span class="fu">reactiveVal</span>(<span class="dv">10</span>)</span>
+<span id="cb148-2"><a href="action-graphics.html#cb148-2" tabindex="-1"></a><span class="fu">val</span>()</span>
+<span id="cb148-3"><a href="action-graphics.html#cb148-3" tabindex="-1"></a><span class="co">#&gt; [1] 10</span></span></code></pre></div>
+<p>The big difference is that you can also <strong>update</strong> a reactive value, and all reactive consumers that refer to it will recompute.
+A reactive value uses a special syntax for updating — you call it like a function with the first argument being the new value:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="action-graphics.html#cb149-1" tabindex="-1"></a><span class="fu">val</span>(<span class="dv">20</span>)</span>
+<span id="cb149-2"><a href="action-graphics.html#cb149-2" tabindex="-1"></a><span class="fu">val</span>()</span>
+<span id="cb149-3"><a href="action-graphics.html#cb149-3" tabindex="-1"></a><span class="co">#&gt; [1] 20</span></span></code></pre></div>
+<p>That means updating a reactive value using its current value looks something like this:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="action-graphics.html#cb150-1" tabindex="-1"></a><span class="fu">val</span>(<span class="fu">val</span>() <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb150-2"><a href="action-graphics.html#cb150-2" tabindex="-1"></a><span class="fu">val</span>()</span>
+<span id="cb150-3"><a href="action-graphics.html#cb150-3" tabindex="-1"></a><span class="co">#&gt; [1] 21</span></span></code></pre></div>
+<p>Unfortunately if you actually try to run this code in the console you’ll get an error because it has to be run in an reactive environment.
+That makes experimentation and debugging more challenging because you’ll need to <code>browser()</code> or similar to pause execution within the call to <code>shinyApp()</code>.
+This is one of the challenges we’ll come back to later in Chapter <a href="#reactivity-components"><strong>??</strong></a>.</p>
+<p>For now, let’s put the challenges of learning <code>reactiveVal()</code> aside, and show you why you might bother.
+Imagine that you want to visualise the distance between a click and the points on the plot.
+In the app below, we start by creating a reactive value to store those distances, initialising it with a constant that will be used before we click anything.
+Then we use <code>observeEvent()</code> to update the reactive value when the mouse is clicked, and a ggplot that visualises the distance with point size.
+All up, this looks something like the code below, and results in Figure <a href="action-graphics.html#fig:modifying-size">7.4</a>.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="action-graphics.html#cb151-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1014</span>)</span>
+<span id="cb151-2"><a href="action-graphics.html#cb151-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>), <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">100</span>))</span>
+<span id="cb151-3"><a href="action-graphics.html#cb151-3" tabindex="-1"></a></span>
+<span id="cb151-4"><a href="action-graphics.html#cb151-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb151-5"><a href="action-graphics.html#cb151-5" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">click =</span> <span class="st">&quot;plot_click&quot;</span>, )</span>
+<span id="cb151-6"><a href="action-graphics.html#cb151-6" tabindex="-1"></a>)</span>
+<span id="cb151-7"><a href="action-graphics.html#cb151-7" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb151-8"><a href="action-graphics.html#cb151-8" tabindex="-1"></a>  dist <span class="ot">&lt;-</span> <span class="fu">reactiveVal</span>(<span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(df)))</span>
+<span id="cb151-9"><a href="action-graphics.html#cb151-9" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>plot_click,</span>
+<span id="cb151-10"><a href="action-graphics.html#cb151-10" tabindex="-1"></a>    <span class="fu">dist</span>(<span class="fu">nearPoints</span>(df, input<span class="sc">$</span>plot_click, <span class="at">allRows =</span> <span class="cn">TRUE</span>, <span class="at">addDist =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>dist_)  </span>
+<span id="cb151-11"><a href="action-graphics.html#cb151-11" tabindex="-1"></a>  )</span>
+<span id="cb151-12"><a href="action-graphics.html#cb151-12" tabindex="-1"></a>  </span>
+<span id="cb151-13"><a href="action-graphics.html#cb151-13" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb151-14"><a href="action-graphics.html#cb151-14" tabindex="-1"></a>    df<span class="sc">$</span>dist <span class="ot">&lt;-</span> <span class="fu">dist</span>()</span>
+<span id="cb151-15"><a href="action-graphics.html#cb151-15" tabindex="-1"></a>    <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(x, y, <span class="at">size =</span> dist)) <span class="sc">+</span> </span>
+<span id="cb151-16"><a href="action-graphics.html#cb151-16" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb151-17"><a href="action-graphics.html#cb151-17" tabindex="-1"></a>      <span class="fu">scale_size_area</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1000</span>), <span class="at">max_size =</span> <span class="dv">10</span>, <span class="at">guide =</span> <span class="cn">NULL</span>)</span>
+<span id="cb151-18"><a href="action-graphics.html#cb151-18" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb151-19"><a href="action-graphics.html#cb151-19" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:modifying-size"></span>
+<img src="images/action-graphics/modifying-size-1.png" alt="This app uses a `reactiveVal()` to store the distance to the point that was last clicked, which is then mapped to point size. Here I show the results of clicking on a point on the far left See live at &lt;https://hadley.shinyapps.io/ms-modifying-size&gt;." width="614" />
+<p class="caption">
+Figure 7.4: This app uses a <code>reactiveVal()</code> to store the distance to the point that was last clicked, which is then mapped to point size. Here I show the results of clicking on a point on the far left See live at <a href="https://hadley.shinyapps.io/ms-modifying-size" class="uri">https://hadley.shinyapps.io/ms-modifying-size</a>.
+</p>
+</div>
+<p>There are two important ggplot2 techniques to note here:</p>
+<ul>
+<li>I add the distances to the data frame before plotting. I think it’s good practice to put related variables together in a data frame before visualising it.</li>
+<li>I set the <code>limits</code> to <code>scale_size_area()</code> to ensure that sizes are comparable across clicks. To find the correct range I did a little interactive experimentation, but you can work out the exact details if needed (see the exercises at the end of the chapter).</li>
+</ul>
+<p>Here’s a more complicated idea.
+I want to use a brush to progressively add points to a selection.
+Here I display the selection using different colours, but you could imagine many other applications.
+To make this work, I initialise the <code>reactiveVal()</code> to a vector of <code>FALSE</code>s, then use <code>brushedPoints()</code> and <code>|</code> to add any points under the brush to the selection.
+To give the user some way to start afresh, I make double clicking reset the selection.
+Figure <a href="action-graphics.html#fig:persistent">7.5</a> shows a couple of screenshots from the running app.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="action-graphics.html#cb152-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb152-2"><a href="action-graphics.html#cb152-2" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">brush =</span> <span class="st">&quot;plot_brush&quot;</span>, <span class="at">dblclick =</span> <span class="st">&quot;plot_reset&quot;</span>)</span>
+<span id="cb152-3"><a href="action-graphics.html#cb152-3" tabindex="-1"></a>)</span>
+<span id="cb152-4"><a href="action-graphics.html#cb152-4" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb152-5"><a href="action-graphics.html#cb152-5" tabindex="-1"></a>  selected <span class="ot">&lt;-</span> <span class="fu">reactiveVal</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="fu">nrow</span>(mtcars)))</span>
+<span id="cb152-6"><a href="action-graphics.html#cb152-6" tabindex="-1"></a></span>
+<span id="cb152-7"><a href="action-graphics.html#cb152-7" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>plot_brush, {</span>
+<span id="cb152-8"><a href="action-graphics.html#cb152-8" tabindex="-1"></a>    brushed <span class="ot">&lt;-</span> <span class="fu">brushedPoints</span>(mtcars, input<span class="sc">$</span>plot_brush, <span class="at">allRows =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>selected_</span>
+<span id="cb152-9"><a href="action-graphics.html#cb152-9" tabindex="-1"></a>    <span class="fu">selected</span>(brushed <span class="sc">|</span> <span class="fu">selected</span>())</span>
+<span id="cb152-10"><a href="action-graphics.html#cb152-10" tabindex="-1"></a>  })</span>
+<span id="cb152-11"><a href="action-graphics.html#cb152-11" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>plot_reset, {</span>
+<span id="cb152-12"><a href="action-graphics.html#cb152-12" tabindex="-1"></a>    <span class="fu">selected</span>(<span class="fu">rep</span>(<span class="cn">FALSE</span>, <span class="fu">nrow</span>(mtcars)))</span>
+<span id="cb152-13"><a href="action-graphics.html#cb152-13" tabindex="-1"></a>  })</span>
+<span id="cb152-14"><a href="action-graphics.html#cb152-14" tabindex="-1"></a></span>
+<span id="cb152-15"><a href="action-graphics.html#cb152-15" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb152-16"><a href="action-graphics.html#cb152-16" tabindex="-1"></a>    mtcars<span class="sc">$</span>sel <span class="ot">&lt;-</span> <span class="fu">selected</span>()</span>
+<span id="cb152-17"><a href="action-graphics.html#cb152-17" tabindex="-1"></a>    <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> </span>
+<span id="cb152-18"><a href="action-graphics.html#cb152-18" tabindex="-1"></a>      <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> sel)) <span class="sc">+</span></span>
+<span id="cb152-19"><a href="action-graphics.html#cb152-19" tabindex="-1"></a>      <span class="fu">scale_colour_discrete</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>))</span>
+<span id="cb152-20"><a href="action-graphics.html#cb152-20" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb152-21"><a href="action-graphics.html#cb152-21" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:persistent"></span>
+<img src="images/action-graphics/persistent-1.png" alt="This app makes the brush &quot;persisent&quot;, so that dragging it adds to the current selection." width="614" /><img src="images/action-graphics/persistent-3.png" alt="This app makes the brush &quot;persisent&quot;, so that dragging it adds to the current selection." width="614" />
+<p class="caption">
+Figure 7.5: This app makes the brush “persisent”, so that dragging it adds to the current selection.
+</p>
+</div>
+<p>Again, I set the limits of the scale to ensure that the legend (and colours) don’t change after the first click.</p>
+</div>
+<div id="interactivity-limitations" class="section level3" number="7.1.6">
+<h3><span class="header-section-number">7.1.6</span> Interactivity limitations</h3>
+<p>Before we move on, it’s important to understand the basic data flow in interactive plots in order to understand their limitations.
+The basic flow is something like this:</p>
+<ol style="list-style-type: decimal">
+<li>JavaScript captures the mouse event.</li>
+<li>Shiny sends the mouse event data back to R, telling the app that the input is now out of date.</li>
+<li>All the downstream reactive consumers are recomputed.</li>
+<li><code>plotOutput()</code> generates a new PNG and sends it to the browser.</li>
+</ol>
+<p>For local apps, the bottleneck tends to be the time taken to draw the plot.
+Depending on how complex the plot is, this may take a signficant fraction of a second.
+But for hosted apps, you also have to take into account the time needed to transmit the event from the browser to R, and then the rendered plot back from R to the browser.</p>
+<p>In general, this means that it’s not possible to create Shiny apps where action and response is percieved as instanteous (i.e. the plot appears to update simultaneously with your action upon it).
+If you need that level of speed, you’ll have to perform more computation in JavaScript.
+One way to do this is to use an R package that wraps a JavaScript graphics library.
+Right now, as I write this book, I think you’ll get the best experience with the plotly package, as documented in the book <a href="https://plotly-r.com"><em>Interactive web-based data visualization with R, plotly, and shiny</em></a>, by Carson Sievert.</p>
+</div>
+</div>
+<div id="dynamic-height-and-width" class="section level2" number="7.2">
+<h2><span class="header-section-number">7.2</span> Dynamic height and width</h2>
+<p>The rest of this chapter is less exciting than interactive graphics, but contains material that’s important to cover somewhere.</p>
+<p>First of all, it’s possible to make the plot size reactive, so the width and height changes in response to user actions.
+To do this, supply zero-argument functions to the <code>width</code> and <code>height</code> arguments of <code>renderPlot()</code> — these now must be defined in the server, not the UI, since they can change.
+These functions should have no argument and return the desired size in pixels.
+They are evaluated in a reactive environment so that you can make the size of your plot dynamic.</p>
+<p>The following app illustrates the basic idea.
+It provides two sliders that directly control the size of the plot.
+A couple of sample screen shots are shown in Figure <a href="action-graphics.html#fig:resize">7.6</a>.
+Note that when you resize the plot, the data stays the same: you don’t get new random numbers.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="action-graphics.html#cb153-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb153-2"><a href="action-graphics.html#cb153-2" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;height&quot;</span>, <span class="st">&quot;height&quot;</span>, <span class="at">min =</span> <span class="dv">100</span>, <span class="at">max =</span> <span class="dv">500</span>, <span class="at">value =</span> <span class="dv">250</span>),</span>
+<span id="cb153-3"><a href="action-graphics.html#cb153-3" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;width&quot;</span>, <span class="st">&quot;width&quot;</span>, <span class="at">min =</span> <span class="dv">100</span>, <span class="at">max =</span> <span class="dv">500</span>, <span class="at">value =</span> <span class="dv">250</span>),</span>
+<span id="cb153-4"><a href="action-graphics.html#cb153-4" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>, <span class="at">width =</span> <span class="dv">250</span>, <span class="at">height =</span> <span class="dv">250</span>)</span>
+<span id="cb153-5"><a href="action-graphics.html#cb153-5" tabindex="-1"></a>)</span>
+<span id="cb153-6"><a href="action-graphics.html#cb153-6" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb153-7"><a href="action-graphics.html#cb153-7" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>(</span>
+<span id="cb153-8"><a href="action-graphics.html#cb153-8" tabindex="-1"></a>    <span class="at">width =</span> <span class="cf">function</span>() input<span class="sc">$</span>width,</span>
+<span id="cb153-9"><a href="action-graphics.html#cb153-9" tabindex="-1"></a>    <span class="at">height =</span> <span class="cf">function</span>() input<span class="sc">$</span>height,</span>
+<span id="cb153-10"><a href="action-graphics.html#cb153-10" tabindex="-1"></a>    <span class="at">res =</span> <span class="dv">96</span>,</span>
+<span id="cb153-11"><a href="action-graphics.html#cb153-11" tabindex="-1"></a>    {</span>
+<span id="cb153-12"><a href="action-graphics.html#cb153-12" tabindex="-1"></a>      <span class="fu">plot</span>(<span class="fu">rnorm</span>(<span class="dv">20</span>), <span class="fu">rnorm</span>(<span class="dv">20</span>))</span>
+<span id="cb153-13"><a href="action-graphics.html#cb153-13" tabindex="-1"></a>    }</span>
+<span id="cb153-14"><a href="action-graphics.html#cb153-14" tabindex="-1"></a>  )</span>
+<span id="cb153-15"><a href="action-graphics.html#cb153-15" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:resize"></span>
+<img src="demos/action-graphics/resize-narrow.png" alt="You can make the plot size dynamic so that it responds to user actions. This figure shows off the effect of changing the width. See live at &lt;https://hadley.shinyapps.io/ms-resize&gt;." width="50%" /><img src="demos/action-graphics/resize-wide.png" alt="You can make the plot size dynamic so that it responds to user actions. This figure shows off the effect of changing the width. See live at &lt;https://hadley.shinyapps.io/ms-resize&gt;." width="50%" />
+<p class="caption">
+Figure 7.6: You can make the plot size dynamic so that it responds to user actions. This figure shows off the effect of changing the width. See live at <a href="https://hadley.shinyapps.io/ms-resize" class="uri">https://hadley.shinyapps.io/ms-resize</a>.
+</p>
+</div>
+<p>In real apps, you’ll use more complicated expressions in the <code>width</code> and <code>height</code> functions.
+For example, if you’re using a faceted plot in ggplot2, you might use it to increase the size of the plot to keep the individual facet sizes roughly the same<a href="#fn26" class="footnote-ref" id="fnref26"><sup>26</sup></a>.</p>
+</div>
+<div id="images" class="section level2" number="7.3">
+<h2><span class="header-section-number">7.3</span> Images</h2>
+<p>You can use <code>renderImage()</code> if you want to display existing images (not plots).
+For example, you might have a directory of photographs that you want shown to the user.
+The following app illustrates the basics of <code>renderImage()</code> by showing cute puppy photos.
+The photos come from <a href="https://unsplash.com" class="uri">https://unsplash.com</a>, my favourite source of royalty free stock photographs.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="action-graphics.html#cb154-1" tabindex="-1"></a>puppies <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb154-2"><a href="action-graphics.html#cb154-2" tabindex="-1"></a>  <span class="sc">~</span>breed, <span class="sc">~</span> id, <span class="sc">~</span>author, </span>
+<span id="cb154-3"><a href="action-graphics.html#cb154-3" tabindex="-1"></a>  <span class="st">&quot;corgi&quot;</span>, <span class="st">&quot;eoqnr8ikwFE&quot;</span>,<span class="st">&quot;alvannee&quot;</span>,</span>
+<span id="cb154-4"><a href="action-graphics.html#cb154-4" tabindex="-1"></a>  <span class="st">&quot;labrador&quot;</span>, <span class="st">&quot;KCdYn0xu2fU&quot;</span>, <span class="st">&quot;shaneguymon&quot;</span>,</span>
+<span id="cb154-5"><a href="action-graphics.html#cb154-5" tabindex="-1"></a>  <span class="st">&quot;spaniel&quot;</span>, <span class="st">&quot;TzjMd7i5WQI&quot;</span>, <span class="st">&quot;_redo_&quot;</span></span>
+<span id="cb154-6"><a href="action-graphics.html#cb154-6" tabindex="-1"></a>)</span>
+<span id="cb154-7"><a href="action-graphics.html#cb154-7" tabindex="-1"></a></span>
+<span id="cb154-8"><a href="action-graphics.html#cb154-8" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb154-9"><a href="action-graphics.html#cb154-9" tabindex="-1"></a>  <span class="fu">selectInput</span>(<span class="st">&quot;id&quot;</span>, <span class="st">&quot;Pick a breed&quot;</span>, <span class="at">choices =</span> <span class="fu">setNames</span>(puppies<span class="sc">$</span>id, puppies<span class="sc">$</span>breed)),</span>
+<span id="cb154-10"><a href="action-graphics.html#cb154-10" tabindex="-1"></a>  <span class="fu">htmlOutput</span>(<span class="st">&quot;source&quot;</span>),</span>
+<span id="cb154-11"><a href="action-graphics.html#cb154-11" tabindex="-1"></a>  <span class="fu">imageOutput</span>(<span class="st">&quot;photo&quot;</span>)</span>
+<span id="cb154-12"><a href="action-graphics.html#cb154-12" tabindex="-1"></a>)</span>
+<span id="cb154-13"><a href="action-graphics.html#cb154-13" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb154-14"><a href="action-graphics.html#cb154-14" tabindex="-1"></a>  output<span class="sc">$</span>photo <span class="ot">&lt;-</span> <span class="fu">renderImage</span>({</span>
+<span id="cb154-15"><a href="action-graphics.html#cb154-15" tabindex="-1"></a>    <span class="fu">list</span>(</span>
+<span id="cb154-16"><a href="action-graphics.html#cb154-16" tabindex="-1"></a>      <span class="at">src =</span> <span class="fu">file.path</span>(<span class="st">&quot;puppy-photos&quot;</span>, <span class="fu">paste0</span>(input<span class="sc">$</span>id, <span class="st">&quot;.jpg&quot;</span>)),</span>
+<span id="cb154-17"><a href="action-graphics.html#cb154-17" tabindex="-1"></a>      <span class="at">contentType =</span> <span class="st">&quot;image/jpeg&quot;</span>,</span>
+<span id="cb154-18"><a href="action-graphics.html#cb154-18" tabindex="-1"></a>      <span class="at">width =</span> <span class="dv">500</span>,</span>
+<span id="cb154-19"><a href="action-graphics.html#cb154-19" tabindex="-1"></a>      <span class="at">height =</span> <span class="dv">650</span></span>
+<span id="cb154-20"><a href="action-graphics.html#cb154-20" tabindex="-1"></a>    )</span>
+<span id="cb154-21"><a href="action-graphics.html#cb154-21" tabindex="-1"></a>  }, <span class="at">deleteFile =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb154-22"><a href="action-graphics.html#cb154-22" tabindex="-1"></a>  </span>
+<span id="cb154-23"><a href="action-graphics.html#cb154-23" tabindex="-1"></a>  output<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
+<span id="cb154-24"><a href="action-graphics.html#cb154-24" tabindex="-1"></a>    info <span class="ot">&lt;-</span> puppies[puppies<span class="sc">$</span>id <span class="sc">==</span> input<span class="sc">$</span>id, , drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb154-25"><a href="action-graphics.html#cb154-25" tabindex="-1"></a>    <span class="fu">HTML</span>(glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;&lt;p&gt;</span></span>
+<span id="cb154-26"><a href="action-graphics.html#cb154-26" tabindex="-1"></a><span class="st">      &lt;a href=&#39;https://unsplash.com/photos/{info$id}&#39;&gt;original&lt;/a&gt; by</span></span>
+<span id="cb154-27"><a href="action-graphics.html#cb154-27" tabindex="-1"></a><span class="st">      &lt;a href=&#39;https://unsplash.com/@{info$author}&#39;&gt;{info$author}&lt;/a&gt;</span></span>
+<span id="cb154-28"><a href="action-graphics.html#cb154-28" tabindex="-1"></a><span class="st">    &lt;/p&gt;&quot;</span>))</span>
+<span id="cb154-29"><a href="action-graphics.html#cb154-29" tabindex="-1"></a>  })</span>
+<span id="cb154-30"><a href="action-graphics.html#cb154-30" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:puppies"></span>
+<img src="demos/action-graphics/puppies-corgi.png" alt="An app that displays cute pictures of puppies using `renderImage()`. See live at &lt;https://hadley.shinyapps.io/ms-puppies&gt;." width="50%" /><img src="demos/action-graphics/puppies-lab.png" alt="An app that displays cute pictures of puppies using `renderImage()`. See live at &lt;https://hadley.shinyapps.io/ms-puppies&gt;." width="50%" />
+<p class="caption">
+Figure 7.7: An app that displays cute pictures of puppies using <code>renderImage()</code>. See live at <a href="https://hadley.shinyapps.io/ms-puppies" class="uri">https://hadley.shinyapps.io/ms-puppies</a>.
+</p>
+</div>
+<p><code>renderImage()</code> needs to return a list.
+The only crucial argument is <code>src</code>, a local path to the image file.
+You can additionally supply:</p>
+<ul>
+<li><p>A <code>contentType</code>, which defines the MIME type of the image.
+If not provided, Shiny will guess from the file extension, so you only need to supply this if your images don’t have extensions.</p></li>
+<li><p>The <code>width</code> and <code>height</code> of the image, if known.</p></li>
+<li><p>Any other arguments, like <code>class</code> or <code>alt</code> will be added as attributes to the <code>&lt;img&gt;</code> tag in the HTML.</p></li>
+</ul>
+<p>You <strong>must</strong> also supply the <code>deleteFile</code> argument.
+Unfortunately <code>renderImage()</code> was originally designed to work with temporary files, so it automatically deleted images after rendering them.
+This was obviously very dangerous, so the behaviour changed in Shiny 1.5.0.
+Now shiny no longer deletes the images, but instead forces you to explicitly choose which behaviour you want.</p>
+<p>You can learn more about <code>renderImage()</code>, and see other ways that you might use it at <a href="https://shiny.rstudio.com/articles/images.html" class="uri">https://shiny.rstudio.com/articles/images.html</a>.</p>
+</div>
+<div id="summary-6" class="section level2" number="7.4">
+<h2><span class="header-section-number">7.4</span> Summary</h2>
+<p>Visualisations are tremendously powerful way to communicating data, and this chapter has given you a few advanced techniques to empower your Shiny apps.
+Next, you’ll learn techniques to provide feedback to your users about what’s going on in your app, which is particularly important for actions that take a non-trivial amount of time.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="23">
+<li id="fn23"><p>When I wrote this chapter, Shiny didn’t support touch events, which means that plot interactivity won’t work on mobile devices.
+Hopefully it will support these events by the time you read this.<a href="action-graphics.html#fnref23" class="footnote-back">↩︎</a></p></li>
+<li id="fn24"><p>Note that it’s not called <code>nearestPoints()</code>; it won’t return any thing if you don’t click near an existing data point.<a href="action-graphics.html#fnref24" class="footnote-back">↩︎</a></p></li>
+<li id="fn25"><p>As a general rule, adding explanatory text suggests that your interface is too complex, so is best avoided, where possible.
+This is the key idea behind “affordances”, the idea that an object should suggest naturally how to interact with it as introduced by Don Norman in the <em>“Design of Everyday Things”</em>.<a href="action-graphics.html#fnref25" class="footnote-back">↩︎</a></p></li>
+<li id="fn26"><p>Unfortunately there’s no easy way to keep them exactly the same because it’s currently not possible to find out the size of the fixed elements around the borders of the plot.<a href="action-graphics.html#fnref26" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Mastering Shiny</strong>" was written by Hadley Wickham. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+</body>
+
+</html>

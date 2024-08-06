@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Chapter 6 Layout, themes, HTML | Mastering Shiny</title>
+
+    <meta name="author" content="Hadley Wickham" />
+  
+   
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="Chapter 6 Layout, themes, HTML | Mastering Shiny" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Layout, themes, HTML | Mastering Shiny" />
+  
+  
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <script src="libs/bs3compat-0.5.0/transition.js"></script>
+    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+    
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Mastering Shiny</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="action-layout" class="section level1" number="6">
+<h1><span class="header-section-number">Chapter 6</span> Layout, themes, HTML</h1>
+<div id="introduction-4" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Introduction</h2>
+<p>In this chapter you’ll unlock some new tools for controlling the overall appearance of your app.
+We’ll start by talking about page layouts (both single and “multiple”) that let you organise your inputs and outputs.
+Then you’ll learn about Bootstrap, the CSS toolkit that Shiny uses, and how to customise its overall visual appearance with themes.
+We’ll finish with a brief discussion of what’s going on under the hood so that if you know HTML and CSS you can customise Shiny apps still further.</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="action-layout.html#cb122-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span></code></pre></div>
+</div>
+<div id="layout" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Single page layouts</h2>
+<p>In Chapter <a href="basic-ui.html#basic-ui">2</a> you learned about the inputs and outputs that form the interactive components of the app.
+But I didn’t talk about how to lay them out on the page, and instead I just used <code>fluidPage()</code> to slap them together as quickly as possible.
+While this is fine for learning Shiny, it doesn’t create usable or visually appealing apps, so now it’s time to learn some more layout functions.</p>
+<p>Layout functions provide the high-level visual structure of an app.
+Layouts are created by a hierarchy of function calls, where the hierarchy in R matches the hierarchy in the generated HTML.
+This helps you understand layout code.
+For example, when you look at layout code like this:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="action-layout.html#cb123-1" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb123-2"><a href="action-layout.html#cb123-2" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;Hello Shiny!&quot;</span>),</span>
+<span id="cb123-3"><a href="action-layout.html#cb123-3" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb123-4"><a href="action-layout.html#cb123-4" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb123-5"><a href="action-layout.html#cb123-5" tabindex="-1"></a>      <span class="fu">sliderInput</span>(<span class="st">&quot;obs&quot;</span>, <span class="st">&quot;Observations:&quot;</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">1000</span>, <span class="at">value =</span> <span class="dv">500</span>)</span>
+<span id="cb123-6"><a href="action-layout.html#cb123-6" tabindex="-1"></a>    ),</span>
+<span id="cb123-7"><a href="action-layout.html#cb123-7" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb123-8"><a href="action-layout.html#cb123-8" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">&quot;distPlot&quot;</span>)</span>
+<span id="cb123-9"><a href="action-layout.html#cb123-9" tabindex="-1"></a>    )</span>
+<span id="cb123-10"><a href="action-layout.html#cb123-10" tabindex="-1"></a>  )</span>
+<span id="cb123-11"><a href="action-layout.html#cb123-11" tabindex="-1"></a>)</span></code></pre></div>
+<p>Focus on the hierarchy of the function calls:</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="action-layout.html#cb124-1" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb124-2"><a href="action-layout.html#cb124-2" tabindex="-1"></a>  <span class="fu">titlePanel</span>(),</span>
+<span id="cb124-3"><a href="action-layout.html#cb124-3" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb124-4"><a href="action-layout.html#cb124-4" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(),</span>
+<span id="cb124-5"><a href="action-layout.html#cb124-5" tabindex="-1"></a>    <span class="fu">mainPanel</span>()</span>
+<span id="cb124-6"><a href="action-layout.html#cb124-6" tabindex="-1"></a>  )</span>
+<span id="cb124-7"><a href="action-layout.html#cb124-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Even though you haven’t learned these functions yet, you can guess what’s going on by reading their names.
+You might imagine that this code will generate a classic app design: a title bar at top, followed by a sidebar (containing a slider) and main panel (containing a plot).
+The ability to easily see hierarchy through indentation is one of the reasons it’s a good idea to use a consistent style.</p>
+<p>In the remainder of this section I’ll discuss the functions that help you design single-page apps, then moving on to multi-page apps in the next section.
+I also recommend checking out the Shiny <a href="https://shiny.rstudio.com/articles/layout-guide.html">Application layout guide</a>; it’s a little dated but contains some useful gems.</p>
+<div id="page-functions" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Page functions</h3>
+<p>The most important, but least interesting, layout function is <code>fluidPage()</code>, which you’ve seen in pretty much every example so far.
+But what’s it doing and what happens if you use it by itself?
+Figure <a href="action-layout.html#fig:ui-fluid-page">6.1</a> shows the results: it looks like a very boring app but there’s a lot going behind the scenes, because <code>fluidPage()</code> sets up all the HTML, CSS, and JavaScript that Shiny needs.</p>
+<div class="figure"><span style="display:block;" id="fig:ui-fluid-page"></span>
+<img src="images/action-layout/fluid-page.png" alt="An UI consisting only of `fluidPage()`" width="70%" />
+<p class="caption">
+Figure 6.1: An UI consisting only of <code>fluidPage()</code>
+</p>
+</div>
+<p>In addition to <code>fluidPage()</code>, Shiny provides a couple of other page functions that can come in handy in more specialised situations: <code>fixedPage()</code> and <code>fillPage()</code>.
+<code>fixedPage()</code> works like <code>fluidPage()</code> but has a fixed maximum width, which stops your apps from becoming unreasonable wide on bigger screens.
+<code>fillPage()</code> fills the full height of the browser and is useful if you want to make a plot that occupies the whole screen.
+You can find the details in their documentation.</p>
+</div>
+<div id="page-with-sidebar" class="section level3" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Page with sidebar</h3>
+<p>To make more complex layouts, you’ll need call layout functions inside of <code>fluidPage()</code>.
+For example, to make a two-column layout with inputs on the left and outputs on the right you can use <code>sidebarLayout()</code> (along with it’s friends <code>titlePanel()</code>, <code>sidebarPanel()</code>, and <code>mainPanel()</code>).
+The following code shows the basic structure to generate Figure <a href="action-layout.html#fig:ui-sidebar">6.2</a>.</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="action-layout.html#cb125-1" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb125-2"><a href="action-layout.html#cb125-2" tabindex="-1"></a>  <span class="fu">titlePanel</span>(</span>
+<span id="cb125-3"><a href="action-layout.html#cb125-3" tabindex="-1"></a>    <span class="co"># app title/description</span></span>
+<span id="cb125-4"><a href="action-layout.html#cb125-4" tabindex="-1"></a>  ),</span>
+<span id="cb125-5"><a href="action-layout.html#cb125-5" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb125-6"><a href="action-layout.html#cb125-6" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb125-7"><a href="action-layout.html#cb125-7" tabindex="-1"></a>      <span class="co"># inputs</span></span>
+<span id="cb125-8"><a href="action-layout.html#cb125-8" tabindex="-1"></a>    ),</span>
+<span id="cb125-9"><a href="action-layout.html#cb125-9" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb125-10"><a href="action-layout.html#cb125-10" tabindex="-1"></a>      <span class="co"># outputs</span></span>
+<span id="cb125-11"><a href="action-layout.html#cb125-11" tabindex="-1"></a>    )</span>
+<span id="cb125-12"><a href="action-layout.html#cb125-12" tabindex="-1"></a>  )</span>
+<span id="cb125-13"><a href="action-layout.html#cb125-13" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:ui-sidebar"></span>
+<img src="diagrams/action-layout/sidebar.png" alt="Structure of a basic app with sidebar" width="329" />
+<p class="caption">
+Figure 6.2: Structure of a basic app with sidebar
+</p>
+</div>
+<p>To make it more realistic, lets add an input and output to create a very simple app that demonstrates the Central Limit Theorem, as shown in Figure <a href="action-layout.html#fig:clt">6.3</a>.
+If you run this app yourself, you can increase the number of samples to see the distribution become more normal.</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="action-layout.html#cb126-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb126-2"><a href="action-layout.html#cb126-2" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;Central limit theorem&quot;</span>),</span>
+<span id="cb126-3"><a href="action-layout.html#cb126-3" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb126-4"><a href="action-layout.html#cb126-4" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb126-5"><a href="action-layout.html#cb126-5" tabindex="-1"></a>      <span class="fu">numericInput</span>(<span class="st">&quot;m&quot;</span>, <span class="st">&quot;Number of samples:&quot;</span>, <span class="dv">2</span>, <span class="at">min =</span> <span class="dv">1</span>, <span class="at">max =</span> <span class="dv">100</span>)</span>
+<span id="cb126-6"><a href="action-layout.html#cb126-6" tabindex="-1"></a>    ),</span>
+<span id="cb126-7"><a href="action-layout.html#cb126-7" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb126-8"><a href="action-layout.html#cb126-8" tabindex="-1"></a>      <span class="fu">plotOutput</span>(<span class="st">&quot;hist&quot;</span>)</span>
+<span id="cb126-9"><a href="action-layout.html#cb126-9" tabindex="-1"></a>    )</span>
+<span id="cb126-10"><a href="action-layout.html#cb126-10" tabindex="-1"></a>  )</span>
+<span id="cb126-11"><a href="action-layout.html#cb126-11" tabindex="-1"></a>)</span>
+<span id="cb126-12"><a href="action-layout.html#cb126-12" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb126-13"><a href="action-layout.html#cb126-13" tabindex="-1"></a>  output<span class="sc">$</span>hist <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb126-14"><a href="action-layout.html#cb126-14" tabindex="-1"></a>    means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="fl">1e4</span>, <span class="fu">mean</span>(<span class="fu">runif</span>(input<span class="sc">$</span>m)))</span>
+<span id="cb126-15"><a href="action-layout.html#cb126-15" tabindex="-1"></a>    <span class="fu">hist</span>(means, <span class="at">breaks =</span> <span class="dv">20</span>)</span>
+<span id="cb126-16"><a href="action-layout.html#cb126-16" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb126-17"><a href="action-layout.html#cb126-17" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:clt"></span>
+<img src="demos/action-layout/sidebar.png" alt="A common app design is to put controls in a sidebar and display results in the main panel" width="913" />
+<p class="caption">
+Figure 6.3: A common app design is to put controls in a sidebar and display results in the main panel
+</p>
+</div>
+</div>
+<div id="multi-row" class="section level3" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Multi-row</h3>
+<p>Under the hood, <code>sidebarLayout()</code> is built on top of a flexible multi-row layout, which you can use directly to create more visually complex apps.
+As usual, you start with <code>fluidPage()</code>.
+Then you create rows with <code>fluidRow()</code>, and columns with <code>column()</code>.
+The following template generates the structure shown in Figure <a href="action-layout.html#fig:ui-multirow">6.4</a>.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="action-layout.html#cb127-1" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb127-2"><a href="action-layout.html#cb127-2" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb127-3"><a href="action-layout.html#cb127-3" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">4</span>, </span>
+<span id="cb127-4"><a href="action-layout.html#cb127-4" tabindex="-1"></a>      ...</span>
+<span id="cb127-5"><a href="action-layout.html#cb127-5" tabindex="-1"></a>    ),</span>
+<span id="cb127-6"><a href="action-layout.html#cb127-6" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">8</span>, </span>
+<span id="cb127-7"><a href="action-layout.html#cb127-7" tabindex="-1"></a>      ...</span>
+<span id="cb127-8"><a href="action-layout.html#cb127-8" tabindex="-1"></a>    )</span>
+<span id="cb127-9"><a href="action-layout.html#cb127-9" tabindex="-1"></a>  ),</span>
+<span id="cb127-10"><a href="action-layout.html#cb127-10" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb127-11"><a href="action-layout.html#cb127-11" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">6</span>, </span>
+<span id="cb127-12"><a href="action-layout.html#cb127-12" tabindex="-1"></a>      ...</span>
+<span id="cb127-13"><a href="action-layout.html#cb127-13" tabindex="-1"></a>    ),</span>
+<span id="cb127-14"><a href="action-layout.html#cb127-14" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">6</span>, </span>
+<span id="cb127-15"><a href="action-layout.html#cb127-15" tabindex="-1"></a>      ...</span>
+<span id="cb127-16"><a href="action-layout.html#cb127-16" tabindex="-1"></a>    )</span>
+<span id="cb127-17"><a href="action-layout.html#cb127-17" tabindex="-1"></a>  )</span>
+<span id="cb127-18"><a href="action-layout.html#cb127-18" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:ui-multirow"></span>
+<img src="diagrams/action-layout/multirow.png" alt="The structure underlying a simple multi-row app" width="329" />
+<p class="caption">
+Figure 6.4: The structure underlying a simple multi-row app
+</p>
+</div>
+<p>Each row is made up of 12 columns and the first argument to <code>column()</code> gives how many of those columns to occupy.
+A 12 column layout gives you substantial flexibility because you can easily create 2-, 3-, or 4-column layouts, or use narrow columns to create spacers.
+You can see an example of this layout in Section <a href="basic-case-study.html#prototype">4.4</a>.</p>
+<!--# This would be a good place to include an example -->
+<p>If you’d like to learn more about designing using a grid system, I highly recommend the classic text on the subject: “<a href="https://www.amazon.com/dp/3721201450">Grid systems in graphic design</a>” by Josef Müller-Brockman.</p>
+</div>
+<div id="exercises-5" class="section level3" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li><p>Read the documentation of <code>sidebarLayout()</code> to determine the width (in columns) of the sidebar and the main panel.
+Can you recreate its appearance using <code>fluidRow()</code> and <code>column()</code>?
+What are you missing?</p></li>
+<li><p>Modify the Central Limit Theorem app to put the sidebar on the right instead of the left.</p></li>
+<li><p>Create an app with that contains two plots, each of which takes up half of the width.
+Put the controls in a full width container below the plots.</p></li>
+</ol>
+<!--# Exercise idea: right code to generate the layouts in these drawings/screenshots -->
+</div>
+</div>
+<div id="multi-page-layouts" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Multi-page layouts</h2>
+<p>As your app grows in complexity, it might become impossible to fit everything on a single page.
+In this section you’ll learn various uses of <code>tabPanel()</code> that create the illusion of multiple pages.
+This is an illusion because you’ll still have a single app with a single underlying HTML file, but it’s now broken into pieces and only one piece is visible at a time.</p>
+<p>Multi-page apps pair particularly well with modules, which you’ll learn about in Chapter <a href="#scaling-modules"><strong>??</strong></a>.
+Modules allow you to partition up the server function in the same way you partition up the user interface, creating independent components that only interact through well defined connections.</p>
+<div id="tabsets" class="section level3" number="6.3.1">
+<h3><span class="header-section-number">6.3.1</span> Tabsets</h3>
+<p>The simple way to break up a page into pieces is to use <code>tabsetPanel()</code> and its close friend <code>tabPanel()</code>.
+As you can see in the code below, <code>tabsetPanel()</code> creates a container for any number of <code>tabPanels()</code>, which can in turn contain any other HTML components.
+Figure <a href="action-layout.html#fig:tabset">6.5</a> shows a simple example.</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="action-layout.html#cb128-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb128-2"><a href="action-layout.html#cb128-2" tabindex="-1"></a>  <span class="fu">tabsetPanel</span>(</span>
+<span id="cb128-3"><a href="action-layout.html#cb128-3" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;Import data&quot;</span>, </span>
+<span id="cb128-4"><a href="action-layout.html#cb128-4" tabindex="-1"></a>      <span class="fu">fileInput</span>(<span class="st">&quot;file&quot;</span>, <span class="st">&quot;Data&quot;</span>, <span class="at">buttonLabel =</span> <span class="st">&quot;Upload...&quot;</span>),</span>
+<span id="cb128-5"><a href="action-layout.html#cb128-5" tabindex="-1"></a>      <span class="fu">textInput</span>(<span class="st">&quot;delim&quot;</span>, <span class="st">&quot;Delimiter (leave blank to guess)&quot;</span>, <span class="st">&quot;&quot;</span>),</span>
+<span id="cb128-6"><a href="action-layout.html#cb128-6" tabindex="-1"></a>      <span class="fu">numericInput</span>(<span class="st">&quot;skip&quot;</span>, <span class="st">&quot;Rows to skip&quot;</span>, <span class="dv">0</span>, <span class="at">min =</span> <span class="dv">0</span>),</span>
+<span id="cb128-7"><a href="action-layout.html#cb128-7" tabindex="-1"></a>      <span class="fu">numericInput</span>(<span class="st">&quot;rows&quot;</span>, <span class="st">&quot;Rows to preview&quot;</span>, <span class="dv">10</span>, <span class="at">min =</span> <span class="dv">1</span>)</span>
+<span id="cb128-8"><a href="action-layout.html#cb128-8" tabindex="-1"></a>    ),</span>
+<span id="cb128-9"><a href="action-layout.html#cb128-9" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;Set parameters&quot;</span>),</span>
+<span id="cb128-10"><a href="action-layout.html#cb128-10" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;Visualise results&quot;</span>)</span>
+<span id="cb128-11"><a href="action-layout.html#cb128-11" tabindex="-1"></a>  )</span>
+<span id="cb128-12"><a href="action-layout.html#cb128-12" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tabset"></span>
+<img src="demos/action-layout/tabset.png" alt="A `tabsetPanel()` allows the user to select a single `tabPanel()` to view" width="70%" />
+<p class="caption">
+Figure 6.5: A <code>tabsetPanel()</code> allows the user to select a single <code>tabPanel()</code> to view
+</p>
+</div>
+<p>If you want to know what tab a user has selected, you can provide the <code>id</code> argument to <code>tabsetPanel()</code> and it becomes an input.
+Figure <a href="action-layout.html#fig:tabset-input">6.6</a> shows this in action.</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="action-layout.html#cb129-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb129-2"><a href="action-layout.html#cb129-2" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb129-3"><a href="action-layout.html#cb129-3" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb129-4"><a href="action-layout.html#cb129-4" tabindex="-1"></a>      <span class="fu">textOutput</span>(<span class="st">&quot;panel&quot;</span>)</span>
+<span id="cb129-5"><a href="action-layout.html#cb129-5" tabindex="-1"></a>    ),</span>
+<span id="cb129-6"><a href="action-layout.html#cb129-6" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb129-7"><a href="action-layout.html#cb129-7" tabindex="-1"></a>      <span class="fu">tabsetPanel</span>(</span>
+<span id="cb129-8"><a href="action-layout.html#cb129-8" tabindex="-1"></a>        <span class="at">id =</span> <span class="st">&quot;tabset&quot;</span>,</span>
+<span id="cb129-9"><a href="action-layout.html#cb129-9" tabindex="-1"></a>        <span class="fu">tabPanel</span>(<span class="st">&quot;panel 1&quot;</span>, <span class="st">&quot;one&quot;</span>),</span>
+<span id="cb129-10"><a href="action-layout.html#cb129-10" tabindex="-1"></a>        <span class="fu">tabPanel</span>(<span class="st">&quot;panel 2&quot;</span>, <span class="st">&quot;two&quot;</span>),</span>
+<span id="cb129-11"><a href="action-layout.html#cb129-11" tabindex="-1"></a>        <span class="fu">tabPanel</span>(<span class="st">&quot;panel 3&quot;</span>, <span class="st">&quot;three&quot;</span>)</span>
+<span id="cb129-12"><a href="action-layout.html#cb129-12" tabindex="-1"></a>      )</span>
+<span id="cb129-13"><a href="action-layout.html#cb129-13" tabindex="-1"></a>    )</span>
+<span id="cb129-14"><a href="action-layout.html#cb129-14" tabindex="-1"></a>  )</span>
+<span id="cb129-15"><a href="action-layout.html#cb129-15" tabindex="-1"></a>)</span>
+<span id="cb129-16"><a href="action-layout.html#cb129-16" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb129-17"><a href="action-layout.html#cb129-17" tabindex="-1"></a>  output<span class="sc">$</span>panel <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
+<span id="cb129-18"><a href="action-layout.html#cb129-18" tabindex="-1"></a>    <span class="fu">paste</span>(<span class="st">&quot;Current panel: &quot;</span>, input<span class="sc">$</span>tabset)</span>
+<span id="cb129-19"><a href="action-layout.html#cb129-19" tabindex="-1"></a>  })</span>
+<span id="cb129-20"><a href="action-layout.html#cb129-20" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:tabset-input"></span>
+<img src="demos/action-layout/tabset-input-1.png" alt="A tabset becomes an input when you use the `id` argument. This allows you to make your app behave differently depending on which tab is currently visible." width="50%" /><img src="demos/action-layout/tabset-input-2.png" alt="A tabset becomes an input when you use the `id` argument. This allows you to make your app behave differently depending on which tab is currently visible." width="50%" />
+<p class="caption">
+Figure 6.6: A tabset becomes an input when you use the <code>id</code> argument. This allows you to make your app behave differently depending on which tab is currently visible.
+</p>
+</div>
+<p>Note <code>tabsetPanel()</code> can be used anywhere in your app; it’s totally fine to nest tabsets inside of other components (including tabsets!) if needed.</p>
+</div>
+<div id="navlists-and-navbars" class="section level3" number="6.3.2">
+<h3><span class="header-section-number">6.3.2</span> Navlists and navbars</h3>
+<p>Because tabs are displayed horizontally, there’s a fundamental limit to how many tabs you can use, particularly if they have long titles.
+<code>navbarPage()</code>and <code>navbarMenu()</code> provide two alternative layouts that let you use more tabs with longer titles.</p>
+<p><code>navlistPanel()</code> is similar to <code>tabsetPanel()</code> but instead of running the tab titles horizontally, it shows them vertically in a sidebar.
+It also allows you to add headings with plain strings, as shown in the code below, which generates Figure <a href="action-layout.html#fig:navlistPanel">6.7</a>.</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="action-layout.html#cb130-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb130-2"><a href="action-layout.html#cb130-2" tabindex="-1"></a>  <span class="fu">navlistPanel</span>(</span>
+<span id="cb130-3"><a href="action-layout.html#cb130-3" tabindex="-1"></a>    <span class="at">id =</span> <span class="st">&quot;tabset&quot;</span>,</span>
+<span id="cb130-4"><a href="action-layout.html#cb130-4" tabindex="-1"></a>    <span class="st">&quot;Heading 1&quot;</span>,</span>
+<span id="cb130-5"><a href="action-layout.html#cb130-5" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;panel 1&quot;</span>, <span class="st">&quot;Panel one contents&quot;</span>),</span>
+<span id="cb130-6"><a href="action-layout.html#cb130-6" tabindex="-1"></a>    <span class="st">&quot;Heading 2&quot;</span>,</span>
+<span id="cb130-7"><a href="action-layout.html#cb130-7" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;panel 2&quot;</span>, <span class="st">&quot;Panel two contents&quot;</span>),</span>
+<span id="cb130-8"><a href="action-layout.html#cb130-8" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;panel 3&quot;</span>, <span class="st">&quot;Panel three contents&quot;</span>)</span>
+<span id="cb130-9"><a href="action-layout.html#cb130-9" tabindex="-1"></a>  )</span>
+<span id="cb130-10"><a href="action-layout.html#cb130-10" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:navlistPanel"></span>
+<img src="demos/action-layout/navlistPanel.png" alt="A `navlistPanel()` displays the tab titles vertically, rather than horizontally." width="800" />
+<p class="caption">
+Figure 6.7: A <code>navlistPanel()</code> displays the tab titles vertically, rather than horizontally.
+</p>
+</div>
+<p>Another approach is use <code>navbarPage()</code>: it still runs the tab titles horizontally, but you can use <code>navbarMenu()</code> to add drop-down menus for an additional level of hierarchy.
+Figure <a href="action-layout.html#fig:navbarPage">6.8</a> shows a simple example.</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="action-layout.html#cb131-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">navbarPage</span>(</span>
+<span id="cb131-2"><a href="action-layout.html#cb131-2" tabindex="-1"></a>  <span class="st">&quot;Page title&quot;</span>,   </span>
+<span id="cb131-3"><a href="action-layout.html#cb131-3" tabindex="-1"></a>  <span class="fu">tabPanel</span>(<span class="st">&quot;panel 1&quot;</span>, <span class="st">&quot;one&quot;</span>),</span>
+<span id="cb131-4"><a href="action-layout.html#cb131-4" tabindex="-1"></a>  <span class="fu">tabPanel</span>(<span class="st">&quot;panel 2&quot;</span>, <span class="st">&quot;two&quot;</span>),</span>
+<span id="cb131-5"><a href="action-layout.html#cb131-5" tabindex="-1"></a>  <span class="fu">tabPanel</span>(<span class="st">&quot;panel 3&quot;</span>, <span class="st">&quot;three&quot;</span>),</span>
+<span id="cb131-6"><a href="action-layout.html#cb131-6" tabindex="-1"></a>  <span class="fu">navbarMenu</span>(<span class="st">&quot;subpanels&quot;</span>, </span>
+<span id="cb131-7"><a href="action-layout.html#cb131-7" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;panel 4a&quot;</span>, <span class="st">&quot;four-a&quot;</span>),</span>
+<span id="cb131-8"><a href="action-layout.html#cb131-8" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;panel 4b&quot;</span>, <span class="st">&quot;four-b&quot;</span>),</span>
+<span id="cb131-9"><a href="action-layout.html#cb131-9" tabindex="-1"></a>    <span class="fu">tabPanel</span>(<span class="st">&quot;panel 4c&quot;</span>, <span class="st">&quot;four-c&quot;</span>)</span>
+<span id="cb131-10"><a href="action-layout.html#cb131-10" tabindex="-1"></a>  )</span>
+<span id="cb131-11"><a href="action-layout.html#cb131-11" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:navbarPage"></span>
+<img src="demos/action-layout/navbarPage.png" alt="A `navbarPage()` sets up a horizontal nav bar at the top of the page." width="800" />
+<p class="caption">
+Figure 6.8: A <code>navbarPage()</code> sets up a horizontal nav bar at the top of the page.
+</p>
+</div>
+<p>These layouts give you considerable ability to create rich and satisfying apps.
+To go further, you’ll need to learn more about the underlying design system.</p>
+</div>
+</div>
+<div id="bootstrap" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Bootstrap</h2>
+<p>To continue your app customisation journey, you’ll need to learn a little more about the <a href="https://getbootstrap.com">Bootstrap</a> framework used by Shiny.
+Bootstrap is a collection of HTML conventions, CSS styles, and JS snippets bundled up into a convenient form.
+Bootstrap grew out of a framework originally developed for Twitter and over the last 10 years has grown to become one of the most popular CSS frameworks used on the web.
+Bootstrap is also popular in R — you’ve undoubtedly seen many documents produced by <code>rmarkdown::html_document()</code> and used many package websites made by <a href="http://pkgdown.r-lib.org/">pkgdown</a>, both of which also use Bootstrap.</p>
+<p>As a Shiny developer, you don’t need to think too much about Bootstrap, because Shiny functions automatically generate bootstrap compatible HTML for you.
+But it’s good to know that Bootstrap exists because then:</p>
+<ul>
+<li><p>You can use <code>bslib::bs_theme()</code> to customise the visual appearance of your code, Section <a href="action-layout.html#themes">6.5</a>.</p></li>
+<li><p>You can use the <code>class</code> argument to customise some layouts, inputs, and outputs using Bootstrap class names, as you saw in Section <a href="basic-ui.html#action-buttons">2.2.7</a>.</p></li>
+<li><p>You can make your own functions to generate Bootstrap components that Shiny doesn’t provide, as explained in “<a href="https://rstudio.github.io/bslib/articles/theming.html#utility-classes">Utility classes</a>”.</p></li>
+</ul>
+<p>It’s also possible to use a completely different CSS framework.
+A number of existing R packages make this easy by wrapping popular alternatives to Bootstrap:</p>
+<ul>
+<li><p><a href="https://appsilon.github.io/shiny.semantic/">shiny.semantic</a>, by <a href="https://appsilon.com/">Appsilon</a>, builds on top of <a href="https://fomantic-ui.com">formantic UI</a>.</p></li>
+<li><p><a href="https://github.com/RinteRface/shinyMobile">shinyMobile</a>, by <a href="https://rinterface.com">RInterface</a>, builds on top of <a href="https://framework7.io">framework 7</a>, and is specifically designed for mobile apps.</p></li>
+<li><p><a href="https://ericrayanderson.github.io/shinymaterial/">shinymaterial</a>, by <a href="https://github.com/ericrayanderson">Eric Anderson</a>, is built on top of Google’s <a href="https://material.io/design">Material design</a> framework.</p></li>
+<li><p><a href="https://rstudio.github.io/shinydashboard/">shinydashboard</a>, also by RStudio, provides a layout system designed to create dashboards.</p></li>
+</ul>
+<p>You can find a fuller, and actively maintained, list at <a href="https://github.com/nanxstats/awesome-shiny-extensions" class="uri">https://github.com/nanxstats/awesome-shiny-extensions</a>.</p>
+</div>
+<div id="themes" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> Themes</h2>
+<p>Bootstrap is so ubiquitous within the R community that it’s easy to get style fatigue: after a while every Shiny app and Rmd start to look the same.
+The solution is theming with the <a href="https://rstudio.github.io/bslib">bslib</a> package.
+bslib is relatively new package that allows you to override many Bootstrap defaults in order to create an appearance that is uniquely yours.
+As I write this, bslib is mostly applicable only to Shiny, but work is afoot to bring its enhanced theming power to RMarkdown, pkgdown, and more.</p>
+<p>If you’re producing apps for your company, I highly recommend investing a little time in theming — theming your app to match your corporate style guide is an easy way to make yourself look good.</p>
+<div id="getting-started" class="section level3" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Getting started</h3>
+<p>Create a theme with <code>bslib::bs_theme()</code> then apply it to an app with the <code>theme</code> argument of the page layout function:</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="action-layout.html#cb132-1" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb132-2"><a href="action-layout.html#cb132-2" tabindex="-1"></a>  <span class="at">theme =</span> bslib<span class="sc">::</span><span class="fu">bs_theme</span>(...)</span>
+<span id="cb132-3"><a href="action-layout.html#cb132-3" tabindex="-1"></a>)</span></code></pre></div>
+<p>If not specified, Shiny will use the classic Bootstrap v3 theme that it has used basically since it was created.
+By default, <code>bslib::bs_theme()</code>, will use Bootstrap v4.
+Using Bootstrap v4 instead of v3 will not cause problems if you only use built-in components.
+There is a possibility that it might cause problems if you’ve used custom HTML, so you can force it to stay with v3 with <code>version = 3</code>.</p>
+</div>
+<div id="shiny-themes" class="section level3" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Shiny themes</h3>
+<p>The easiest way to change the overall look of your app is to pick a premade “<a href="https://bootswatch.com">bootswatch</a>” theme using the <code>bootswatch</code> argument to <code>bslib::bs_theme()</code>.
+Figure <a href="action-layout.html#fig:theme">6.9</a> shows the results of the following code, switching <code>"darkly"</code> out for other themes.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="action-layout.html#cb133-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb133-2"><a href="action-layout.html#cb133-2" tabindex="-1"></a>  <span class="at">theme =</span> bslib<span class="sc">::</span><span class="fu">bs_theme</span>(<span class="at">bootswatch =</span> <span class="st">&quot;darkly&quot;</span>),</span>
+<span id="cb133-3"><a href="action-layout.html#cb133-3" tabindex="-1"></a>  <span class="fu">sidebarLayout</span>(</span>
+<span id="cb133-4"><a href="action-layout.html#cb133-4" tabindex="-1"></a>    <span class="fu">sidebarPanel</span>(</span>
+<span id="cb133-5"><a href="action-layout.html#cb133-5" tabindex="-1"></a>      <span class="fu">textInput</span>(<span class="st">&quot;txt&quot;</span>, <span class="st">&quot;Text input:&quot;</span>, <span class="st">&quot;text here&quot;</span>),</span>
+<span id="cb133-6"><a href="action-layout.html#cb133-6" tabindex="-1"></a>      <span class="fu">sliderInput</span>(<span class="st">&quot;slider&quot;</span>, <span class="st">&quot;Slider input:&quot;</span>, <span class="dv">1</span>, <span class="dv">100</span>, <span class="dv">30</span>)</span>
+<span id="cb133-7"><a href="action-layout.html#cb133-7" tabindex="-1"></a>    ),</span>
+<span id="cb133-8"><a href="action-layout.html#cb133-8" tabindex="-1"></a>    <span class="fu">mainPanel</span>(</span>
+<span id="cb133-9"><a href="action-layout.html#cb133-9" tabindex="-1"></a>      <span class="fu">h1</span>(<span class="fu">paste0</span>(<span class="st">&quot;Theme: darkly&quot;</span>)),</span>
+<span id="cb133-10"><a href="action-layout.html#cb133-10" tabindex="-1"></a>      <span class="fu">h2</span>(<span class="st">&quot;Header 2&quot;</span>),</span>
+<span id="cb133-11"><a href="action-layout.html#cb133-11" tabindex="-1"></a>      <span class="fu">p</span>(<span class="st">&quot;Some text&quot;</span>)</span>
+<span id="cb133-12"><a href="action-layout.html#cb133-12" tabindex="-1"></a>    )</span>
+<span id="cb133-13"><a href="action-layout.html#cb133-13" tabindex="-1"></a>  )</span>
+<span id="cb133-14"><a href="action-layout.html#cb133-14" tabindex="-1"></a>)</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:theme"></span>
+<img src="demos/action-layout/theme-darkly.png" alt="The same app styled with four bootswatch themes: darkly, flatly, sandstone, and united" width="50%" /><img src="demos/action-layout/theme-flatly.png" alt="The same app styled with four bootswatch themes: darkly, flatly, sandstone, and united" width="50%" /><img src="demos/action-layout/theme-sandstone.png" alt="The same app styled with four bootswatch themes: darkly, flatly, sandstone, and united" width="50%" /><img src="demos/action-layout/theme-united.png" alt="The same app styled with four bootswatch themes: darkly, flatly, sandstone, and united" width="50%" />
+<p class="caption">
+Figure 6.9: The same app styled with four bootswatch themes: darkly, flatly, sandstone, and united
+</p>
+</div>
+<p>Alternatively, you can construct your own theme using the other arguments to <code>bs_theme()</code> like <code>bg</code> (background colour), <code>fg</code> (foreground colour) and <code>base_font</code><a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a>:</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="action-layout.html#cb134-1" tabindex="-1"></a>theme <span class="ot">&lt;-</span> bslib<span class="sc">::</span><span class="fu">bs_theme</span>(</span>
+<span id="cb134-2"><a href="action-layout.html#cb134-2" tabindex="-1"></a>  <span class="at">bg =</span> <span class="st">&quot;#0b3d91&quot;</span>, </span>
+<span id="cb134-3"><a href="action-layout.html#cb134-3" tabindex="-1"></a>  <span class="at">fg =</span> <span class="st">&quot;white&quot;</span>, </span>
+<span id="cb134-4"><a href="action-layout.html#cb134-4" tabindex="-1"></a>  <span class="at">base_font =</span> <span class="st">&quot;Source Sans Pro&quot;</span></span>
+<span id="cb134-5"><a href="action-layout.html#cb134-5" tabindex="-1"></a>)</span></code></pre></div>
+<p>An easy way to preview and customise your theme is to use <code>bslib::bs_theme_preview(theme)</code>.
+This will open a Shiny app that shows what the theme looks like when applied many standard controls, and also provides you with interactive controls for customising the most important parameters.</p>
+</div>
+<div id="plot-themes" class="section level3" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> Plot themes</h3>
+<p>If you’ve heavily customised the style of your app, you may want to also customise your plots to match.
+Luckily, this is really easy thanks to the <a href="https://rstudio.github.io/thematic/">thematic</a> package which automatically themes ggplot2, lattice, and base plots.
+Just call <code>thematic_shiny()</code> in your server function.
+This will automatically determine all of the settings from your app theme as in Figure <a href="action-layout.html#fig:thematic">6.10</a>.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="action-layout.html#cb135-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb135-2"><a href="action-layout.html#cb135-2" tabindex="-1"></a><span class="co">#&gt; Warning: package &#39;ggplot2&#39; was built under R version 4.2.3</span></span>
+<span id="cb135-3"><a href="action-layout.html#cb135-3" tabindex="-1"></a></span>
+<span id="cb135-4"><a href="action-layout.html#cb135-4" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb135-5"><a href="action-layout.html#cb135-5" tabindex="-1"></a>  <span class="at">theme =</span> bslib<span class="sc">::</span><span class="fu">bs_theme</span>(<span class="at">bootswatch =</span> <span class="st">&quot;darkly&quot;</span>),</span>
+<span id="cb135-6"><a href="action-layout.html#cb135-6" tabindex="-1"></a>  <span class="fu">titlePanel</span>(<span class="st">&quot;A themed plot&quot;</span>),</span>
+<span id="cb135-7"><a href="action-layout.html#cb135-7" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>),</span>
+<span id="cb135-8"><a href="action-layout.html#cb135-8" tabindex="-1"></a>)</span>
+<span id="cb135-9"><a href="action-layout.html#cb135-9" tabindex="-1"></a></span>
+<span id="cb135-10"><a href="action-layout.html#cb135-10" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
+<span id="cb135-11"><a href="action-layout.html#cb135-11" tabindex="-1"></a>  thematic<span class="sc">::</span><span class="fu">thematic_shiny</span>()</span>
+<span id="cb135-12"><a href="action-layout.html#cb135-12" tabindex="-1"></a>  </span>
+<span id="cb135-13"><a href="action-layout.html#cb135-13" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
+<span id="cb135-14"><a href="action-layout.html#cb135-14" tabindex="-1"></a>    <span class="fu">ggplot</span>(mtcars, <span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span></span>
+<span id="cb135-15"><a href="action-layout.html#cb135-15" tabindex="-1"></a>      <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb135-16"><a href="action-layout.html#cb135-16" tabindex="-1"></a>      <span class="fu">geom_smooth</span>()</span>
+<span id="cb135-17"><a href="action-layout.html#cb135-17" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
+<span id="cb135-18"><a href="action-layout.html#cb135-18" tabindex="-1"></a>}</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:thematic"></span>
+<img src="demos/action-layout/thematic.png" alt="Use `thematic::thematic_shiny()` ensures that the ggplot2 automatically matches the app theme" width="977" />
+<p class="caption">
+Figure 6.10: Use <code>thematic::thematic_shiny()</code> ensures that the ggplot2 automatically matches the app theme
+</p>
+</div>
+</div>
+<div id="exercises-6" class="section level3" number="6.5.4">
+<h3><span class="header-section-number">6.5.4</span> Exercises</h3>
+<ol style="list-style-type: decimal">
+<li>Use <code>bslib::bs_theme_preview()</code> to make the ugliest theme you can.</li>
+</ol>
+</div>
+</div>
+<div id="under-the-hood" class="section level2" number="6.6">
+<h2><span class="header-section-number">6.6</span> Under the hood</h2>
+<p>Shiny is designed so that, as an R user, you don’t need to learn about the details of HTML.
+However, if you know some HTML and CSS, it’s possible to customise Shiny still further.
+Unfortunately teaching HTML and CSS is out scope for this book, but a good place to start are the <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/HTML_basics">HTML</a> and <a href="https://developer.mozilla.org/en-US/docs/Learn/Getting_started_with_the_web/CSS_basics">CSS basics</a> tutorials by MDN.</p>
+<p>The most important thing to know is that there’s no magic behind all the input, output, and layout functions: they just generate HTML<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>.
+You can see that HTML by executing UI functions directly in the console:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="action-layout.html#cb136-1" tabindex="-1"></a><span class="fu">fluidPage</span>(</span>
+<span id="cb136-2"><a href="action-layout.html#cb136-2" tabindex="-1"></a>  <span class="fu">textInput</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;What&#39;s your name?&quot;</span>)</span>
+<span id="cb136-3"><a href="action-layout.html#cb136-3" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode html"><code class="sourceCode html"><span id="cb137-1"><a href="action-layout.html#cb137-1" tabindex="-1"></a><span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;container-fluid&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb137-2"><a href="action-layout.html#cb137-2" tabindex="-1"></a>  <span class="kw">&lt;div</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;form-group shiny-input-container&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb137-3"><a href="action-layout.html#cb137-3" tabindex="-1"></a>    <span class="kw">&lt;label</span> <span class="er">for</span><span class="ot">=</span><span class="st">&quot;name&quot;</span><span class="kw">&gt;</span>What&#39;s your name?<span class="kw">&lt;/label&gt;</span></span>
+<span id="cb137-4"><a href="action-layout.html#cb137-4" tabindex="-1"></a>    <span class="kw">&lt;input</span> <span class="er">id</span><span class="ot">=</span><span class="st">&quot;name&quot;</span> <span class="er">type</span><span class="ot">=</span><span class="st">&quot;text&quot;</span> <span class="er">class</span><span class="ot">=</span><span class="st">&quot;form-control&quot;</span> <span class="er">value</span><span class="ot">=</span><span class="st">&quot;&quot;</span><span class="kw">/&gt;</span></span>
+<span id="cb137-5"><a href="action-layout.html#cb137-5" tabindex="-1"></a>  <span class="kw">&lt;/div&gt;</span></span>
+<span id="cb137-6"><a href="action-layout.html#cb137-6" tabindex="-1"></a><span class="kw">&lt;/div&gt;</span></span></code></pre></div>
+<p>Note that this is the contents of the <code>&lt;body&gt;</code> tag; other parts of Shiny take care of generating the <code>&lt;head&gt;</code>.
+If you want to include additional CSS or JS dependencies you’ll need to learn <code>htmltools::htmlDependency()</code>.
+Two good places to start are <a href="https://blog.r-hub.io/2020/08/25/js-r/#web-dependency-management" class="uri">https://blog.r-hub.io/2020/08/25/js-r/#web-dependency-management</a> and <a href="https://unleash-shiny.rinterface.com/htmltools-dependencies.html" class="uri">https://unleash-shiny.rinterface.com/htmltools-dependencies.html</a>.</p>
+<p>It’s possible to add your own HTML to the <code>ui</code>.
+One way to do so is by including literal HTML with the <code>HTML()</code> function.
+In the example below, I use the “raw character constant<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>”, <code>r"()"</code>, to make it easier to include quotes in the string:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="action-layout.html#cb138-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb138-2"><a href="action-layout.html#cb138-2" tabindex="-1"></a>  <span class="fu">HTML</span>(r<span class="st">&quot;(</span></span>
+<span id="cb138-3"><a href="action-layout.html#cb138-3" tabindex="-1"></a><span class="st">    &lt;h1&gt;This is a heading&lt;/h1&gt;</span></span>
+<span id="cb138-4"><a href="action-layout.html#cb138-4" tabindex="-1"></a><span class="st">    &lt;p class=&quot;</span>my<span class="sc">-</span>class<span class="st">&quot;&gt;This is some text!&lt;/p&gt;</span></span>
+<span id="cb138-5"><a href="action-layout.html#cb138-5" tabindex="-1"></a><span class="st">    &lt;ul&gt;</span></span>
+<span id="cb138-6"><a href="action-layout.html#cb138-6" tabindex="-1"></a><span class="st">      &lt;li&gt;First bullet&lt;/li&gt;</span></span>
+<span id="cb138-7"><a href="action-layout.html#cb138-7" tabindex="-1"></a><span class="st">      &lt;li&gt;Second bullet&lt;/li&gt;</span></span>
+<span id="cb138-8"><a href="action-layout.html#cb138-8" tabindex="-1"></a><span class="st">    &lt;/ul&gt;</span></span>
+<span id="cb138-9"><a href="action-layout.html#cb138-9" tabindex="-1"></a><span class="st">  )&quot;</span>)</span>
+<span id="cb138-10"><a href="action-layout.html#cb138-10" tabindex="-1"></a>)</span></code></pre></div>
+<p>If you’re a HTML/CSS expert, you might be interested to know that can skip <code>fluidPage()</code> altogether and supply raw HTML.
+See “<a href="https://shiny.rstudio.com/articles/html-ui.html">Build your entire UI with HTML</a>” for more details.</p>
+<p>Alternatively, you can use of the HTML helper that Shiny provides.
+There are regular functions for the most important elements like <code>h1()</code> and <code>p()</code>, and all others can be accessed via the other tags helper.
+Named arguments become attributes and unnamed arguments become children, so we can recreate the above HTML as:</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="action-layout.html#cb139-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb139-2"><a href="action-layout.html#cb139-2" tabindex="-1"></a>  <span class="fu">h1</span>(<span class="st">&quot;This is a heading&quot;</span>),</span>
+<span id="cb139-3"><a href="action-layout.html#cb139-3" tabindex="-1"></a>  <span class="fu">p</span>(<span class="st">&quot;This is some text&quot;</span>, <span class="at">class =</span> <span class="st">&quot;my-class&quot;</span>),</span>
+<span id="cb139-4"><a href="action-layout.html#cb139-4" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">ul</span>(</span>
+<span id="cb139-5"><a href="action-layout.html#cb139-5" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">li</span>(<span class="st">&quot;First bullet&quot;</span>), </span>
+<span id="cb139-6"><a href="action-layout.html#cb139-6" tabindex="-1"></a>    tags<span class="sc">$</span><span class="fu">li</span>(<span class="st">&quot;Second bullet&quot;</span>)</span>
+<span id="cb139-7"><a href="action-layout.html#cb139-7" tabindex="-1"></a>  )</span>
+<span id="cb139-8"><a href="action-layout.html#cb139-8" tabindex="-1"></a>)</span></code></pre></div>
+<p>One advantage of generating HTML with code is that you can interweave existing Shiny components into a custom structure.
+For example, the code below makes a paragraph of text containing two outputs, one which is bold:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="action-layout.html#cb140-1" tabindex="-1"></a>tags<span class="sc">$</span><span class="fu">p</span>(</span>
+<span id="cb140-2"><a href="action-layout.html#cb140-2" tabindex="-1"></a>  <span class="st">&quot;You made &quot;</span>, </span>
+<span id="cb140-3"><a href="action-layout.html#cb140-3" tabindex="-1"></a>  tags<span class="sc">$</span><span class="fu">b</span>(<span class="st">&quot;$&quot;</span>, <span class="fu">textOutput</span>(<span class="st">&quot;amount&quot;</span>, <span class="at">inline =</span> <span class="cn">TRUE</span>)),</span>
+<span id="cb140-4"><a href="action-layout.html#cb140-4" tabindex="-1"></a>  <span class="st">&quot; in the last &quot;</span>, </span>
+<span id="cb140-5"><a href="action-layout.html#cb140-5" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;days&quot;</span>, <span class="at">inline =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb140-6"><a href="action-layout.html#cb140-6" tabindex="-1"></a>  <span class="st">&quot; days &quot;</span> </span>
+<span id="cb140-7"><a href="action-layout.html#cb140-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Note the use of <code>inline = TRUE</code>; the <code>textOutput()</code> default is to produe a complete paragraph.</p>
+<p>To learn more about using HTML, CSS, and JavaScript to make compelling user interfaces, I highly recommend David Granjon’s <a href="https://unleash-shiny.rinterface.com/index.html">Outstanding User Interfaces with Shiny</a>.</p>
+</div>
+<div id="summary-5" class="section level2" number="6.7">
+<h2><span class="header-section-number">6.7</span> Summary</h2>
+<p>This chapter has given you the tools you need to make complex and attractive Shiny apps.
+You’ve learned the Shiny functions that allow you to layout single and multi-page apps (like <code>fluidPage()</code> and <code>tabsetPanel()</code>) and how to customise the overall visual appearance with themes.
+You’ve also learned a little bit about what’s going on under the hood: you know that Shiny uses Bootstrap, and that the input and output functions just return HTML, which you can also create yourself.</p>
+<p>In the next chapter you’ll learn more about another important visual component of your app: graphics.</p>
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="20">
+<li id="fn20"><p>Fonts are a little trickier than colours because you have to make sure the app viewer has the font, not just you.
+Make sure to read the <code>bs_theme()</code> docs for all the details.<a href="action-layout.html#fnref20" class="footnote-back">↩︎</a></p></li>
+<li id="fn21"><p>The magic that connects inputs and outputs to R happens elsewhere (via javascript) but that’s well beyond the scope of this book.<a href="action-layout.html#fnref21" class="footnote-back">↩︎</a></p></li>
+<li id="fn22"><p>Introduced in R 4.0.0.<a href="action-layout.html#fnref22" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Mastering Shiny</strong>" was written by Hadley Wickham. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+</body>
+
+</html>
