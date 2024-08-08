@@ -47,7 +47,15 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 2</span> Basic UI</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="basic-intro.html">Introduction</a></li>
+<li><a class="" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
+<li><a class="active" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
+<li><a class="" href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/zhenghu159/blogdown-book-zh-cn">View book source <i class="fab fa-github"></i></a></p>
@@ -71,7 +79,7 @@
 然而，有一个丰富且充满活力的扩展包社区，例如 <a href="https://github.com/dreamRs/shinyWidgets">shinyWidgets</a>、<a href="https://github.com/daattali/colourpicker">colorpicker</a>、和 <a href="https://rstudio.github.io/sortable/">sorttable</a>。
 您可以在 <a href="https://github.com/nanxstats/awesome-shiny-extensions" class="uri">https://github.com/nanxstats/awesome-shiny-extensions</a> 找到全面的、积极维护的其他软件包列表，由 <a href="https://nanx.me/">Nan Xiao</a> 维护。</p>
 <p>像往常一样，我们将首先加载 shiny 包：</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="inputs" class="section level2" number="2.2">
@@ -99,7 +107,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 第三个参数通常是 <code>value</code>，在可能的情况下，让您设置默认值。
 其余参数对于该控件来说是唯一的。</p>
 <p>创建输入时，我建议按位置提供 <code>inputId</code> 和 <code>label</code> 参数，并按名称提供所有其他参数：</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"min"</span>, <span class="st">"Limit (minimum)"</span>, value <span class="op">=</span> <span class="fl">50</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span></code></pre></div>
 <p>以下部分描述了 Shiny 中内置的输入，根据它们创建的控件类型松散地分组。
 目的是让您快速了解您的选择，而不是详尽地描述所有参数。
@@ -110,8 +118,8 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <span class="header-section-number">2.2.2</span> Free text<a class="anchor" aria-label="anchor" href="#free-text"><i class="fas fa-link"></i></a>
 </h3>
 <p>使用 <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput()</a></code> 收集少量文本，使用 <code><a href="https://rdrr.io/pkg/shiny/man/passwordInput.html">passwordInput()</a></code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;&lt;code&gt;passwordInput()&lt;/code&gt; 所做的只是隐藏用户正在输入的内容，这样别人就无法看到它。
-您必须确保密码不会意外泄露，因此除非您接受过安全编程方面的培训，否则我们不建议您使用密码。&lt;/p&gt;"><sup>1</sup></a> 收集密码，使用 <code><a href="https://rdrr.io/pkg/shiny/man/textAreaInput.html">textAreaInput()</a></code> 收集文本段落。</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+您必须确保密码不会意外泄露，因此除非您接受过安全编程方面的培训，否则我们不建议您使用密码。&lt;/p&gt;"><sup>3</sup></a> 收集密码，使用 <code><a href="https://rdrr.io/pkg/shiny/man/textAreaInput.html">textAreaInput()</a></code> 收集文本段落。</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput</a></span><span class="op">(</span><span class="st">"name"</span>, <span class="st">"What's your name?"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/passwordInput.html">passwordInput</a></span><span class="op">(</span><span class="st">"password"</span>, <span class="st">"What's your password?"</span><span class="op">)</span>,</span>
@@ -126,7 +134,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 </h3>
 <p>要收集数值，请使用 <code><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput()</a></code> 创建受约束的文本框或使用 <code><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput()</a></code> 创建滑块。
 如果为 <code><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput()</a></code> 的默认值提供长度为 2 的数值向量，您将得到一个有两端的“范围”滑块。</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"num"</span>, <span class="st">"Number one"</span>, value <span class="op">=</span> <span class="fl">0</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"num2"</span>, <span class="st">"Number two"</span>, value <span class="op">=</span> <span class="fl">50</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
@@ -143,7 +151,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 </h3>
 <p>使用 <code><a href="https://rdrr.io/pkg/shiny/man/dateInput.html">dateInput()</a></code> 收集单个日期，或使用 <code><a href="https://rdrr.io/pkg/shiny/man/dateRangeInput.html">dateRangeInput()</a></code> 收集两个日期的范围。
 它们提供了一个方便的日历选择器，并且像 <code>datesdisabled</code> 和 <code>daysofweekdisabled</code> 这样的附加参数允许您限制有效输入的集合。</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateInput.html">dateInput</a></span><span class="op">(</span><span class="st">"dob"</span>, <span class="st">"When were you born?"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateRangeInput.html">dateRangeInput</a></span><span class="op">(</span><span class="st">"holiday"</span>, <span class="st">"When do you want to go on vacation next?"</span><span class="op">)</span></span>
@@ -157,7 +165,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <span class="header-section-number">2.2.5</span> Limited choices<a class="anchor" aria-label="anchor" href="#limited-choices"><i class="fas fa-link"></i></a>
 </h3>
 <p>有两种不同的方法允许用户从一组预先指定的选项中进行选择：<code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> 和 <code><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons()</a></code>。</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">animals</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span>, <span class="st">"mouse"</span>, <span class="st">"bird"</span>, <span class="st">"other"</span>, <span class="st">"I hate animals"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -167,7 +175,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <div class="inline-figure"><img src="demos/basic-ui/limited-choices.png" width="600"></div>
 <p>单选按钮有两个很好的功能：它们显示所有可能的选项，使其适合短列表，并且通过 <code>choiceNames</code>/<code>choiceValues</code> 参数，它们可以显示纯文本以外的选项。
 <code>choiceNames</code> 决定向用户显示的内容；<code>choiceValues</code> 决定 server 函数中返回的内容。</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/radioButtons.html">radioButtons</a></span><span class="op">(</span><span class="st">"rb"</span>, <span class="st">"Choose one:"</span>,</span>
 <span>    choiceNames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -181,7 +189,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <div class="inline-figure"><img src="demos/basic-ui/radio-icon.png" width="600"></div>
 <p>无论选项数量多少，使用 <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> 创建的下拉菜单都会占用相同的空间，这使得它们更适合较长的选项。
 您还可以设置 <code>multiple = TRUE</code> 以允许用户选择多个元素。</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span></span>
 <span>    <span class="st">"state"</span>, <span class="st">"What's your favourite state?"</span>, <span class="va">state.name</span>,</span>
@@ -192,13 +200,13 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <p>如果您有大量可能的选项，您可能需要使用“服务器端” <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code>，以便完整的可能选项集不会嵌入到 UI 中（这会导致加载速度变慢），而是由 server 根据需要发送。
 您可以在 <a href="https://shiny.rstudio.com/articles/selectize.html#server-side-selectize" class="uri">https://shiny.rstudio.com/articles/selectize.html#server-side-selectize</a> 了解有关此高级主题的更多信息。</p>
 <p>无法使用单选按钮选择多个值，但有一个概念上类似的替代方案：<code><a href="https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html">checkboxGroupInput()</a></code>。</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/checkboxGroupInput.html">checkboxGroupInput</a></span><span class="op">(</span><span class="st">"animal"</span>, <span class="st">"What animals do you like?"</span>, <span class="va">animals</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="demos/basic-ui/multi-radio.png" width="600"></div>
 <p>如果您想要单个复选框用于单个是/否问题，请使用 <code><a href="https://rdrr.io/pkg/shiny/man/checkboxInput.html">checkboxInput()</a></code>：</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/checkboxInput.html">checkboxInput</a></span><span class="op">(</span><span class="st">"cleanup"</span>, <span class="st">"Clean up?"</span>, value <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/checkboxInput.html">checkboxInput</a></span><span class="op">(</span><span class="st">"shutdown"</span>, <span class="st">"Shutdown?"</span><span class="op">)</span></span>
@@ -210,7 +218,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <span class="header-section-number">2.2.6</span> File uploads<a class="anchor" aria-label="anchor" href="#file-uploads"><i class="fas fa-link"></i></a>
 </h3>
 <p>通过 <code><a href="https://rdrr.io/pkg/shiny/man/fileInput.html">fileInput()</a></code> 允许用户使上传文件：</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fileInput.html">fileInput</a></span><span class="op">(</span><span class="st">"upload"</span>, <span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -222,18 +230,18 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <span class="header-section-number">2.2.7</span> Action buttons<a class="anchor" aria-label="anchor" href="#action-buttons"><i class="fas fa-link"></i></a>
 </h3>
 <p>使用 <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton()</a></code> 或<code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionLink()</a></code> 让用户执行操作：</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"click"</span>, <span class="st">"Click me!"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"drink"</span>, <span class="st">"Drink me!"</span>, icon <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html">icon</a></span><span class="op">(</span><span class="st">"cocktail"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <div class="inline-figure"><img src="demos/basic-ui/action.png" width="600"></div>
 <p>操作链接和按钮最自然地与 server 函数中的 <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent()</a></code> 或 <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive()</a></code> 配对。
-您还没有了解这些重要的功能，但我们将在 Section <a href="#controlling-timing-of-evaluation"><strong>??</strong></a> 中回顾它们。</p>
+您还没有了解这些重要的功能，但我们将在 Section <a href="basic-reactivity.html#controlling-timing-of-evaluation">3.5</a> 中回顾它们。</p>
 <p>您可以使用 <code>class</code> 参数通过使用 <code>"btn-primary"</code>、<code>"btn-success"</code>、<code>"btn-info"</code>、<code>"btn-warning"</code>、<code>"btn-danger"</code> 其中的一个来自定义外观。
 您还可以使用 <code>"btn-lg"</code>、<code>"btn-sm"</code>、<code>"btn-xs"</code> 更改大小。
 最后，您可以使用 <code>"btn-block"</code> 使按钮跨越它们嵌入的元素的整个宽度。</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"click"</span>, <span class="st">"Click me!"</span>, class <span class="op">=</span> <span class="st">"btn-danger"</span><span class="op">)</span>,</span>
@@ -275,7 +283,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 </h2>
 <p>UI 中的输出创建占位符，稍后由 server 函数填充。
 与输入一样，输出采用唯一的 ID 作为其第一个参数<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;请注意，该参数的名称对于输入（&lt;code&gt;inputId&lt;/code&gt;）和输出（&lt;code&gt;outputId&lt;/code&gt;）是不同的。
-我不使用第一个参数的名称，因为它非常重要，我希望您无需额外提示就能记住它的作用。&lt;/p&gt;"><sup>2</sup></a>：如果您的 UI 规范创建 ID 为 <code>"plot"</code> 的输出，您将在 server 函数中使用 <code>output$plot</code> 访问它。</p>
+我不使用第一个参数的名称，因为它非常重要，我希望您无需额外提示就能记住它的作用。&lt;/p&gt;"><sup>4</sup></a>：如果您的 UI 规范创建 ID 为 <code>"plot"</code> 的输出，您将在 server 函数中使用 <code>output$plot</code> 访问它。</p>
 <p>前端的每个 <code>output</code> 函数都与后端的 <code>render</code> 函数耦合。
 输出主要有三种类型，对应于报告中通常包含的三种内容：文本、表格和图表。
 以下部分向您展示前端输出函数的基础知识，以及后端相应的 <code>render</code> 函数。</p>
@@ -284,7 +292,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <span class="header-section-number">2.3.1</span> Text<a class="anchor" aria-label="anchor" href="#text"><i class="fas fa-link"></i></a>
 </h3>
 <p>使用 <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput()</a></code> 输出常规文本，使用 <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> 输出固定代码和控制台输出。</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"text"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"code"</span><span class="op">)</span></span>
@@ -301,7 +309,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <p>请注意，仅当需要运行多行代码时，render 函数中才需要 <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code>。
 正如您很快就会了解到的，您应该在 render 函数中进行尽可能少的计算，这意味着您通常可以忽略它们。
 如果写得更紧凑的话，上面的 server 函数会是这样的：</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="st">"Hello friend!"</span><span class="op">)</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
@@ -314,7 +322,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <code><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint()</a></code> 打印结果，就像在 R console 中一样，并且通常与 <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> 配对。</li>
 </ul>
 <p>我们可以看到与 toy app 的区别：</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"text"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"print"</span><span class="op">)</span></span>
@@ -337,7 +345,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 </ul>
 <p><code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> 对于小型固定摘要最有用（例如模型系数）；如果您想向用户公开完整的 data frame，则 <code><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html">dataTableOutput()</a></code> 最合适。
 如果您想更好地控制 <code><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html">dataTableOutput()</a></code> 的输出，我强烈推荐 Greg Lin 的 <a href="https://glin.github.io/reactable/index.html">reactable</a> 包。</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"static"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"dynamic"</span><span class="op">)</span></span>
@@ -353,7 +361,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <span class="header-section-number">2.3.3</span> Plots<a class="anchor" aria-label="anchor" href="#plots"><i class="fas fa-link"></i></a>
 </h3>
 <p>您可以使用 <code><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput()</a></code> 和 <code><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot()</a></code> 显示任何类型的 R 图形（base、ggplot2 或其他）：</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span>, width <span class="op">=</span> <span class="st">"400px"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -395,7 +403,7 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 <li>
 <p>更新下面对 <code><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html">renderDataTable()</a></code> 的调用中的选项，以便显示数据，但抑制所有其他控件（即删除搜索、排序和过滤命令）。
 您需要阅读 <code><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html">?renderDataTable</a></code> 并查看 <a href="https://datatables.net/reference/option/" class="uri">https://datatables.net/reference/option/</a> 中的选项。</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderDataTable.html">dataTableOutput</a></span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -419,25 +427,42 @@ Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以�
 </div>
 </div>
 
-
-
-
-
-
-
-
-
-
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></div>
+<div class="next"><a href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#basic-ui"><span class="header-section-number">2</span> Basic UI</a></li>
+<li><a class="nav-link" href="#introduction-1"><span class="header-section-number">2.1</span> Introduction</a></li>
+<li>
+<a class="nav-link" href="#inputs"><span class="header-section-number">2.2</span> Inputs</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#common-structure"><span class="header-section-number">2.2.1</span> Common structure</a></li>
+<li><a class="nav-link" href="#free-text"><span class="header-section-number">2.2.2</span> Free text</a></li>
+<li><a class="nav-link" href="#numeric-inputs"><span class="header-section-number">2.2.3</span> Numeric inputs</a></li>
+<li><a class="nav-link" href="#dates"><span class="header-section-number">2.2.4</span> Dates</a></li>
+<li><a class="nav-link" href="#limited-choices"><span class="header-section-number">2.2.5</span> Limited choices</a></li>
+<li><a class="nav-link" href="#file-uploads"><span class="header-section-number">2.2.6</span> File uploads</a></li>
+<li><a class="nav-link" href="#action-buttons"><span class="header-section-number">2.2.7</span> Action buttons</a></li>
+<li><a class="nav-link" href="#exercises-1"><span class="header-section-number">2.2.8</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#outputs"><span class="header-section-number">2.3</span> Outputs</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#text"><span class="header-section-number">2.3.1</span> Text</a></li>
+<li><a class="nav-link" href="#tables"><span class="header-section-number">2.3.2</span> Tables</a></li>
+<li><a class="nav-link" href="#plots"><span class="header-section-number">2.3.3</span> Plots</a></li>
+<li><a class="nav-link" href="#downloads"><span class="header-section-number">2.3.4</span> Downloads</a></li>
+<li><a class="nav-link" href="#exercises-2"><span class="header-section-number">2.3.5</span> Exercises</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#summary-1"><span class="header-section-number">2.4</span> Summary</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+<li><a id="book-source" href="https://github.com/zhenghu159/blogdown-book-zh-cn/blob/master/basic-ui.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/zhenghu159/blogdown-book-zh-cn/edit/master/basic-ui.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

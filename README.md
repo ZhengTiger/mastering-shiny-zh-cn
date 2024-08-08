@@ -14,7 +14,7 @@ Try to translate **Mastering Shiny** into Simplified Chinese.
 |:---------------------------------|:---------|:----------|
 | 1 Your first Shiny app           | ✔        | 2024.8.7  |
 | 2 Basic UI                       | ✔        | 2024.8.8  |
-| 3 Basic reactivity              |         |  |
+| 3 Basic reactivity               | ✔        | 2024.8.8  |
 | 4 Case study: ER injuries               |         |  |
 | 5 Workflow                  |         |  |
 | 6 Layout, themes, HTML               |         |  |
