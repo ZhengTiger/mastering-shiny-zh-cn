@@ -47,7 +47,14 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 1</span> Your first Shiny app</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="basic-intro.html">Introduction</a></li>
+<li><a class="active" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
+<li><a class="" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/zhenghu159/blogdown-book-zh-cn">View book source <i class="fab fa-github"></i></a></p>
@@ -67,11 +74,11 @@
 接下来，您将学习每个 Shiny app 的两个关键组件：定义 app 外观的 <strong>UI</strong>（user interface 的缩写），和定义 app 工作方式的 <strong>server function</strong>。
 Shiny 使用<strong>响应式编程（reactive programming）</strong>在输入变化时自动更新输出，因此我们将通过学习 Shiny app 的第三个重要组件来结束本章：<strong>响应式表达式（reactive expressions）</strong>。</p>
 <p>如果您尚未安装 Shiny，请立即安装：</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"shiny"</span><span class="op">)</span></span></code></pre></div>
 <p>如果您已经安装了 Shiny，请使用 <code>packageVersion("shiny")</code> 检查您是否拥有 1.5.0 或更高版本。</p>
 <p>然后加载当前的 R 会话：</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="create-app" class="section level2" number="1.2">
@@ -82,7 +89,7 @@ Shiny 使用<strong>响应式编程（reactive programming）</strong>在输入�
 最简单的方法是为您的 app 创建一个新目录，并在其中放置一个名为 <code>app.R</code> 的文件。
 这个 <code>app.R</code> 文件将用于告诉 Shiny 您的 app 应该如何显示以及它应该如何运行。</p>
 <p>通过创建一个新目录并添加一个如下所示的 <code>app.R</code> 文件来尝试一下：</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Hello, world!"</span></span>
@@ -136,7 +143,7 @@ Figure 1.2: 当您运行上面的代码时，您将看到一个非常基本的 s
 </div>
 <p>在关闭 app 之前，请返回 RStudio 并查看 R console。
 你会注意到它说的是这样的：</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#&gt; Listening on http://127.0.0.1:3827</span></span></code></pre></div>
 <p>这告诉您可以找到您的 app 的 URL：127.0.0.1 是一个标准地址，表示“这台计算机”，3827 是一个随机分配的端口号（port）。
 您可以在任何兼容的<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Shiny 致力于支持所有现代浏览器，您可以在 &lt;a href="https://www.rstudio.com/about/platform-support/" class="uri"&gt;https://www.rstudio.com/about/platform-support/&lt;/a&gt; 上查看当前支持的浏览器集。
@@ -162,7 +169,7 @@ Figure 1.2: 当您运行上面的代码时，您将看到一个非常基本的 s
 <p>接下来，我们将向 UI 添加一些输入和输出，这样它就不会那么小了。
 我们将制作一个非常简单的 app，向您显示 datasets 包中包含的所有内置 data frames。</p>
 <p>将您的 <code>ui</code> 替换为以下代码：</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"dataset"</span>, label <span class="op">=</span> <span class="st">"Dataset"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="st">"package:datasets"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"summary"</span><span class="op">)</span>,</span>
@@ -174,10 +181,10 @@ Figure 1.2: 当您运行上面的代码时，您将看到一个非常基本的 s
 您将在 Section <a href="#layout"><strong>??</strong></a> 中了解有关它们的更多信息。</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> 是一个 <strong>input control</strong>，允许用户通过提供值（value）与 app 交互。
 在本例中，它是一个带有 “Dataset” 标签的选择框，可让您选择 R 附带的内置数据集之一。
-您将在 Section <a href="#inputs"><strong>??</strong></a> 中了解有关输入的更多信息。</p></li>
+您将在 Section <a href="basic-ui.html#inputs">2.2</a> 中了解有关输入的更多信息。</p></li>
 <li><p><code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> 和 <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> 是 <strong>output controls</strong>，它们告诉 Shiny 将渲染的输出放在哪里（我们稍后会介绍如何放置）。
 <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> 显示代码，<code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> 显示表格。
-您将在 Section <a href="#outputs"><strong>??</strong></a> 中了解有关输出的更多信息。</p></li>
+您将在 Section <a href="basic-ui.html#outputs">2.3</a> 中了解有关输出的更多信息。</p></li>
 </ul>
 <p>布局函数、输入和输出有不同的用途，但它们本质上是相同的：它们都是生成 HTML 的奇特方法，如果您在 Shiny app 之外调用其中任何一个，您将看到 HTML 在控制台打印出来。
 不要害怕四处探索，看看这些不同的布局和控件在幕后是如何工作的。</p>
@@ -201,7 +208,7 @@ Figure 1.3: The datasets app with UI
 这就像给某人一个菜谱和要求他们给你做一个三明治之间的区别。</p>
 <p>我们将通过提供这些输出的“配方”来告诉 Shiny 如何在示例 app 中填写 <code>summary</code> 和 <code>table</code> 输出。
 将空的 <code>server</code> 函数替换为：</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span>
@@ -235,7 +242,7 @@ Figure 1.4: 现在我们已经提供了连接输出和输入的 server function�
 <span class="header-section-number">1.6</span> Reducing duplication with reactive expressions<a class="anchor" aria-label="anchor" href="#reactive-expr"><i class="fas fa-link"></i></a>
 </h2>
 <p>即使在这个简单的示例中，我们也有一些重复的代码：两个输出中都存在以下行。</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span></code></pre></div>
 <p>在每种编程中，重复代码都是不好的做法；它可能会造成计算浪费，更重要的是，它增加了维护或调试代码的难度。
 这在这里并不重要，但我想在一个非常简单的上下文中说明基本思想。</p>
@@ -244,7 +251,7 @@ Figure 1.4: 现在我们已经提供了连接输出和输入的 server function�
 但是，虽然看起来像是在调用函数，但响应式表达式有一个重要的区别：它仅在第一次调用时运行，然后缓存其结果，直到需要更新为止。</p>
 <p>我们可以更新我们的 <code>server()</code> 以使用响应式表达式，如下所示。
 该 app 的行为相同，但工作效率更高一些，因为它只需要检索数据集一次，而不是两次。</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Create a reactive expression</span></span>
 <span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -286,7 +293,7 @@ Figure 1.5: Shiny cheatsheet, available from <a href="https://www.rstudio.com/re
 <p>创建一个通过名字向用户打招呼的 app。
 您还不知道执行此操作所需的所有函数，因此我在下面添加了一些代码行。
 考虑一下您将使用哪些行，然后将它们复制并粘贴到 Shiny app 中的正确位置。</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"mortgage"</span><span class="op">)</span></span>
 <span><span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Hello "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
@@ -301,7 +308,7 @@ Figure 1.5: Shiny cheatsheet, available from <a href="https://www.rstudio.com/re
 <li>
 <p>假设您的朋友想要设计一个 app，允许用户设置 1 到 50 之间的数字 (<code>x</code>)，并显示该数字乘以 5 的结果。
 这是他们的第一次尝试：</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -330,7 +337,7 @@ Figure 1.5: Shiny cheatsheet, available from <a href="https://www.rstudio.com/re
 <p>使用以下 app，它为上一个练习中描述的最后一个 app 添加了一些附加功能。
 什么是新的？
 如何通过使用响应式表达式来减少 app 中重复代码的数量。</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -363,7 +370,7 @@ Figure 1.5: Shiny cheatsheet, available from <a href="https://www.rstudio.com/re
 它还遵循良好实践并利用响应式表达式来避免代码冗余。
 然而，下面提供的代码中存在三个错误。
 你能找到并修复它们吗？</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.2.3</span></span>
@@ -393,26 +400,27 @@ Figure 1.5: Shiny cheatsheet, available from <a href="https://www.rstudio.com/re
 </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="basic-intro.html">Introduction</a></div>
+<div class="next"><a href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#basic-app"><span class="header-section-number">1</span> Your first Shiny app</a></li>
+<li><a class="nav-link" href="#introduction"><span class="header-section-number">1.1</span> Introduction</a></li>
+<li><a class="nav-link" href="#create-app"><span class="header-section-number">1.2</span> Create app directory and file</a></li>
+<li><a class="nav-link" href="#running"><span class="header-section-number">1.3</span> Running and stopping</a></li>
+<li><a class="nav-link" href="#adding-ui"><span class="header-section-number">1.4</span> Adding UI controls</a></li>
+<li><a class="nav-link" href="#server-function"><span class="header-section-number">1.5</span> Adding behaviour</a></li>
+<li><a class="nav-link" href="#reactive-expr"><span class="header-section-number">1.6</span> Reducing duplication with reactive expressions</a></li>
+<li><a class="nav-link" href="#summary"><span class="header-section-number">1.7</span> Summary</a></li>
+<li><a class="nav-link" href="#exercises"><span class="header-section-number">1.8</span> Exercises</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+<li><a id="book-source" href="https://github.com/zhenghu159/blogdown-book-zh-cn/blob/master/basic-app.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/zhenghu159/blogdown-book-zh-cn/edit/master/basic-app.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

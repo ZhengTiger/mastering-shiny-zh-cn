@@ -12,8 +12,8 @@ Try to translate **Mastering Shiny** into Simplified Chinese.
 
 | Chapter                          | progress | Time      |
 |:---------------------------------|:---------|:----------|
-| 1 Your first Shiny app           | ✔        | 2024.8.8  |
-| 2 Basic UI                 |         |   |
+| 1 Your first Shiny app           | ✔        | 2024.8.7  |
+| 2 Basic UI                       | ✔        | 2024.8.8  |
 | 3 Basic reactivity              |         |  |
 | 4 Case study: ER injuries               |         |  |
 | 5 Workflow                  |         |  |

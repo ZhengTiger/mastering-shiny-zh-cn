@@ -4,18 +4,18 @@
 
 ## Introduction
 
-Now that you have a basic app under your belt, we can start to explore the details that make Shiny tick.
-As you saw in the previous chapter, Shiny encourages separation of the code that generates your user interface (the front end) from the code that drives your app's behaviour (the back end).
+现在您已经掌握了一个基本的 app，我们可以开始探索让 Shiny 发挥作用的细节。
+正如您在上一章中看到的，Shiny 鼓励将生成用户界面（前端）的代码与驱动 app 行为的代码（后端）分离。
 
-In this chapter, we'll focus on the front end, and give you a whirlwind tour of the HTML inputs and outputs provided by Shiny.
-This gives you the ability to capture many types of data and display many types of R output.
-You don't yet have many ways to stitch the inputs and outputs together, but we'll come back to that in Chapter \@ref(action-layout).
+在本章中，我们将重点关注前端，并带您快速了解 Shiny 提供的 HTML 输入和输出。
+这使您能够捕获多种类型的数据并显示多种类型的 R 输出。
+你还没有很多方法将输入和输出拼接在一起，但我们将在 Chapter \@ref(action-layout) 中回到这一点。
 
-Here I'll mostly stick to the inputs and outputs built into Shiny itself.
-However, there is a rich and vibrant community of extension packages, like [shinyWidgets](https://github.com/dreamRs/shinyWidgets), [colorpicker](https://github.com/daattali/colourpicker), and [sorttable](https://rstudio.github.io/sortable/).
-You can find a comprehensive, actively-maintained list of other packages at <https://github.com/nanxstats/awesome-shiny-extensions>, maintained by [Nan Xiao](https://nanx.me/).
+在这里，我将主要坚持 Shiny 本身内置的输入和输出。
+然而，有一个丰富且充满活力的扩展包社区，例如 [shinyWidgets](https://github.com/dreamRs/shinyWidgets)、[colorpicker](https://github.com/daattali/colourpicker)、和 [sorttable](https://rstudio.github.io/sortable/)。
+您可以在 <https://github.com/nanxstats/awesome-shiny-extensions> 找到全面的、积极维护的其他软件包列表，由 [Nan Xiao](https://nanx.me/) 维护。
 
-As usual, we'll begin by loading the shiny package:
+像往常一样，我们将首先加载 shiny 包：
 
 
 ```r
@@ -24,45 +24,45 @@ library(shiny)
 
 ## Inputs {#inputs}
 
-As we saw in the previous chapter, you use functions like `sliderInput()`, `selectInput()`, `textInput()`, and `numericInput()` to insert input controls into your UI specification.
-Now we'll discuss the common structure that underlies all input functions and give a quick overview of the inputs built into Shiny.
+正如我们在上一章中看到的，您可以使用 `sliderInput()`、`selectInput()`、`textInput()` 和 `numericInput()` 等函数将输入控件插入到 UI 规范中。
+现在我们将讨论所有输入函数的通用结构，并快速概述 Shiny 中内置的输入。
 
 ### Common structure
 
-All input functions have the same first argument: `inputId`.
-This is the identifier used to connect the front end with the back end: if your UI has an input with ID `"name"`, the server function will access it with `input$name`.
+所有输入函数都有相同的第一个参数：`inputId`。
+这是用于连接前端和后端的标识符：如果您的 UI 有一个 ID 为 `"name"` 的输入，server 函数将使用 `input$name` 访问它。
 
-The `inputId` has two constraints:
+`inputId` 有两个约束：
 
--   It must be a simple string that contains only letters, numbers, and underscores (no spaces, dashes, periods, or other special characters allowed!).
-    Name it like you would name a variable in R.
+-   它必须是一个仅包含字母、数字和下划线的简单字符串（不允许包含空格、短划线、句点或其他特殊字符！）。
+    命名它就像在 R 中命名变量一样。
 
--   It must be unique.
-    If it's not unique, you'll have no way to refer to this control in your server function!
+-   它必须是独一无二的。
+    如果它不是唯一的，您将无法在 server 函数中引用此控件！
 
-Most input functions have a second parameter called `label`.
-This is used to create a human-readable label for the control.
-Shiny doesn't place any restrictions on this string, but you'll need to carefully think about it to make sure that your app is usable by humans!
-The third parameter is typically `value`, which, where possible, lets you set the default value.
-The remaining parameters are unique to the control.
+大多数输入函数都有第二个参数，称为 `label`。
+这用于为控件创建人类可读的标签。
+Shiny 不会对此字符串施加任何限制，但您需要仔细考虑它以确保您的 app 可供人类使用！
+第三个参数通常是 `value`，在可能的情况下，让您设置默认值。
+其余参数对于该控件来说是唯一的。
 
-When creating an input, I recommend supplying the `inputId` and `label` arguments by position, and all other arguments by name:
+创建输入时，我建议按位置提供 `inputId` 和 `label` 参数，并按名称提供所有其他参数：
 
 
 ```r
 sliderInput("min", "Limit (minimum)", value = 50, min = 0, max = 100)
 ```
 
-The following sections describe the inputs built into Shiny, loosely grouped according to the type of control they create.
-The goal is to give you a rapid overview of your options, not to exhaustively describe all the arguments.
-I'll show the most important parameters for each control below, but you'll need to read the documentation to get the full details.
+以下部分描述了 Shiny 中内置的输入，根据它们创建的控件类型松散地分组。
+目的是让您快速了解您的选择，而不是详尽地描述所有参数。
+我将在下面显示每个控件最重要的参数，但您需要阅读文档才能获取完整的详细信息。
 
 ### Free text
 
-Collect small amounts of text with `textInput()`, passwords with `passwordInput()`[^basic-ui-1], and paragraphs of text with `textAreaInput()`.
+使用 `textInput()` 收集少量文本，使用 `passwordInput()`[^basic-ui-1] 收集密码，使用 `textAreaInput()` 收集文本段落。
 
-[^basic-ui-1]: All `passwordInput()` does is hide what the user is typing, so that someone looking over their shoulder can't read it.
-    It's up to you to make sure that any passwords are not accidentally exposed, so we don't recommend using passwords unless you have had some training in secure programming.
+[^basic-ui-1]: `passwordInput()` 所做的只是隐藏用户正在输入的内容，这样别人就无法看到它。
+    您必须确保密码不会意外泄露，因此除非您接受过安全编程方面的培训，否则我们不建议您使用密码。
 
 
 ```r
@@ -75,12 +75,12 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/free-text.png" width="600" />
 
-If you want to ensure that the text has certain properties you can use `validate()`, which we'll come back to in Chapter \@ref(action-feedback).
+如果你想确保文本具有某些属性，你可以使用 `validate()`，我们将在 Chapter \@ref(action-feedback) 中讨论这一点。
 
 ### Numeric inputs
 
-To collect numeric values, create a constrained text box with `numericInput()` or a slider with `sliderInput()`.
-If you supply a length-2 numeric vector for the default value of `sliderInput()`, you get a "range" slider with two ends.
+要收集数值，请使用 `numericInput()` 创建受约束的文本框或使用 `sliderInput()` 创建滑块。
+如果为 `sliderInput()` 的默认值提供长度为 2 的数值向量，您将得到一个有两端的“范围”滑块。
 
 
 ```r
@@ -93,16 +93,15 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/numeric.png" width="600" />
 
-Generally, I recommend only using sliders for small ranges, or cases where the precise value is not so important.
-Attempting to precisely select a number on a small slider is an exercise in frustration!
+一般来说，我建议仅在小范围或精确值不太重要的情况下使用滑块。
+尝试在小滑块上精确选择数字是一项令人沮丧的练习！
 
-Sliders are extremely customisable and there are many ways to tweak their appearance.
-See `?sliderInput` and <https://shiny.rstudio.com/articles/sliders.html> for more details.
+滑块是高度可定制的，并且有很多方法可以调整其外观。有关更多详细信息，请参阅 `?sliderInput` 和 <https://shiny.rstudio.com/articles/sliders.html>。
 
 ### Dates
 
-Collect a single day with `dateInput()` or a range of two days with `dateRangeInput()`.
-These provide a convenient calendar picker, and additional arguments like `datesdisabled` and `daysofweekdisabled` allow you to restrict the set of valid inputs.
+使用 `dateInput()` 收集单个日期，或使用 `dateRangeInput()` 收集两个日期的范围。
+它们提供了一个方便的日历选择器，并且像 `datesdisabled` 和 `daysofweekdisabled` 这样的附加参数允许您限制有效输入的集合。
 
 
 ```r
@@ -114,12 +113,12 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/date.png" width="600" />
 
-Date format, language, and the day on which the week starts defaults to US standards.
-If you are creating an app with an international audience, set `format`, `language`, and `weekstart` so that the dates are natural to your users.
+日期格式、语言和一周开始日期默认为美国标准。
+如果您要创建面向国际受众的应用程序，请设置 `format`、`language`、和 `weekstart`，以便日期对您的用户来说是自然的。
 
 ### Limited choices
 
-There are two different approaches to allow the user to choose from a prespecified set of options: `selectInput()` and `radioButtons()`.
+有两种不同的方法允许用户从一组预先指定的选项中进行选择：`selectInput()` 和 `radioButtons()`。
 
 
 ```r
@@ -133,8 +132,8 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/limited-choices.png" width="600" />
 
-Radio buttons have two nice features: they show all possible options, making them suitable for short lists, and via the `choiceNames`/`choiceValues` arguments, they can display options other than plain text.
-`choiceNames` determines what is shown to the user; `choiceValues` determines what is returned in your server function.
+单选按钮有两个很好的功能：它们显示所有可能的选项，使其适合短列表，并且通过 `choiceNames`/`choiceValues` 参数，它们可以显示纯文本以外的选项。
+`choiceNames` 决定向用户显示的内容；`choiceValues` 决定 server 函数中返回的内容。
 
 
 ```r
@@ -152,8 +151,8 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/radio-icon.png" width="600" />
 
-Dropdowns created with `selectInput()` take up the same amount of space, regardless of the number of options, making them more suitable for longer options.
-You can also set `multiple = TRUE` to allow the user to select multiple elements.
+无论选项数量多少，使用 `selectInput()` 创建的下拉菜单都会占用相同的空间，这使得它们更适合较长的选项。
+您还可以设置 `multiple = TRUE` 以允许用户选择多个元素。
 
 
 ```r
@@ -167,10 +166,10 @@ ui <- fluidPage(
 
 <img src="images/basic-ui/multi-select.png" width="234" />
 
-If you have a very large set of possible options, you may want to use "server-side" `selectInput()` so that the complete set of possible options are not embedded in the UI (which can make it slow to load), but instead sent as needed by the server.
-You can learn more about this advanced topic at <https://shiny.rstudio.com/articles/selectize.html#server-side-selectize>.
+如果您有大量可能的选项，您可能需要使用“服务器端” `selectInput()`，以便完整的可能选项集不会嵌入到 UI 中（这会导致加载速度变慢），而是由 server 根据需要发送。
+您可以在 <https://shiny.rstudio.com/articles/selectize.html#server-side-selectize> 了解有关此高级主题的更多信息。
 
-There's no way to select multiple values with radio buttons, but there's an alternative that's conceptually similar: `checkboxGroupInput()`.
+无法使用单选按钮选择多个值，但有一个概念上类似的替代方案：`checkboxGroupInput()`。
 
 
 ```r
@@ -181,7 +180,7 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/multi-radio.png" width="600" />
 
-If you want a single checkbox for a single yes/no question, use `checkboxInput()`:
+如果您想要单个复选框用于单个是/否问题，请使用 `checkboxInput()`：
 
 
 ```r
@@ -195,7 +194,7 @@ ui <- fluidPage(
 
 ### File uploads
 
-Allow the user to upload a file with `fileInput()`:
+通过 `fileInput()` 允许用户使上传文件：
 
 
 ```r
@@ -206,11 +205,11 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/upload.png" width="600" />
 
-`fileInput()` requires special handling on the server side, and is discussed in detail in Chapter \@ref(action-transfer).
+`fileInput()` 需要在服务器端进行特殊处理，在 Chapter \@ref(action-transfer) 中详细讨论。
 
 ### Action buttons {#action-buttons}
 
-Let the user perform an action with `actionButton()` or `actionLink()`:
+使用 `actionButton()` 或`actionLink()` 让用户执行操作：
 
 
 ```r
@@ -222,12 +221,12 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/action.png" width="600" />
 
-Actions links and buttons are most naturally paired with `observeEvent()` or `eventReactive()` in your server function.
-You haven't learned about these important functions yet, but we'll come back to them in Section \@ref(controlling-timing-of-evaluation).
+操作链接和按钮最自然地与 server 函数中的 `observeEvent()` 或 `eventReactive()` 配对。
+您还没有了解这些重要的功能，但我们将在 Section \@ref(controlling-timing-of-evaluation) 中回顾它们。
 
-You can customise the appearance using the `class` argument by using one of `"btn-primary"`, `"btn-success"`, `"btn-info"`, `"btn-warning"`, or `"btn-danger"`.
-You can also change the size with `"btn-lg"`, `"btn-sm"`, `"btn-xs"`.
-Finally, you can make buttons span the entire width of the element they are embedded within using `"btn-block"`.
+您可以使用 `class` 参数通过使用 `"btn-primary"`、`"btn-success"`、`"btn-info"`、`"btn-warning"`、`"btn-danger"` 其中的一个来自定义外观。
+您还可以使用 `"btn-lg"`、`"btn-sm"`、`"btn-xs"` 更改大小。
+最后，您可以使用 `"btn-block"` 使按钮跨越它们嵌入的元素的整个宽度。
 
 
 ```r
@@ -244,42 +243,42 @@ ui <- fluidPage(
 
 <img src="demos/basic-ui/action-css.png" width="600" />
 
-The `class` argument works by setting the `class` attribute of the underlying HTML, which affects how the element is styled.
-To see other options, you can read the documentation for Bootstrap, the CSS design system used by Shiny: [\<http://bootstrapdocs.com/v3.3.6/docs/css/\#buttons\>](http://bootstrapdocs.com/v3.3.6/docs/css/#buttons){.uri}.
+`class` 参数通过设置底层 HTML 的 `class` 属性来工作，这会影响元素的样式。
+要查看其他选项，您可以阅读 Bootstrap（Shiny 使用的 CSS 设计系统）的文档：[\<http://bootstrapdocs.com/v3.3.6/docs/css/\#buttons\>](http://bootstrapdocs.com/v3.3.6/docs/css/#buttons){.uri}。
 
 ### Exercises
 
-1.  When space is at a premium, it's useful to label text boxes using a placeholder that appears *inside* the text entry area.
-    How do you call `textInput()` to generate the UI below?
+1.  当空间非常宝贵时，使用出现在文本输入区域内的占位符来标记文本框非常有用。
+    如何调用 `textInput()` 来生成下面的 UI？
 
     <img src="demos/basic-ui/placeholder.png" width="600" />
 
-2.  Carefully read the documentation for `sliderInput()` to figure out how to create a date slider, as shown below.
+2.  仔细阅读 `sliderInput()` 的文档，了解如何创建日期滑块，如下所示。
 
     <img src="demos/basic-ui/date-slider.png" width="600" />
 
-3.  Create a slider input to select values between 0 and 100 where the interval between each selectable value on the slider is 5.
-    Then, add animation to the input widget so when the user presses play the input widget scrolls through the range automatically.
+3.  创建一个滑块输入以选择 0 到 100 之间的值，其中滑块上每个可选值之间的间隔为 5。
+    然后，向 input widget 添加动画，以便当用户按下“播放”时，input widget 会自动滚动该范围。
 
-4.  If you have a moderately long list in a `selectInput()`, it's useful to create sub-headings that break the list up into pieces.
-    Read the documentation to figure out how.
-    (Hint: the underlying HTML is called `<optgroup>`.)
+4.  如果 `selectInput()` 中有一个相当长的列表，那么创建将列表分成几部分的子标题会很有用。
+    阅读文档以了解如何操作。
+    （提示：底层 HTML 称为 `<optgroup>`。）
 
 ## Outputs {#outputs}
 
-Outputs in the UI create placeholders that are later filled by the server function.
-Like inputs, outputs take a unique ID as their first argument[^basic-ui-2]: if your UI specification creates an output with ID `"plot"`, you'll access it in the server function with `output$plot`.
+UI 中的输出创建占位符，稍后由 server 函数填充。
+与输入一样，输出采用唯一的 ID 作为其第一个参数[^basic-ui-2]：如果您的 UI 规范创建 ID 为 `"plot"` 的输出，您将在 server 函数中使用 `output$plot` 访问它。
 
-[^basic-ui-2]: Note that the name of that argument is different for inputs (`inputId`) and outputs (`outputId`).
-    I don't use the name of the first argument because it's so important and I expect you to remember what it does without an additional hint.
+[^basic-ui-2]: 请注意，该参数的名称对于输入（`inputId`）和输出（`outputId`）是不同的。
+    我不使用第一个参数的名称，因为它非常重要，我希望您无需额外提示就能记住它的作用。
 
-Each `output` function on the front end is coupled with a `render` function in the back end.
-There are three main types of output, corresponding to the three things you usually include in a report: text, tables, and plots.
-The following sections show you the basics of the output functions on the front end, along with the corresponding `render` functions in the back end.
+前端的每个 `output` 函数都与后端的 `render` 函数耦合。
+输出主要有三种类型，对应于报告中通常包含的三种内容：文本、表格和图表。
+以下部分向您展示前端输出函数的基础知识，以及后端相应的 `render` 函数。
 
 ### Text
 
-Output regular text with `textOutput()` and fixed code and console output with `verbatimTextOutput()`.
+使用 `textOutput()` 输出常规文本，使用 `verbatimTextOutput()` 输出固定代码和控制台输出。
 
 
 ```r
@@ -299,9 +298,9 @@ server <- function(input, output, session) {
 
 <img src="demos/basic-ui/output-text.png" width="600" />
 
-Note that the `{}` are only required in render functions if need to run multiple lines of code.
-As you'll learn shortly, you should do as little computation in your render functions as possible, which means you can often omit them.
-Here's what the server function above would look like if written more compactly::
+请注意，仅当需要运行多行代码时，render 函数中才需要 `{}`。
+正如您很快就会了解到的，您应该在 render 函数中进行尽可能少的计算，这意味着您通常可以忽略它们。
+如果写得更紧凑的话，上面的 server 函数会是这样的：
 
 
 ```r
@@ -311,12 +310,12 @@ server <- function(input, output, session) {
 }
 ```
 
-Note that there are two render functions which behave slightly differently:
+请注意，有两个 render 函数的行为略有不同：
 
--   `renderText()` combines the result into a single string, and is usually paired with `textOutput()`
--   `renderPrint()` *prints* the result, as if you were in an R console, and is usually paired with `verbatimTextOutput()`.
+-   `renderText()` 将结果组合成单个字符串，通常与 `textOutput()` 配对
+-   `renderPrint()` 打印结果，就像在 R console 中一样，并且通常与 `verbatimTextOutput()` 配对。
 
-We can see the difference with a toy app:
+我们可以看到与 toy app 的区别：
 
 
 ```r
@@ -332,18 +331,18 @@ server <- function(input, output, session) {
 
 <img src="demos/basic-ui/text-vs-print.png" width="600" />
 
-This is equivalent to the difference between `cat()` and `print()` in base R.
+这相当于 R 语言中 `cat()` 和 `print()` 的区别。
 
 ### Tables
 
-There are two options for displaying data frames in tables:
+有两种用于在表格中显示 data frames 的选项：
 
--   `tableOutput()` and `renderTable()` render a static table of data, showing all the data at once.
+-   `tableOutput()` 和 `renderTable()` 渲染静态数据表，一次性显示所有数据。
 
--   `dataTableOutput()` and `renderDataTable()` render a dynamic table, showing a fixed number of rows along with controls to change which rows are visible.
+-   `dataTableOutput()` 和 `renderDataTable()` 呈现一个动态表，显示固定数量的行以及用于更改哪些行可见的控件。
 
-`tableOutput()` is most useful for small, fixed summaries (e.g. model coefficients); `dataTableOutput()` is most appropriate if you want to expose a complete data frame to the user.
-If you want greater control over the output of `dataTableOutput()`, I highly recommend the [reactable](https://glin.github.io/reactable/index.html) package by Greg Lin.
+`tableOutput()` 对于小型固定摘要最有用（例如模型系数）；如果您想向用户公开完整的 data frame，则 `dataTableOutput()` 最合适。
+如果您想更好地控制 `dataTableOutput()` 的输出，我强烈推荐 Greg Lin 的 [reactable](https://glin.github.io/reactable/index.html) 包。
 
 
 ```r
@@ -361,7 +360,7 @@ server <- function(input, output, session) {
 
 ### Plots
 
-You can display any type of R graphic (base, ggplot2, or otherwise) with `plotOutput()` and `renderPlot()`:
+您可以使用 `plotOutput()` 和 `renderPlot()` 显示任何类型的 R 图形（base、ggplot2 或其他）：
 
 
 ```r
@@ -375,23 +374,23 @@ server <- function(input, output, session) {
 
 <img src="demos/basic-ui/output-plot.png" width="600" />
 
-By default, `plotOutput()` will take up the full width of its container (more on that shortly), and will be 400 pixels high.
-You can override these defaults with the `height` and `width` arguments.
-We recommend always setting `res = 96` as that will make your Shiny plots match what you see in RStudio as closely as possible.
+默认情况下，`plotOutput()` 将占据其容器的整个宽度（稍后会详细介绍），高度为 400 像素。
+您可以使用 `height` 和 `width` 参数覆盖这些默认值。
+我们建议始终设置 `res = 96`，因为这将使您的 Shiny plots 尽可能匹配您在 RStudio 中看到的内容。
 
-Plots are special because they are outputs that can also act as inputs.
-`plotOutput()` has a number of arguments like `click`, `dblclick`, and `hover`.
-If you pass these a string, like `click = "plot_click"`, they'll create a reactive input (`input$plot_click`) that you can use to handle user interaction on the plot, e.g. clicking on the plot.
-We'll come back to interactive plots in Shiny in Chapter \@ref(action-graphics).
+Plots 很特殊，因为它们是输出，也可以充当输入。
+`plotOutput()` 有许多参数，例如 `click`、`dblclick` 和 `hover`。
+如果您向它们传递一个字符串，例如 `click = "plot_click"`，它们将创建一个反应性输入 (`input$plot_click`)，您可以使用它来处理绘图上的用户交互，例如单击绘图。
+我们将在 Chapter \@ref(action-graphics) 中回到 Shiny 中的 interactive plots。
 
 ### Downloads
 
-You can let the user download a file with `downloadButton()` or `downloadLink()`.
-These require new techniques in the server function, so we'll come back to that in Chapter \@ref(action-transfer).
+您可以使用 `downloadButton()` 或 `downloadLink()` 让用户下载文件。
+这些需要 server 函数中的新技术，所以我们将在 Chapter \@ref(action-transfer) 中回到这一点。
 
 ### Exercises
 
-1.  Which of `textOutput()` and `verbatimTextOutput()` should each of the following render functions be paired with?
+1.  以下每个 render 函数应该与 `textOutput()` 和 `verbatimTextOutput()` 中的哪一个配对？
 
     a.  `renderPrint(summary(mtcars))`
 
@@ -401,11 +400,11 @@ These require new techniques in the server function, so we'll come back to that 
 
     d.  `renderText(str(lm(mpg ~ wt, data = mtcars)))`
 
-2.  Re-create the Shiny app from Section \@ref(plots), this time setting height to 300px and width to 700px.
-    Set the plot "alt" text so that a visually impaired user can tell that its a scatterplot of five random numbers.
+2.  重新创建 Section \@ref(plots) 中的 Shiny app，这次将高度设置为 300px，宽度设置为 700px。
+    设置绘图 "alt" 文本，以便视障用户可以看出它是五个随机数的散点图。
 
-3.  Update the options in the call to `renderDataTable()` below so that the data is displayed, but all other controls are suppress (i.e. remove the search, ordering, and filtering commands).
-    You'll need to read `?renderDataTable` and review the options at <https://datatables.net/reference/option/>.
+3.  更新下面对 `renderDataTable()` 的调用中的选项，以便显示数据，但抑制所有其他控件（即删除搜索、排序和过滤命令）。
+    您需要阅读 `?renderDataTable` 并查看 <https://datatables.net/reference/option/> 中的选项。
 
     
     ```r
@@ -417,12 +416,12 @@ These require new techniques in the server function, so we'll come back to that 
     }
     ```
 
-4.  Alternatively, read up on [reactable](https://glin.github.io/reactable), and convert the above app to use it instead.
+4.  或者，阅读有关 [reactable](https://glin.github.io/reactable) 的内容，并将上述 app 转换为使用它。
 
 ## Summary
 
-This chapter has introduced you to the major input and output functions that make up the front end of a Shiny app.
-This was a big info dump, so don't expect to remember everything after a single read.
-Instead, come back to this chapter when you're looking for a specific component: you can quickly scan the figures, and then find the code you need.
+本章向您介绍了构成 Shiny app 前端的主要输入和输出函数。
+这是一个很大的信息转储，所以不要指望在一次阅读后记住所有内容。
+相反，当您正在寻找特定组件时，请返回本章：您可以快速浏览图形，然后找到您需要的代码。
 
-In the next chapter, we'll move on to the back end of a Shiny app: the R code that makes your user interface come to life.
+在下一章中，我们将继续讨论 Shiny app 的后端：使用户界面栩栩如生的 R 代码。
