@@ -24,9 +24,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="1.1 Introduction In this chapter, we’ll create a simple Shiny app. I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it. Next...">
-<meta property="og:description" content="1.1 Introduction In this chapter, we’ll create a simple Shiny app. I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it. Next...">
-<meta name="twitter:description" content="1.1 Introduction In this chapter, we’ll create a simple Shiny app. I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it. Next...">
+<meta name="description" content="1.1 Introduction 在本章中，我们将创建一个简单的 Shiny app。 我将首先向您展示 Shiny app 所需的最小样板，然后您将学习如何启动和停止它。 接下来，您将学习每个 Shiny app 的两个关键组件：定义 app 外观的 UI（user interface 的缩写），和定义 app 工作方式的 server function。 Shiny...">
+<meta property="og:description" content="1.1 Introduction 在本章中，我们将创建一个简单的 Shiny app。 我将首先向您展示 Shiny app 所需的最小样板，然后您将学习如何启动和停止它。 接下来，您将学习每个 Shiny app 的两个关键组件：定义 app 外观的 UI（user interface 的缩写），和定义 app 工作方式的 server function。 Shiny...">
+<meta name="twitter:description" content="1.1 Introduction 在本章中，我们将创建一个简单的 Shiny app。 我将首先向您展示 Shiny app 所需的最小样板，然后您将学习如何启动和停止它。 接下来，您将学习每个 Shiny app 的两个关键组件：定义 app 外观的 UI（user interface 的缩写），和定义 app 工作方式的 server function。 Shiny...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -47,25 +47,10 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="preface.html">Preface</a></li>
-<li class="book-part">Getting started</li>
-<li><a class="" href="basic-intro.html">Introduction</a></li>
-<li><a class="active" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
-<li><a class="" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
-<li><a class="" href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></li>
-<li><a class="" href="basic-case-study.html"><span class="header-section-number">4</span> Case study: ER injuries</a></li>
-<li class="book-part">Shiny in action</li>
-<li><a class="" href="action-intro.html">Introduction</a></li>
-<li><a class="" href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></li>
-<li><a class="" href="action-layout.html"><span class="header-section-number">6</span> Layout, themes, HTML</a></li>
-<li><a class="" href="action-graphics.html"><span class="header-section-number">7</span> Graphics</a></li>
-<li><a class="" href="action-feedback.html"><span class="header-section-number">8</span> User feedback</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 1</span> Your first Shiny app</a></li></ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/hadley/mastering-shiny">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/zhenghu159/blogdown-book-zh-cn">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
@@ -77,27 +62,27 @@
 <h2>
 <span class="header-section-number">1.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this chapter, we’ll create a simple Shiny app.
-I’ll start by showing you the minimum boilerplate needed for a Shiny app, and then you’ll learn how to start and stop it.
-Next you’ll learn the two key components of every Shiny app: the <strong>UI</strong> (short for user interface) which defines how your app <em>looks</em>, and the <strong>server function</strong> which defines how your app <em>works</em>.
-Shiny uses <strong>reactive programming</strong> to automatically update outputs when inputs change so we’ll finish off the chapter by learning the third important component of Shiny apps: reactive expressions.</p>
-<p>If you haven’t already installed Shiny, install it now with:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>在本章中，我们将创建一个简单的 Shiny app。
+我将首先向您展示 Shiny app 所需的最小样板，然后您将学习如何启动和停止它。
+接下来，您将学习每个 Shiny app 的两个关键组件：定义 app 外观的 <strong>UI</strong>（user interface 的缩写），和定义 app 工作方式的 <strong>server function</strong>。
+Shiny 使用<strong>响应式编程（reactive programming）</strong>在输入变化时自动更新输出，因此我们将通过学习 Shiny app 的第三个重要组件来结束本章：<strong>响应式表达式（reactive expressions）</strong>。</p>
+<p>如果您尚未安装 Shiny，请立即安装：</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"shiny"</span><span class="op">)</span></span></code></pre></div>
-<p>If you’ve already installed Shiny, use <code>packageVersion("shiny")</code> to check that you have version 1.5.0 or greater.</p>
-<p>Then load in your current R session:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p>如果您已经安装了 Shiny，请使用 <code>packageVersion("shiny")</code> 检查您是否拥有 1.5.0 或更高版本。</p>
+<p>然后加载当前的 R 会话：</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="create-app" class="section level2" number="1.2">
 <h2>
 <span class="header-section-number">1.2</span> Create app directory and file<a class="anchor" aria-label="anchor" href="#create-app"><i class="fas fa-link"></i></a>
 </h2>
-<p>There are several ways to create a Shiny app.
-The simplest is to create a new directory for your app, and put a single file called <code>app.R</code> in it.
-This <code>app.R</code> file will be used to tell Shiny both how your app should look, and how it should behave.</p>
-<p>Try it out by creating a new directory, and adding an <code>app.R</code> file that looks like this:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<p>有多种方法可以创建 Shiny app。
+最简单的方法是为您的 app 创建一个新目录，并在其中放置一个名为 <code>app.R</code> 的文件。
+这个 <code>app.R</code> 文件将用于告诉 Shiny 您的 app 应该如何显示以及它应该如何运行。</p>
+<p>通过创建一个新目录并添加一个如下所示的 <code>app.R</code> 文件来尝试一下：</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Hello, world!"</span></span>
@@ -105,21 +90,21 @@ This <code>app.R</code> file will be used to tell Shiny both how your app should
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>This is a complete, if trivial, Shiny app!
-Looking closely at the code above, our <code>app.R</code> does four things:</p>
+<p>这是一个完整但微不足道的 Shiny app！
+仔细观察上面的代码，我们的 <code>app.R</code> 做了四件事：</p>
 <ol style="list-style-type: decimal">
-<li><p>It calls <code><a href="https://shiny.rstudio.com/">library(shiny)</a></code> to load the shiny package.</p></li>
-<li><p>It defines the user interface, the HTML webpage that humans interact with.
-In this case, it’s a page containing the words “Hello, world!”.</p></li>
-<li><p>It specifies the behaviour of our app by defining a <code>server</code> function.
-It’s currently empty, so our app doesn’t <em>do</em> anything, but we’ll be back to revisit this shortly.</p></li>
-<li><p>It executes <code>shinyApp(ui, server)</code> to construct and start a Shiny application from UI and server.</p></li>
+<li><p>它调用 <code><a href="https://shiny.rstudio.com/">library(shiny)</a></code> 来加载 shiny 包。</p></li>
+<li><p>它定义了用户界面，即人类与之交互的 HTML 网页。
+在本例中，它是一个包含 “Hello, world!” 字样的页面。</p></li>
+<li><p>它通过定义 <code>server</code> 函数来指定我们 app 的行为。
+它目前是空的，所以我们的应用程序不执行任何操作，但我们很快就会回来重新讨论这个问题。</p></li>
+<li><p>它执行 <code>shinyApp(ui, server)</code> 来从 UI 和 server 构建并启动 Shiny app。</p></li>
 </ol>
 <div class="rmdnote">
-<p><strong>RStudio Tip</strong>: There are two convenient ways to create a new app in RStudio:</p>
+<p><strong>RStudio Tip</strong>: 在 RStudio 中创建一个新的 app 有两种便捷的方法：</p>
 <ul>
-<li><p>Create a new directory and an <code>app.R</code> file containing a basic app in one step by clicking <strong>File | New Project</strong>, then selecting <strong>New Directory</strong> and <strong>Shiny Web Application</strong>.</p></li>
-<li><p>If you’ve already created the <code>app.R</code> file, you can quickly add the app boilerplate by typing “shinyapp” and pressing Shift+Tab.</p></li>
+<li><p>单击 <strong>File | New Project</strong> 创建一个新目录和一个包含基本 app 的 <code>app.R</code> 文件，然后选择 <strong>New Directory</strong> 和 <strong>Shiny Web Application</strong>。</p></li>
+<li><p>如果您已经创建了 <code>app.R</code> 文件，则可以通过键入 “shinyapp” 并按 Shift+Tab 快速添加 app 样板。</p></li>
 </ul>
 </div>
 </div>
@@ -127,78 +112,78 @@ It’s currently empty, so our app doesn’t <em>do</em> anything, but we’ll b
 <h2>
 <span class="header-section-number">1.3</span> Running and stopping<a class="anchor" aria-label="anchor" href="#running"><i class="fas fa-link"></i></a>
 </h2>
-<p>There are a few ways you can run this app:</p>
+<p>您可以通过以下几种方式运行此 app：</p>
 <ul>
-<li><p>Click the <strong>Run App</strong> (Figure <a href="basic-app.html#fig:run-app">1.1</a>) button in the document toolbar.</p></li>
-<li><p>Use a keyboard shortcut: <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code>.</p></li>
-<li><p>If you’re not using RStudio, you can <code>(source())</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;The extra &lt;code&gt;()&lt;/code&gt; on the outside are important.
-&lt;code&gt;shinyApp()&lt;/code&gt; only creates an app when printed, and &lt;code&gt;()&lt;/code&gt; forces the printing of the last result in the file being source, which is otherwise returned invisibly.&lt;/p&gt;"><sup>1</sup></a> the whole document, or call <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html">shiny::runApp()</a></code> with the path to the directory containing <code>app.R</code>.</p></li>
+<li><p>单击文档工具栏中的 <strong>Run App</strong> (Figure <a href="basic-app.html#fig:run-app">1.1</a>) 按钮。</p></li>
+<li><p>使用键盘快捷键：<code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code>。</p></li>
+<li><p>如果您不使用 RStudio，您可以 <code>(source())</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;外面额外的 &lt;code&gt;()&lt;/code&gt; 很重要。
+&lt;code&gt;shinyApp()&lt;/code&gt; 仅在打印时创建一个应用程序，而 &lt;code&gt;()&lt;/code&gt; 强制打印源文件中的最后结果，否则将以不可见的方式返回。&lt;/p&gt;"><sup>1</sup></a> 整个文档，或者使用包含 <code>app.R</code> 的目录的路径调用 <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html">shiny::runApp()</a></code>。</p></li>
 </ul>
 <div class="figure">
 <span style="display:block;" id="fig:run-app"></span>
-<img src="images/basic-app/run-app.png" alt="The Run App button can be found at the top-right of the source pane." width="617"><p class="caption">
-Figure 1.1: The Run App button can be found at the top-right of the source pane.
+<img src="images/basic-app/run-app.png" alt="Run App 按钮位于源窗格的右上角。" width="617"><p class="caption">
+Figure 1.1: Run App 按钮位于源窗格的右上角。
 </p>
 </div>
-<p>Pick one of these options, and check that you see the same app as in Figure <a href="basic-app.html#fig:hello-world">1.2</a>.
-Congratulations!
-You’ve made your first Shiny app.</p>
+<p>选择这些选项之一，并检查您是否看到与 Figure <a href="basic-app.html#fig:hello-world">1.2</a> 中相同的 app。
+恭喜！
+您已经制作了第一个 Shiny app。</p>
 <div class="figure">
 <span style="display:block;" id="fig:hello-world"></span>
-<img src="images/basic-app/hello-world.png" alt="The very basic shiny app you'll see when you run the code above" width="440"><p class="caption">
-Figure 1.2: The very basic shiny app you’ll see when you run the code above
+<img src="images/basic-app/hello-world.png" alt="当您运行上面的代码时，您将看到一个非常基本的 shiny app" width="440"><p class="caption">
+Figure 1.2: 当您运行上面的代码时，您将看到一个非常基本的 shiny app
 </p>
 </div>
-<p>Before you close the app, go back to RStudio and look at the R console.
-You’ll notice that it says something like:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<p>在关闭 app 之前，请返回 RStudio 并查看 R console。
+你会注意到它说的是这样的：</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">#&gt; Listening on http://127.0.0.1:3827</span></span></code></pre></div>
-<p>This tells you the URL where your app can be found: 127.0.0.1 is a standard address that means “this computer” and 3827 is a randomly assigned port number.
-You can enter that URL into any compatible<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Shiny strives to support all modern browsers, and you can see the set currently supported at &lt;a href="https://www.rstudio.com/about/platform-support/" class="uri"&gt;https://www.rstudio.com/about/platform-support/&lt;/a&gt;.
-Note that Internet Explorer versions prior to IE11 are not compatible when running Shiny directly from your R session.
-However, Shiny apps deployed on Shiny Server or ShinyApps.io can work with IE10 (earlier versions of IE are no longer supported).&lt;/p&gt;'><sup>2</sup></a> web browser to open another copy of your app.</p>
-<p>Also notice that R is busy: the R prompt isn’t visible, and the console toolbar displays a stop sign icon.
-While a Shiny app is running, it “blocks” the R console.
-This means that you can’t run new commands at the R console until the Shiny app stops.</p>
-<p>You can stop the app and return access to the console using any one of these options:</p>
+<p>这告诉您可以找到您的 app 的 URL：127.0.0.1 是一个标准地址，表示“这台计算机”，3827 是一个随机分配的端口号（port）。
+您可以在任何兼容的<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Shiny 致力于支持所有现代浏览器，您可以在 &lt;a href="https://www.rstudio.com/about/platform-support/" class="uri"&gt;https://www.rstudio.com/about/platform-support/&lt;/a&gt; 上查看当前支持的浏览器集。
+请注意，直接从 R 会话运行 Shiny 时，IE11 之前的 Internet Explorer 版本不兼容。
+但是，部署在 Shiny Server 或 ShinyApps.io 上的 Shiny apps 可以与 IE10 一起使用（不再支持早期版本的 IE）。&lt;/p&gt;'><sup>2</sup></a>网络浏览器中输入该 URL 以打开你的 app 的另一个副本。</p>
+<p>另请注意 R 正忙：R 提示不可见，并且控制台工具栏显示停止标志图标。
+当 Shiny app 运行时，它会“阻止” R console。
+这意味着在 Shiny app 停止之前，您无法在 R console 上运行新命令。</p>
+<p>您可以使用以下任一选项停止 app 并返回对 console 的访问权限：</p>
 <ul>
-<li><p>Click the stop sign icon on the R console toolbar.</p></li>
-<li><p>Click on the console, then press <code>Esc</code> (or press <code>Ctrl</code> + <code>C</code> if you’re not using RStudio).</p></li>
-<li><p>Close the Shiny app window.</p></li>
+<li><p>单击 R console 工具栏上的停止标志图标。</p></li>
+<li><p>单击 console，然后按 <code>Esc</code>（如果您不使用 RStudio，则按 <code>Ctrl</code> + <code>C</code>）。</p></li>
+<li><p>关闭 Shiny app 窗口。</p></li>
 </ul>
-<p>The basic workflow of Shiny app development is to write some code, start the app, play with the app, write some more code, and repeat.
-If you’re using RStudio, you don’t even need to stop and re-start the app to see your changes — you can either press the <strong>Reload app</strong> button in the toolbox or use the <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code> keyboard shortcut.
-I’ll cover other workflow patterns in Chapter <a href="action-workflow.html#action-workflow">5</a>.</p>
+<p>Shiny app 开发的基本工作流程是编写一些代码，启动 app，使用 app，编写更多代码，然后重复。
+如果您使用的是 RStudio，您甚至不需要停止并重新启动应用程序即可查看更改 — 您可以按工具箱中的 <strong>Reload app</strong> 按钮或使用 <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code> 键盘快捷键。
+我将在 Chapter <a href="#action-workflow"><strong>??</strong></a> 中介绍其他工作流程模式。</p>
 </div>
 <div id="adding-ui" class="section level2" number="1.4">
 <h2>
 <span class="header-section-number">1.4</span> Adding UI controls<a class="anchor" aria-label="anchor" href="#adding-ui"><i class="fas fa-link"></i></a>
 </h2>
-<p>Next, we’ll add some inputs and outputs to our UI so it’s not <em>quite</em> so minimal.
-We’re going to make a very simple app that shows you all the built-in data frames included in the datasets package.</p>
-<p>Replace your <code>ui</code> with this code:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>接下来，我们将向 UI 添加一些输入和输出，这样它就不会那么小了。
+我们将制作一个非常简单的 app，向您显示 datasets 包中包含的所有内置 data frames。</p>
+<p>将您的 <code>ui</code> 替换为以下代码：</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"dataset"</span>, label <span class="op">=</span> <span class="st">"Dataset"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="st">"package:datasets"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"summary"</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"table"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>This example uses four new functions:</p>
+<p>此示例使用四个新函数：</p>
 <ul>
-<li><p><code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code> is a <strong>layout function</strong> that sets up the basic visual structure of the page.
-You’ll learn more about them in Section <a href="action-layout.html#layout">6.2</a>.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> is an <strong>input control</strong> that lets the user interact with the app by providing a value.
-In this case, it’s a select box with the label “Dataset” and lets you choose one of the built-in datasets that come with R.
-You’ll learn more about inputs in Section <a href="basic-ui.html#inputs">2.2</a>.</p></li>
-<li><p><code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> are <strong>output controls</strong> that tell Shiny <em>where</em> to put rendered output (we’ll get into the <em>how</em> in a moment).
-<code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> displays code and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> displays tables.
-You’ll learn more about outputs in Section <a href="basic-ui.html#outputs">2.3</a>.</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage()</a></code> 是一个 <strong>layout function</strong>，用于设置页面的基本视觉结构。
+您将在 Section <a href="#layout"><strong>??</strong></a> 中了解有关它们的更多信息。</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> 是一个 <strong>input control</strong>，允许用户通过提供值（value）与 app 交互。
+在本例中，它是一个带有 “Dataset” 标签的选择框，可让您选择 R 附带的内置数据集之一。
+您将在 Section <a href="#inputs"><strong>??</strong></a> 中了解有关输入的更多信息。</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> 和 <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> 是 <strong>output controls</strong>，它们告诉 Shiny 将渲染的输出放在哪里（我们稍后会介绍如何放置）。
+<code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> 显示代码，<code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> 显示表格。
+您将在 Section <a href="#outputs"><strong>??</strong></a> 中了解有关输出的更多信息。</p></li>
 </ul>
-<p>Layout functions, inputs, and outputs have different uses, but they are fundamentally the same under the covers: they’re all just fancy ways to generate HTML, and if you call any of them outside of a Shiny app, you’ll see HTML printed out at the console.
-Don’t be afraid to poke around to see how these various layouts and controls work under the hood.</p>
-<p>Go ahead and run the app again.
-You’ll now see Figure <a href="basic-app.html#fig:basic-ui">1.3</a>, a page containing a select box.
-We only see the input, not the two outputs, because we haven’t yet told Shiny how the input and outputs are related.</p>
+<p>布局函数、输入和输出有不同的用途，但它们本质上是相同的：它们都是生成 HTML 的奇特方法，如果您在 Shiny app 之外调用其中任何一个，您将看到 HTML 在控制台打印出来。
+不要害怕四处探索，看看这些不同的布局和控件在幕后是如何工作的。</p>
+<p>继续并再次运行该 app。
+现在您将看到 Figure <a href="basic-app.html#fig:basic-ui">1.3</a>，这是一个包含选择框的页面。
+我们只看到输入，看不到两个输出，因为我们还没有告诉 Shiny 输入和输出是如何关联的。</p>
 <div class="figure">
 <span style="display:block;" id="fig:basic-ui"></span>
 <img src="demos/basic-app/ui.png" alt="The datasets app with UI" width="600"><p class="caption">
@@ -210,13 +195,13 @@ Figure 1.3: The datasets app with UI
 <h2>
 <span class="header-section-number">1.5</span> Adding behaviour<a class="anchor" aria-label="anchor" href="#server-function"><i class="fas fa-link"></i></a>
 </h2>
-<p>Next, we’ll bring the outputs to life by defining them in the server function.</p>
-<p>Shiny uses reactive programming to make apps interactive.
-You’ll learn more about reactive programming in Chapter <a href="basic-reactivity.html#basic-reactivity">3</a>, but for now, just be aware that it involves telling Shiny <em>how</em> to perform a computation, not ordering Shiny to actually go <em>do it</em>.
-It’s like the difference between giving someone a recipe versus demanding that they go make you a sandwich.</p>
-<p>We’ll tell Shiny how to fill in the <code>summary</code> and <code>table</code> outputs in the sample app by providing the “recipes” for those outputs.
-Replace your empty <code>server</code> function with this:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>接下来，我们将通过在 server 函数中定义输出来使输出变得生动。</p>
+<p>Shiny 使用响应式编程使 apps 具有交互性。
+您将在 Chapter <a href="#basic-reactivity"><strong>??</strong></a> 中了解有关响应式编程的更多信息，但现在请注意，它涉及告诉 Shiny 如何执行计算，而不是命令 Shiny 实际执行计算。
+这就像给某人一个菜谱和要求他们给你做一个三明治之间的区别。</p>
+<p>我们将通过提供这些输出的“配方”来告诉 Shiny 如何在示例 app 中填写 <code>summary</code> 和 <code>table</code> 输出。
+将空的 <code>server</code> 函数替换为：</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span>
@@ -228,39 +213,38 @@ Replace your empty <code>server</code> function with this:</p>
 <span>    <span class="va">dataset</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>The left-hand side of the assignment operator (<code>&lt;-</code>), <code>output$ID</code>, indicates that you’re providing the recipe for the Shiny output with that ID.
-The right-hand side of the assignment uses a specific <strong>render function</strong> to wrap some code that you provide.
-Each <code>render{Type}</code> function is designed to produce a particular type of output (e.g. text, tables, and plots), and is often paired with a <code>{type}Output</code> function.
-For example, in this app, <code><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint()</a></code> is paired with <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> to display a statistical summary with fixed-width (verbatim) text, and <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable()</a></code> is paired with <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> to show the input data in a table.</p>
-<p>Run the app again and play around, watching what happens to the output when you change an input.
-Figure <a href="basic-app.html#fig:basic-server">1.4</a> shows what you should see when you open the app.</p>
+<p>赋值运算符 (<code>&lt;-</code>) 的左侧，<code>output$ID</code>，表示您正在为具有该 ID 的 Shiny 输出提供配方。
+赋值的右侧使用特定的<strong>渲染函数（render function）</strong>来包装您提供的一些代码。
+每个 <code>render{Type}</code> 函数都旨在生成特定类型的输出（例如文本、表格和绘图），并且通常与 <code>{type}Output</code> 函数配对。
+例如，在此 app 中，<code><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint()</a></code> 与 <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput()</a></code> 配合使用，以显示固定宽度（逐字）文本的统计摘要，而 <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable()</a></code> 与 <code><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput()</a></code> 配合使用，以在表格中显示输入数据。</p>
+<p>再次运行 app 并进行测试，观察更改输入时输出会发生什么情况。
+Figure <a href="basic-app.html#fig:basic-server">1.4</a> 显示了打开 app 时应该看到的内容。</p>
 <div class="figure">
 <span style="display:block;" id="fig:basic-server"></span>
-<img src="demos/basic-app/server.png" alt="Now that we've provided a server function that connects outputs and inputs, we have a fully functional app" width="75%"><p class="caption">
-Figure 1.4: Now that we’ve provided a server function that connects outputs and inputs, we have a fully functional app
+<img src="demos/basic-app/server.png" alt="现在我们已经提供了连接输出和输入的 server function，我们有了一个功能齐全的 app" width="75%"><p class="caption">
+Figure 1.4: 现在我们已经提供了连接输出和输入的 server function，我们有了一个功能齐全的 app
 </p>
 </div>
-<p>Notice that the summary and table update whenever you change the input dataset.
-This dependency is created implicitly because we’ve referred to <code>input$dataset</code> within the output functions.
-<code>input$dataset</code> is populated with the current value of the UI component with id <code>dataset</code>, and will cause the outputs to automatically update whenever that value changes.
-This is the essence of <strong>reactivity</strong>: outputs automatically <em>react</em> (recalculate) when their inputs change.</p>
+<p>请注意，每当您更改输入数据集时，摘要和表格都会更新。
+这种依赖关系是隐式创建的，因为我们在输出函数中引用了 <code>input$dataset</code>。
+<code>input$dataset</code> 填充了带有 id <code>dataset</code> 的 UI 组件的当前值，并且每当该值发生变化时都会导致输出自动更新。
+这是<strong>响应式（reactivity）</strong>的本质：当输入发生变化时，输出会自动做出响应（重新计算）。</p>
 </div>
 <div id="reactive-expr" class="section level2" number="1.6">
 <h2>
 <span class="header-section-number">1.6</span> Reducing duplication with reactive expressions<a class="anchor" aria-label="anchor" href="#reactive-expr"><i class="fas fa-link"></i></a>
 </h2>
-<p>Even in this simple example, we have some code that’s duplicated: the following line is present in both outputs.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>即使在这个简单的示例中，我们也有一些重复的代码：两个输出中都存在以下行。</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span></code></pre></div>
-<p>In every kind of programming, it’s poor practice to have duplicated code; it can be computationally wasteful, and more importantly, it increases the difficulty of maintaining or debugging the code.
-It’s not that important here, but I wanted to illustrate the basic idea in a very simple context.</p>
-<p>In traditional R scripting, we use two techniques to deal with duplicated code: either we capture the value using a variable, or capture the computation with a function.
-Unfortunately neither of these approaches work here, for reasons you’ll learn about in Section <a href="#motivation"><strong>??</strong></a>, and we need a new mechanism: <strong>reactive expressions</strong>.</p>
-<p>You create a reactive expression by wrapping a block of code in <code>reactive({...})</code> and assigning it to a variable, and you use a reactive expression by calling it like a function.
-But while it looks like you’re calling a function, a reactive expression has an important difference: it only runs the first time it is called and then it caches its result until it needs to be updated.</p>
-<p>We can update our <code>server()</code> to use reactive expressions, as shown below.
-The app behaves identically, but works a little more efficiently because it only needs to retrieve the dataset once, not twice.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<p>在每种编程中，重复代码都是不好的做法；它可能会造成计算浪费，更重要的是，它增加了维护或调试代码的难度。
+这在这里并不重要，但我想在一个非常简单的上下文中说明基本思想。</p>
+<p>不幸的是，这些方法在这里都不起作用，原因您将在 Section <a href="#motivation"><strong>??</strong></a> 中了解，并且我们需要一种新机制：<strong>响应式表达式（reactive expressions）</strong>。</p>
+<p>您可以通过将代码块包装在 <code>reactive({...})</code> 中并将其分配给变量来创建响应式表达式，然后通过像函数一样调用它来使用响应式表达式。
+但是，虽然看起来像是在调用函数，但响应式表达式有一个重要的区别：它仅在第一次调用时运行，然后缓存其结果，直到需要更新为止。</p>
+<p>我们可以更新我们的 <code>server()</code> 以使用响应式表达式，如下所示。
+该 app 的行为相同，但工作效率更高一些，因为它只需要检索数据集一次，而不是两次。</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="co"># Create a reactive expression</span></span>
 <span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
@@ -276,16 +260,16 @@ The app behaves identically, but works a little more efficiently because it only
 <span>    <span class="fu">dataset</span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">}</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>We’ll come back to reactive programming multiple times, but even armed with a cursory knowledge of inputs, outputs, and reactive expressions, it’s possible to build quite useful Shiny apps!</p>
+<p>我们将多次回到响应式编程，但即使具备输入、输出和响应式表达式的粗略知识，也可以构建非常有用的 Shiny apps！</p>
 </div>
 <div id="summary" class="section level2" number="1.7">
 <h2>
 <span class="header-section-number">1.7</span> Summary<a class="anchor" aria-label="anchor" href="#summary"><i class="fas fa-link"></i></a>
 </h2>
-<p>In this chapter you’ve created a simple app — it’s not very exciting or useful, but seen how easy it is to construct a web app using your existing R knowledge.
-In the next two chapters, you’ll learn more about user interfaces and reactive programming, the two basic building blocks of Shiny.
-Now is a great time to grab a copy of the <a href="https://github.com/rstudio/cheatsheets/raw/master/shiny.pdf">Shiny cheatsheet</a>.
-This is a great resource to help jog your memory of the main components of a Shiny app.</p>
+<p>在本章中，您创建了一个简单的 app — 它不是很令人兴奋或有用，但您看到了使用现有的 R 知识构建一个 web app 是多么容易。
+在接下来的两章中，您将了解有关用户界面和响应式编程的更多信息，这是 Shiny 的两个基本构建块。
+现在是获取 <a href="https://rstudio.github.io/cheatsheets/shiny.pdf">Shiny cheatsheet</a> 的好时机。
+这是一个很好的资源，可以帮助您回忆 Shiny app 的主要组件。</p>
 <div class="figure">
 <span style="display:block;" id="fig:cheatsheet"></span>
 <img src="images/basic-app/cheatsheet.png" alt="Shiny cheatsheet, available from https://www.rstudio.com/resources/cheatsheets/" width="352"><p class="caption">
@@ -299,10 +283,10 @@ Figure 1.5: Shiny cheatsheet, available from <a href="https://www.rstudio.com/re
 </h2>
 <ol style="list-style-type: decimal">
 <li>
-<p>Create an app that greets the user by name.
-You don’t know all the functions you need to do this yet, so I’ve included some lines of code below.
-Think about which lines you’ll use and then copy and paste them into the right place in a Shiny app.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<p>创建一个通过名字向用户打招呼的 app。
+您还不知道执行此操作所需的所有函数，因此我在下面添加了一些代码行。
+考虑一下您将使用哪些行，然后将它们复制并粘贴到 Shiny app 中的正确位置。</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"mortgage"</span><span class="op">)</span></span>
 <span><span class="va">output</span><span class="op">$</span><span class="va">greeting</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Hello "</span>, <span class="va">input</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
@@ -315,9 +299,9 @@ Think about which lines you’ll use and then copy and paste them into the right
 <span><span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
-<p>Suppose your friend wants to design an app that allows the user to set a number (<code>x</code>) between 1 and 50, and displays the result of multiplying this number by 5.
-This is their first attempt:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<p>假设您的朋友想要设计一个 app，允许用户设置 1 到 50 之间的数字 (<code>x</code>)，并显示该数字乘以 5 的结果。
+这是他们的第一次尝试：</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -333,20 +317,20 @@ This is their first attempt:</p>
 <span><span class="op">}</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<p>But unfortunately it has an error:</p>
+<p>但不幸的是它有一个错误：</p>
 <div class="inline-figure"><img src="demos/basic-app/ex-x-times-5.png" width="600"></div>
-<p>Can you help them find and correct the error?</p>
+<p>你能帮助他们找到并纠正错误吗？</p>
 </li>
 <li>
-<p>Extend the app from the previous exercise to allow the user to set the value of the multiplier, <code>y</code>, so that the app yields the value of <code>x * y</code>.
-The final result should look like this:.</p>
+<p>扩展上一个练习中的 app，以允许用户设置乘数 <code>y</code> 的值，以便应用程序生成 <code>x * y</code> 的值。
+最终结果应该是这样的：</p>
 <div class="inline-figure"><img src="demos/basic-app/ex-x-times-y.png" width="600"></div>
 </li>
 <li>
-<p>Take the following app which adds some additional functionality to the last app described in the last exercise.
-What’s new?
-How could you reduce the amount of duplicated code in the app by using a reactive expression.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<p>使用以下 app，它为上一个练习中描述的最后一个 app 添加了一些附加功能。
+什么是新的？
+如何通过使用响应式表达式来减少 app 中重复代码的数量。</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -375,11 +359,11 @@ How could you reduce the amount of duplicated code in the app by using a reactiv
 <span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
 </li>
 <li>
-<p>The following app is very similar to one you’ve seen earlier in the chapter: you select a dataset from a package (this time we’re using the <strong>ggplot2</strong> package) and the app prints out a summary and plot of the data.
-It also follows good practice and makes use of reactive expressions to avoid redundancy of code.
-However there are three bugs in the code provided below.
-Can you find and fix them?</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<p>以下 app 与您在本章前面看到的 app 非常相似：您从包中选择一个数据集（这次我们使用 <strong>ggplot2</strong> 包），然后该 app 打印出数据的摘要和绘图。
+它还遵循良好实践并利用响应式表达式来避免代码冗余。
+然而，下面提供的代码中存在三个错误。
+你能找到并修复它们吗？</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.2.3</span></span>
@@ -409,27 +393,26 @@ Can you find and fix them?</p>
 </div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
   <div class="chapter-nav">
-<div class="prev"><a href="basic-intro.html">Introduction</a></div>
-<div class="next"><a href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#basic-app"><span class="header-section-number">1</span> Your first Shiny app</a></li>
-<li><a class="nav-link" href="#introduction"><span class="header-section-number">1.1</span> Introduction</a></li>
-<li><a class="nav-link" href="#create-app"><span class="header-section-number">1.2</span> Create app directory and file</a></li>
-<li><a class="nav-link" href="#running"><span class="header-section-number">1.3</span> Running and stopping</a></li>
-<li><a class="nav-link" href="#adding-ui"><span class="header-section-number">1.4</span> Adding UI controls</a></li>
-<li><a class="nav-link" href="#server-function"><span class="header-section-number">1.5</span> Adding behaviour</a></li>
-<li><a class="nav-link" href="#reactive-expr"><span class="header-section-number">1.6</span> Reducing duplication with reactive expressions</a></li>
-<li><a class="nav-link" href="#summary"><span class="header-section-number">1.7</span> Summary</a></li>
-<li><a class="nav-link" href="#exercises"><span class="header-section-number">1.8</span> Exercises</a></li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/hadley/mastering-shiny/blob/master/basic-app.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/hadley/mastering-shiny/edit/master/basic-app.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>

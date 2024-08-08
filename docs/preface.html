@@ -24,9 +24,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="0.1 What is Shiny? If you’ve never used Shiny before, welcome! Shiny is an R package that allows you to easily create rich, interactive web apps. Shiny allows you to take your work in R and expose...">
-<meta property="og:description" content="0.1 What is Shiny? If you’ve never used Shiny before, welcome! Shiny is an R package that allows you to easily create rich, interactive web apps. Shiny allows you to take your work in R and expose...">
-<meta name="twitter:description" content="0.1 What is Shiny? If you’ve never used Shiny before, welcome! Shiny is an R package that allows you to easily create rich, interactive web apps. Shiny allows you to take your work in R and expose...">
+<meta name="description" content="0.1 What is Shiny? 如果您以前从未使用过 Shiny，欢迎！ Shiny 是一个 R 包，可让您轻松创建丰富的交互式 Web 应用程序。 Shiny 允许您在 R 中进行工作并通过网络浏览器公开它，以便任何人都可以使用它。 Shiny 让您可以轻松地以最少的痛苦来生成精美的 Web 应用程序，从而使您看起来很棒。 在过去，创建 Web 应用程序对于大多数 R...">
+<meta property="og:description" content="0.1 What is Shiny? 如果您以前从未使用过 Shiny，欢迎！ Shiny 是一个 R 包，可让您轻松创建丰富的交互式 Web 应用程序。 Shiny 允许您在 R 中进行工作并通过网络浏览器公开它，以便任何人都可以使用它。 Shiny 让您可以轻松地以最少的痛苦来生成精美的 Web 应用程序，从而使您看起来很棒。 在过去，创建 Web 应用程序对于大多数 R...">
+<meta name="twitter:description" content="0.1 What is Shiny? 如果您以前从未使用过 Shiny，欢迎！ Shiny 是一个 R 包，可让您轻松创建丰富的交互式 Web 应用程序。 Shiny 允许您在 R 中进行工作并通过网络浏览器公开它，以便任何人都可以使用它。 Shiny 让您可以轻松地以最少的痛苦来生成精美的 Web 应用程序，从而使您看起来很棒。 在过去，创建 Web 应用程序对于大多数 R...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -50,10 +50,13 @@
         <ul class="book-toc list-unstyled">
 <li><a class="" href="index.html">Welcome</a></li>
 <li><a class="active" href="preface.html">Preface</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="basic-intro.html">Introduction</a></li>
+<li><a class="" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
 </ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/hadley/mastering-shiny">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/zhenghu159/blogdown-book-zh-cn">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
@@ -64,95 +67,95 @@
 <h2>
 <span class="header-section-number">0.1</span> What is Shiny?<a class="anchor" aria-label="anchor" href="#what-is-shiny"><i class="fas fa-link"></i></a>
 </h2>
-<p>If you’ve never used Shiny before, welcome!
-Shiny is an R package that allows you to easily create rich, interactive web apps.
-Shiny allows you to take your work in R and expose it via a web browser so that anyone can use it.
-Shiny makes you look awesome by making it easy to produce polished web apps with a minimum amount of pain.</p>
-<p>In the past, creating web apps was hard for most R users because:</p>
+<p>如果您以前从未使用过 Shiny，欢迎！
+Shiny 是一个 R 包，可让您轻松创建丰富的交互式 Web 应用程序。
+Shiny 允许您在 R 中进行工作并通过网络浏览器公开它，以便任何人都可以使用它。
+Shiny 让您可以轻松地以最少的痛苦来生成精美的 Web 应用程序，从而使您看起来很棒。</p>
+<p>在过去，创建 Web 应用程序对于大多数 R 用户来说都很困难，因为：</p>
 <ul>
-<li><p>You need a deep knowledge of web technologies like HTML, CSS and JavaScript.</p></li>
-<li><p>Making complex interactive apps requires careful analysis of interaction flows to make sure that when an input changes, only the related outputs are updated.</p></li>
+<li><p>您需要深入了解 HTML、CSS 和 JavaScript 等 Web 技术。</p></li>
+<li><p>制作复杂的交互式应用程序需要仔细分析交互流，以确保当输入更改时，仅更新相关的输出。</p></li>
 </ul>
-<p>Shiny makes it significantly easier for the R programmer to create web apps by:</p>
+<p>Shiny 使 R 程序员可以通过以下方式更轻松地创建 Web 应用程序：</p>
 <ul>
-<li><p>Providing a carefully curated set of user interface (<strong>UI</strong> for short) functions that generate the HTML, CSS, and JavaScript needed for common tasks.
-This means that you don’t need to know the details of HTML/CSS/JavaScript until you want to go beyond the basics that Shiny provides for you.</p></li>
-<li><p>Introducing a new style of programming called <strong>reactive programming</strong> which automatically tracks the dependencies of pieces of code.
-This means that whenever an input changes, Shiny can automatically figure out how to do the smallest amount of work to update all the related outputs.</p></li>
+<li><p>提供一组精心策划的用户界面（简称 <strong>UI</strong>）功能，用于生成常见任务所需的 HTML、CSS 和 JavaScript。
+这意味着您不需要了解 HTML/CSS/JavaScript 的详细信息，除非您想要超越 Shiny 为您提供的基础。</p></li>
+<li><p>引入一种称为<strong>反应式编程（reactive programming）</strong>的新编程风格，它自动跟踪代码片段的依赖关系。
+这意味着每当输入发生变化时，Shiny 都可以自动找出如何做最少的工作来更新所有相关的输出。</p></li>
 </ul>
-<p>People use Shiny to:</p>
+<p>人们使用 Shiny 来：</p>
 <ul>
-<li><p>Create dashboards that track important high-level performance indicators, while facilitating drill down into metrics that need more investigation.</p></li>
-<li><p>Replace hundreds of pages of PDFs with interactive apps that allow the user to jump to the exact slice of the results that they care about.</p></li>
-<li><p>Communicate complex models to a non-technical audience with informative visualisations and interactive sensitivity analysis.</p></li>
-<li><p>Provide self-service data analysis for common workflows, replacing email requests with a Shiny app that allows people to upload their own data and perform standard analyses.
-You can make sophisticated R analyses available to users with no programming skills.</p></li>
-<li><p>Create interactive demos for teaching statistics and data science concepts that allow learners to tweak inputs and observe the downstream effects of those changes in an analysis.</p></li>
+<li><p>创建跟踪重要的高级性能指标的仪表盘，同时促进深入了解需要更多调查的指标。</p></li>
+<li><p>用交互式应用程序替换数百页 PDF，让用户可以跳转到他们关心的结果的确切部分。</p></li>
+<li><p>通过信息丰富的可视化和交互式敏感性分析，向非技术受众传达复杂的模型。</p></li>
+<li><p>为常见工作流程提供自助数据分析，用 Shiny 应用程序取代电子邮件请求，允许人们上传自己的数据并执行标准分析。
+您可以为没有编程技能的用户提供复杂的 R 分析。</p></li>
+<li><p>创建用于教授统计学和数据科学概念的交互式演示，使学习者能够调整输入并观察分析中这些变化的下游影响。</p></li>
 </ul>
-<p>In short, Shiny gives you the ability to pass on some of your R superpowers to anyone who can use the web.</p>
+<p>简而言之，Shiny 使您能够将一些 R 超能力传递给任何可以使用网络的人。</p>
 </div>
 <div id="who-should-read-this-book" class="section level2" number="0.2">
 <h2>
 <span class="header-section-number">0.2</span> Who should read this book?<a class="anchor" aria-label="anchor" href="#who-should-read-this-book"><i class="fas fa-link"></i></a>
 </h2>
-<p>This book is aimed at two main audiences:</p>
+<p>本书针对两种主要读者：</p>
 <ul>
-<li><p>R users who are interested in learning about Shiny in order to turn their analyses into interactive web apps.
-To get the most out of this book, you should be comfortable using R to do data analysis, and should have written at least a few functions.</p></li>
-<li><p>Existing Shiny users who want to improve their knowledge of the theory underlying Shiny in order to write higher-quality apps faster and more easily.
-You should find this book particularly helpful if your apps are starting to get bigger and you’re starting to have problems managing the complexity.</p></li>
+<li><p>有兴趣了解 Shiny 以便将他们的分析转化为交互式 Web 应用程序的 R 用户。
+为了充分利用本书，您应该能够熟练地使用 R 进行数据分析，并且至少应该编写一些函数。</p></li>
+<li><p>现有的 Shiny 用户希望提高对 Shiny 基础理论的了解，以便更快、更轻松地编写更高质量的应用程序。
+如果您的应用程序开始变得越来越大并且您开始在管理复杂性方面遇到问题，那么您应该会发现这本书特别有帮助。</p></li>
 </ul>
 </div>
 <div id="what-will-you-learn" class="section level2" number="0.3">
 <h2>
 <span class="header-section-number">0.3</span> What will you learn?<a class="anchor" aria-label="anchor" href="#what-will-you-learn"><i class="fas fa-link"></i></a>
 </h2>
-<p>The book is divided into four parts:</p>
+<p>本书分为四个部分：</p>
 <ol style="list-style-type: decimal">
-<li><p>In “Getting started”, you’ll learn the basics of Shiny so you can get up and running as quickly as possible.
-You’ll learn about the basics of app structure, useful UI components, and the foundations of reactive programming.</p></li>
-<li><p>“Shiny in action” builds on the basics to help you solve common problems including giving feedback to the user, uploading and downloading data, generating UI with code, reducing code duplication, and using Shiny to program the tidyverse.</p></li>
-<li><p>In “Mastering reactivity”, you’ll go deep into the theory and practice of reactive programming, the programming paradigm that underlies Shiny.
-If you’re an existing Shiny user, you’ll get the most value out of this chapter as it will give you a solid theoretical underpinning that will allow you to create new tools specifically tailored for your problems.</p></li>
-<li><p>Finally, in “Best practices” we’ll finish up with a survey of useful techniques for making your Shiny apps work well in production.
-You’ll learn how to decompose complex apps into functions and modules, how to use packages to organise your code, how to test your code to ensure it’s correct, and how to measure and improve performance.</p></li>
+<li><p>在 “Getting started” 部分，您将学习 Shiny 的基础知识，以便您可以尽快启动并运行。
+您将了解应用程序结构的基础知识、有用的 UI 组件以及响应式编程的基础知识。</p></li>
+<li><p>“Shiny in action” 部分建立在帮助您解决常见问题的基础知识之上，包括向用户提供反馈、上传和下载数据、使用代码生成 UI、减少代码重复以及使用 Shiny 对 tidyverse 进行编程。</p></li>
+<li><p>在 “Mastering reactivity” 部分，您将深入了解反应式编程的理论和实践，这是 Shiny 的编程范例。
+如果您是现有的 Shiny 用户，您将从本章中获得最大的价值，因为它将为您提供坚实的理论基础，使您能够创建专门针对您的问题定制的新工具。</p></li>
+<li><p>最后，在 “Best practices” 部分，我们将完成对使您的 Shiny 应用程序在生产中良好运行的有用技术的调查。
+您将学习如何将复杂的应用程序分解为函数和模块，如何使用包来组织代码，如何测试代码以确保其正确，以及如何衡量和提高性能。</p></li>
 </ol>
 </div>
 <div id="what-wont-you-learn" class="section level2" number="0.4">
 <h2>
 <span class="header-section-number">0.4</span> What won’t you learn?<a class="anchor" aria-label="anchor" href="#what-wont-you-learn"><i class="fas fa-link"></i></a>
 </h2>
-<p>The focus of this book is making effective Shiny apps and understanding the underlying theory of reactivity.
-I’ll do my best to showcase best practices for data science, R programming, and software engineering, but you’ll need other references to master these important skills.
-If you enjoy my writing in this book, you might enjoy my other books on these topics: <a href="http://r4ds.had.co.nz/">R for Data Science</a>, <a href="http://adv-r.hadley.nz/">Advanced R</a>, and <a href="http://r-pkgs.org/">R Packages</a>.</p>
-<p>There are also a number of important topics specific to Shiny that I don’t cover:</p>
+<p>本书的重点是制作有效的 Shiny 应用程序并理解反应式的基本理论。
+我将尽力展示数据科学、R 编程和软件工程的最佳实践，但您需要其他参考资料来掌握这些重要技能。
+如果您喜欢我在本书中的写作，您可能会喜欢我关于这些主题的其他书籍：<a href="http://r4ds.had.co.nz/">R for Data Science</a>、<a href="http://adv-r.hadley.nz/">Advanced R</a> 和 <a href="http://r-pkgs.org/">R Packages</a>。</p>
+<p>还有一些特定于 Shiny 的重要主题我没有涉及：</p>
 <ul>
-<li><p>This book only covers the built-in user interface toolkit.
-This doesn’t provide the sexiest possible design, but it’s simple to learn and gets you a long way.
-If you have additional needs (or just get bored with the defaults), there are number of other packages that provide alternative front ends.
-See Section <a href="#other-tools"><strong>??</strong></a> for more details.</p></li>
-<li><p>Deployment of Shiny apps.
-Putting Shiny “into production” is outside the scope of this book because it hugely varies from company to company, and much of it is unrelated to R (the majority of challenges tend to be cultural or organisational, not technical).
-If you’re new to Shiny in production, I recommend by starting with Joe Cheng’s 2019 rstudio::conf keynote: <a href="https://rstudio.com/resources/rstudioconf-2019/shiny-in-production-principles-practices-and-tools/" class="uri">https://rstudio.com/resources/rstudioconf-2019/shiny-in-production-principles-practices-and-tools/</a>.
-That will give you the lay of the land, discussing broadly what putting Shiny into production entails and how to overcome some of the challenges that you’re likely to face.
-Once you’ve done that, see the <a href="https://rstudio.com/products/connect/">RStudio Connect website</a> to learn about RStudio’s product for deploying apps within your company and the <a href="https://shiny.rstudio.com/articles/#deployment">Shiny website</a> for other common deployment scenarios.</p></li>
+<li><p>本书仅涵盖内置的用户界面工具包。
+这并没有提供最性感的设计，但它很容易学习并且可以让你走得很远。
+如果您有其他需求（或者只是对默认设置感到厌倦），还有许多其他软件包可以提供替代前端。
+参见 Section <a href="#other-tools"><strong>??</strong></a> 获取更多细节。</p></li>
+<li><p>部署 Shiny 应用程序。
+将 Shiny “投入生产” 超出了本书的讨论范围，因为每个公司的情况差异很大，而且其中大部分与 R 无关（大多数挑战往往是文化或组织方面的，而不是技术方面的）。
+如果您在生产中不熟悉 Shiny，我建议您从 Joe Cheng’s 2019 rstudio::conf keynote: <a href="https://rstudio.com/resources/rstudioconf-2019/shiny-in-production-principles-practices-and-tools/" class="uri">https://rstudio.com/resources/rstudioconf-2019/shiny-in-production-principles-practices-and-tools/</a> 开始。
+这将为您提供基本情况，广泛讨论将 Shiny 投入生产需要什么以及如何克服您可能面临的一些挑战。
+完成此操作后，请访问 <a href="https://rstudio.com/products/connect/">RStudio Connect website</a>，了解用于在公司内部署应用程序的 RStudio 产品，并访问 <a href="https://shiny.rstudio.com/articles/#deployment">Shiny website</a>了解其他常见部署场景。</p></li>
 </ul>
 </div>
 <div id="prerequisites" class="section level2" number="0.5">
 <h2>
 <span class="header-section-number">0.5</span> Prerequisites<a class="anchor" aria-label="anchor" href="#prerequisites"><i class="fas fa-link"></i></a>
 </h2>
-<p>Before we continue, make sure you have all the software you need for this book:</p>
+<p>在我们继续之前，请确保您拥有本书所需的所有软件：</p>
 <ul>
-<li><p><strong>R</strong>: If you don’t have R installed already, you may be reading the wrong book; I assume a basic familiarity with R throughout this book.
-If you’d like to learn how to use R, I’d recommend my <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a> which is designed to get you up and running with R with a minimum of fuss.</p></li>
-<li><p><strong>RStudio</strong>: RStudio is a free and open source integrated development environment (IDE) for R.
-While you can write and use Shiny apps with any R environment (including R GUI and <a href="http://ess.r-project.org">ESS</a>), RStudio has some nice features specifically for authoring, debugging, and deploying Shiny apps.
-We recommend giving it a try, but it’s not required to be successful with Shiny or with this book.
-You can download RStudio Desktop from <a href="https://www.rstudio.com/products/rstudio/download" class="uri">https://www.rstudio.com/products/rstudio/download</a></p></li>
+<li><p><strong>R</strong>：如果你还没有安装 R，你可能读错书了；我假设您对本书中的 R 有基本的了解。
+如果您想学习如何使用 R，我会推荐我的 <a href="https://r4ds.had.co.nz/"><em>R for Data Science</em></a>，它旨在帮助您轻松上手并运行 R。</p></li>
+<li><p><strong>RStudio</strong>：RStudio 是一个免费的开源 R 集成开发环境 (IDE)。
+虽然您可以在任何 R 环境（包括 R GUI 和 <a href="http://ess.r-project.org">ESS</a>）中编写和使用 Shiny 应用程序，但 RStudio 有一些专门用于创作、调试和部署 Shiny 应用程序的出色功能。
+我们建议您尝试一下，但并不需要使用 Shiny 或本书即可获得成功。
+您可以从 <a href="https://www.rstudio.com/products/rstudio/download" class="uri">https://www.rstudio.com/products/rstudio/download</a> 下载 RStudio Desktop。</p></li>
 <li>
-<p><strong>R packages</strong>: This book uses a bunch of R packages.
-You can install them all at once by running:</p>
+<p><strong>R packages</strong>：本书使用了一堆 R 包。
+您可以通过运行以下命令一次性安装它们：</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"gapminder"</span>, <span class="st">"ggforce"</span>, <span class="st">"gh"</span>, <span class="st">"globals"</span>, <span class="st">"openintro"</span>, <span class="st">"profvis"</span>, </span>
@@ -160,7 +163,7 @@ You can install them all at once by running:</p>
 <span>  <span class="st">"shinythemes"</span>, <span class="st">"testthat"</span>, <span class="st">"thematic"</span>, <span class="st">"tidyverse"</span>, <span class="st">"vroom"</span>, </span>
 <span>  <span class="st">"waiter"</span>, <span class="st">"xml2"</span>, <span class="st">"zeallot"</span> </span>
 <span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>If you’ve downloaded Shiny in the past, make sure that you have at least version 1.6.0.</p>
+<p>如果您过去下载过 Shiny，请确保您的版本至少为 1.6.0。</p>
 </li>
 </ul>
 </div>
@@ -168,9 +171,9 @@ You can install them all at once by running:</p>
 <h2>
 <span class="header-section-number">0.6</span> Acknowledgements<a class="anchor" aria-label="anchor" href="#acknowledgements"><i class="fas fa-link"></i></a>
 </h2>
-<p>This book was written in the open and chapters were advertised on twitter when complete.
-It is truly a community effort: many people read drafts, fixed typos, suggested improvements, and contributed content.
-Without those contributors, the book wouldn’t be nearly as good as it is, and I’m deeply grateful for their help.</p>
+<p>这本书是公开撰写的，完成后各章节会在 Twitter 上发布广告。
+这确实是社区的努力：许多人阅读草稿、修正拼写错误、提出改进建议并贡献内容。
+如果没有这些贡献者，这本书就不会这么好，我非常感谢他们的帮助。</p>
 <pre><code>#&gt; Warning: package 'dplyr' was built under R version 4.2.3</code></pre>
 <p>A big thank you to all 83 people who contributed specific improvements via GitHub pull requests (in alphabetical order by username): Adam Pearce (@1wheel), Adi Sarid (@adisarid), Alexandros Melemenidis (@alex-m-ffm), Anton Klåvus (@antonvsdata), Betsy Rosalen (@betsyrosalen), Michael Beigelmacher (@brooklynbagel), Bryan Smith (@BSCowboy), c1au6io_hh (@c1au6i0), @canovasjm, Chris Beeley (@ChrisBeeley), @chsafouane, Chuliang Xiao (@ChuliangXiao), Conor Neilson (@condwanaland), @d-edison, Dean Attali (@daattali), DanielDavid521 (@Danieldavid521), David Granjon (@DivadNojnarg), Eduardo Vásquez (@edovtp), Emil Hvitfeldt (@EmilHvitfeldt), Emilio (@emilopezcano), Emily Riederer (@emilyriederer), Eric Simms (@esimms999), Federico Marini (@federicomarini), Frederik Kok Hansen (@fkoh111), Frans van Dunné (@FvD), Giorgio Comai (@giocomai), Hedley (@heds1), Henning (@henningsway), Hlynur (@hlynurhallgrims), @hsm207, @jacobxk, James Pooley (@jamespooley), Joe Cheng (@jcheng5), Julien Colomb (@jcolomb), Juan C Rodriguez (@jcrodriguez1989), Jennifer (Jenny) Bryan (@jennybc), Jim Hester (@jimhester), Joachim Gassen (@joachim-gassen), Jon Calder (@jonmcalder), Jonathan Carroll (@jonocarroll), Julian Stanley (@julianstanley), @jyuu, @kaanpekel, Karandeep Singh (@kdpsingh), Robert Kirk DeLisle (@KirkDCO), Elaine (@loomalaine), Malcolm Barrett (@malcolmbarrett), Marly Gotti (@marlycormar), Matthew Wilson (@MattW-Geospatial), Matthew T. Warkentin (@mattwarkentin), Mauro Lepore (@maurolepore), Maximilian Rohde (@maxdrohde), Matthew Berginski (@mbergins), Michael Dewar (@michael-dewar), Mine Cetinkaya-Rundel (@mine-cetinkaya-rundel), Maria Paula Caldas (@mpaulacaldas), nthobservation (@nthobservation), Pietro Monticone (@pitmonticone), psychometrician (@psychometrician), Ram Thapa (@raamthapa), Janko Thyson (@rappster), Rebecca Janis (@rbjanis), Tom Palmer (@remlapmot), Russ Hyde (@russHyde), Barret Schloerke (@schloerke), Scott (@scottyd22), Matthew Sedaghatfar (@sedaghatfar), Shixiang Wang (@ShixiangWang), Praer (Suthira Owlarn) (@sowla), Sébastien Rochette (@statnmap), @stevensbr, André Calero Valdez (@Sumidu), Tanner Stauss (@tmstauss), Tony Fujs (@tonyfujs), Stefan Moog (@trekonom), Jeff Allen (@trestletech), Trey Gilliland (@treygilliland), Albrecht (@Tungurahua), Valeri Voev (@ValeriVoev), Vickus (@Vickusr), William Doane (@WilDoane), 黄湘云 (@XiangyunHuang), gXcloud (@xwydq).</p>
 </div>
@@ -178,10 +181,9 @@ Without those contributors, the book wouldn’t be nearly as good as it is, and 
 <h2>
 <span class="header-section-number">0.7</span> Colophon<a class="anchor" aria-label="anchor" href="#colophon"><i class="fas fa-link"></i></a>
 </h2>
-<p>This book was written in <a href="http://www.rstudio.com/ide/">RStudio</a> using <a href="http://bookdown.org/">bookdown</a>.
-The <a href="http://mastering-shiny.org/">website</a> is hosted with <a href="http://netlify.com/">netlify</a>, and automatically updated after every commit by <a href="https://github.com/features/actions">Github Actions</a>.
-The complete source is available from <a href="https://github.com/hadley/mastering-shiny">GitHub</a>.</p>
-<p>This version of the book was built with R version 4.2.0 (2022-04-22 ucrt) and the following packages:</p>
+<p>本书是使用 <a href="http://bookdown.org/">bookdown</a> 在 <a href="http://www.rstudio.com/ide/">RStudio</a> 中编写的。
+该网站由 <a href="http://netlify.com/">netlify</a> 托管，并在 <a href="https://github.com/features/actions">Github Actions</a> 每次提交后自动更新。完整的源代码可以从 <a href="https://github.com/hadley/mastering-shiny">GitHub</a> 获取。</p>
+<p>本书的这个版本是使用 R 版本 R version 4.2.0 (2022-04-22 ucrt) 和以下软件包构建的：</p>
 <div class="inline-table"><table class="table table-sm">
 <thead><tr class="header">
 <th align="left">package</th>
@@ -283,9 +285,12 @@ The complete source is available from <a href="https://github.com/hadley/masteri
 </table></div>
 </div>
 </div>
+
+
+
   <div class="chapter-nav">
 <div class="prev"><a href="index.html">Welcome</a></div>
-<div class="empty"></div>
+<div class="next"><a href="basic-intro.html">Introduction</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -301,8 +306,8 @@ The complete source is available from <a href="https://github.com/hadley/masteri
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/hadley/mastering-shiny/blob/master/introduction.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/hadley/mastering-shiny/edit/master/introduction.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/zhenghu159/blogdown-book-zh-cn/blob/master/introduction.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/zhenghu159/blogdown-book-zh-cn/edit/master/introduction.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

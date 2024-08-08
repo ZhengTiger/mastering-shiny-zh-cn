@@ -13,8 +13,8 @@ rmd_files:
 
     "introduction.Rmd",
 
-    #"basic.Rmd",
-    #"basic-app.Rmd",
+    "basic.Rmd",
+    "basic-app.Rmd",
     #"basic-ui.Rmd",
     #"basic-reactivity.Rmd",
     #"basic-case-study.Rmd",

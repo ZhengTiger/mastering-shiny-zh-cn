@@ -1,3 +1,8 @@
+fig:run-app
+fig:hello-world
+fig:basic-ui
+fig:basic-server
+fig:cheatsheet
 what-is-shiny
 who-should-read-this-book
 what-will-you-learn
@@ -5,3 +10,12 @@ what-wont-you-learn
 prerequisites
 acknowledgements
 colophon
+basic-app
+introduction
+create-app
+running
+adding-ui
+server-function
+reactive-expr
+summary
+exercises
