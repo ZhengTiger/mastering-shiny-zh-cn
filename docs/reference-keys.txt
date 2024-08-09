@@ -19,6 +19,12 @@ fig:sim-button
 fig:sim-button1-react
 fig:sim-button2-react
 fig:observer
+fig:toilets-raw
+fig:toilets-rate
+fig:prototype
+fig:polish-tables
+fig:rate-vs-count
+fig:narrative
 what-is-shiny
 who-should-read-this-book
 what-will-you-learn
@@ -76,3 +82,13 @@ timed-invalidation
 on-click
 observers
 summary-2
+basic-case-study
+introduction-3
+the-data
+exploration
+prototype
+polish-tables
+rate-vs-count
+narrative
+exercises-4
+summary-3

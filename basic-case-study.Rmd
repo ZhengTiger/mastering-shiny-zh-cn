@@ -48,13 +48,13 @@ if (FALSE) {
 
 ## Introduction
 
-I've introduced you to a bunch of new concepts in the last three chapters.
-So to help them sink in, we'll now walk through a richer Shiny app that explores a fun dataset and pulls together many of the ideas that you've seen so far.
-We'll start by doing a little data analysis outside of Shiny, then turn it into an app, starting simply, then progressively layering on more detail.
+我在过去三章中向您介绍了许多新概念。
+因此，为了帮助他们理解，我们现在将介绍一个更丰富的 Shiny app，该 app 探索有趣的数据集并将您迄今为止看到的许多想法汇集在一起。
+我们将首先在 Shiny 之外进行一些数据分析，然后将其变成一个 app，从简单开始，然后逐步分层更多细节。
 
-In this chapter, we'll supplement Shiny with vroom (for fast file reading) and the tidyverse (for general data analysis).
+在本章中，我们将用 vroom（用于快速文件读取）和 tidyverse（用于一般数据分析）来补充 Shiny。
 
-```{r setup, message = FALSE}
+```{r setup, message = FALSE, warning=FALSE}
 library(shiny)
 library(vroom)
 library(tidyverse)
@@ -62,16 +62,16 @@ library(tidyverse)
 
 ## The data
 
-We're going to explore data from the National Electronic Injury Surveillance System (NEISS), collected by the Consumer Product Safety Commission.
-This is a long-term study that records all accidents seen in a representative sample of hospitals in the United States.
-It's an interesting dataset to explore because every one is already familiar with the domain, and each observation is accompanied by a short narrative that explains how the accident occurred.
-You can find out more about this dataset at <https://github.com/hadley/neiss>.
+我们将探索来自消费品安全委员会收集的国家电子伤害监控系统 (NEISS) 的数据。
+这是一项长期研究，记录了美国代表性医院样本中发生的所有事故。
+这是一个值得探索的有趣数据集，因为每个人都已经熟悉该领域，并且每次观察都附有一个简短的叙述，解释事故是如何发生的。
+您可以在 <https://github.com/hadley/neiss> 找到有关此数据集的更多信息。
 
-In this chapter, I'm going to focus on just the data from 2017.
-This keeps the data small enough (\~10 MB) that it's easy to store in git (along with the rest of the book), which means we don't need to think about sophisticated strategies for importing the data quickly (we'll come back to those later in the book).
-You can see the code I used to create the extract for this chapter at <https://github.com/hadley/mastering-shiny/blob/master/neiss/data.R>.
+在本章中，我将只关注 2017 年的数据。
+这使数据足够小（\~10 MB），以便可以轻松存储在 git 中（以及本书的其余部分），这意味着我们不需要考虑快速导入数据的复杂策略（我们将在本书后面讨论这些策略）。
+您可以在 <https://github.com/hadley/mastering-shiny/blob/master/neiss/data.R> 上查看我用于创建本章摘录的代码。
 
-If you want to get the data on to your own computer, run this code:
+如果您想将数据传输到您自己的计算机上，请运行以下代码：
 
 ```{r, eval = FALSE}
 dir.create("neiss")
@@ -84,30 +84,30 @@ download("population.tsv")
 download("products.tsv")
 ```
 
-The main dataset we'll use is `injuries`, which contains around 250,000 observations:
+我们将使用的主要数据集是 `injuries`，其中包含大约 250,000 个观察值：
 
 ```{r, message = FALSE}
 injuries <- vroom::vroom("neiss/injuries.tsv.gz")
 injuries
 ```
 
-Each row represents a single accident with 10 variables:
+每行代表一个具有 10 个变量的事故：
 
--   `trmt_date` is date the person was seen in the hospital (not when the accident occurred).
+-   `trmt_date` 是该人在医院就诊的日期（不是事故发生的时间）。
 
--   `age`, `sex`, and `race` give demographic information about the person who experienced the accident.
+-   `age`、`sex` 和 `race` 提供了有关事故发生者的人口统计信息。
 
--   `body_part` is the location of the injury on the body (like ankle or ear); `location` is the place where the accident occurred (like home or school).
+-   `body_part` 是身体受伤的位置（例如脚踝或耳朵）；`location` 是事故发生的地方（如家或学校）。
 
--   `diag` gives the basic diagnosis of the injury (like fracture or laceration).
+-   `diag` 给出损伤的基本诊断（如骨折或撕裂）。
 
--   `prod_code` is the primary product associated with the injury.
+-   `prod_code` 是与伤害相关的主要产品。
 
--   `weight` is statistical weight giving the estimated number of people who would suffer this injury if this dataset was scaled to the entire population of the US.
+-   `weight` 是统计权重，给出了如果将此数据集扩展到美国全体人口时将遭受这种伤害的估计人数。
 
--   `narrative` is a brief story about how the accident occurred.
+-   `narrative` 是关于事故如何发生的简短故事。
 
-We'll pair it with two other data frames for additional context: `products` lets us look up the product name from the product code, and `population` tells us the total US population in 2017 for each combination of age and sex.
+我们将其与其他两个 data frames 配对以获取更多上下文：`products` 让我们从产品代码中查找产品名称，`population` 告诉我们 2017 年每种年龄和性别组合的美国总人口。
 
 ```{r, message = FALSE}
 products <- vroom::vroom("neiss/products.tsv")
@@ -119,17 +119,17 @@ population
 
 ## Exploration
 
-Before we create the app, let's explore the data a little.
-We'll start by looking at a product with an interesting story: 649, "toilets".
-First we'll pull out the injuries associated with this product:
+在创建 app 之前，让我们先探索一下数据。
+我们首先来看一个有有趣故事的产品：649, "toilets"。
+首先，我们将列出与该产品相关的 injuries：
 
 ```{r}
 selected <- injuries %>% filter(prod_code == 649)
 nrow(selected)
 ```
 
-Next we'll perform some basic summaries looking at the location, body part, and diagnosis of toilet related injuries.
-Note that I weight by the `weight` variable so that the counts can be interpreted as estimated total injuries across the whole US.
+接下来，我们将对 toilet 相关伤害的位置、身体部位和诊断进行一些基本总结。
+请注意，我按 `weight` 变量进行加权，以便计数可以解释为整个美国的估计总伤害。
 
 ```{r}
 selected %>% count(location, wt = weight, sort = TRUE)
@@ -139,13 +139,12 @@ selected %>% count(body_part, wt = weight, sort = TRUE)
 selected %>% count(diag, wt = weight, sort = TRUE)
 ```
 
-As you might expect, injuries involving toilets most often occur at home.
-The most common body parts involved possibly suggest that these are falls (since the head and face are not usually involved in routine toilet usage), and the diagnoses seem rather varied.
+正如您所料，涉及 toilets 的伤害最常发生在 home。
+最常见的 body parts 可能表明这些是跌倒（因为 head 和 face 通常不涉及日常厕所使用），并且诊断似乎相当多样化。
 
-We can also explore the pattern across age and sex.
-We have enough data here that a table is not that useful, and so I make a plot, Figure \@ref(fig:toilets-raw), that makes the patterns more obvious.
+我们这里有足够的数据，表格没有那么有用，所以我做了一个图，Figure \@ref(fig:toilets-raw)，使模式更加明显。
 
-```{r toilets-raw, out.width = "100%", fig.asp = 1/2, fig.cap = "Estimated number of injuries caused by toilets, broken down by age and sex"}
+```{r toilets-raw, out.width = "100%", fig.asp = 1/2, fig.cap = "按 age 和 sex 细分的估计因 toilets 造成的伤害人数"}
 summary <- selected %>% 
   count(age, sex, wt = weight)
 summary
@@ -156,12 +155,12 @@ summary %>%
   labs(y = "Estimated number of injuries")
 ```
 
-We see a spike for young boys peaking at age 3, and then an increase (particularly for women) starting around middle age, and a gradual decline after age 80.
-I suspect the peak is because boys usually use the toilet standing up, and the increase for women is due to osteoporosis (i.e. I suspect women and men have injuries at the same rate, but more women end up in the ER because they are at higher risk of fractures).
+我们看到年轻男孩的数量在 3 岁时达到顶峰，然后从中年左右开始增加（尤其是女性），并在 80 岁之后逐渐下降。
+我怀疑这个峰值是因为男孩通常是站着上厕所的，而女性的增加是由于骨质疏松症（即我怀疑女性和男性受伤的比例相同，但更多的女性最终进入急诊室，因为她们骨折的风险更高）。
 
-One problem with interpreting this pattern is that we know that there are fewer older people than younger people, so the population available to be injured is smaller.
-We can control for this by comparing the number of people injured with the total population and calculating an injury rate.
-Here I use a rate per 10,000.
+解释这一模式的一个问题是，我们知道老年人比年轻人少，因此可能受伤的人口也较少。
+我们可以通过比较受伤人数与总人口并计算受伤率来控制这一点。
+这里我使用的是每 10,000 人的比率。
 
 ```{r}
 summary <- selected %>% 
@@ -172,21 +171,21 @@ summary <- selected %>%
 summary
 ```
 
-Plotting the rate, Figure \@ref(fig:toilets-rate), yields a strikingly different trend after age 50: the difference between men and women is much smaller, and we no longer see a decrease.
-This is because women tend to live longer than men, so at older ages there are simply more women alive to be injured by toilets.
+绘制该比率，Figure \@ref(fig:toilets-rate)，可以得出 50 岁之后的明显不同趋势：男性和女性之间的差异要小得多，而且我们不再看到下降。
+这是因为女性往往比男性寿命更长，因此，随着年龄的增长，有更多的女性会因厕所而受伤。
 
-```{r toilets-rate, out.width = "100%", fig.asp = 1/2, fig.cap = "Estimated rate of injuries per 10,000 people, broken down by age and sex"}
+```{r toilets-rate, out.width = "100%", fig.asp = 1/2, fig.cap = "按 age 和 sex 细分的每 10,000 人估计受伤率"}
 summary %>% 
   ggplot(aes(age, rate, colour = sex)) + 
   geom_line(na.rm = TRUE) + 
   labs(y = "Injuries per 10,000 people")
 ```
 
-(Note that the rates only go up to age 80 because I couldn't find population data for ages over 80.)
+（请注意，该比率仅上升到 80 岁，因为我找不到 80 岁以上的人口数据。）
 
-Finally, we can look at some of the narratives.
-Browsing through these is an informal way to check our hypotheses, and generate new ideas for further exploration.
-Here I pull out a random sample of 10:
+最后，我们可以看看一些叙述。
+浏览这些内容是一种非正式的方式来检查我们的假设，并产生新的想法以供进一步探索。
+这里我随机抽取了 10 个样本：
 
 ```{r, echo = FALSE}
 # Ensure that narratives don't overflow
@@ -202,52 +201,52 @@ selected %>%
   pull(narrative)
 ```
 
-Having done this exploration for one product, it would be very nice if we could easily do it for other products, without having to retype the code.
-So let's make a Shiny app!
+在对一个产品进行了这种探索之后，如果我们可以轻松地对其他产品进行此探索，而无需重新输入代码，那就太好了。
+那么让我们制作一个 Shiny app 吧！
 
 ## Prototype
 
-When building a complex app, I strongly recommend starting as simple as possible, so that you can confirm the basic mechanics work before you start doing something more complicated.
-Here I'll start with one input (the product code), three tables, and one plot.
+在构建复杂的 app 时，我强烈建议从尽可能简单的开始，以便您可以在开始做更复杂的事情之前确认基本机制的工作。
+在这里，我将从一个 input（product code）、三个 tables 和一个 plot 开始。
 
-When designing a first prototype, the challenge is in making it "as simple *as possible*".
-There's a tension between getting the basics working quickly and planning for the future of the app.
-Either extreme can be bad: if you design too narrowly, you'll spend a lot of time later on reworking your app; if you design too rigorously, you'll spend a bunch of time writing code that later ends up on the cutting floor.
-To help get the balance right, I often do a few pencil-and-paper sketches to rapidly explore the UI and reactive graph before committing to code.
+在设计第一个原型时，挑战在于使其“尽可能简单”。
+快速掌握基础知识和规划 app 的未来之间存在着紧张关系。
+任何一个极端都可能是糟糕的：如果你的设计范围太窄，你以后会花很多时间来重新设计你的 app；如果你设计得太严格，你就会花大量时间编写代码，而这些代码最终会被砍掉。
+为了帮助实现正确的平衡，我经常在提交代码之前画一些纸笔草图来快速探索 UI 和响应式图。
 
-Here I decided to have one row for the inputs (accepting that I'm probably going to add more inputs before this app is done), one row for all three tables (giving each table 4 columns, 1/3 of the 12 column width), and then one row for the plot:
+在这里，我决定为 inputs 设置一行（接受在完成此 app 之前我可能会添加更多输入），为所有三个 tables 设置一行（为每个 table 提供 4 columns，12 column 宽度的 1/3），然后为 plot 设置一行：
 
 ```{r code = section_get("neiss/prototype.R", "ui")}
 ```
 
-We haven't talked about `fluidRow()` and `column()` yet, but you should be able to guess what they do from the context, and we'll come back to talk about them in Section \@ref(multi-row).
-Also note the use of `setNames()` in the `selectInput()` `choices`: this shows the product name in the UI and returns the product code to the server.
+我们还没有讨论过 `fluidRow()` 和 `column()`，但是你应该能够从上下文中猜出它们的作用，我们将在 Section \@ref(multi-row) 中回来讨论它们。
+另请注意 `selectInput()` `choices` 中 `setNames()` 的使用：这会在 UI 中显示产品名称并将产品代码返回到 server。
 
-The server function is relatively straightforward.
-I first convert the `selected` and `summary` variables created in the previous section to reactive expressions.
-This is a reasonable general pattern: you create variables in your data analysis to decompose the analysis into steps, and to avoid recomputing things multiple times, and reactive expressions play the same role in Shiny apps.
+server 函数相对简单。
+我首先将上一节中创建的 `selected` 变量和 `summary` 变量转换为响应式表达式。
+这是一个合理的一般模式：您在数据分析中创建变量以将分析分解为步骤，并避免多次重新计算，并且响应式表达式在 Shiny apps 中发挥相同的作用。
 
-Often it's a good idea to spend a little time cleaning up your analysis code before you start your Shiny app, so you can think about these problems in regular R code, before you add the additional complexity of reactivity.
+通常，在启动 Shiny app 之前花一点时间清理分析代码是个好主意，这样您就可以在添加额外的响应式复杂性之前在常规 R 代码中考虑这些问题。
 
 ```{r code = section_get("neiss/prototype.R", "server")}
 ```
 
-Note that creating the `summary` reactive isn't strictly necessary here, as it's only used by a single reactive consumer.
-But it's good practice to keep computing and plotting separate as it makes the flow of the app easier to understand, and will make it easier to generalise in the future.
+请注意，创建响应式 `summary` 在这里并不是绝对必要的，因为它仅由单个响应式使用者使用。
+但最好将计算和绘图分开，因为这样可以使 app 的流程更容易理解，并且在将来更容易推广。
 
-A screenshot of the resulting app is shown in Figure \@ref(fig:prototype).
-You can find the source code at <https://github.com/hadley/mastering-shiny/tree/main/neiss/prototype.R> and try out a live version of the app at <https://hadley.shinyapps.io/ms-prototype/>.
+生成的 app 的屏幕截图如 Figure \@ref(fig:prototype) 所示。
+您可以在 <https://github.com/hadley/mastering-shiny/tree/main/neiss/prototype.R> 找到源代码，并在 <https://hadley.shinyapps.io/ms-prototype/> 尝试该 app 的实时版本。
 
-```{r prototype, echo = FALSE, out.width = "100%", fig.cap="First prototype of NEISS exploration app"}
+```{r prototype, echo = FALSE, out.width = "100%", fig.cap="NEISS 探索 app 的第一个原型"}
 case_study_screenshot("prototype")
 ```
 
 ## Polish tables
 
-Now that we have the basic components in place and working, we can progressively improve our app.
-The first problem with this app is that it shows a lot of information in the tables, where we probably just want the highlights.
-To fix this we need to first figure out how to truncate the tables.
-I've chosen to do that with a combination of forcats functions: I convert the variable to a factor, order by the frequency of the levels, and then lump together all levels after the top 5.
+现在我们已经具备了基本组件并可以运行，我们可以逐步改进我们的 app。
+这个 app 的第一个问题是它在表格中显示了大量信息，而我们可能只需要突出显示。
+为了解决这个问题，我们需要首先弄清楚如何截断表。
+我选择使用 forcats 函数的组合来实现这一点：我将变量转换为一个 factor，按 levels 的频率排序，然后将前 5 个级别之后的所有 levels 集中在一起。
 
 ```{r}
 injuries %>%
@@ -256,88 +255,88 @@ injuries %>%
   summarise(n = as.integer(sum(weight)))
 ```
 
-Because I knew how to do it, I wrote a little function to automate this for any variable.
-The details aren't really important here, but we'll come back to them in Chapter \@ref(action-tidy).
-You could also solve the problem with copy and paste, so don't worry if the code looks totally foreign.
+因为我知道如何做到这一点，所以我编写了一个小函数来自动处理任何变量。
+细节在这里并不重要，但我们将在 Chapter \@ref(action-tidy) 中再次讨论它们。
+您还可以通过复制和粘贴来解决问题，因此不必担心代码看起来完全陌生。
 
 ```{r, code = section_get("neiss/polish-tables.R", "count_top")}
 ```
 
-I then use this in the server function:
+然后我在 server 函数中使用它：
 
 ```{r, code = section_get("neiss/polish-tables.R", "tables"), eval = FALSE}
 ```
 
-I made one other change to improve the aesthetics of the app: I forced all tables to take up the maximum width (i.e. fill the column that they appear in).
-This makes the output more aesthetically pleasing because it reduces the amount of incidental variation.
+我做了另一项更改来提高 app 的美观性：我强制所有表格占据最大宽度（即填充它们出现的列）。
+这使得输出更加美观，因为它减少了附带变化的量。
 
-A screenshot of the resulting app is shown in Figure \@ref(fig:polish-tables).
-You can find the source code at <https://github.com/hadley/mastering-shiny/tree/main/neiss/polish-tables.R> and try out a live version of the app at <https://hadley.shinyapps.io/ms-polish-tables>.
+生成的 app 的屏幕截图如 Figure \@ref(fig:polish-tables) 所示。
+您可以在 <https://github.com/hadley/mastering-shiny/tree/main/neiss/polish-tables.R> 找到源代码，并在 <https://hadley.shinyapps.io/ms-polish-tables> 尝试该 app 的实时版本。
 
-```{r polish-tables, echo = FALSE, out.width = "100%", fig.cap="The second iteration of the app improves the display by only showing the most frequent rows in the summary tables"}
+```{r polish-tables, echo = FALSE, out.width = "100%", fig.cap="app 的第二次迭代通过仅显示汇总表中最常见的行来改进显示"}
 case_study_screenshot("polish-tables")
 ```
 
 ## Rate vs count
 
-So far, we're displaying only a single plot, but we'd like to give the user the choice between visualising the number of injuries or the population-standardised rate.
-First I add a control to the UI.
-Here I've chosen to use a `selectInput()` because it makes both states explicit, and it would be easy to add new states in the future:
+到目前为止，我们只显示了一个图，但我们希望用户可以选择是可视化受伤人数还是人口标准化率。
+首先，我向 UI 添加一个控件。
+这里我选择使用 `selectInput()` 因为它使两种状态都明确，并且将来添加新状态会很容易：
 
 ```{r, code = section_get("neiss/rate-vs-count.R", "first-row"), eval = FALSE}
 ```
 
-(I default to `rate` because I think it's safer; you don't need to understand the population distribution in order to correctly interpret the plot.)
+（我默认为 `rate`，因为我认为这样更安全；您不需要了解人口分布即可正确解释该图。）
 
-Then I condition on that input when generating the plot:
+然后我在生成绘图时以该输入为条件：
 
 ```{r, code = section_get("neiss/rate-vs-count.R", "plot"), eval = FALSE}
 ```
 
-A screenshot of the resulting app is shown in Figure \@ref(fig:rate-vs-count).
-You can find the source code at <https://github.com/hadley/mastering-shiny/tree/main/neiss/rate-vs-count.R> and try out a live version of the app at <https://hadley.shinyapps.io/ms-rate-vs-count>.
+生成的 app 的屏幕截图如 Figure \@ref(fig:rate-vs-count) 所示。
+您可以在 <https://github.com/hadley/mastering-shiny/tree/main/neiss/rate-vs-count.R> 找到源代码，并在 <https://hadley.shinyapps.io/ms-rate-vs-count> 上尝试该 app 的实时版本。
 
-```{r rate-vs-count, echo = FALSE, out.width = "100%", fig.cap = "In this iteration, we give the user the ability to switch between displaying the count or the population standardised rate on the y-axis."}
+```{r rate-vs-count, echo = FALSE, out.width = "100%", fig.cap = "在此迭代中，我们使用户能够在 y 轴上显示计数或人口标准化率之间进行切换。"}
 case_study_screenshot("rate-vs-count")
 ```
 
 ## Narrative
 
-Finally, I want to provide some way to access the narratives because they are so interesting, and they give an informal way to cross-check the hypotheses you come up with when looking at the plots.
-In the R code, I sample multiple narratives at once, but there's no reason to do that in an app where you can explore interactively.
+最后，我想提供一些访问叙述的方式，因为它们非常有趣，并且它们提供了一种非正式的方式来交叉检查您在查看绘图时提出的假设。
+在 R 代码中，我一次采样多个叙述，但没有理由在可以交互式探索的 app 中这样做。
 
-There are two parts to the solution.
-First we add a new row to the bottom of the UI.
-I use an action button to trigger a new story, and put the narrative in a `textOutput()`:
+解决方案有两个部分。
+首先，我们在 UI 底部添加一个新行。
+我使用 action button 触发新故事，并将叙述放入 `textOutput()` 中：
 
 ```{r, code = section_get("neiss/narrative.R", "narrative-ui"), eval = FALSE}
 ```
 
-I then use `eventReactive()` to create a reactive that only updates when the button is clicked or the underlying data changes.
+然后，我使用 `eventReactive()` 创建一个响应，仅在单击按钮或底层数据更改时更新。
 
 ```{r, code = section_get("neiss/narrative.R", "narrative-server"), eval = FALSE}
 ```
 
-A screenshot of the resulting app is shown in Figure \@ref(fig:narrative).
-You can find the source code at <https://github.com/hadley/mastering-shiny/tree/main/neiss/narrative.R> and try out a live version of the app at <https://hadley.shinyapps.io/ms-narrative>.
+生成的 app 的屏幕截图如 Figure \@ref(fig:narrative) 所示。
+您可以在 <https://github.com/hadley/mastering-shiny/tree/main/neiss/narrative.R> 找到源代码，并在 <https://hadley.shinyapps.io/ms-narrative> 尝试该 app 的实时版本。
 
-```{r narrative, echo = FALSE, out.width = "100%", fig.cap = "The final iteration adds the ability to pull out a random narrative from the selected rows"}
+```{r narrative, echo = FALSE, out.width = "100%", fig.cap = "最终迭代增加了从所选行中提取随机叙述的能力"}
 case_study_screenshot("narrative")
 ```
 
 ## Exercises
 
-1.  Draw the reactive graph for each app.
+1.  绘制每个 app 的响应式图。
 
-2.  What happens if you flip `fct_infreq()` and `fct_lump()` in the code that reduces the summary tables?
+2.  如果在减少汇总表格的代码中翻转 `fct_infreq()` 和 `fct_lump()` 会发生什么？
 
-3.  Add an input control that lets the user decide how many rows to show in the summary tables.
+3.  添加一个输入控件，让用户决定在汇总表中显示多少行。
 
-4.  Provide a way to step through every narrative systematically with forward and backward buttons.
+4.  提供一种通过前进和后退按钮系统地逐步浏览每个叙述的方法。
 
-    Advanced: Make the list of narratives "circular" so that advancing forward from the last narrative takes you to the first.
+    Advanced：将叙述列表设为 "circular"，以便从最后一个叙述前进到第一个叙述。
 
 ## Summary
 
-Now that you have the basics of Shiny apps under your belt, the following seven chapters will give you a grab bag of important techniques.
-Once you've read the next chapter on workflow, I recommend skimming the remaining chapters so you get a good sense of what they cover, then dip your toes back in as you need the techniques for an app.
+现在您已经掌握了 Shiny apps 的基础知识，接下来的七章将为您提供重要的技术。
+一旦您阅读了有关工作流程的下一章，我建议您浏览一下剩余的章节，以便您更好地了解它们所涵盖的内容，然后在您需要 app 的技术时再重新开始。

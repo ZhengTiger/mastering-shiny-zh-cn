@@ -17,7 +17,7 @@ rmd_files:
     "basic-app.Rmd",
     "basic-ui.Rmd",
     "basic-reactivity.Rmd",
-    #"basic-case-study.Rmd",
+    "basic-case-study.Rmd",
 
     #"action.Rmd",
     #"action-workflow.Rmd",

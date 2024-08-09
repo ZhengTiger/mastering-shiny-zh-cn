@@ -24,9 +24,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="4.1 Introduction I’ve introduced you to a bunch of new concepts in the last three chapters. So to help them sink in, we’ll now walk through a richer Shiny app that explores a fun dataset and pulls...">
-<meta property="og:description" content="4.1 Introduction I’ve introduced you to a bunch of new concepts in the last three chapters. So to help them sink in, we’ll now walk through a richer Shiny app that explores a fun dataset and pulls...">
-<meta name="twitter:description" content="4.1 Introduction I’ve introduced you to a bunch of new concepts in the last three chapters. So to help them sink in, we’ll now walk through a richer Shiny app that explores a fun dataset and pulls...">
+<meta name="description" content="4.1 Introduction 我在过去三章中向您介绍了许多新概念。 因此，为了帮助他们理解，我们现在将介绍一个更丰富的 Shiny app，该 app 探索有趣的数据集并将您迄今为止看到的许多想法汇集在一起。 我们将首先在 Shiny 之外进行一些数据分析，然后将其变成一个 app，从简单开始，然后逐步分层更多细节。 在本章中，我们将用 vroom（用于快速文件读取）和...">
+<meta property="og:description" content="4.1 Introduction 我在过去三章中向您介绍了许多新概念。 因此，为了帮助他们理解，我们现在将介绍一个更丰富的 Shiny app，该 app 探索有趣的数据集并将您迄今为止看到的许多想法汇集在一起。 我们将首先在 Shiny 之外进行一些数据分析，然后将其变成一个 app，从简单开始，然后逐步分层更多细节。 在本章中，我们将用 vroom（用于快速文件读取）和...">
+<meta name="twitter:description" content="4.1 Introduction 我在过去三章中向您介绍了许多新概念。 因此，为了帮助他们理解，我们现在将介绍一个更丰富的 Shiny app，该 app 探索有趣的数据集并将您迄今为止看到的许多想法汇集在一起。 我们将首先在 Shiny 之外进行一些数据分析，然后将其变成一个 app，从简单开始，然后逐步分层更多细节。 在本章中，我们将用 vroom（用于快速文件读取）和...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -47,25 +47,10 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html">Welcome</a></li>
-<li><a class="" href="preface.html">Preface</a></li>
-<li class="book-part">Getting started</li>
-<li><a class="" href="basic-intro.html">Introduction</a></li>
-<li><a class="" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
-<li><a class="" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
-<li><a class="" href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></li>
-<li><a class="active" href="basic-case-study.html"><span class="header-section-number">4</span> Case study: ER injuries</a></li>
-<li class="book-part">Shiny in action</li>
-<li><a class="" href="action-intro.html">Introduction</a></li>
-<li><a class="" href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></li>
-<li><a class="" href="action-layout.html"><span class="header-section-number">6</span> Layout, themes, HTML</a></li>
-<li><a class="" href="action-graphics.html"><span class="header-section-number">7</span> Graphics</a></li>
-<li><a class="" href="action-feedback.html"><span class="header-section-number">8</span> User feedback</a></li>
-</ul>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 4</span> Case study: ER injuries</a></li></ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/hadley/mastering-shiny">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/zhenghu159/mastering-shiny-zh-cn">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
@@ -77,39 +62,28 @@
 <h2>
 <span class="header-section-number">4.1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction-3"><i class="fas fa-link"></i></a>
 </h2>
-<p>I’ve introduced you to a bunch of new concepts in the last three chapters.
-So to help them sink in, we’ll now walk through a richer Shiny app that explores a fun dataset and pulls together many of the ideas that you’ve seen so far.
-We’ll start by doing a little data analysis outside of Shiny, then turn it into an app, starting simply, then progressively layering on more detail.</p>
-<p>In this chapter, we’ll supplement Shiny with vroom (for fast file reading) and the tidyverse (for general data analysis).</p>
-<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<p>我在过去三章中向您介绍了许多新概念。
+因此，为了帮助他们理解，我们现在将介绍一个更丰富的 Shiny app，该 app 探索有趣的数据集并将您迄今为止看到的许多想法汇集在一起。
+我们将首先在 Shiny 之外进行一些数据分析，然后将其变成一个 app，从简单开始，然后逐步分层更多细节。</p>
+<p>在本章中，我们将用 vroom（用于快速文件读取）和 tidyverse（用于一般数据分析）来补充 Shiny。</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://vroom.r-lib.org">vroom</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'vroom' was built under R version 4.2.3</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning: package 'tidyverse' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'ggplot2' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'tibble' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'tidyr' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'readr' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'purrr' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'dplyr' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'stringr' was built under R version 4.2.2</span></span>
-<span><span class="co">#&gt; Warning: package 'forcats' was built under R version 4.2.3</span></span>
-<span><span class="co">#&gt; Warning: package 'lubridate' was built under R version 4.2.3</span></span></code></pre></div>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div id="the-data" class="section level2" number="4.2">
 <h2>
 <span class="header-section-number">4.2</span> The data<a class="anchor" aria-label="anchor" href="#the-data"><i class="fas fa-link"></i></a>
 </h2>
-<p>We’re going to explore data from the National Electronic Injury Surveillance System (NEISS), collected by the Consumer Product Safety Commission.
-This is a long-term study that records all accidents seen in a representative sample of hospitals in the United States.
-It’s an interesting dataset to explore because every one is already familiar with the domain, and each observation is accompanied by a short narrative that explains how the accident occurred.
-You can find out more about this dataset at <a href="https://github.com/hadley/neiss" class="uri">https://github.com/hadley/neiss</a>.</p>
-<p>In this chapter, I’m going to focus on just the data from 2017.
-This keeps the data small enough (~10 MB) that it’s easy to store in git (along with the rest of the book), which means we don’t need to think about sophisticated strategies for importing the data quickly (we’ll come back to those later in the book).
-You can see the code I used to create the extract for this chapter at <a href="https://github.com/hadley/mastering-shiny/blob/master/neiss/data.R" class="uri">https://github.com/hadley/mastering-shiny/blob/master/neiss/data.R</a>.</p>
-<p>If you want to get the data on to your own computer, run this code:</p>
-<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<p>我们将探索来自消费品安全委员会收集的国家电子伤害监控系统 (NEISS) 的数据。
+这是一项长期研究，记录了美国代表性医院样本中发生的所有事故。
+这是一个值得探索的有趣数据集，因为每个人都已经熟悉该领域，并且每次观察都附有一个简短的叙述，解释事故是如何发生的。
+您可以在 <a href="https://github.com/hadley/neiss" class="uri">https://github.com/hadley/neiss</a> 找到有关此数据集的更多信息。</p>
+<p>在本章中，我将只关注 2017 年的数据。
+这使数据足够小（~10 MB），以便可以轻松存储在 git 中（以及本书的其余部分），这意味着我们不需要考虑快速导入数据的复杂策略（我们将在本书后面讨论这些策略）。
+您可以在 <a href="https://github.com/hadley/mastering-shiny/blob/master/neiss/data.R" class="uri">https://github.com/hadley/mastering-shiny/blob/master/neiss/data.R</a> 上查看我用于创建本章摘录的代码。</p>
+<p>如果您想将数据传输到您自己的计算机上，请运行以下代码：</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="st">"neiss"</span><span class="op">)</span></span>
 <span><span class="va">download</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://github.com/hadley/mastering-shiny/blob/main/neiss/"</span></span>
@@ -118,8 +92,8 @@ You can see the code I used to create the extract for this chapter at <a href="h
 <span><span class="fu">download</span><span class="op">(</span><span class="st">"injuries.tsv.gz"</span><span class="op">)</span></span>
 <span><span class="fu">download</span><span class="op">(</span><span class="st">"population.tsv"</span><span class="op">)</span></span>
 <span><span class="fu">download</span><span class="op">(</span><span class="st">"products.tsv"</span><span class="op">)</span></span></code></pre></div>
-<p>The main dataset we’ll use is <code>injuries</code>, which contains around 250,000 observations:</p>
-<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<p>我们将使用的主要数据集是 <code>injuries</code>，其中包含大约 250,000 个观察值：</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">injuries</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.r-lib.org/reference/vroom.html">vroom</a></span><span class="op">(</span><span class="st">"neiss/injuries.tsv.gz"</span><span class="op">)</span></span>
 <span><span class="va">injuries</span></span>
 <span><span class="co">#&gt; # A tibble: 255,064 × 10</span></span>
@@ -133,18 +107,18 @@ You can see the code I used to create the extract for this chapter at <a href="h
 <span><span class="co">#&gt; 6 2017-01-01    21 male  white Hand        Fracture     Home          1884   77.7</span></span>
 <span><span class="co">#&gt; # ℹ 255,058 more rows</span></span>
 <span><span class="co">#&gt; # ℹ 1 more variable: narrative &lt;chr&gt;</span></span></code></pre></div>
-<p>Each row represents a single accident with 10 variables:</p>
+<p>每行代表一个具有 10 个变量的事故：</p>
 <ul>
-<li><p><code>trmt_date</code> is date the person was seen in the hospital (not when the accident occurred).</p></li>
-<li><p><code>age</code>, <code>sex</code>, and <code>race</code> give demographic information about the person who experienced the accident.</p></li>
-<li><p><code>body_part</code> is the location of the injury on the body (like ankle or ear); <code>location</code> is the place where the accident occurred (like home or school).</p></li>
-<li><p><code>diag</code> gives the basic diagnosis of the injury (like fracture or laceration).</p></li>
-<li><p><code>prod_code</code> is the primary product associated with the injury.</p></li>
-<li><p><code>weight</code> is statistical weight giving the estimated number of people who would suffer this injury if this dataset was scaled to the entire population of the US.</p></li>
-<li><p><code>narrative</code> is a brief story about how the accident occurred.</p></li>
+<li><p><code>trmt_date</code> 是该人在医院就诊的日期（不是事故发生的时间）。</p></li>
+<li><p><code>age</code>、<code>sex</code> 和 <code>race</code> 提供了有关事故发生者的人口统计信息。</p></li>
+<li><p><code>body_part</code> 是身体受伤的位置（例如脚踝或耳朵）；<code>location</code> 是事故发生的地方（如家或学校）。</p></li>
+<li><p><code>diag</code> 给出损伤的基本诊断（如骨折或撕裂）。</p></li>
+<li><p><code>prod_code</code> 是与伤害相关的主要产品。</p></li>
+<li><p><code>weight</code> 是统计权重，给出了如果将此数据集扩展到美国全体人口时将遭受这种伤害的估计人数。</p></li>
+<li><p><code>narrative</code> 是关于事故如何发生的简短故事。</p></li>
 </ul>
-<p>We’ll pair it with two other data frames for additional context: <code>products</code> lets us look up the product name from the product code, and <code>population</code> tells us the total US population in 2017 for each combination of age and sex.</p>
-<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<p>我们将其与其他两个 data frames 配对以获取更多上下文：<code>products</code> 让我们从产品代码中查找产品名称，<code>population</code> 告诉我们 2017 年每种年龄和性别组合的美国总人口。</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">products</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.r-lib.org/reference/vroom.html">vroom</a></span><span class="op">(</span><span class="st">"neiss/products.tsv"</span><span class="op">)</span></span>
 <span><span class="va">products</span></span>
 <span><span class="co">#&gt; # A tibble: 38 × 2</span></span>
@@ -175,16 +149,16 @@ You can see the code I used to create the extract for this chapter at <a href="h
 <h2>
 <span class="header-section-number">4.3</span> Exploration<a class="anchor" aria-label="anchor" href="#exploration"><i class="fas fa-link"></i></a>
 </h2>
-<p>Before we create the app, let’s explore the data a little.
-We’ll start by looking at a product with an interesting story: 649, “toilets”.
-First we’ll pull out the injuries associated with this product:</p>
-<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<p>在创建 app 之前，让我们先探索一下数据。
+我们首先来看一个有有趣故事的产品：649, “toilets”。
+首先，我们将列出与该产品相关的 injuries：</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">selected</span> <span class="op">&lt;-</span> <span class="va">injuries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">prod_code</span> <span class="op">==</span> <span class="fl">649</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">selected</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 2993</span></span></code></pre></div>
-<p>Next we’ll perform some basic summaries looking at the location, body part, and diagnosis of toilet related injuries.
-Note that I weight by the <code>weight</code> variable so that the counts can be interpreted as estimated total injuries across the whole US.</p>
-<div class="sourceCode" id="cb69"><pre class="downlit sourceCode r">
+<p>接下来，我们将对 toilet 相关伤害的位置、身体部位和诊断进行一些基本总结。
+请注意，我按 <code>weight</code> 变量进行加权，以便计数可以解释为整个美国的估计总伤害。</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">selected</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">location</span>, wt <span class="op">=</span> <span class="va">weight</span>, sort <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 6 × 2</span></span>
 <span><span class="co">#&gt;   location                         n</span></span>
@@ -219,11 +193,10 @@ Note that I weight by the <code>weight</code> variable so that the counts can be
 <span><span class="co">#&gt; 5 Laceration            18734.</span></span>
 <span><span class="co">#&gt; 6 Strain, Sprain         7609.</span></span>
 <span><span class="co">#&gt; # ℹ 14 more rows</span></span></code></pre></div>
-<p>As you might expect, injuries involving toilets most often occur at home.
-The most common body parts involved possibly suggest that these are falls (since the head and face are not usually involved in routine toilet usage), and the diagnoses seem rather varied.</p>
-<p>We can also explore the pattern across age and sex.
-We have enough data here that a table is not that useful, and so I make a plot, Figure <a href="basic-case-study.html#fig:toilets-raw">4.1</a>, that makes the patterns more obvious.</p>
-<div class="sourceCode" id="cb70"><pre class="downlit sourceCode r">
+<p>正如您所料，涉及 toilets 的伤害最常发生在 home。
+最常见的 body parts 可能表明这些是跌倒（因为 head 和 face 通常不涉及日常厕所使用），并且诊断似乎相当多样化。</p>
+<p>我们这里有足够的数据，表格没有那么有用，所以我做了一个图，Figure <a href="basic-case-study.html#fig:toilets-raw">4.1</a>，使模式更加明显。</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="va">selected</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">sex</span>, wt <span class="op">=</span> <span class="va">weight</span><span class="op">)</span></span>
 <span><span class="va">summary</span></span>
@@ -244,16 +217,16 @@ We have enough data here that a table is not that useful, and so I make a plot, 
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Estimated number of injuries"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:toilets-raw"></span>
-<img src="basic-case-study_files/figure-html/toilets-raw-1.png" alt="Estimated number of injuries caused by toilets, broken down by age and sex" width="100%"><p class="caption">
-Figure 4.1: Estimated number of injuries caused by toilets, broken down by age and sex
+<img src="basic-case-study_files/figure-html/toilets-raw-1.png" alt="按 age 和 sex 细分的估计因 toilets 造成的伤害人数" width="100%"><p class="caption">
+Figure 4.1: 按 age 和 sex 细分的估计因 toilets 造成的伤害人数
 </p>
 </div>
-<p>We see a spike for young boys peaking at age 3, and then an increase (particularly for women) starting around middle age, and a gradual decline after age 80.
-I suspect the peak is because boys usually use the toilet standing up, and the increase for women is due to osteoporosis (i.e. I suspect women and men have injuries at the same rate, but more women end up in the ER because they are at higher risk of fractures).</p>
-<p>One problem with interpreting this pattern is that we know that there are fewer older people than younger people, so the population available to be injured is smaller.
-We can control for this by comparing the number of people injured with the total population and calculating an injury rate.
-Here I use a rate per 10,000.</p>
-<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<p>我们看到年轻男孩的数量在 3 岁时达到顶峰，然后从中年左右开始增加（尤其是女性），并在 80 岁之后逐渐下降。
+我怀疑这个峰值是因为男孩通常是站着上厕所的，而女性的增加是由于骨质疏松症（即我怀疑女性和男性受伤的比例相同，但更多的女性最终进入急诊室，因为她们骨折的风险更高）。</p>
+<p>解释这一模式的一个问题是，我们知道老年人比年轻人少，因此可能受伤的人口也较少。
+我们可以通过比较受伤人数与总人口并计算受伤率来控制这一点。
+这里我使用的是每 10,000 人的比率。</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="va">selected</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">count</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">sex</span>, wt <span class="op">=</span> <span class="va">weight</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">population</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age"</span>, <span class="st">"sex"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
@@ -270,52 +243,52 @@ Here I use a rate per 10,000.</p>
 <span><span class="co">#&gt; 5     2 female 438.      1965150 2.23  </span></span>
 <span><span class="co">#&gt; 6     2 male   632.      2056625 3.07  </span></span>
 <span><span class="co">#&gt; # ℹ 202 more rows</span></span></code></pre></div>
-<p>Plotting the rate, Figure <a href="basic-case-study.html#fig:toilets-rate">4.2</a>, yields a strikingly different trend after age 50: the difference between men and women is much smaller, and we no longer see a decrease.
-This is because women tend to live longer than men, so at older ages there are simply more women alive to be injured by toilets.</p>
-<div class="sourceCode" id="cb72"><pre class="downlit sourceCode r">
+<p>绘制该比率，Figure <a href="basic-case-study.html#fig:toilets-rate">4.2</a>，可以得出 50 岁之后的明显不同趋势：男性和女性之间的差异要小得多，而且我们不再看到下降。
+这是因为女性往往比男性寿命更长，因此，随着年龄的增长，有更多的女性会因厕所而受伤。</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">summary</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span><span class="va">age</span>, <span class="va">rate</span>, colour <span class="op">=</span> <span class="va">sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Injuries per 10,000 people"</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <span style="display:block;" id="fig:toilets-rate"></span>
-<img src="basic-case-study_files/figure-html/toilets-rate-1.png" alt="Estimated rate of injuries per 10,000 people, broken down by age and sex" width="100%"><p class="caption">
-Figure 4.2: Estimated rate of injuries per 10,000 people, broken down by age and sex
+<img src="basic-case-study_files/figure-html/toilets-rate-1.png" alt="按 age 和 sex 细分的每 10,000 人估计受伤率" width="100%"><p class="caption">
+Figure 4.2: 按 age 和 sex 细分的每 10,000 人估计受伤率
 </p>
 </div>
-<p>(Note that the rates only go up to age 80 because I couldn’t find population data for ages over 80.)</p>
-<p>Finally, we can look at some of the narratives.
-Browsing through these is an informal way to check our hypotheses, and generate new ideas for further exploration.
-Here I pull out a random sample of 10:</p>
-<div class="sourceCode" id="cb73"><pre class="downlit sourceCode r">
+<p>（请注意，该比率仅上升到 80 岁，因为我找不到 80 岁以上的人口数据。）</p>
+<p>最后，我们可以看看一些叙述。
+浏览这些内容是一种非正式的方式来检查我们的假设，并产生新的想法以供进一步探索。
+这里我随机抽取了 10 个样本：</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">selected</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/sample_n.html">sample_n</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">narrative</span><span class="op">)</span></span>
-<span><span class="co">#&gt;  [1] "53YF FELL WHILE TX'ING SELF FROM WHEELCHAIR TO THE TOILETC/O&gt;&gt;LEG PAIN"                                                                        </span></span>
-<span><span class="co">#&gt;  [2] "85YOF POST FALL EVAL,PER DAUGHTER PT WAS GETTING UP FROM TOILET,WENT TOREACH FOR HANDRAIL,MISSED FELL BW'S HIT BK HD ,NO THIN,LOC DXHD INJURY,"</span></span>
-<span><span class="co">#&gt;  [3] "90 YOF. SIITING ON THE TOILET WHEN PT HAD A SYNCOPAL EPISODE &amp; FELL TOTHE FLOOR. DX: SYNCOPE"                                                  </span></span>
-<span><span class="co">#&gt;  [4] "83 YOF FELL WHILE HUSBAND WAS HELPING HER TRANSFER OFF OF TOILET.DX:  CERVICAL STRAIN, DEMENTIA, POSS UTI."                                    </span></span>
-<span><span class="co">#&gt;  [5] "87YO F WAS TRANSFERRING TO TOILET 2 DAYS AGO WHEN SHE FELL FORWARD. RIBPAIN. DX:CLOSED FX, MULTIPLE RIBS. TRANSFER."                           </span></span>
-<span><span class="co">#&gt;  [6] "85 YOF FROM NURSING FACILITY WAS GETTING UP FROM TOILET MISSED HANDRAILAND FELL ONTO LEFT SIDE C/O HIP, THIGH, CHEST PAIN DX FEMUR FX, RIB FX" </span></span>
-<span><span class="co">#&gt;  [7] "69YOF TRYING TO TRANSFER SELF FROM THE WHEELCHAIR TO THE TOILET AND KNEE POPPED OUT OF PLACE DISLOCATED KNEE"                                  </span></span>
-<span><span class="co">#&gt;  [8] "81YM H/O HIP REPLACEMENT, FROM ALF WHERE ATTEMPTED TO GET UP OFF TOILET, LEGS GAVE OUT&amp;FELL&gt;&gt;FEMUR FX"                                         </span></span>
-<span><span class="co">#&gt;  [9] "93YOF SITTING ON TOILET, WENT TO STAND &amp; FELL OVER HITTING HEAD 2 ASSTLIVING  DX: ORTHOSTATIC SYNCOPE,FACIAL LAC, AKI, HYPERKALEMIA"           </span></span>
-<span><span class="co">#&gt; [10] "69 YOF GETTING OFF COMMODE &amp; SLIPPED, PROSTHETIC HIP POPPED OUT C/O PAIN DX HIP PROSTHESIS DISLOCATION"</span></span></code></pre></div>
-<p>Having done this exploration for one product, it would be very nice if we could easily do it for other products, without having to retype the code.
-So let’s make a Shiny app!</p>
+<span><span class="co">#&gt;  [1] "65 YO F PT FELL OFF THE TOILET ONTO THE FLOOR HITTING HEAD +LOCDX CHI"                                                                         </span></span>
+<span><span class="co">#&gt;  [2] "81YOF LAC LWR LEG, FELL OFF TOILET"                                                                                                            </span></span>
+<span><span class="co">#&gt;  [3] "83YF DEMENTED, WAS USING THE TOILET WHEN SUDDENLY BEGAN C/O TO DTR\" ITHURTS\" POINTING TO HER ARM&gt;&gt;PAIN"                                      </span></span>
+<span><span class="co">#&gt;  [4] "66 YO F FELL OFF COMMODE C/O HIP PAIN"                                                                                                         </span></span>
+<span><span class="co">#&gt;  [5] "33YOF WENT TO STAND FROM SITTING ON TOILET &amp; DEVELOPED LOW BACK PAIN THAT HAS GOTTEN PROGRESSIVELY WORSE/BACK PAIN"                            </span></span>
+<span><span class="co">#&gt;  [6] "NECK STR.  56YOF FELL OFF TOILET AND STRAINED NECK."                                                                                           </span></span>
+<span><span class="co">#&gt;  [7] "1MOM VESICOSTOMY PLACMENT BY FETAL INTERVENTION FEW DAYS AGO,PT AT 22 WKS GESTATION, MOM SPONTANEOUSLY DELIVERED PT IN TOILET AT HOME;CARD ARR"</span></span>
+<span><span class="co">#&gt;  [8] "89 YOF FELL OFF BEDSIDE COMMODE. C/O HIP PAIN DX HIP FX"                                                                                       </span></span>
+<span><span class="co">#&gt;  [9] "88 YO F C/O HEAD AND NECK PAIN S/P FALL FROM TOILET DX FALL CLOSED HEADINJURY NECK PAIN ACUTE R SIDE THORACIC BACK PAIN"                       </span></span>
+<span><span class="co">#&gt; [10] "FINGER LAC.  32YOM CUT FINGER CARRYING A TOILET AT HOME."</span></span></code></pre></div>
+<p>在对一个产品进行了这种探索之后，如果我们可以轻松地对其他产品进行此探索，而无需重新输入代码，那就太好了。
+那么让我们制作一个 Shiny app 吧！</p>
 </div>
 <div id="prototype" class="section level2" number="4.4">
 <h2>
 <span class="header-section-number">4.4</span> Prototype<a class="anchor" aria-label="anchor" href="#prototype"><i class="fas fa-link"></i></a>
 </h2>
-<p>When building a complex app, I strongly recommend starting as simple as possible, so that you can confirm the basic mechanics work before you start doing something more complicated.
-Here I’ll start with one input (the product code), three tables, and one plot.</p>
-<p>When designing a first prototype, the challenge is in making it “as simple <em>as possible</em>”.
-There’s a tension between getting the basics working quickly and planning for the future of the app.
-Either extreme can be bad: if you design too narrowly, you’ll spend a lot of time later on reworking your app; if you design too rigorously, you’ll spend a bunch of time writing code that later ends up on the cutting floor.
-To help get the balance right, I often do a few pencil-and-paper sketches to rapidly explore the UI and reactive graph before committing to code.</p>
-<p>Here I decided to have one row for the inputs (accepting that I’m probably going to add more inputs before this app is done), one row for all three tables (giving each table 4 columns, 1/3 of the 12 column width), and then one row for the plot:</p>
-<div class="sourceCode" id="cb74"><pre class="downlit sourceCode r">
+<p>在构建复杂的 app 时，我强烈建议从尽可能简单的开始，以便您可以在开始做更复杂的事情之前确认基本机制的工作。
+在这里，我将从一个 input（product code）、三个 tables 和一个 plot 开始。</p>
+<p>在设计第一个原型时，挑战在于使其“尽可能简单”。
+快速掌握基础知识和规划 app 的未来之间存在着紧张关系。
+任何一个极端都可能是糟糕的：如果你的设计范围太窄，你以后会花很多时间来重新设计你的 app；如果你设计得太严格，你就会花大量时间编写代码，而这些代码最终会被砍掉。
+为了帮助实现正确的平衡，我经常在提交代码之前画一些纸笔草图来快速探索 UI 和响应式图。</p>
+<p>在这里，我决定为 inputs 设置一行（接受在完成此 app 之前我可能会添加更多输入），为所有三个 tables 设置一行（为每个 table 提供 4 columns，12 column 宽度的 1/3），然后为 plot 设置一行：</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">prod_codes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html">setNames</a></span><span class="op">(</span><span class="va">products</span><span class="op">$</span><span class="va">prod_code</span>, <span class="va">products</span><span class="op">$</span><span class="va">title</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
@@ -333,13 +306,13 @@ To help get the balance right, I often do a few pencil-and-paper sketches to rap
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span><span class="fl">12</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"age_sex"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>We haven’t talked about <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow()</a></code> and <code><a href="https://rdrr.io/pkg/shiny/man/column.html">column()</a></code> yet, but you should be able to guess what they do from the context, and we’ll come back to talk about them in Section <a href="action-layout.html#multi-row">6.2.3</a>.
-Also note the use of <code><a href="https://rdrr.io/r/stats/setNames.html">setNames()</a></code> in the <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> <code>choices</code>: this shows the product name in the UI and returns the product code to the server.</p>
-<p>The server function is relatively straightforward.
-I first convert the <code>selected</code> and <code>summary</code> variables created in the previous section to reactive expressions.
-This is a reasonable general pattern: you create variables in your data analysis to decompose the analysis into steps, and to avoid recomputing things multiple times, and reactive expressions play the same role in Shiny apps.</p>
-<p>Often it’s a good idea to spend a little time cleaning up your analysis code before you start your Shiny app, so you can think about these problems in regular R code, before you add the additional complexity of reactivity.</p>
-<div class="sourceCode" id="cb75"><pre class="downlit sourceCode r">
+<p>我们还没有讨论过 <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow()</a></code> 和 <code><a href="https://rdrr.io/pkg/shiny/man/column.html">column()</a></code>，但是你应该能够从上下文中猜出它们的作用，我们将在 Section <a href="#multi-row"><strong>??</strong></a> 中回来讨论它们。
+另请注意 <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> <code>choices</code> 中 <code><a href="https://rdrr.io/r/stats/setNames.html">setNames()</a></code> 的使用：这会在 UI 中显示产品名称并将产品代码返回到 server。</p>
+<p>server 函数相对简单。
+我首先将上一节中创建的 <code>selected</code> 变量和 <code>summary</code> 变量转换为响应式表达式。
+这是一个合理的一般模式：您在数据分析中创建变量以将分析分解为步骤，并避免多次重新计算，并且响应式表达式在 Shiny apps 中发挥相同的作用。</p>
+<p>通常，在启动 Shiny app 之前花一点时间清理分析代码是个好主意，这样您就可以在添加额外的响应式复杂性之前在常规 R 代码中考虑这些问题。</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="va">injuries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">prod_code</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">code</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -367,14 +340,14 @@ This is a reasonable general pattern: you create variables in your data analysis
 <span>      <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Estimated number of injuries"</span><span class="op">)</span></span>
 <span>  <span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Note that creating the <code>summary</code> reactive isn’t strictly necessary here, as it’s only used by a single reactive consumer.
-But it’s good practice to keep computing and plotting separate as it makes the flow of the app easier to understand, and will make it easier to generalise in the future.</p>
-<p>A screenshot of the resulting app is shown in Figure <a href="basic-case-study.html#fig:prototype">4.3</a>.
-You can find the source code at <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/prototype.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/prototype.R</a> and try out a live version of the app at <a href="https://hadley.shinyapps.io/ms-prototype/" class="uri">https://hadley.shinyapps.io/ms-prototype/</a>.</p>
+<p>请注意，创建响应式 <code>summary</code> 在这里并不是绝对必要的，因为它仅由单个响应式使用者使用。
+但最好将计算和绘图分开，因为这样可以使 app 的流程更容易理解，并且在将来更容易推广。</p>
+<p>生成的 app 的屏幕截图如 Figure <a href="basic-case-study.html#fig:prototype">4.3</a> 所示。
+您可以在 <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/prototype.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/prototype.R</a> 找到源代码，并在 <a href="https://hadley.shinyapps.io/ms-prototype/" class="uri">https://hadley.shinyapps.io/ms-prototype/</a> 尝试该 app 的实时版本。</p>
 <div class="figure">
 <span style="display:block;" id="fig:prototype"></span>
-<img src="demos/basic-case-study/prototype.png" alt="First prototype of NEISS exploration app" width="100%"><p class="caption">
-Figure 4.3: First prototype of NEISS exploration app
+<img src="demos/basic-case-study/prototype.png" alt="NEISS 探索 app 的第一个原型" width="100%"><p class="caption">
+Figure 4.3: NEISS 探索 app 的第一个原型
 </p>
 </div>
 </div>
@@ -382,11 +355,11 @@ Figure 4.3: First prototype of NEISS exploration app
 <h2>
 <span class="header-section-number">4.5</span> Polish tables<a class="anchor" aria-label="anchor" href="#polish-tables"><i class="fas fa-link"></i></a>
 </h2>
-<p>Now that we have the basic components in place and working, we can progressively improve our app.
-The first problem with this app is that it shows a lot of information in the tables, where we probably just want the highlights.
-To fix this we need to first figure out how to truncate the tables.
-I’ve chosen to do that with a combination of forcats functions: I convert the variable to a factor, order by the frequency of the levels, and then lump together all levels after the top 5.</p>
-<div class="sourceCode" id="cb76"><pre class="downlit sourceCode r">
+<p>现在我们已经具备了基本组件并可以运行，我们可以逐步改进我们的 app。
+这个 app 的第一个问题是它在表格中显示了大量信息，而我们可能只需要突出显示。
+为了解决这个问题，我们需要首先弄清楚如何截断表。
+我选择使用 forcats 函数的组合来实现这一点：我将变量转换为一个 factor，按 levels 的频率排序，然后将前 5 个级别之后的所有 levels 集中在一起。</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">injuries</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>diag <span class="op">=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="va">diag</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">5</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">diag</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -400,29 +373,29 @@ I’ve chosen to do that with a combination of forcats functions: I convert the 
 <span><span class="co">#&gt; 4 Strain, Sprain        1432556</span></span>
 <span><span class="co">#&gt; 5 Contusion Or Abrasion 1451987</span></span>
 <span><span class="co">#&gt; 6 Other                 1929147</span></span></code></pre></div>
-<p>Because I knew how to do it, I wrote a little function to automate this for any variable.
-The details aren’t really important here, but we’ll come back to them in Chapter <a href="#action-tidy"><strong>??</strong></a>.
-You could also solve the problem with copy and paste, so don’t worry if the code looks totally foreign.</p>
-<div class="sourceCode" id="cb77"><pre class="downlit sourceCode r">
+<p>因为我知道如何做到这一点，所以我编写了一个小函数来自动处理任何变量。
+细节在这里并不重要，但我们将在 Chapter <a href="#action-tidy"><strong>??</strong></a> 中再次讨论它们。
+您还可以通过复制和粘贴来解决问题，因此不必担心代码看起来完全陌生。</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">count_top</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">df</span>, <span class="va">var</span>, <span class="va">n</span> <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">df</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span> <span class="op">:=</span> <span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump</a></span><span class="op">(</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="op">{</span><span class="op">{</span> <span class="va">var</span> <span class="op">}</span><span class="op">}</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>I then use this in the server function:</p>
-<div class="sourceCode" id="cb78"><pre class="downlit sourceCode r">
+<p>然后我在 server 函数中使用它：</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">output</span><span class="op">$</span><span class="va">diag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu">count_top</span><span class="op">(</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="va">diag</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">body_part</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu">count_top</span><span class="op">(</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="va">body_part</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">location</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu">count_top</span><span class="op">(</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="va">location</span><span class="op">)</span>, width <span class="op">=</span> <span class="st">"100%"</span><span class="op">)</span></span></code></pre></div>
-<p>I made one other change to improve the aesthetics of the app: I forced all tables to take up the maximum width (i.e. fill the column that they appear in).
-This makes the output more aesthetically pleasing because it reduces the amount of incidental variation.</p>
-<p>A screenshot of the resulting app is shown in Figure <a href="basic-case-study.html#fig:polish-tables">4.4</a>.
-You can find the source code at <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/polish-tables.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/polish-tables.R</a> and try out a live version of the app at <a href="https://hadley.shinyapps.io/ms-polish-tables" class="uri">https://hadley.shinyapps.io/ms-polish-tables</a>.</p>
+<p>我做了另一项更改来提高 app 的美观性：我强制所有表格占据最大宽度（即填充它们出现的列）。
+这使得输出更加美观，因为它减少了附带变化的量。</p>
+<p>生成的 app 的屏幕截图如 Figure <a href="basic-case-study.html#fig:polish-tables">4.4</a> 所示。
+您可以在 <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/polish-tables.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/polish-tables.R</a> 找到源代码，并在 <a href="https://hadley.shinyapps.io/ms-polish-tables" class="uri">https://hadley.shinyapps.io/ms-polish-tables</a> 尝试该 app 的实时版本。</p>
 <div class="figure">
 <span style="display:block;" id="fig:polish-tables"></span>
-<img src="demos/basic-case-study/polish-tables.png" alt="The second iteration of the app improves the display by only showing the most frequent rows in the summary tables" width="100%"><p class="caption">
-Figure 4.4: The second iteration of the app improves the display by only showing the most frequent rows in the summary tables
+<img src="demos/basic-case-study/polish-tables.png" alt="app 的第二次迭代通过仅显示汇总表中最常见的行来改进显示" width="100%"><p class="caption">
+Figure 4.4: app 的第二次迭代通过仅显示汇总表中最常见的行来改进显示
 </p>
 </div>
 </div>
@@ -430,21 +403,21 @@ Figure 4.4: The second iteration of the app improves the display by only showing
 <h2>
 <span class="header-section-number">4.6</span> Rate vs count<a class="anchor" aria-label="anchor" href="#rate-vs-count"><i class="fas fa-link"></i></a>
 </h2>
-<p>So far, we’re displaying only a single plot, but we’d like to give the user the choice between visualising the number of injuries or the population-standardised rate.
-First I add a control to the UI.
-Here I’ve chosen to use a <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> because it makes both states explicit, and it would be easy to add new states in the future:</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="basic-case-study.html#cb79-1" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
-<span id="cb79-2"><a href="basic-case-study.html#cb79-2" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">8</span>,</span>
-<span id="cb79-3"><a href="basic-case-study.html#cb79-3" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"code"</span>, <span class="st">"Product"</span>,</span>
-<span id="cb79-4"><a href="basic-case-study.html#cb79-4" tabindex="-1"></a>        <span class="at">choices =</span> <span class="fu">setNames</span>(products<span class="sc">$</span>prod_code, products<span class="sc">$</span>title),</span>
-<span id="cb79-5"><a href="basic-case-study.html#cb79-5" tabindex="-1"></a>        <span class="at">width =</span> <span class="st">"100%"</span></span>
-<span id="cb79-6"><a href="basic-case-study.html#cb79-6" tabindex="-1"></a>      )</span>
-<span id="cb79-7"><a href="basic-case-study.html#cb79-7" tabindex="-1"></a>    ),</span>
-<span id="cb79-8"><a href="basic-case-study.html#cb79-8" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">2</span>, <span class="fu">selectInput</span>(<span class="st">"y"</span>, <span class="st">"Y axis"</span>, <span class="fu">c</span>(<span class="st">"rate"</span>, <span class="st">"count"</span>)))</span>
-<span id="cb79-9"><a href="basic-case-study.html#cb79-9" tabindex="-1"></a>  ),</span></code></pre></div>
-<p>(I default to <code>rate</code> because I think it’s safer; you don’t need to understand the population distribution in order to correctly interpret the plot.)</p>
-<p>Then I condition on that input when generating the plot:</p>
-<div class="sourceCode" id="cb80"><pre class="downlit sourceCode r">
+<p>到目前为止，我们只显示了一个图，但我们希望用户可以选择是可视化受伤人数还是人口标准化率。
+首先，我向 UI 添加一个控件。
+这里我选择使用 <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> 因为它使两种状态都明确，并且将来添加新状态会很容易：</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="basic-case-study.html#cb16-1" tabindex="-1"></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb16-2"><a href="basic-case-study.html#cb16-2" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">8</span>,</span>
+<span id="cb16-3"><a href="basic-case-study.html#cb16-3" tabindex="-1"></a>      <span class="fu">selectInput</span>(<span class="st">"code"</span>, <span class="st">"Product"</span>,</span>
+<span id="cb16-4"><a href="basic-case-study.html#cb16-4" tabindex="-1"></a>        <span class="at">choices =</span> <span class="fu">setNames</span>(products<span class="sc">$</span>prod_code, products<span class="sc">$</span>title),</span>
+<span id="cb16-5"><a href="basic-case-study.html#cb16-5" tabindex="-1"></a>        <span class="at">width =</span> <span class="st">"100%"</span></span>
+<span id="cb16-6"><a href="basic-case-study.html#cb16-6" tabindex="-1"></a>      )</span>
+<span id="cb16-7"><a href="basic-case-study.html#cb16-7" tabindex="-1"></a>    ),</span>
+<span id="cb16-8"><a href="basic-case-study.html#cb16-8" tabindex="-1"></a>    <span class="fu">column</span>(<span class="dv">2</span>, <span class="fu">selectInput</span>(<span class="st">"y"</span>, <span class="st">"Y axis"</span>, <span class="fu">c</span>(<span class="st">"rate"</span>, <span class="st">"count"</span>)))</span>
+<span id="cb16-9"><a href="basic-case-study.html#cb16-9" tabindex="-1"></a>  ),</span></code></pre></div>
+<p>（我默认为 <code>rate</code>，因为我认为这样更安全；您不需要了解人口分布即可正确解释该图。）</p>
+<p>然后我在生成绘图时以该输入为条件：</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">output</span><span class="op">$</span><span class="va">age_sex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">y</span> <span class="op">==</span> <span class="st">"count"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -458,12 +431,12 @@ Here I’ve chosen to use a <code><a href="https://rdrr.io/pkg/shiny/man/selectI
 <span>        <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Injuries per 10,000 people"</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span></code></pre></div>
-<p>A screenshot of the resulting app is shown in Figure <a href="basic-case-study.html#fig:rate-vs-count">4.5</a>.
-You can find the source code at <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/rate-vs-count.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/rate-vs-count.R</a> and try out a live version of the app at <a href="https://hadley.shinyapps.io/ms-rate-vs-count" class="uri">https://hadley.shinyapps.io/ms-rate-vs-count</a>.</p>
+<p>生成的 app 的屏幕截图如 Figure <a href="basic-case-study.html#fig:rate-vs-count">4.5</a> 所示。
+您可以在 <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/rate-vs-count.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/rate-vs-count.R</a> 找到源代码，并在 <a href="https://hadley.shinyapps.io/ms-rate-vs-count" class="uri">https://hadley.shinyapps.io/ms-rate-vs-count</a> 上尝试该 app 的实时版本。</p>
 <div class="figure">
 <span style="display:block;" id="fig:rate-vs-count"></span>
-<img src="demos/basic-case-study/rate-vs-count.png" alt="In this iteration, we give the user the ability to switch between displaying the count or the population standardised rate on the y-axis." width="100%"><p class="caption">
-Figure 4.5: In this iteration, we give the user the ability to switch between displaying the count or the population standardised rate on the y-axis.
+<img src="demos/basic-case-study/rate-vs-count.png" alt="在此迭代中，我们使用户能够在 y 轴上显示计数或人口标准化率之间进行切换。" width="100%"><p class="caption">
+Figure 4.5: 在此迭代中，我们使用户能够在 y 轴上显示计数或人口标准化率之间进行切换。
 </p>
 </div>
 </div>
@@ -471,29 +444,29 @@ Figure 4.5: In this iteration, we give the user the ability to switch between di
 <h2>
 <span class="header-section-number">4.7</span> Narrative<a class="anchor" aria-label="anchor" href="#narrative"><i class="fas fa-link"></i></a>
 </h2>
-<p>Finally, I want to provide some way to access the narratives because they are so interesting, and they give an informal way to cross-check the hypotheses you come up with when looking at the plots.
-In the R code, I sample multiple narratives at once, but there’s no reason to do that in an app where you can explore interactively.</p>
-<p>There are two parts to the solution.
-First we add a new row to the bottom of the UI.
-I use an action button to trigger a new story, and put the narrative in a <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput()</a></code>:</p>
-<div class="sourceCode" id="cb81"><pre class="downlit sourceCode r">
+<p>最后，我想提供一些访问叙述的方式，因为它们非常有趣，并且它们提供了一种非正式的方式来交叉检查您在查看绘图时提出的假设。
+在 R 代码中，我一次采样多个叙述，但没有理由在可以交互式探索的 app 中这样做。</p>
+<p>解决方案有两个部分。
+首先，我们在 UI 底部添加一个新行。
+我使用 action button 触发新故事，并将叙述放入 <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput()</a></code> 中：</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidRow</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"story"</span>, <span class="st">"Tell me a story"</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/column.html">column</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"narrative"</span><span class="op">)</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span></code></pre></div>
-<p>I then use <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive()</a></code> to create a reactive that only updates when the button is clicked or the underlying data changes.</p>
-<div class="sourceCode" id="cb82"><pre class="downlit sourceCode r">
+<p>然后，我使用 <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive()</a></code> 创建一个响应，仅在单击按钮或底层数据更改时更新。</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="va">narrative_sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">eventReactive</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">story</span>, <span class="fu">selected</span><span class="op">(</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>    <span class="fu">selected</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">narrative</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">narrative</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="fu">narrative_sample</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>A screenshot of the resulting app is shown in Figure <a href="basic-case-study.html#fig:narrative">4.6</a>.
-You can find the source code at <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/narrative.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/narrative.R</a> and try out a live version of the app at <a href="https://hadley.shinyapps.io/ms-narrative" class="uri">https://hadley.shinyapps.io/ms-narrative</a>.</p>
+<p>生成的 app 的屏幕截图如 Figure <a href="basic-case-study.html#fig:narrative">4.6</a> 所示。
+您可以在 <a href="https://github.com/hadley/mastering-shiny/tree/main/neiss/narrative.R" class="uri">https://github.com/hadley/mastering-shiny/tree/main/neiss/narrative.R</a> 找到源代码，并在 <a href="https://hadley.shinyapps.io/ms-narrative" class="uri">https://hadley.shinyapps.io/ms-narrative</a> 尝试该 app 的实时版本。</p>
 <div class="figure">
 <span style="display:block;" id="fig:narrative"></span>
-<img src="demos/basic-case-study/narrative.png" alt="The final iteration adds the ability to pull out a random narrative from the selected rows" width="100%"><p class="caption">
-Figure 4.6: The final iteration adds the ability to pull out a random narrative from the selected rows
+<img src="demos/basic-case-study/narrative.png" alt="最终迭代增加了从所选行中提取随机叙述的能力" width="100%"><p class="caption">
+Figure 4.6: 最终迭代增加了从所选行中提取随机叙述的能力
 </p>
 </div>
 </div>
@@ -502,12 +475,12 @@ Figure 4.6: The final iteration adds the ability to pull out a random narrative 
 <span class="header-section-number">4.8</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-4"><i class="fas fa-link"></i></a>
 </h2>
 <ol style="list-style-type: decimal">
-<li><p>Draw the reactive graph for each app.</p></li>
-<li><p>What happens if you flip <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq()</a></code> and <code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump()</a></code> in the code that reduces the summary tables?</p></li>
-<li><p>Add an input control that lets the user decide how many rows to show in the summary tables.</p></li>
+<li><p>绘制每个 app 的响应式图。</p></li>
+<li><p>如果在减少汇总表格的代码中翻转 <code><a href="https://forcats.tidyverse.org/reference/fct_inorder.html">fct_infreq()</a></code> 和 <code><a href="https://forcats.tidyverse.org/reference/fct_lump.html">fct_lump()</a></code> 会发生什么？</p></li>
+<li><p>添加一个输入控件，让用户决定在汇总表中显示多少行。</p></li>
 <li>
-<p>Provide a way to step through every narrative systematically with forward and backward buttons.</p>
-<p>Advanced: Make the list of narratives “circular” so that advancing forward from the last narrative takes you to the first.</p>
+<p>提供一种通过前进和后退按钮系统地逐步浏览每个叙述的方法。</p>
+<p>Advanced：将叙述列表设为 “circular”，以便从最后一个叙述前进到第一个叙述。</p>
 </li>
 </ol>
 </div>
@@ -515,36 +488,21 @@ Figure 4.6: The final iteration adds the ability to pull out a random narrative 
 <h2>
 <span class="header-section-number">4.9</span> Summary<a class="anchor" aria-label="anchor" href="#summary-3"><i class="fas fa-link"></i></a>
 </h2>
-<p>Now that you have the basics of Shiny apps under your belt, the following seven chapters will give you a grab bag of important techniques.
-Once you’ve read the next chapter on workflow, I recommend skimming the remaining chapters so you get a good sense of what they cover, then dip your toes back in as you need the techniques for an app.</p>
+<p>现在您已经掌握了 Shiny apps 的基础知识，接下来的七章将为您提供重要的技术。
+一旦您阅读了有关工作流程的下一章，我建议您浏览一下剩余的章节，以便您更好地了解它们所涵盖的内容，然后在您需要 app 的技术时再重新开始。</p>
 
 </div>
 </div>
-
-
-
   <div class="chapter-nav">
-<div class="prev"><a href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></div>
-<div class="next"><a href="action-intro.html">Introduction</a></div>
+<div class="empty"></div>
+<div class="empty"></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#basic-case-study"><span class="header-section-number">4</span> Case study: ER injuries</a></li>
-<li><a class="nav-link" href="#introduction-3"><span class="header-section-number">4.1</span> Introduction</a></li>
-<li><a class="nav-link" href="#the-data"><span class="header-section-number">4.2</span> The data</a></li>
-<li><a class="nav-link" href="#exploration"><span class="header-section-number">4.3</span> Exploration</a></li>
-<li><a class="nav-link" href="#prototype"><span class="header-section-number">4.4</span> Prototype</a></li>
-<li><a class="nav-link" href="#polish-tables"><span class="header-section-number">4.5</span> Polish tables</a></li>
-<li><a class="nav-link" href="#rate-vs-count"><span class="header-section-number">4.6</span> Rate vs count</a></li>
-<li><a class="nav-link" href="#narrative"><span class="header-section-number">4.7</span> Narrative</a></li>
-<li><a class="nav-link" href="#exercises-4"><span class="header-section-number">4.8</span> Exercises</a></li>
-<li><a class="nav-link" href="#summary-3"><span class="header-section-number">4.9</span> Summary</a></li>
-</ul>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/hadley/mastering-shiny/blob/master/basic-case-study.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/hadley/mastering-shiny/edit/master/basic-case-study.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
 </div>
     </nav>

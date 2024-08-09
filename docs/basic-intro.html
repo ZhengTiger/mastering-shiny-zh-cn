@@ -24,9 +24,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="接下来四章的目标是让您尽快编写 Shiny 应用程序。 在 Chapter 1 中，我将从小而完整的开始，向您展示应用程序的所有主要部分以及它们如何组合在一起。 然后在 Chapters 2 和 3 您将开始深入了解 Shiny 应用程序的两个主要部分的详细信息：前端（用户在浏览器中看到的内容）和后端（使其全部正常工作的代码）。 我们将在 Chapter ??...">
-<meta property="og:description" content="接下来四章的目标是让您尽快编写 Shiny 应用程序。 在 Chapter 1 中，我将从小而完整的开始，向您展示应用程序的所有主要部分以及它们如何组合在一起。 然后在 Chapters 2 和 3 您将开始深入了解 Shiny 应用程序的两个主要部分的详细信息：前端（用户在浏览器中看到的内容）和后端（使其全部正常工作的代码）。 我们将在 Chapter ??...">
-<meta name="twitter:description" content="接下来四章的目标是让您尽快编写 Shiny 应用程序。 在 Chapter 1 中，我将从小而完整的开始，向您展示应用程序的所有主要部分以及它们如何组合在一起。 然后在 Chapters 2 和 3 您将开始深入了解 Shiny 应用程序的两个主要部分的详细信息：前端（用户在浏览器中看到的内容）和后端（使其全部正常工作的代码）。 我们将在 Chapter ??...">
+<meta name="description" content="接下来四章的目标是让您尽快编写 Shiny 应用程序。 在 Chapter 1 中，我将从小而完整的开始，向您展示应用程序的所有主要部分以及它们如何组合在一起。 然后在 Chapters 2 和 3 您将开始深入了解 Shiny 应用程序的两个主要部分的详细信息：前端（用户在浏览器中看到的内容）和后端（使其全部正常工作的代码）。 我们将在 Chapter 4...">
+<meta property="og:description" content="接下来四章的目标是让您尽快编写 Shiny 应用程序。 在 Chapter 1 中，我将从小而完整的开始，向您展示应用程序的所有主要部分以及它们如何组合在一起。 然后在 Chapters 2 和 3 您将开始深入了解 Shiny 应用程序的两个主要部分的详细信息：前端（用户在浏览器中看到的内容）和后端（使其全部正常工作的代码）。 我们将在 Chapter 4...">
+<meta name="twitter:description" content="接下来四章的目标是让您尽快编写 Shiny 应用程序。 在 Chapter 1 中，我将从小而完整的开始，向您展示应用程序的所有主要部分以及它们如何组合在一起。 然后在 Chapters 2 和 3 您将开始深入了解 Shiny 应用程序的两个主要部分的详细信息：前端（用户在浏览器中看到的内容）和后端（使其全部正常工作的代码）。 我们将在 Chapter 4...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -55,10 +55,11 @@
 <li><a class="" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
 <li><a class="" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
 <li><a class="" href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></li>
+<li><a class="" href="basic-case-study.html"><span class="header-section-number">4</span> Case study: ER injuries</a></li>
 </ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/zhenghu159/blogdown-book-zh-cn">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/zhenghu159/mastering-shiny-zh-cn">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
@@ -68,7 +69,7 @@
 <p>接下来四章的目标是让您尽快编写 Shiny 应用程序。
 在 Chapter <a href="basic-app.html#basic-app">1</a> 中，我将从小而完整的开始，向您展示应用程序的所有主要部分以及它们如何组合在一起。
 然后在 Chapters <a href="basic-ui.html#basic-ui">2</a> 和 <a href="basic-reactivity.html#basic-reactivity">3</a> 您将开始深入了解 Shiny 应用程序的两个主要部分的详细信息：前端（用户在浏览器中看到的内容）和后端（使其全部正常工作的代码）。
-我们将在 Chapter <a href="#basic-case-study"><strong>??</strong></a> 结束，通过案例研究来帮助巩固您迄今为止学到的概念。</p>
+我们将在 Chapter <a href="basic-case-study.html#basic-case-study">4</a> 结束，通过案例研究来帮助巩固您迄今为止学到的概念。</p>
 
 </div>
   <div class="chapter-nav">
@@ -80,8 +81,8 @@
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/zhenghu159/blogdown-book-zh-cn/blob/master/basic.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/zhenghu159/blogdown-book-zh-cn/edit/master/basic.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/blob/master/basic.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/edit/master/basic.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

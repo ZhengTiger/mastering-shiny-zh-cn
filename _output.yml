@@ -1,7 +1,7 @@
 bookdown::bs4_book:
   theme:
     primary: "#4D6F8D"
-  repo: https://github.com/zhenghu159/blogdown-book-zh-cn
+  repo: https://github.com/zhenghu159/mastering-shiny-zh-cn
   includes:
     in_header: [ga_script.html]
 bookdown::gitbook:
@@ -13,7 +13,7 @@ bookdown::gitbook:
       collapse: section
       before: |
         <li><a href="./">Mastering Shiny</a></li>
-    edit: https://github.com/zhenghu159/blogdown-book-zh-cn/edit/main/%s
+    edit: https://github.com/zhenghu159/mastering-shiny-zh-cn/edit/main/%s
     download: []
     sharing:
       facebook: no
