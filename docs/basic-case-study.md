@@ -250,16 +250,16 @@ summary %>%
 selected %>% 
   sample_n(10) %>% 
   pull(narrative)
-#>  [1] "65 YO F PT FELL OFF THE TOILET ONTO THE FLOOR HITTING HEAD +LOCDX CHI"                                                                         
-#>  [2] "81YOF LAC LWR LEG, FELL OFF TOILET"                                                                                                            
-#>  [3] "83YF DEMENTED, WAS USING THE TOILET WHEN SUDDENLY BEGAN C/O TO DTR\" ITHURTS\" POINTING TO HER ARM>>PAIN"                                      
-#>  [4] "66 YO F FELL OFF COMMODE C/O HIP PAIN"                                                                                                         
-#>  [5] "33YOF WENT TO STAND FROM SITTING ON TOILET & DEVELOPED LOW BACK PAIN THAT HAS GOTTEN PROGRESSIVELY WORSE/BACK PAIN"                            
-#>  [6] "NECK STR.  56YOF FELL OFF TOILET AND STRAINED NECK."                                                                                           
-#>  [7] "1MOM VESICOSTOMY PLACMENT BY FETAL INTERVENTION FEW DAYS AGO,PT AT 22 WKS GESTATION, MOM SPONTANEOUSLY DELIVERED PT IN TOILET AT HOME;CARD ARR"
-#>  [8] "89 YOF FELL OFF BEDSIDE COMMODE. C/O HIP PAIN DX HIP FX"                                                                                       
-#>  [9] "88 YO F C/O HEAD AND NECK PAIN S/P FALL FROM TOILET DX FALL CLOSED HEADINJURY NECK PAIN ACUTE R SIDE THORACIC BACK PAIN"                       
-#> [10] "FINGER LAC.  32YOM CUT FINGER CARRYING A TOILET AT HOME."
+#>  [1] "3 YOF STANDING ON TOILET WASHING HANDS LOST BALANCE FELL BACK HIT HEADON TILE FLOOR DX CLOSED HEAD INJURY"                           
+#>  [2] "41YOM INJ/BP NS- VOMITING IN TOILET, FELL TO FLOOR"                                                                                  
+#>  [3] "65YOF TRANSFERING FROM BEDSIDE COMMODE TO WHEELCHAIR FORGOT TO LOCK WHEELS, FELL TO CARPETED FLOOR ON BUTTOCKS/LUMBAR SPINE & RIB CT"
+#>  [4] "94 YOF COLLAPSED ON COMMODE AND HIT HEAD ON BATHTUB.DX:  NEARY SYNCOPE, CLOSED HEAD INJURY."                                         
+#>  [5] "85YOF GLG GET' UP OFF TOILET FELL; HITTING HEAD ON A MOBILE HEATER: DXFX METATRSAL/CHI"                                              
+#>  [6] "18YOF-LAST NIGHT WAS PLAYING WITH DOG & HIT HAND/FINGER ONTO THETOILET WEARS ACRYLIC NAILS. DX- RIGHT 3RD FINGERNAIL INJURY."        
+#>  [7] "9 Y/O M CONTUSION TO RING FINGER WHEN AT FAIR CAUGHT FINGER IN***."                                                                  
+#>  [8] "26YOF HIT HAED AND FACE ON TOILET W DOING HAIR: DX CHI"                                                                              
+#>  [9] "89 YOF FELL FROM TOILET AND HIT CHEST WALL - TRAUMATIC PNEUMOTHORAX"                                                                 
+#> [10] "81YM H/O HIP REPLACEMENT, FROM ALF WHERE ATTEMPTED TO GET UP OFF TOILET, LEGS GAVE OUT&FELL>>FEMUR FX"
 ```
 
 在对一个产品进行了这种探索之后，如果我们可以轻松地对其他产品进行此探索，而无需重新输入代码，那就太好了。

@@ -2,28 +2,28 @@
 
 
 
-If you're going to be writing a lot of Shiny apps (and since you're reading this book I hope you will be!), it's worth investing some time in your basic workflow.
-Improving workflow is a good place to invest time because it tends to pay great dividends in the long run.
-It doesn't just increase the proportion of your time spent writing R code, but because you see the results more quickly, it makes the process of writing Shiny apps more enjoyable, and helps your skills improve more quickly.
+如果您要编写大量 Shiny apps（既然您正在阅读这本书，我希望您会这么做！），那么在基本工作流程上投入一些时间是值得的。
+改进工作流程是投入时间的好地方，因为从长远来看，它往往会带来巨大的回报。
+它不仅增加了您编写 R 代码所花费的时间比例，而且因为您更快地看到结果，它使编写 Shiny apps 的过程变得更加愉快，并帮助您更快地提高技能。
 
-The goal of this chapter is to help you improve three important Shiny workflows:
+本章的目标是帮助您改进三个重要的 Shiny 工作流程：
 
--   The basic development cycle of creating apps, making changes, and experimenting with the results.
+-   创建 apps、进行更改和试验结果的基本开发周期。
 
--   Debugging, the workflow where you figure out what's gone wrong with your code and then brainstorm solutions to fix it.
+-   调试，在这个工作流程中，您找出代码出了什么问题，然后集体讨论解决方案来修复它。
 
--   Writing reprexes, self-contained chunks of code that illustrate a problem.
-    Reprexes are a powerful debugging technique, and they are essential if you want to get help from someone else.
+-   编写 reprexes，即说明问题的独立代码块。
+    Reprexes 是一种强大的调试技术，如果您想从其他人那里获得帮助，它们是必不可少的。
 
 ## Development workflow
 
-The goal of optimising your development workflow is to reduce the time between making a change and seeing the outcome.
-The faster you can iterate, the faster you can experiment, and the faster you can become a better Shiny developer.
-There are two main workflows to optimise here: creating an app for the first time, and speeding up the iterative cycle of tweaking code and trying out the results.
+优化开发工作流程的目标是缩短做出更改和看到结果之间的时间。
+你迭代的速度越快，你的实验速度就越快，你就能越快地成为一名更好的 Shiny 开发人员。
+这里有两个主要的工作流程需要优化：首次创建 app，以及加快调整代码和尝试结果的迭代周期。
 
 ### Creating the app
 
-You will start every app with the same six lines of R code:
+您将使用相同的六行 R 代码启动每个 app：
 
 
 ```r
@@ -35,105 +35,105 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-You'll likely quickly get sick of typing that code in, so RStudio provides a couple of shortcuts:
+您可能很快就会厌倦输入这些代码，因此 RStudio 提供了一些快捷方式：
 
--   If you already have your future `app.R` open, type `shinyapp` then press `Shift` + `Tab` to insert the Shiny app snippet.[^action-workflow-1]
+-   如果您已经打开了未来的 `app.R`，请输入 `shinyapp`，然后按 `Shift` + `Tab` 插入 Shiny app 片段。[^action-workflow-1]
 
--   If you want to start a new project[^action-workflow-2], go to the File menu, select "New Project" then select "Shiny Web Application", as in Figure \@ref(fig:new-project).
+-   如果您想启动一个新项目[^action-workflow-2]，请进入 File 菜单，选择 "New Project"，然后选择 "Shiny Web Application"，如 Figure \@ref(fig:new-project) 所示。
 
-[^action-workflow-1]: Snippets are text macros that you can use to insert common code fragments.
-    See <https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets> for more details.
-    If you enjoy using snippets, make sure to check the collection of Shiny specific snippets put together by ThinkR: <https://github.com/ThinkR-open/shinysnippets>.
+[^action-workflow-1]: Snippets 是文本宏，可用于插入常见代码片段。
+    有关更多详细信息，请参阅 <https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets>。
+    如果您喜欢使用 snippets，请务必查看 ThinkR 整理的 Shiny 特定 snippets 集合：<https://github.com/ThinkR-open/shinysnippets>。
 
-[^action-workflow-2]: A project is a self-contained directory that is isolated from the other projects that you're working on.
-    If you use RStudio, but don't currently use projects, I highly recommend reading about the [project oriented lifestyle](https://whattheyforgot.org/project-oriented-workflow.html).
+[^action-workflow-2]: 项目是一个独立的目录，与您正在处理的其他项目隔离。
+    如果您使用 RStudio，但目前不使用项目，我强烈建议您阅读有关 [project oriented lifestyle](https://whattheyforgot.org/project-oriented-workflow.html) 的文章。
 
 <div class="figure">
-<img src="images/action-workflow/new-project.png" alt="To create a new Shiny app within RStudio, choose 'Shiny Web Application' as project type" width="364" />
-<p class="caption">(\#fig:new-project)To create a new Shiny app within RStudio, choose 'Shiny Web Application' as project type</p>
+<img src="images/action-workflow/new-project.png" alt="要在 RStudio 中创建新的 Shiny app，请选择 'Shiny Web Application' 作为项目类型" width="364" />
+<p class="caption">(\#fig:new-project)要在 RStudio 中创建新的 Shiny app，请选择 'Shiny Web Application' 作为项目类型</p>
 </div>
 
-You might think it's not worthwhile to learn these shortcuts because you'll only create an app or two a day, but creating simple apps is a great way to check that you have the basic concepts down before you start on a bigger project, and they're a great tool for debugging.
+您可能认为学习这些快捷方式不值得，因为您每天只会创建一两个 app，但是创建简单的 app 是在开始更大的项目之前检查您是否掌握了基本概念的好方法，并且它们是一个很棒的调试工具。
 
 ### Seeing your changes
 
-At most, you'll *create* a few apps a day, but you'll *run* apps hundreds of times, so mastering the development workflow is particularly important.
-The first way to reduce your iteration time is to avoid clicking on the "Run App" button, and instead learn the keyboard shortcut `Cmd/Ctrl` + `Shift` + `Enter`.
-This gives you the following development workflow:
+最多，您一天会创建几个 apps，但您会运行 apps 数百次，因此掌握开发工作流程尤为重要。
+减少迭代时间的第一个方法是避免单击 "Run App" 按钮，而是学习键盘快捷键 `Cmd/Ctrl` + `Shift` + `Enter`。
+这将为您提供以下开发工作流程：
 
-1.  Write some code.
-2.  Launch the app with `Cmd/Ctrl` + `Shift` + `Enter`.
-3.  Interactively experiment with the app.
-4.  Close the app.
-5.  Go to 1.
+1.  写一些代码。
+2.  使用 `Cmd/Ctrl` + `Shift` + `Enter` 启动 app。
+3.  使用该 app 进行交互式实验。
+4.  关闭 app。
+5.  回到 1。
 
-Another way to increase your iteration speed still further is to turn autoreload on and run the app in a background job, as described in <https://github.com/sol-eng/background-jobs/tree/master/shiny-job>.
-With this workflow as soon as you save a file, your app will relaunch: no need to close and restart.
-This leads to an even faster workflow:
+进一步提高迭代速度的另一种方法是打开自动重新加载并在后台作业中运行 app，如 <https://github.com/sol-eng/background-jobs/tree/master/shiny-job> 中所述。
+通过此工作流程，只要您保存文件，您的 app 就会重新启动：无需关闭并重新启动。
+这会带来更快的工作流程：
 
-1.  Write some code and press `Cmd/Ctrl` + `S` to save the file.
-2.  Interactively experiment.
-3.  Go to 1.
+1.  编写一些代码并按 `Cmd/Ctrl` + `S` 保存文件。
+2.  交互式实验。
+3.  回到 1。
 
-The chief disadvantage of this technique is that it's considerably harder to debug because the app is running in a separate process.
+这种技术的主要缺点是调试起来相当困难，因为 app 在单独的进程中运行。
 
-As your app gets bigger and bigger, you'll find that the "interactively experiment" step starts to become onerous.
-It's too hard to remember to re-check every component of your app that you might have affected with your changes.
-Later, in Chapter \@ref(scaling-testing), you'll learn the tools of automated testing, which allows you to turn the interactive experiments you're running into automated code.
-This lets you run the tests more quickly (because they're automated), and means that you can't forget to run an important test.
-It requires some initial investment to develop the tests, but the investment pays off handsomely for large apps.
+随着您的 app 变得越来越大，您会发现“交互式实验”步骤开始变得繁重。
+记住重新检查 app 中可能受到更改影响的每个组件太困难了。
+稍后，在 Chapter \@ref(scaling-testing) 中，您将学习自动化测试工具，它允许您将正在运行的交互式实验转换为自动化代码。
+这可以让您更快地运行测试（因为它们是自动化的），并且意味着您不会忘记运行重要的测试。
+开发测试需要一些初始投资，但对于大型 apps 来说，投资回报丰厚。
 
 ### Controlling the view
 
-By default, when you run the app, it will appear in a pop-out window.
-There are two other options that you can choose from the Run App drop down, as shown in Figure \@ref(fig:run-app):
+默认情况下，当您运行 app 时，它将显示在弹出窗口中。
+您可以从 Run App 下拉列表中选择其他两个选项，如 Figure \@ref(fig:run-app) 所示：
 
--   **Run in Viewer Pane** opens the app in the viewer pane (usually located on the right hand side of the IDE).
-    It's useful for smaller apps because you can see it at the same time as you run your app code.
+-   **Run in Viewer Pane** 会在 viewer 窗格（通常位于 IDE 的右侧）中打开 app。
+    它对于较小的 apps 很有用，因为您可以在运行 app 代码的同时看到它。
 
--   **Run External** opens the app in your usual web browser.
-    It's useful for larger apps and when you want to see what your app looks like in the context that most users will experience it.
+-   **Run External** 在您常用的网络浏览器中打开 app。
+    它对于较大的 apps 以及当您想查看 app 在大多数用户将体验的环境的外观时非常有用。
 
 <div class="figure">
-<img src="images/action-workflow/run-app.png" alt="The run app button allows you to choose how the running app will be shown." width="125" />
-<p class="caption">(\#fig:run-app)The run app button allows you to choose how the running app will be shown.</p>
+<img src="images/action-workflow/run-app.png" alt="Run App 按钮允许您选择如何显示正在运行的 app。" width="125" />
+<p class="caption">(\#fig:run-app)Run App 按钮允许您选择如何显示正在运行的 app。</p>
 </div>
 
 ## Debugging
 
-When you start writing apps, it is almost guaranteed that something will go wrong.
-The cause of most bugs is a mismatch between your mental model of Shiny, and what Shiny actually does.
-As you read this book, your mental model will improve so that you make fewer mistakes, and when you do make one, it's easier to spot the problem.
-However, it takes years of experience in any language before you can reliably write code that works the first time.
-This means you need to develop a robust workflow for identifying and fixing mistakes.
-Here we'll focus on the challenges specific to Shiny apps; if you're new to debugging in R, start with Jenny Bryan's rstudio::conf(2020) keynote "[Object of type 'closure' is not subsettable](https://resources.rstudio.com/rstudio-conf-2020/object-of-type-closure-is-not-subsettable-jenny-bryan)".
+当你开始编写 apps 时，几乎肯定会出现问题。
+大多数错误的原因是您对 Shiny 的心理模型与 Shiny 实际所做的事情不匹配。
+当你阅读这本书时，你的心理模型将会得到改善，从而减少你犯的错误，当你犯错误时，你会更容易发现问题。
+然而，在您能够可靠地编写首次运行的代码之前，您需要拥有多年使用任何语言的经验。
+这意味着您需要开发一个强大的工作流程来识别和修复错误。
+在这里，我们将重点关注 Shiny apps 特有的挑战；如果您不熟悉 R 调试，请从 Jenny Bryan 的 rstudio::conf(2020) 主题演讲 "[Object of type 'closure' is not subsettable](https://resources.rstudio.com/rstudio-conf-2020/object-of-type-closure-is-not-subsettable-jenny-bryan)" 开始。
 
-There are three main cases of problems which we'll discuss below:
+我们将在下面讨论三种主要的问题情况：
 
--   You get an unexpected error.
-    This is the easiest case, because you'll get a traceback which allows you to figure out exactly where the error occurred.
-    Once you've identified the problem, you'll need to systematically test your assumptions until you find a difference between your expectations and reality.
-    The interactive debugger is a powerful assistant for this process.
+-   您收到意外报错。
+    这是最简单的情况，因为您将获得回溯，使您能够准确地找出错误发生的位置。
+    一旦发现问题，您就需要系统地测试您的假设，直到发现您的期望与现实之间的差异。
+    交互式调试器是这个过程的有力助手。
 
--   You don't get any errors, but some value is incorrect.
-    Here, you'll need to use the interactive debugger, along with your investigative skills to track down the root cause.
+-   您没有收到任何报错，但某些值不正确。
+    在这里，您需要使用交互式调试器以及您的调查技能来追踪根本原因。
 
--   All the values are correct, but they're not updated when you expect.
-    This is the most challenging problem because it's unique to Shiny, so you can't take advantage of your existing R debugging skills.
+-   所有值都是正确的，但它们没有按您的预期更新。
+    这是最具挑战性的问题，因为它是 Shiny 所独有的，因此您无法利用现有的 R 调试技能。
 
-It's frustrating when these situations arise, but you can turn them into opportunities to practice your debugging skills.
+出现这些情况时会令人沮丧，但您可以将其转化为练习调试技能的机会。
 
-We'll come back to another important technique, making a minimal reproducible example, in the next section.
-Creating a minimal example is crucial if you get stuck and need to get help from someone else.
-But creating a minimal example is also a profoundly important skill when debugging your own code.
-Typically you have a lot of code that works just fine, and a very small amount of code that's causing problems.
-If you can narrow in on the problematic code by removing the code that works, you'll be able to iterate on a solution much more quickly.
-This is a technique that I use every day.
+在下一节中，我们将回到另一个重要的技术，制作一个最小的可重复示例。
+如果您遇到困难并需要从其他人那里获得帮助，那么创建一个最小的示例至关重要。
+但是，在调试自己的代码时，创建一个最小的示例也是一项非常重要的技能。
+通常情况下，您有很多代码可以正常工作，而只有极少量的代码会导致问题。
+如果您可以通过删除有效的代码来缩小有问题的代码范围，那么您将能够更快地迭代解决方案。
+这是我每天都使用的技巧。
 
 ### Reading tracebacks
 
-In R, every error is accompanied by a **traceback**, or call stack, which literally traces back through the sequence of calls that lead to the error.
-For example, take this simple sequence of calls: `f()` calls `g()` calls `h()` which calls the multiplication operator:
+在 R 中，每个错误都伴随着回溯或调用堆栈，它实际上可以追溯到导致错误的调用序列。
+例如，采用以下简单的调用序列：`f()` 调用 `g()` 调用 `h()`，后者调用乘法运算符：
 
 
 ```r
@@ -142,7 +142,7 @@ g <- function(x) h(x)
 h <- function(x) x * 2
 ```
 
-If this code errors, as below:
+如果这段代码出错，如下：
 
 
 ```r
@@ -150,7 +150,7 @@ f("a")
 #> Error in x * 2: non-numeric argument to binary operator
 ```
 
-You can call `traceback()` to find the sequence of calls that to the problem:
+您可以调用 `traceback()` 来查找问题的调用顺序：
 
 
 ```r
@@ -160,19 +160,19 @@ traceback()
 #> 1: f("a")
 ```
 
-I think it's easiest to understand the traceback by flipping it upside down:
+我认为将回溯颠倒过来是最容易理解的：
 
     1: f("a")
     2: g(x)
     3: h(x)
 
-This now tells you the sequence of calls that lead to the error --- `f()` called `g()` called `h()` (which errors).
+现在，这会告诉您导致错误的调用顺序 --- `f()` 调用 `g()` 调用 `h()` （哪些错误）。
 
 ### Tracebacks in Shiny
 
-Unfortunately, you can't use `traceback()` in Shiny because you can't run code while an app is running.
-Instead, Shiny will automatically print the traceback for you.
-For example, take this simple app using the `f()` function I defined above:
+不幸的是，您无法在 Shiny 中使用 `traceback()`，因为您无法在 app 运行时运行代码。
+相反，Shiny 会自动为您打印回溯。
+例如，使用我上面定义的 `f()` 函数来获取这个简单的 app：
 
 
 ```r
@@ -195,7 +195,7 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-If you run this app, you'll see an error message in the app, and a traceback in the console:
+如果您运行此 app，您将在 app 中看到一条错误消息，并在控制台中看到一条回溯：
 
     Error in *: non-numeric argument to binary operator
       169: g [app.R#4]
@@ -209,7 +209,7 @@ If you run this app, you'll see an error message in the app, and a traceback in 
        81: output$plot
         1: runApp
 
-To understand what's going on we again start by flipping it upside down, so you can see the sequence of calls in the order they appear:
+为了了解发生了什么，我们再次将其颠倒过来，这样您就可以按照调用的出现顺序查看调用顺序：
 
     Error in *: non-numeric argument to binary operator
        1: runApp
@@ -223,18 +223,18 @@ To understand what's going on we again start by flipping it upside down, so you 
      168: f [app.R#3]
      169: g [app.R#4]
 
-There are three basic parts to the call stack:
+调用堆栈由三个基本部分组成：
 
--   The first few calls start the app. In this case, you just see `runApp()`, but depending on how you start the app, you might see something more complicated.
-    For example, if you called `source()` to run the app, you might see this:
+-   前几次调用会启动 app。在这种情况下，您只会看到 `runApp()`，但根据您启动 app 的方式，您可能会看到更复杂的内容。
+    例如，如果您调用 `source()` 来运行 app，您可能会看到以下内容：
 
         1: source
         3: print.shiny.appobj
         5: runApp
 
-    In general, you can ignore anything before the first `runApp()`; this is just the setup code to get the app running.
+    一般来说，您可以忽略第一个 `runApp()`; 之前的任何内容；这只是让 app 运行的设置代码。
 
--   Next, you'll see some internal Shiny code in charge of calling the reactive expression:
+-   接下来，您将看到一些负责调用响应式表达式的内部 Shiny 代码：
 
          81: output$plot
          82: renderFunc
@@ -243,32 +243,32 @@ There are three basic parts to the call stack:
         125: drawPlot
         165: func
 
-    Here, spotting `output$plot` is really important --- that tells which of your reactives (`plot`) is causing the error.
-    The next few functions are internal, and you can ignore them.
+    在这里，发现 `output$plot` 非常重要 --- 它可以告诉您哪个响应式（`plot`）导致了错误。
+    接下来的几个函数是内部函数，您可以忽略它们。
 
--   Finally, at the very bottom, you'll see the code that you have written:
+-   最后，在最底部，您将看到您编写的代码：
 
         167: renderPlot [app.R#13]
         168: f [app.R#3]
         169: g [app.R#4]
 
-    This is the code called inside of `renderPlot()`.
-    You can tell you should pay attention here because of the file path and line number; this lets you know that it's your code.
+    这是 `renderPlot()` 内部调用的代码。
+    由于文件路径和行号，您可以告诉您应该注意这里；这让您知道这是您的代码。
 
-If you get an error in your app but don't see a traceback then make sure that you're running the app using `Cmd/Ctrl` + `Shift` + `Enter` (or if not in RStudio, calling `runApp()`), and that you've saved the file that you're running it from.
-Other ways of running the app don't always capture the information necessary to make a traceback.
+如果您的 app 出现错误，但没有看到回溯，请确保您正在使用 `Cmd/Ctrl` + `Shift` + `Enter` 运行 app（或者如果不在 RStudio 中，则调用 `runApp()`），并且您已经保存了您运行它的文件。
+运行 app 的其他方式并不总能捕获进行回溯所需的信息。
 
 ### The interactive debugger {#browser}
 
-Once you've located the source of the error and want to figure out what's causing it, the most powerful tool you have at your disposal is the **interactive debugger**.
-The debugger pauses execution and gives you an interactive R console where you can run any code to figure out what's gone wrong.
-There are two ways to launch the debugger:
+一旦找到错误的根源并想找出导致错误的原因，您可以使用的最强大的工具就是交互式调试器。
+调试器会暂停执行，并为您提供一个交互式 R 控制台，您可以在其中运行任何代码来找出问题所在。
+有两种启动调试器的方法：
 
--   Add a call to `browser()` in your source code.
-    This is the standard R way of lauching the interactive debugger, and will work however you're running Shiny.
+-   在源代码中添加对 `browser()` 的调用。
+    这是启动交互式调试器的标准 R 方式，无论您如何运行 Shiny，它都可以工作。
 
-    The other advantage of `browser()` is that because it's R code, you can make it conditional by combining it with an `if` statement.
-    This allows you to launch the debugger only for problematic inputs.
+    `browser()` 的另一个优点是，因为它是 R 代码，所以您可以通过将其与 `if` 语句组合来使其成为条件。
+    这允许您仅针对有问题的输入启动调试器。
 
     
     ```r
@@ -281,45 +281,45 @@ There are two ways to launch the debugger:
     }
     ```
 
--   Add an RStudio breakpoint by clicking to the left of the line number.
-    You can remove the breakpoint by clicking on the red circle.
+-   单击行号左侧添加 RStudio 断点。
+    您可以通过单击红色圆圈来删除断点。
 
     <img src="images/action-workflow/breakpoint.png" width="317" />
 
-    The advantage of breakpoints is that they're not code, so you never have to worry about accidentally checking them into your version control system.
+    断点的优点是它们不是代码，因此您永远不必担心意外地将它们签入版本控制系统。
 
-If you're using RStudio, the toolbar in Figure \@ref(fig:debug-toolbar) will appear at the top of the console when you're in the debugger.
-The toolbar is an easy way to remember the debugging commands that are now available to you.
-They're also available outside of RStudio; you'll just need to remember the one letter command to activate them.
-The three most useful commands are:
+如果您使用 RStudio，当您处于调试器中时，Figure \@ref(fig:debug-toolbar) 中的工具栏将出现在控制台顶部。
+工具栏是记住现在可用的调试命令的简单方法。
+它们也可以在 RStudio 之外使用；您只需要记住一个字母命令即可激活它们。
+三个最有用的命令是：
 
--   Next (press `n`): executes the next step in the function.
-    Note that if you have a variable named `n`, you'll need to use `print(n)` to display its value.
+-   下一步（按 `n`）：执行函数中的下一步。
+    请注意，如果您有一个名为 `n` 的变量，则需要使用 `print(n)` 来显示其值。
 
--   Continue (press `c`): leaves interactive debugging and continues regular execution of the function.
-    This is useful if you've fixed the bad state and want to check that the function proceeds correctly.
+-   继续（按 `c`）：离开交互式调试并继续函数的常规执行。
+    如果您已经修复了错误状态并想要检查函数是否正常运行，这非常有用。
 
--   Stop (press `Q`): stops debugging, terminates the function, and returns to the global workspace.
-    Use this once you've figured out where the problem is, and you're ready to fix it and reload the code.
+-   停止（按 `Q`）：停止调试，终止函数，并返回全局工作区。
+    一旦找出问题所在，并准备好修复它并重新加载代码，就可以使用它。
 
 <div class="figure">
 <img src="images/action-workflow/debug-toolbar.png" alt="RStudio's debugging toolbar" width="50%" />
 <p class="caption">(\#fig:debug-toolbar)RStudio's debugging toolbar</p>
 </div>
 
-As well as stepping through the code line-by-line using these tools, you'll also write and run a *bunch* of interactive code to track down what's going wrong.
-Debugging is the process of systematically comparing your expectations to reality until you find the mismatch.
-If you're new to debugging in R, you might want to read the [Debugging chapter](https://adv-r.hadley.nz/debugging.html#debugging-strategy) of "Advanced R" to learn some general techniques.
+除了使用这些工具逐行执行代码之外，您还将编写并运行一堆交互式代码来跟踪出了什么问题。
+调试是系统地将您的期望与现实进行比较，直到发现不匹配的过程。
+如果您不熟悉 R 调试，您可能需要阅读 "Advanced R" 的 [Debugging chapter](https://adv-r.hadley.nz/debugging.html#debugging-strategy) 来学习一些通用技术。
 
 ### Case study
 
 > Once you eliminate the impossible, whatever remains, no matter how improbable, must be the truth --- Sherlock Holmes
 
-To demonstrate the basic debugging approach, I'll show you a little problem I encountered when writing Section \@ref(hierarchical-select).
-I'll first show you the basic context, then you'll see a problem I resolved without interactive debugging tools, a problem that required interactive debugging, and discover a final suprise.
+为了演示基本的调试方法，我将向您展示我在编写 Section \@ref(hierarchical-select) 时遇到的一个小问题。
+我将首先向您展示基本情景，然后您会看到一个我没有使用交互式调试工具解决的问题，一个需要交互式调试的问题，并发现最后的惊喜。
 
-The initial goal is pretty simple: I have a dataset of sales, and I want to filter it by territory.
-Here's what the data looks like:
+最初的目标非常简单：我有一个销售数据集，我想按地区过滤它。
+数据如下：
 
 
 ```r
@@ -339,7 +339,7 @@ sales
 #> # ℹ 2,819 more rows
 ```
 
-And here are the territories:
+以下是 territories：
 
 
 ```r
@@ -347,7 +347,7 @@ unique(sales$TERRITORY)
 #> [1] NA      "EMEA"  "APAC"  "Japan"
 ```
 
-When I first started on this problem, I thought it was simple enough that I could just write the app without doing any other research:
+当我第一次开始解决这个问题时，我认为它很简单，我可以编写 app 而无需进行任何其他研究：
 
 
 ```r
@@ -361,9 +361,9 @@ server <- function(input, output, session) {
 }
 ```
 
-I thought, *it's an eight line app, what could possibly go wrong?* Well, when I opened the app up I saw a **lot** of missing values, no matter what territory I selected.
-The code most likely to be the source of the problem was the reactive that selected the data to show: `sales[sales$TERRITORY == input$territory, ]`.
-So I stopped the app, and quickly verified that subsetting worked the way I thought it did:
+我想，这是一个八行 app，可能会出什么问题吗？好吧，当我打开 app 时，我看到很多缺失值，无论我选择哪个区域。
+最有可能成为问题根源的代码是选择要显示的数据的响应式：`sales[sales$TERRITORY == input$territory, ]`。
+因此，我停止了该 app，并快速验证了子集化是否按照我想象的方式工作：
 
 
 ```r
@@ -378,8 +378,7 @@ sales[sales$TERRITORY == "EMEA", ]
 #> # ℹ 2,477 more rows
 ```
 
-Ooops!
-I'd forgotten that `TERRITORY` contained a bunch of missing values which means that `sales$TERRITORY == "EMEA"` would contain a bunch of missing values:
+哎呀！我忘记了 `TERRITORY` 包含一堆缺失值，这意味着 `sales$TERRITORY == "EMEA"` 将包含一堆缺失值：
 
 
 ```r
@@ -389,11 +388,11 @@ head(sales$TERRITORY == "EMEA", 25)
 #> [25]  TRUE
 ```
 
-These missing values become missing rows when I use them to subset the `sales` data frame with `[`; any missing values in input will be preserved in the output.
-There are lots of way to resolve this problem but I decided to use `subset()`[^action-workflow-3] because automatically removes missing values and reduces the number of times I need to type `sales`. I then double checked this actually worked:
+当我使用 `[` 对 `sales` data frame 进行子集化时，这些缺失值将成为缺失行；输入中的任何缺失值都将保留在输出中。
+有很多方法可以解决这个问题，但我决定使用 `subset()`[^action-workflow-3]，因为会自动删除缺失值并减少我需要输入 `sales` 的次数。然后我仔细检查了这是否确实有效：
 
-[^action-workflow-3]: I'm using `subset()` so that my app doesn't require any other packages.
-    In a bigger app, I'd probably prefer `dplyr::filter()` just because I'm a little more familiar with its behaviour.
+[^action-workflow-3]: 我正在使用 `subset()`，这样我的 app 就不需要任何其他包了。
+    在更大的 app 中，我可能更喜欢 `dplyr::filter()`，因为我对它的行为更熟悉。
 
 
 ```r
@@ -408,8 +407,8 @@ subset(sales, TERRITORY == "EMEA")
 #> # ℹ 1,403 more rows
 ```
 
-This fixed most of the problems, but I **still** had a problem when I selected `NA` in the territory dropdown: there were still no rows appearing.
-So again, I checked on the console:
+这解决了大部分问题，但当我在区域下拉列表中选择 `NA` 时仍然遇到问题：仍然没有出现行。
+于是，我再次检查控制台：
 
 
 ```r
@@ -419,7 +418,7 @@ subset(sales, TERRITORY == NA)
 #> #   PRODUCTCODE <chr>, QUANTITYORDERED <dbl>, PRICEEACH <dbl>
 ```
 
-And then I remembered that of course this won't work because missing values are infectious:
+然后我想起这当然行不通，因为缺失值具有传染性：
 
 
 ```r
@@ -427,7 +426,7 @@ head(sales$TERRITORY == NA, 25)
 #>  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA
 ```
 
-There's another trick you can use to resolve this problem: switch from `==` to `%in%`:
+您可以使用另一个技巧来解决此问题：从 `==` 切换到 `%in%`：
 
 
 ```r
@@ -446,13 +445,13 @@ subset(sales, TERRITORY %in% NA)
 #> # ℹ 1,070 more rows
 ```
 
-So I updated the app and tried again.
-It still didn't work!
-When I selected "NA" in the drop down, I didn't see any rows.
+所以我更新了 app 并再次尝试。
+还是没成功！
+当我在下拉列表中选择 "NA" 时，我没有看到任何行。
 
-At this point, I figured I'd done everything I could on the console, and I needed to perform an experiment to figure out why the code inside of Shiny wasn't working the way I expected.
-I guessed that the most likely source of the problem would be in the `selected` reactive, so I added a `browser()` statement there.
-(This made it a two-line reactive, so I also needed to wrap it in `{}`.)
+此时，我想我已经在控制台上做了我能做的一切，我需要进行一个实验来找出为什么 Shiny 内部的代码没有按照我预期的方式工作。
+我猜测问题最有可能的根源在于所选的响应式，因此我在那里添加了一个 `browser()` 语句。
+（这使其成为两行响应式，因此我还需要将其包装在 `{}` 中。）
 
 
 ```r
@@ -465,16 +464,16 @@ server <- function(input, output, session) {
 }
 ```
 
-Now when my app ran, I was immediately dumped into an interactive console.
-My first step was to verify that I was in the problematic situation so I ran `subset(sales, TERRITORY %in% input$territory)`.
-It returned an empty data frame, so I knew I was where I needed to be.
-If I hadn't seen the problem, I would have typed `c` to let the app continuing running, then interacted with some more in order it to get to the failing state.
+现在，当我的 app 运行时，我立即被转入交互式控制台。
+我的第一步是验证我是否处于有问题的情况，因此我运行了 `subset(sales, TERRITORY %in% input$territory)`。
+它返回一个空的数据框，所以我知道我在我需要的地方。
+如果我没有看到这个问题，我会输入 `c` 让 app 继续运行，然后与更多的交互以使其达到失败状态。
 
-I then checked that inputs to `subset()` were as I expected.
-I first double-check that that the `sales` dataset looked ok.
-I didn't really expect it to be corrupted, since nothing in the app touches it, but it's safest to carefully check every assumption that you're making.
-`sales` looked ok, so the problem must be in `TERRITORY %in% input$territory`.
-Since `TERRITORY` is part of `sales`, I started by inspecting `input$territory`:
+然后我检查了 `subset()` 的输入是否符合我的预期。
+我首先仔细检查 `sales` 数据集是否正常。
+我真的没想到它会被损坏，因为 app 中没有任何内容触及它，但仔细检查您所做的每一个假设是最安全的。
+`sales` 看起来不错，所以问题一定出在 `TERRITORY %in% input$territory` 中。
+由于 `TERRITORY` 是 `sales` 的一部分，我首先检查 `input$territory`：
 
 
 ```r
@@ -482,10 +481,10 @@ input$territory
 #> [1] "NA"
 ```
 
-I stared at this for a while, because it also looked ok.
-Then it occurred to me!
-I was expecting it to be `NA`, but it's actually `"NA"`!
-Now I could recreate the problem outside of the Shiny app:
+我盯着这个看了一会儿，因为它看起来也不错。
+然后我想到了！
+我以为是 `NA`，但实际上是 `"NA"`！
+现在我可以在 Shiny app 之外重现问题：
 
 
 ```r
@@ -495,7 +494,7 @@ subset(sales, TERRITORY %in% "NA")
 #> #   PRODUCTCODE <chr>, QUANTITYORDERED <dbl>, PRICEEACH <dbl>
 ```
 
-Then I figured out a simple fix and applied to my server, and re-ran the app:
+然后我想出了一个简单的修复方法并将其应用于我的 server，然后重新运行该 app：
 
 
 ```r
@@ -511,15 +510,15 @@ server <- function(input, output, session) {
 }
 ```
 
-Hooray!
-The problem was fixed!
-But this felt pretty surprising to me --- Shiny had silently converted an `NA` to an `"NA"`, so I also filed a bug report: <https://github.com/rstudio/shiny/issues/2884>.
+万岁！
+问题解决了！
+但这让我感到非常惊讶 --- Shiny 默默地将 `NA` 转换为 `"NA"`，所以我还提交了一份错误报告：<https://github.com/rstudio/shiny/issues/2884>。
 
-Several weeks later, I looked at this example again, and started thinking about the different territories.
-We have Europe, Middle-East, and Africa (EMEA) and Asia-Pacific (APAC).
-Where was North America?
-Then it dawned on me: the source data probably used the abbreviation NA, and R was reading it in as a missing value.
-So the real fix should happen during the data loading:
+几周后，我再次查看这个示例，并开始思考不同的 territories。
+我们有 Europe、Middle-East、Africa (EMEA)、Asia-Pacific (APAC)。
+North America 在哪里？
+然后我突然意识到：源数据可能使用缩写 NA，而 R 将其作为缺失值读入。
+所以真正的修复应该发生在数据加载期间：
 
 
 ```r
@@ -528,25 +527,25 @@ unique(sales$TERRITORY)
 #> [1] "NA"    "EMEA"  "APAC"  "Japan"
 ```
 
-That made life much simpler!
+这让生活变得更加简单！
 
-This is a common pattern when it comes to debugging: you often need to peel back multiple layers of the onion before you fully understand the source of the issue.
+这是调试时的常见模式：在完全了解问题的根源之前，您通常需要剥开多层洋葱。
 
 ### Debugging reactivity
 
-The hardest type of problem to debug is when your reactives fire in an unexpected order.
-At this point in the book, we have relatively few tools to recommend to help you debug this issue.
-In the next section, you'll learn how to create a minimal reprex which is crucial for this type of problem, and later in the book, you'll learn more about the underlying theory, and about tools like the reactive log, <https://github.com/rstudio/reactlog>.
-But for now, we'll focus on a classic technique that's useful here: "print" debugging.
+最难调试的问题是当你的响应式以意想不到的顺序触发时。
+在本书中，我们推荐的工具相对较少，可以帮助您调试此问题。
+在下一节中，您将学习如何创建一个最小的 reprex，这对于此类问题至关重要，在本书的后面部分，您将了解有关基础理论以及响应式日志等工具的更多信息，<https://github.com/rstudio/reactlog>。
+但现在，我们将重点关注这里有用的经典技术："print" 调试。
 
-The basic idea of print debugging is to call `print()` whenever you need to understand when a part of your code is evaluated, and to show the values of important variables.
-We call this "print" debugging (because in most languages you'd use a print function), but In R it makes more sense to use `message()` :
+打印调试的基本思想是，只要您需要了解代码的一部分何时被评估，并显示重要变量的值，就调用 `print()`。
+我们称之为 "print" 调试（因为在大多数语言中你会使用打印函数），但在 R 中，使用 `message()` 更有意义：
 
--   `print()` is designed for displaying vectors of data so it puts quotes around strings and starts the first line with `[1]`.
--   `message()` sends its result to "standard error", rather than "standard output". These are technical terms describing output streams, which you don't normally notice because they're both displayed in the same way when running interactively. But if your app is hosted elsewhere, then output sent to "standard error" will be recorded in the logs.
+-   `print()` 设计用于显示数据向量，因此它在字符串周围加上引号，并以 `[1]` 开始第一行。
+-   `message()` 将其结果发送到“标准错误”，而不是“标准输出”。这些是描述输出流的技术术语，您通常不会注意到它们，因为它们在交互运行时以相同的方式显示。但如果您的 app 托管在其他地方，则发送到“标准错误”的输出将记录在日志中。
 
-I also recommend coupling `message()` with `glue::glue()`, which makes it easy to interleave text and values in a message.
-If you haven't seen [glue](http://glue.tidyverse.org/ "⌘+Click to follow link") before, the basic idea is that anything wrapped inside `{}` will be evaluated and inserted into the output:
+我还建议将 `message()` 与 `glue::glue()` 结合起来，这样可以轻松地在消息中交错文本和值。
+如果您以前没有见过 [glue](http://glue.tidyverse.org/ "⌘+Click to follow link") ，其基本思想是，包装在 `{}` 内的任何内容都将被评估并插入到输出中：
 
 
 ```r
@@ -556,11 +555,11 @@ message(glue("Hello {name}"))
 #> Hello Hadley
 ```
 
-A final useful tool is `str()`, which prints the detailed structure of any object.
-This is particularly useful if you need to double check you have the type of object that you expect.
+最后一个有用的工具是 `str()`，它可以打印任何对象的详细结构。
+如果您需要仔细检查是否拥有所需的对象类型，这尤其有用。
 
-Here's a toy app that shows off some of the basic ideas.
-Note how I use `message()` inside a `reactive()`: I have to perform the computation, send the message, and then return the previously computed value.
+这是一个展示一些基本想法的玩具 app。
+请注意我如何在 `reactive()` 中使用 `message()`：我必须执行计算，发送消息，然后返回之前计算的值。
 
 
 ```r
@@ -588,37 +587,37 @@ server <- function(input, output, session) {
 }
 ```
 
-When I start the app, the console shows:
+当我启动 app 时，控制台显示：
 
     Updating y from 2 to 2
     New total is 6
 
-And if I drag the `x` slider to `3` I see
+如果我将 `x` 滑块拖动到 `3`，我会看到
 
     Updating y from 2 to 6
     New total is 8
     New total is 12
 
-Don't worry if you find the results a little surprising.
-You'll learn more about what's going on in Chapter \@ref(action-feedback) and Chapter \@ref(the-reactive-graph).
+如果您发现结果有点令人惊讶，请不要担心。
+您将在 Chapter \@ref(action-feedback) 和 Chapter \@ref(the-reactive-graph) 中了解更多有关发生了什么的信息。
 
 ## Getting help
 
-If you're still stuck after trying these techniques, it's probably time to ask someone else.
-A great place to get help is the [Shiny community site](https://community.rstudio.com/c/shiny).
-This site is read by many Shiny users, as well as the developers of the Shiny package itself.
-It's also a great place to visit if you want to improve your Shiny skills by helping others.
+如果您在尝试这些技术后仍然遇到困难，那么可能是时候询问其他人了。
+[Shiny community site](https://community.rstudio.com/c/shiny) 是获得帮助的好地方。
+许多 Shiny 用户以及 Shiny 包本身的开发人员都会阅读该网站。
+如果您想通过帮助他人来提高自己的 Shiny 技能，这里也是一个值得参观的好地方。
 
-To get the most useful help as quickly as possible, you need to create a reprex, or **repr**oducible **ex**ample.
-The goal of a reprex is to provide the smallest possible snippet of R code that illustrates the problem and can easily be run on another computer.
-It's common courtesy (and in your own best interest) to create a reprex: if you want someone to help you, you should make it as easy as possible for them!
-
-Making a reprex is polite because it captures the essential elements of the problem into a form that anyone else can run so that whoever attempts to help you can quickly see exactly what the problem is, and can easily experiment with possible solutions.
+为了尽快获得最有用的帮助，您需要创建一个 reprex 或可重现的示例。
+reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且可以轻松地在另一台计算机上运行。
+创建 reprex 是一种常见的礼貌（并且符合您自己的最大利益）：如果您希望有人帮助您，您应该让他们尽可能轻松！
+  
+制作 reprex 是有礼貌的，因为它将问题的基本要素捕获为其他任何人都可以运行的形式，以便任何试图帮助您的人都可以快速准确地了解问题是什么，并且可以轻松地尝试可能的解决方案。
 
 ### Reprex basics
 
-A reprex is just some R code that works when you copy and paste it into a R session on another computer.
-Here's a simple Shiny app reprex:
+reprex 只是一些 R 代码，当您将其复制并粘贴到另一台计算机上的 R 会话中时，它就会起作用。
+这是一个简单的 Shiny app reprex：
 
 
 ```r
@@ -636,105 +635,103 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-This code doesn't make any assumptions about the computer on which it's running (except that Shiny is installed!) so anyone can run this code and see the problem: the app throws an error saying "non-numeric argument to binary operator".
+这段代码不会对运行它的计算机做出任何假设（除了安装了 Shiny！），因此任何人都可以运行这段代码并看到问题：app 抛出一个错误，指出 “non-numeric argument to binary operator”。
 
-Clearly illustrating the problem is the first step to getting help, and because anyone can reproduce the problem by just copying and pasting the code, they can easily explore your code and test possible solutions.
-(In this case, you need `as.numeric(input$n)` since `selectInput()` creates a string in `input$n`.)
+清楚地说明问题是获得帮助的第一步，因为任何人都可以通过复制和粘贴代码来重现问题，因此他们可以轻松地探索您的代码并测试可能的解决方案。
+（在这种情况下，您需要 `as.numeric(input$n)` 因为 `selectInput()` 在 `input$n` 中创建一个字符串。）
 
 ### Making a reprex
 
-The first step in making a reprex is to create a single self-contained file that contains everything needed to run your code.
-You should check it works by starting a fresh R session and then running the code.
-Make sure you haven't forgotten to load any packages[^action-workflow-4] that make your app work.
+制作 reprex 的第一步是创建一个独立的文件，其中包含运行代码所需的所有内容。
+您应该通过启动新的 R 会话然后运行代码来检查它是否有效。
+确保您没有忘记加载任何使您的 app 正常运行的软件包[^action-workflow-4]。
 
-[^action-workflow-4]: Regardless of how you normally load packages, I strongly recommend using multiple `library()` calls.
-    This eliminates a source of potential confusion for people who might not be familiar with the tool that you're using.
+[^action-workflow-4]: 无论您通常如何加载包，我强烈建议使用多个 `library()` 调用。
+这可以消除不熟悉您所使用的工具的人可能产生的混淆。
 
-Typically, the most challenging part of making your app work on someone else's computer is eliminating the use of data that's only stored on your computer.
-There are three useful patterns:
+通常，让您的 app 在其他人的计算机上运行的最具挑战性的部分是消除仅存储在您的计算机上的数据的使用。
+共有三种有用的模式：
 
--   Often the data you're using is not directly related to the problem, and you can instead use a built-in data set like `mtcars` or `iris`.
+-   通常，您使用的数据与问题没有直接关系，您可以使用 `mtcars` 或 `iris` 等内置数据集。
 
--   Other times, you might be able to write a little R code that creates a dataset that illustrates the problem:
+-   其他时候，您也许可以编写一些 R 代码来创建一个数据集来说明问题：
+  
+  
+  ```r
+  mydata <- data.frame(x = 1:5, y = c("a", "b", "c", "d", "e"))
+  ```
 
-    
-    ```r
-    mydata <- data.frame(x = 1:5, y = c("a", "b", "c", "d", "e"))
-    ```
+-   如果这两种技术都失败了，您可以使用 `dput()` 将数据转换为代码。
+例如，`dput(mydata)` 生成重新创建 `mydata` 的代码：
+  
+  
+  ```r
+  dput(mydata)
+  #> structure(list(x = 1:5, y = c("a", "b", "c", "d", "e")), class = "data.frame", row.names = c(NA, 
+  #> -5L))
+  ```
 
--   If both of those techniques fail, you can turn your data into code with `dput()`.
-    For example, `dput(mydata)` generates the code that will recreate `mydata`:
+获得该代码后，您可以将其放入您的 reprex 中以生成 `mydata`：
+  
+  
+  ```r
+  mydata <- structure(list(x = 1:5, y = structure(1:5, .Label = c("a", "b","c", "d", "e"), class = "factor")), class = "data.frame", row.names = c(NA, -5L))
+  ```
 
-    
-    ```r
-    dput(mydata)
-    #> structure(list(x = 1:5, y = c("a", "b", "c", "d", "e")), class = "data.frame", row.names = c(NA, 
-    #> -5L))
-    ```
+通常，在原始数据上运行 `dput()` 会生成大量代码，因此请找到能够说明问题的数据子集。
+您提供的数据集越小，其他人就越容易帮助您解决问题。
 
-    Once you have that code, you can put this in your reprex to generate `mydata`:
+如果从磁盘读取数据似乎是问题的一个不可简化的部分，那么最后的策略是提供一个包含 `app.R` 和所需数据文件的完整项目。
+提供此功能的最佳方法是作为托管在 GitHub 上的 RStudio 项目，但如果做不到这一点，您可以仔细制作一个可以在本地运行的 zip 文件。
+确保您使用相对路径（即 `read.csv("my-data.csv")` 而不是 `read.csv("c:\\my-user-name\\files\\my-data.csv")`），以便您的代码在另一台计算机上运行时仍然有效。
 
-    
-    ```r
-    mydata <- structure(list(x = 1:5, y = structure(1:5, .Label = c("a", "b", 
-    "c", "d", "e"), class = "factor")), class = "data.frame", row.names = c(NA, 
-    -5L))
-    ```
-
-    Often, running `dput()` on your original data will generate a huge amount of code, so find a subset of your data that illustrates the problem.
-    The smaller the dataset that you supply, the easier it will be for others to help you with your problem.
-
-If reading data from disk seems to be an irreducible part of the problem, a strategy of last resort is to provide a complete project containing both an `app.R` and the needed data files.
-The best way to provide this is as a RStudio project hosted on GitHub, but failing that, you can carefully make a zip file that can be run locally.
-Make sure that you use relative paths (i.e. `read.csv("my-data.csv"`) not `read.csv("c:\\my-user-name\\files\\my-data.csv")`) so that your code still works when run on a different computer.
-
-You should also consider the reader and spend some formatting your code so that it's easy to read.
-If you adopt the [tidyverse style guide](http://style.tidyverse.org/), you can automatically reformat your code using the [styler](http://styler.r-lib.org) package; that quickly gets your code to a place that's easier to read.
+您还应该考虑读者并花一些时间格式化您的代码，以便于阅读。
+如果您采用 [tidyverse style guide](http://style.tidyverse.org/)，您可以使用 [styler](http://styler.r-lib.org) 包自动重新格式化您的代码；这可以快速将您的代码转移到更易于阅读的位置。
 
 ### Making a minimal reprex
 
-Creating a reproducible example is a great first step because it allows someone else to precisely recreate your problem.
-However, often the problematic code will often be buried amongst code that works just fine, so you can make the life of a helper much easier by trimming out the code that's ok.
+创建一个可重现的示例是一个很好的第一步，因为它允许其他人精确地重现您的问题。
+然而，有问题的代码通常会隐藏在运行良好的代码中，因此您可以通过删除正常的代码来使帮助者的工作变得更加轻松。
 
-Creating the smallest possible reprex is particularly important for Shiny apps, which are often complicated.
-You will get faster, higher quality help, if you can extract out the exact piece of the app that you're struggling with, rather than forcing a potential helper to understand your entire app.
-As an added benefit, this process will often lead you to discover what the problem is, so you don't have to wait for help from someone else!
+创建尽可能最小的 reprex 对于 Shiny apps 尤其重要，因为这些 apps 通常很复杂。
+如果您能够提取出您遇到困难的 app 的确切部分，而不是强迫潜在的帮助者了解您的整个 app，您将获得更快、更高质量的帮助。
+作为一个额外的好处，这个过程通常会引导您发现问题所在，因此您不必等待其他人的帮助！
 
-Reducing a bunch of code to the essential problem is a skill, and you probably won't be very good at it at first.
-That's ok!
-Even the smallest reduction in code complexity helps the person helping you, and over time your reprex shrinking skills will improve.
+将一堆代码简化为本质问题是一项技能，一开始你可能不会很擅长。
+没关系！
+即使代码复杂性的最小降低也会帮助帮助你的人，并且随着时间的推移，你的 reprex 缩减技能将会提高。
 
-If you don't know what part of your code is triggering the problem, a good way to find it is to remove sections of code from your application, piece by piece, until the problem goes away.
-If removing a particular piece of code makes the problem stop, it's likely that that code is related to the problem.
-Alternatively, sometimes it's simpler to start with a fresh, empty, app and progressively build it up until you find the problem once more.
+如果您不知道代码的哪一部分触发了问题，找到它的一个好方法是从应用程序中逐段删除代码段，直到问题消失。
+如果删除特定代码段可以使问题停止，则该代码很可能与问题相关。
+或者，有时更简单的做法是从一个全新的、空的 app 开始，然后逐步构建它，直到再次发现问题。
 
-Once you've simplified your app to demonstrate the problem, it's worthwhile to take a final pass through and check:
+一旦您简化了 app 以演示问题，就值得进行最后一次检查：
+  
+  -   `UI` 中的每个输入和输出都与问题相关吗？
+  
+  -   您的 app 是否具有复杂的布局，您可以简化该布局以帮助专注于手头的问题？
+  您是否删除了所有使您的 app 看起来不错但与问题无关的 UI 自定义？
 
--   Is every input and output in `UI` related to the problem?
+-   现在可以删除 `server()` 中的任何响应式吗？
 
--   Does your app have a complex layout that you can simplify to help focus on the problem at hand?
-    Have you removed all UI customisation that makes your app look good, but isn't related to the problem?
+-   如果您尝试了多种方法来解决问题，您是否已清除所有无效尝试的痕迹？
 
--   Are there any reactives in `server()` that you can now remove?
+-   您加载的每个包是否都需要说明问题？
+    您可以通过用虚拟代码替换函数来消除包吗？
 
--   If you've tried multiple ways to solve the problem, have you removed all the vestiges of the attempts that didn't work?
-
--   Is every package that you load needed to illustrate the problem?
-    Can you eliminate packages by replacing functions with dummy code?
-
-This can be a lot of work, but the pay off is big: often you'll discover the solution while you make the reprex, and if not, it's much much easier to get help.
+这可能需要大量工作，但回报是巨大的：通常您会在进行 reprex 时发现解决方案，如果没有，获得帮助也会容易得多。
 
 ### Case study
 
-To illustrate the process of making a top-notch reprex I'm going to use an example from [Scott Novogoratz](https://community.rstudio.com/u/sanovogo) posted on [RStudio community](https://community.rstudio.com/t/37982).
-The initial code was very close to being a reprex, but wasn't quite reproducible because it forgot to load a pair of packages.
-As a starting point, I:
+为了说明制作一流 reprex 的过程，我将使用 [Scott Novogoratz](https://community.rstudio.com/u/sanovogo) 在 [RStudio community](https://community.rstudio.com/t/37982) 上发布的一个示例。
+最初的代码非常接近 reprex，但不太可重现，因为它忘记加载一对包。
+作为起点，我：
 
--   Added missing `library(lubridate)` and `library(xts)`.
--   Split apart `ui` and `server` into separate objects.
--   Reformatted the code with `styler::style_selection()`.
+-   添加了缺失的 `library(lubridate)` 和 `library(xts)`。
+-   将 `ui` 和 `server` 拆分为单独的对象。
+-   使用 `styler::style_selection()` 重新格式化代码。
 
-That yielded the following reprex:
+这产生了以下 reprex：
 
 
 ```r
@@ -787,23 +784,22 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-If you run this reprex, you'll see the same problem in the initial post: an error stating "Type mismatch for min, max, and value. Each must be Date, POSIXt, or number".
-This is a solid reprex: I can easily run it on my computer, and it immediately illustrates the problem.
-However, it's a bit long, so it's not clear what's causing the problem.
+如果您运行此 reprex，您将在最初的帖子中看到相同的问题：错误指出 "Type mismatch for min, max, and value. Each must be Date, POSIXt, or number"。
+这是一个可靠的 reprex：我可以轻松地在我的计算机上运行它，它立即说明了问题。
+不过，它有点长，所以还不清楚是什么原因造成的。
 
-To make this reprex simpler we can carefully work through each line of code and see if it's important.
-While doing this, I discovered:
+为了使这个 reprex 更简单，我们可以仔细检查每一行代码，看看它是否重要。
+在这样做的过程中，我发现：
+  
+-   删除以 `print()` 开头的两行不会影响错误。
+    这两行使用了 `lubridate::is.POSIXt()`，这是 lubridate 的唯一用途，所以一旦我删除它们，我就不再需要加载 lubridate。
 
--   Removing the two lines starting with `print()` didn't affect the error.
-    Those two lines used `lubridate::is.POSIXt()`, which was the only use of lubridate, so once I removed them, I no longer needed to load lubridate.
+-   `df` 是一个转换为 xts 数据框（称为 `timeSeries`）的数据帧。但使用 `timeSeries` 的唯一方法是通过 `time(timeSeries)` 返回日期时间。
+因此，我创建了一个新的变量 `datetime`，其中包含一些虚拟日期时间数据。
+这仍然产生相同的错误，所以我删除了 `timeSeries` 和 `df`，并且由于这是唯一使用 xts 的地方，我还删除了 `library(xts)`。
 
--   `df` is a data frame that's converted to an xts data frame called `timeSeries`.
-    But the only way `timeSeries` is used is via `time(timeSeries)` which returns a date-time.
-    So I created a new variable `datetime` that contained some dummy date-time data.
-    This still yielded the same error, so I removed `timeSeries` and `df`, and since that was the only place xts was used, I also removed `library(xts)`
-
-Together, those changes yielded a new `server()` that looked like this:
-
+这些更改共同产生了一个新的 `server()`，如下所示：
+  
 
 ```r
 datetime <- Sys.time() + (86400 * 0:10)
@@ -828,10 +824,10 @@ server <- function(input, output, session) {
 }
 ```
 
-Next, I noticed that this example uses a relatively sophisticated Shiny technique where the UI is generated in the server function.
-But here `renderUI()` doesn't use any reactive inputs, so it should work the same way if moved out of the server function and into the UI.
+接下来，我注意到这个示例使用了相对复杂的 Shiny 技术，其中 UI 是在 server 函数中生成的。
+但这里 `renderUI()` 不使用任何响应式输入，因此如果从 server 函数移出并进入 UI，它应该以相同的方式工作。
 
-This yielded a particularly nice result, because now the error occurs much earlier, before we even start the app:
+这产生了一个特别好的结果，因为现在错误发生得更早，甚至在我们启动 app 之前：
 
 
 ```r
@@ -848,14 +844,14 @@ ui <- fluidPage(
 #> i All values must have same type: either numeric, Date, or POSIXt.
 ```
 
-And now we can take the hint from the error message and look at each of the inputs we're feeding to `min`, `max`, and `value` to see where the problem is:
-
+现在我们可以从错误消息中获取提示，并查看我们提供给 `min`、`max` 和 `value` 的每个输入，以了解问题出在哪里：
+  
 
 ```r
 min(datetime)
-#> [1] "2024-08-06 20:59:40 CST"
+#> [1] "2024-08-10 19:39:40 CST"
 max(datetime)
-#> [1] "2024-08-16 20:59:40 CST"
+#> [1] "2024-08-20 19:39:40 CST"
 c(min, max)
 #> [[1]]
 #> function (..., na.rm = FALSE)  .Primitive("min")
@@ -864,50 +860,51 @@ c(min, max)
 #> function (..., na.rm = FALSE)  .Primitive("max")
 ```
 
-Now the problem is obvious: we haven't assigned `min` and `max` variables, so we're accidentally passing the `min()` and `max()` functions into `sliderInput()`.
-One way to solve that problem is to use `range()` instead:
-
+现在问题很明显：我们还没有分配 `min` 和 `max` 变量，所以我们不小心将 `min()` 和 `max()` 函数传递给了 `sliderInput()`。
+解决该问题的一种方法是使用 `range()` 代替：
+  
 
 ```r
 ui <- fluidPage(
   sliderInput("slider",
-    "Select Range:",
-    min   = min(datetime),
-    max   = max(datetime),
-    value = range(datetime)
+              "Select Range:",
+              min   = min(datetime),
+              max   = max(datetime),
+              value = range(datetime)
   ),
   verbatimTextOutput("breaks")
 )
 ```
 
-This is fairly typical outcome from creating a reprex: once you've simplified the problem to its key components, the solution becomes obvious.
-Creating a good reprex is an incredibly powerful debugging technique.
+这是创建 reprex 的相当典型的结果：一旦将问题简化为其关键组件，解决方案就变得显而易见。
+创建一个好的 reprex 是一种非常强大的调试技术。
 
-To simplify this reprex, I had to do a bunch of experimenting and reading up on functions that I wasn't very familiar with[^action-workflow-5].
-It's typically much easier to do this if it's your reprex, because you already understand the intent of the code.
-Still, you'll often need to do a bunch of experimentation to figure out where exactly the problem is coming from.
-That can be frustrating and feel time consuming, but it has a number of benefits:
+为了简化这个 reprex，我必须对我不太熟悉的函数进行大量实验和阅读。[^action-workflow-5]
+如果这是您的 reprex，那么通常会更容易做到这一点，因为您已经了解代码的意图。
+不过，您通常需要进行大量实验才能找出问题到底出在哪里。
+这可能会令人沮丧并且耗时，但它有很多好处：
 
-[^action-workflow-5]: For example, I had no idea that `is.POSIXt()` was part of the lubridate package!
+[^action-workflow-5]: 例如，我不知道 `is.POSIXt()` 是 lubridate 包的一部分！
 
--   It enables you to create a description of the problem that is accessible to anyone who knows Shiny, not anyone who knows Shiny **and** the particular domain that you're working in.
+-   它使您能够创建问题的描述，任何了解 Shiny 的人都可以访问该描述，而不是任何了解 Shiny 和您正在工作的特定领域的人都可以访问。
 
--   You will build up a better mental model of how your code works, which means that you're less likely to make the same or similar mistakes in the future.
+-   您将为代码的工作原理建立一个更好的思维模型，这意味着您将来不太可能犯相同或类似的错误。
 
--   Over time, you'll get faster and faster at creating reprexes, and this will become one of your go to techniques when debugging.
+-   随着时间的推移，您创建 reprex 的速度会越来越快，这将成为调试时的常用技术之一。
 
--   Even if you don't create a perfect reprex, any work you can do to improve your reprex is less work for someone else to do.
-    This is particularly important if you're trying to get help from package developers because they usually have many demands on their time.
+-   即使你没有创造出完美的 reprex，你可以做的任何改善你的 reprex 的工作都比别人做的工作要少。
+    如果您试图从软件包开发人员那里获得帮助，这一点尤其重要，因为他们通常对时间有很多要求。
 
-When I try to help someone with their app on [RStudio community](https://community.rstudio.com/tag/shiny), creating a reprex is always the first thing I do.
-This isn't some make work exercise I use to fob off people I don't want to help: it's exactly where I start!
+当我尝试在 [RStudio community](https://community.rstudio.com/tag/shiny) 上帮助某人使用他们的 app 时，创建 reprex 始终是我做的第一件事。
+这不是我用来欺骗那些我不想帮助的人的工作练习：这正是我的起点！
 
 ## Summary
 
-This chapter has given you some useful workflows for developing apps, debugging problems, and getting help.
-These workflows might seem a little abstract and easy to dismiss because they're not concretely improving an individual app.
-But I think of workflow as one of my "secret" powers: one of the reasons that I've been able to accomplish so much is that I devote time to analysing and improving my workflow.
-I highly encourage you to do the same!
+本章为您提供了一些用于开发 apps、调试问题和获取帮助的有用工作流程。
+这些工作流程可能看起来有点抽象并且很容易被忽视，因为它们并没有具体改进单个 app。
+但我认为工作流程是我的“秘密”力量之一：我能够取得如此多成就的原因之一是我投入时间来分析和改进我的工作流程。
+我强烈鼓励您也这样做！
 
-The next chapter on layouts and themes is the first of a grab bag of useful techniques.
-There's no need to read in sequence; feel free to skip ahead to a chapter that you need for a current app.
+关于布局和主题的下一章是有用技术的第一章。
+无需按顺序阅读；请随意跳至当前 app 所需的章节。
+

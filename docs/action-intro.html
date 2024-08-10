@@ -24,9 +24,9 @@
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<meta name="description" content="The following chapters give you a grab bag of useful techniques. I think everyone should start with Chapter ??, because it gives you important tools for developing and debugging apps, and getting...">
-<meta property="og:description" content="The following chapters give you a grab bag of useful techniques. I think everyone should start with Chapter ??, because it gives you important tools for developing and debugging apps, and getting...">
-<meta name="twitter:description" content="The following chapters give you a grab bag of useful techniques. I think everyone should start with Chapter ??, because it gives you important tools for developing and debugging apps, and getting...">
+<meta name="description" content="以下章节为您提供了一系列有用的技术。 我认为每个人都应该从 Chapter ?? 开始，因为它为您提供了开发和调试 apps 的重要工具，并在遇到困难时获得帮助。 之后，没有规定的顺序，各章之间的联系也相对较少：我建议快速浏览以了解总体情况（因此，如果将来出现相关问题，您可能会记住这些工具），否则只能深入了解读取您当前需要的位。 以下是主要主题的快速概述： Chapter ??...">
+<meta property="og:description" content="以下章节为您提供了一系列有用的技术。 我认为每个人都应该从 Chapter ?? 开始，因为它为您提供了开发和调试 apps 的重要工具，并在遇到困难时获得帮助。 之后，没有规定的顺序，各章之间的联系也相对较少：我建议快速浏览以了解总体情况（因此，如果将来出现相关问题，您可能会记住这些工具），否则只能深入了解读取您当前需要的位。 以下是主要主题的快速概述： Chapter ??...">
+<meta name="twitter:description" content="以下章节为您提供了一系列有用的技术。 我认为每个人都应该从 Chapter ?? 开始，因为它为您提供了开发和调试 apps 的重要工具，并在遇到困难时获得帮助。 之后，没有规定的顺序，各章之间的联系也相对较少：我建议快速浏览以了解总体情况（因此，如果将来出现相关问题，您可能会记住这些工具），否则只能深入了解读取您当前需要的位。 以下是主要主题的快速概述： Chapter ??...">
 </head>
 <body data-spy="scroll" data-target="#toc">
 
@@ -59,33 +59,30 @@
 <li class="book-part">Shiny in action</li>
 <li><a class="active" href="action-intro.html">Introduction</a></li>
 <li><a class="" href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></li>
-<li><a class="" href="action-layout.html"><span class="header-section-number">6</span> Layout, themes, HTML</a></li>
-<li><a class="" href="action-graphics.html"><span class="header-section-number">7</span> Graphics</a></li>
-<li><a class="" href="action-feedback.html"><span class="header-section-number">8</span> User feedback</a></li>
 </ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="https://github.com/hadley/mastering-shiny">View book source <i class="fab fa-github"></i></a></p>
+          <p><a id="book-repo" href="https://github.com/zhenghu159/mastering-shiny-zh-cn">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
 </div>
   </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="action-intro" class="section level1 unnumbered">
 <h1>Introduction<a class="anchor" aria-label="anchor" href="#action-intro"><i class="fas fa-link"></i></a>
 </h1>
-<p>The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter <a href="#workflow"><strong>??</strong></a>, because it gives you important tools for developing and debugging apps, and getting help when you’re stuck.</p>
-<p>After that, there’s no prescribed order and relatively few connections between the chapters: I’d suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here’s a quick run down of the main topics:</p>
+<p>以下章节为您提供了一系列有用的技术。
+我认为每个人都应该从 Chapter <a href="#workflow"><strong>??</strong></a> 开始，因为它为您提供了开发和调试 apps 的重要工具，并在遇到困难时获得帮助。</p>
+<p>之后，没有规定的顺序，各章之间的联系也相对较少：我建议快速浏览以了解总体情况（因此，如果将来出现相关问题，您可能会记住这些工具），否则只能深入了解读取您当前需要的位。
+以下是主要主题的快速概述：</p>
 <ul>
-<li><p>Chapter <a href="action-layout.html#action-layout">6</a> details the various ways you can layout input and output components on a page, and how you can customise their appearance with themes.</p></li>
-<li><p>Chapter <a href="action-graphics.html#action-graphics">7</a> shows you how to add direct interaction to your plot and how to display images generated in other ways.</p></li>
-<li><p>Chapter <a href="action-feedback.html#action-feedback">8</a> covers a family of techniques (including inline errors, notifications, progress bars, and dialog boxes) for giving feedback to your users while you app runs.</p></li>
-<li><p>Chapter <a href="#action-transfer"><strong>??</strong></a> discusses how to transfer files to and from your app.</p></li>
-<li><p>Chapter <a href="#action-dynamic"><strong>??</strong></a> shows you how to dynamic modify your apps user interface while it runs.</p></li>
-<li><p>Chapter <a href="#action-bookmark"><strong>??</strong></a> shows how to record app state in such a way that your users can bookmark it.</p></li>
-<li><p>Chapter <a href="#action-tidy"><strong>??</strong></a> shows you how to allow users to select variables when working with tidyverse packages.</p></li>
+<li><p>Chapter <a href="#action-layout"><strong>??</strong></a> 详细介绍了在页面上布局输入和输出组件的各种方法，以及如何使用主题自定义它们的外观。</p></li>
+<li><p>Chapter <a href="#action-graphics"><strong>??</strong></a> 向您展示如何向绘图添加直接交互以及如何显示以其他方式生成的图像。</p></li>
+<li><p>Chapter <a href="#action-feedback"><strong>??</strong></a> 介绍了一系列技术（包括内联错误、通知、进度条和对话框），用于在 app 运行时向用户提供反馈。</p></li>
+<li><p>Chapter <a href="#action-transfer"><strong>??</strong></a> 讨论如何在 app 之间传输文件。</p></li>
+<li><p>Chapter <a href="#action-dynamic"><strong>??</strong></a> 向您展示如何在 apps 运行时动态修改 apps 用户界面。</p></li>
+<li><p>Chapter <a href="#action-bookmark"><strong>??</strong></a> 展示了如何以用户可以为其添加书签的方式记录 app 状态。</p></li>
+<li><p>Chapter <a href="#action-tidy"><strong>??</strong></a> 向您展示如何允许用户在使用 tidyverse 包时选择变量。</p></li>
 </ul>
-<p>Let’s begin by working on your workflow for developing apps.</p>
+<p>让我们从开发 apps 的工作流程开始。</p>
 
 </div>
   <div class="chapter-nav">
@@ -97,8 +94,8 @@ Here’s a quick run down of the main topics:</p>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-<li><a id="book-source" href="https://github.com/hadley/mastering-shiny/blob/master/action.Rmd">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="https://github.com/hadley/mastering-shiny/edit/master/action.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+<li><a id="book-source" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/blob/master/action.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/edit/master/action.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

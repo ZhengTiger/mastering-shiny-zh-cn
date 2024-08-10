@@ -1,66 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>Chapter 5 Workflow | Mastering Shiny</title>
-
-    <meta name="author" content="Hadley Wickham" />
-  
-   
-   <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="Chapter 5 Workflow | Mastering Shiny" />
-  <meta property="og:type" content="book" />
-  
-  
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Workflow | Mastering Shiny" />
-  
-  
-  
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
-    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
-    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
-    <script src="libs/bs3compat-0.5.0/transition.js"></script>
-    <script src="libs/bs3compat-0.5.0/tabs.js"></script>
-    <script src="libs/bs3compat-0.5.0/bs3compat.js"></script>
-    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
-    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script>
-    <script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 5 Workflow | Mastering Shiny</title>
+<meta name="author" content="Hadley Wickham">
+<meta name="generator" content="bookdown 0.34.2 with bs4_book()">
+<meta property="og:title" content="Chapter 5 Workflow | Mastering Shiny">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 Workflow | Mastering Shiny">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
 
       gtag('config', 'UA-141197094-1');
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
-
-  <!-- CSS -->
-  <style type="text/css">
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-    
+<meta name="description" content="如果您要编写大量 Shiny apps（既然您正在阅读这本书，我希望您会这么做！），那么在基本工作流程上投入一些时间是值得的。 改进工作流程是投入时间的好地方，因为从长远来看，它往往会带来巨大的回报。 它不仅增加了您编写 R 代码所花费的时间比例，而且因为您更快地看到结果，它使编写 Shiny apps 的过程变得更加愉快，并帮助您更快地提高技能。 本章的目标是帮助您改进三个重要的...">
+<meta property="og:description" content="如果您要编写大量 Shiny apps（既然您正在阅读这本书，我希望您会这么做！），那么在基本工作流程上投入一些时间是值得的。 改进工作流程是投入时间的好地方，因为从长远来看，它往往会带来巨大的回报。 它不仅增加了您编写 R 代码所花费的时间比例，而且因为您更快地看到结果，它使编写 Shiny apps 的过程变得更加愉快，并帮助您更快地提高技能。 本章的目标是帮助您改进三个重要的...">
+<meta name="twitter:description" content="如果您要编写大量 Shiny apps（既然您正在阅读这本书，我希望您会这么做！），那么在基本工作流程上投入一些时间是值得的。 改进工作流程是投入时间的好地方，因为从长远来看，它往往会带来巨大的回报。 它不仅增加了您编写 R 代码所花费的时间比例，而且因为您更快地看到结果，它使编写 Shiny apps 的过程变得更加愉快，并帮助您更快地提高技能。 本章的目标是帮助您改进三个重要的...">
 </head>
-
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
-    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -72,174 +44,194 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
+</form>
 
-      <nav aria-label="Table of contents">
-        <h2>Table of contents</h2>
-        <div id="book-toc"></div>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 5</span> Workflow</a></li></ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+          <p><a id="book-repo" href="https://github.com/zhenghu159/mastering-shiny-zh-cn">View book source <i class="fab fa-github"></i></a></p>
         </div>
       </nav>
-    </div>
-  </header>
-
-  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="action-workflow" class="section level1" number="5">
-<h1><span class="header-section-number">Chapter 5</span> Workflow</h1>
-<p>If you’re going to be writing a lot of Shiny apps (and since you’re reading this book I hope you will be!), it’s worth investing some time in your basic workflow.
-Improving workflow is a good place to invest time because it tends to pay great dividends in the long run.
-It doesn’t just increase the proportion of your time spent writing R code, but because you see the results more quickly, it makes the process of writing Shiny apps more enjoyable, and helps your skills improve more quickly.</p>
-<p>The goal of this chapter is to help you improve three important Shiny workflows:</p>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="action-workflow" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Workflow<a class="anchor" aria-label="anchor" href="#action-workflow"><i class="fas fa-link"></i></a>
+</h1>
+<p>如果您要编写大量 Shiny apps（既然您正在阅读这本书，我希望您会这么做！），那么在基本工作流程上投入一些时间是值得的。
+改进工作流程是投入时间的好地方，因为从长远来看，它往往会带来巨大的回报。
+它不仅增加了您编写 R 代码所花费的时间比例，而且因为您更快地看到结果，它使编写 Shiny apps 的过程变得更加愉快，并帮助您更快地提高技能。</p>
+<p>本章的目标是帮助您改进三个重要的 Shiny 工作流程：</p>
 <ul>
-<li><p>The basic development cycle of creating apps, making changes, and experimenting with the results.</p></li>
-<li><p>Debugging, the workflow where you figure out what’s gone wrong with your code and then brainstorm solutions to fix it.</p></li>
-<li><p>Writing reprexes, self-contained chunks of code that illustrate a problem.
-Reprexes are a powerful debugging technique, and they are essential if you want to get help from someone else.</p></li>
+<li><p>创建 apps、进行更改和试验结果的基本开发周期。</p></li>
+<li><p>调试，在这个工作流程中，您找出代码出了什么问题，然后集体讨论解决方案来修复它。</p></li>
+<li><p>编写 reprexes，即说明问题的独立代码块。
+Reprexes 是一种强大的调试技术，如果您想从其他人那里获得帮助，它们是必不可少的。</p></li>
 </ul>
 <div id="development-workflow" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> Development workflow</h2>
-<p>The goal of optimising your development workflow is to reduce the time between making a change and seeing the outcome.
-The faster you can iterate, the faster you can experiment, and the faster you can become a better Shiny developer.
-There are two main workflows to optimise here: creating an app for the first time, and speeding up the iterative cycle of tweaking code and trying out the results.</p>
+<h2>
+<span class="header-section-number">5.1</span> Development workflow<a class="anchor" aria-label="anchor" href="#development-workflow"><i class="fas fa-link"></i></a>
+</h2>
+<p>优化开发工作流程的目标是缩短做出更改和看到结果之间的时间。
+你迭代的速度越快，你的实验速度就越快，你就能越快地成为一名更好的 Shiny 开发人员。
+这里有两个主要的工作流程需要优化：首次创建 app，以及加快调整代码和尝试结果的迭代周期。</p>
 <div id="creating-the-app" class="section level3" number="5.1.1">
-<h3><span class="header-section-number">5.1.1</span> Creating the app</h3>
-<p>You will start every app with the same six lines of R code:</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="action-workflow.html#cb83-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb83-2"><a href="action-workflow.html#cb83-2" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb83-3"><a href="action-workflow.html#cb83-3" tabindex="-1"></a>)</span>
-<span id="cb83-4"><a href="action-workflow.html#cb83-4" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb83-5"><a href="action-workflow.html#cb83-5" tabindex="-1"></a>}</span>
-<span id="cb83-6"><a href="action-workflow.html#cb83-6" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p>You’ll likely quickly get sick of typing that code in, so RStudio provides a couple of shortcuts:</p>
+<h3>
+<span class="header-section-number">5.1.1</span> Creating the app<a class="anchor" aria-label="anchor" href="#creating-the-app"><i class="fas fa-link"></i></a>
+</h3>
+<p>您将使用相同的六行 R 代码启动每个 app：</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>您可能很快就会厌倦输入这些代码，因此 RStudio 提供了一些快捷方式：</p>
 <ul>
-<li><p>If you already have your future <code>app.R</code> open, type <code>shinyapp</code> then press <code>Shift</code> + <code>Tab</code> to insert the Shiny app snippet.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a></p></li>
-<li><p>If you want to start a new project<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a>, go to the File menu, select “New Project” then select “Shiny Web Application”, as in Figure <a href="action-workflow.html#fig:new-project">5.1</a>.</p></li>
+<li><p>如果您已经打开了未来的 <code>app.R</code>，请输入 <code>shinyapp</code>，然后按 <code>Shift</code> + <code>Tab</code> 插入 Shiny app 片段。<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Snippets 是文本宏，可用于插入常见代码片段。
+有关更多详细信息，请参阅 &lt;a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" class="uri"&gt;https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets&lt;/a&gt;。
+如果您喜欢使用 snippets，请务必查看 ThinkR 整理的 Shiny 特定 snippets 集合：&lt;a href="https://github.com/ThinkR-open/shinysnippets" class="uri"&gt;https://github.com/ThinkR-open/shinysnippets&lt;/a&gt;。&lt;/p&gt;'><sup>1</sup></a></p></li>
+<li><p>如果您想启动一个新项目<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;项目是一个独立的目录，与您正在处理的其他项目隔离。
+如果您使用 RStudio，但目前不使用项目，我强烈建议您阅读有关 &lt;a href="https://whattheyforgot.org/project-oriented-workflow.html"&gt;project oriented lifestyle&lt;/a&gt; 的文章。&lt;/p&gt;'><sup>2</sup></a>，请进入 File 菜单，选择 “New Project”，然后选择 “Shiny Web Application”，如 Figure <a href="action-workflow.html#fig:new-project">5.1</a> 所示。</p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:new-project"></span>
-<img src="images/action-workflow/new-project.png" alt="To create a new Shiny app within RStudio, choose 'Shiny Web Application' as project type" width="364" />
-<p class="caption">
-Figure 5.1: To create a new Shiny app within RStudio, choose ‘Shiny Web Application’ as project type
+<div class="figure">
+<span style="display:block;" id="fig:new-project"></span>
+<img src="images/action-workflow/new-project.png" alt="要在 RStudio 中创建新的 Shiny app，请选择 'Shiny Web Application' 作为项目类型" width="364"><p class="caption">
+Figure 5.1: 要在 RStudio 中创建新的 Shiny app，请选择 ‘Shiny Web Application’ 作为项目类型
 </p>
 </div>
-<p>You might think it’s not worthwhile to learn these shortcuts because you’ll only create an app or two a day, but creating simple apps is a great way to check that you have the basic concepts down before you start on a bigger project, and they’re a great tool for debugging.</p>
+<p>您可能认为学习这些快捷方式不值得，因为您每天只会创建一两个 app，但是创建简单的 app 是在开始更大的项目之前检查您是否掌握了基本概念的好方法，并且它们是一个很棒的调试工具。</p>
 </div>
 <div id="seeing-your-changes" class="section level3" number="5.1.2">
-<h3><span class="header-section-number">5.1.2</span> Seeing your changes</h3>
-<p>At most, you’ll <em>create</em> a few apps a day, but you’ll <em>run</em> apps hundreds of times, so mastering the development workflow is particularly important.
-The first way to reduce your iteration time is to avoid clicking on the “Run App” button, and instead learn the keyboard shortcut <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code>.
-This gives you the following development workflow:</p>
+<h3>
+<span class="header-section-number">5.1.2</span> Seeing your changes<a class="anchor" aria-label="anchor" href="#seeing-your-changes"><i class="fas fa-link"></i></a>
+</h3>
+<p>最多，您一天会创建几个 apps，但您会运行 apps 数百次，因此掌握开发工作流程尤为重要。
+减少迭代时间的第一个方法是避免单击 “Run App” 按钮，而是学习键盘快捷键 <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code>。
+这将为您提供以下开发工作流程：</p>
 <ol style="list-style-type: decimal">
-<li>Write some code.</li>
-<li>Launch the app with <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code>.</li>
-<li>Interactively experiment with the app.</li>
-<li>Close the app.</li>
-<li>Go to 1.</li>
+<li>写一些代码。</li>
+<li>使用 <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code> 启动 app。</li>
+<li>使用该 app 进行交互式实验。</li>
+<li>关闭 app。</li>
+<li>回到 1。</li>
 </ol>
-<p>Another way to increase your iteration speed still further is to turn autoreload on and run the app in a background job, as described in <a href="https://github.com/sol-eng/background-jobs/tree/master/shiny-job" class="uri">https://github.com/sol-eng/background-jobs/tree/master/shiny-job</a>.
-With this workflow as soon as you save a file, your app will relaunch: no need to close and restart.
-This leads to an even faster workflow:</p>
+<p>进一步提高迭代速度的另一种方法是打开自动重新加载并在后台作业中运行 app，如 <a href="https://github.com/sol-eng/background-jobs/tree/master/shiny-job" class="uri">https://github.com/sol-eng/background-jobs/tree/master/shiny-job</a> 中所述。
+通过此工作流程，只要您保存文件，您的 app 就会重新启动：无需关闭并重新启动。
+这会带来更快的工作流程：</p>
 <ol style="list-style-type: decimal">
-<li>Write some code and press <code>Cmd/Ctrl</code> + <code>S</code> to save the file.</li>
-<li>Interactively experiment.</li>
-<li>Go to 1.</li>
+<li>编写一些代码并按 <code>Cmd/Ctrl</code> + <code>S</code> 保存文件。</li>
+<li>交互式实验。</li>
+<li>回到 1。</li>
 </ol>
-<p>The chief disadvantage of this technique is that it’s considerably harder to debug because the app is running in a separate process.</p>
-<p>As your app gets bigger and bigger, you’ll find that the “interactively experiment” step starts to become onerous.
-It’s too hard to remember to re-check every component of your app that you might have affected with your changes.
-Later, in Chapter <a href="#scaling-testing"><strong>??</strong></a>, you’ll learn the tools of automated testing, which allows you to turn the interactive experiments you’re running into automated code.
-This lets you run the tests more quickly (because they’re automated), and means that you can’t forget to run an important test.
-It requires some initial investment to develop the tests, but the investment pays off handsomely for large apps.</p>
+<p>这种技术的主要缺点是调试起来相当困难，因为 app 在单独的进程中运行。</p>
+<p>随着您的 app 变得越来越大，您会发现“交互式实验”步骤开始变得繁重。
+记住重新检查 app 中可能受到更改影响的每个组件太困难了。
+稍后，在 Chapter <a href="#scaling-testing"><strong>??</strong></a> 中，您将学习自动化测试工具，它允许您将正在运行的交互式实验转换为自动化代码。
+这可以让您更快地运行测试（因为它们是自动化的），并且意味着您不会忘记运行重要的测试。
+开发测试需要一些初始投资，但对于大型 apps 来说，投资回报丰厚。</p>
 </div>
 <div id="controlling-the-view" class="section level3" number="5.1.3">
-<h3><span class="header-section-number">5.1.3</span> Controlling the view</h3>
-<p>By default, when you run the app, it will appear in a pop-out window.
-There are two other options that you can choose from the Run App drop down, as shown in Figure <a href="basic-app.html#fig:run-app">1.1</a>:</p>
+<h3>
+<span class="header-section-number">5.1.3</span> Controlling the view<a class="anchor" aria-label="anchor" href="#controlling-the-view"><i class="fas fa-link"></i></a>
+</h3>
+<p>默认情况下，当您运行 app 时，它将显示在弹出窗口中。
+您可以从 Run App 下拉列表中选择其他两个选项，如 Figure <a href="action-workflow.html#fig:run-app">5.2</a> 所示：</p>
 <ul>
-<li><p><strong>Run in Viewer Pane</strong> opens the app in the viewer pane (usually located on the right hand side of the IDE).
-It’s useful for smaller apps because you can see it at the same time as you run your app code.</p></li>
-<li><p><strong>Run External</strong> opens the app in your usual web browser.
-It’s useful for larger apps and when you want to see what your app looks like in the context that most users will experience it.</p></li>
+<li><p><strong>Run in Viewer Pane</strong> 会在 viewer 窗格（通常位于 IDE 的右侧）中打开 app。
+它对于较小的 apps 很有用，因为您可以在运行 app 代码的同时看到它。</p></li>
+<li><p><strong>Run External</strong> 在您常用的网络浏览器中打开 app。
+它对于较大的 apps 以及当您想查看 app 在大多数用户将体验的环境的外观时非常有用。</p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:run-app"></span>
-<img src="images/action-workflow/run-app.png" alt="The run app button allows you to choose how the running app will be shown." width="125" />
-<p class="caption">
-Figure 1.1: The run app button allows you to choose how the running app will be shown.
+<div class="figure">
+<span style="display:block;" id="fig:run-app"></span>
+<img src="images/action-workflow/run-app.png" alt="Run App 按钮允许您选择如何显示正在运行的 app。" width="125"><p class="caption">
+Figure 5.2: Run App 按钮允许您选择如何显示正在运行的 app。
 </p>
 </div>
 </div>
 </div>
 <div id="debugging" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Debugging</h2>
-<p>When you start writing apps, it is almost guaranteed that something will go wrong.
-The cause of most bugs is a mismatch between your mental model of Shiny, and what Shiny actually does.
-As you read this book, your mental model will improve so that you make fewer mistakes, and when you do make one, it’s easier to spot the problem.
-However, it takes years of experience in any language before you can reliably write code that works the first time.
-This means you need to develop a robust workflow for identifying and fixing mistakes.
-Here we’ll focus on the challenges specific to Shiny apps; if you’re new to debugging in R, start with Jenny Bryan’s rstudio::conf(2020) keynote “<a href="https://resources.rstudio.com/rstudio-conf-2020/object-of-type-closure-is-not-subsettable-jenny-bryan">Object of type ‘closure’ is not subsettable</a>”.</p>
-<p>There are three main cases of problems which we’ll discuss below:</p>
+<h2>
+<span class="header-section-number">5.2</span> Debugging<a class="anchor" aria-label="anchor" href="#debugging"><i class="fas fa-link"></i></a>
+</h2>
+<p>当你开始编写 apps 时，几乎肯定会出现问题。
+大多数错误的原因是您对 Shiny 的心理模型与 Shiny 实际所做的事情不匹配。
+当你阅读这本书时，你的心理模型将会得到改善，从而减少你犯的错误，当你犯错误时，你会更容易发现问题。
+然而，在您能够可靠地编写首次运行的代码之前，您需要拥有多年使用任何语言的经验。
+这意味着您需要开发一个强大的工作流程来识别和修复错误。
+在这里，我们将重点关注 Shiny apps 特有的挑战；如果您不熟悉 R 调试，请从 Jenny Bryan 的 rstudio::conf(2020) 主题演讲 “<a href="https://resources.rstudio.com/rstudio-conf-2020/object-of-type-closure-is-not-subsettable-jenny-bryan">Object of type ‘closure’ is not subsettable</a>” 开始。</p>
+<p>我们将在下面讨论三种主要的问题情况：</p>
 <ul>
-<li><p>You get an unexpected error.
-This is the easiest case, because you’ll get a traceback which allows you to figure out exactly where the error occurred.
-Once you’ve identified the problem, you’ll need to systematically test your assumptions until you find a difference between your expectations and reality.
-The interactive debugger is a powerful assistant for this process.</p></li>
-<li><p>You don’t get any errors, but some value is incorrect.
-Here, you’ll need to use the interactive debugger, along with your investigative skills to track down the root cause.</p></li>
-<li><p>All the values are correct, but they’re not updated when you expect.
-This is the most challenging problem because it’s unique to Shiny, so you can’t take advantage of your existing R debugging skills.</p></li>
+<li><p>您收到意外报错。
+这是最简单的情况，因为您将获得回溯，使您能够准确地找出错误发生的位置。
+一旦发现问题，您就需要系统地测试您的假设，直到发现您的期望与现实之间的差异。
+交互式调试器是这个过程的有力助手。</p></li>
+<li><p>您没有收到任何报错，但某些值不正确。
+在这里，您需要使用交互式调试器以及您的调查技能来追踪根本原因。</p></li>
+<li><p>所有值都是正确的，但它们没有按您的预期更新。
+这是最具挑战性的问题，因为它是 Shiny 所独有的，因此您无法利用现有的 R 调试技能。</p></li>
 </ul>
-<p>It’s frustrating when these situations arise, but you can turn them into opportunities to practice your debugging skills.</p>
-<p>We’ll come back to another important technique, making a minimal reproducible example, in the next section.
-Creating a minimal example is crucial if you get stuck and need to get help from someone else.
-But creating a minimal example is also a profoundly important skill when debugging your own code.
-Typically you have a lot of code that works just fine, and a very small amount of code that’s causing problems.
-If you can narrow in on the problematic code by removing the code that works, you’ll be able to iterate on a solution much more quickly.
-This is a technique that I use every day.</p>
+<p>出现这些情况时会令人沮丧，但您可以将其转化为练习调试技能的机会。</p>
+<p>在下一节中，我们将回到另一个重要的技术，制作一个最小的可重复示例。
+如果您遇到困难并需要从其他人那里获得帮助，那么创建一个最小的示例至关重要。
+但是，在调试自己的代码时，创建一个最小的示例也是一项非常重要的技能。
+通常情况下，您有很多代码可以正常工作，而只有极少量的代码会导致问题。
+如果您可以通过删除有效的代码来缩小有问题的代码范围，那么您将能够更快地迭代解决方案。
+这是我每天都使用的技巧。</p>
 <div id="reading-tracebacks" class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Reading tracebacks</h3>
-<p>In R, every error is accompanied by a <strong>traceback</strong>, or call stack, which literally traces back through the sequence of calls that lead to the error.
-For example, take this simple sequence of calls: <code>f()</code> calls <code>g()</code> calls <code>h()</code> which calls the multiplication operator:</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="action-workflow.html#cb84-1" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">g</span>(x)</span>
-<span id="cb84-2"><a href="action-workflow.html#cb84-2" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">h</span>(x)</span>
-<span id="cb84-3"><a href="action-workflow.html#cb84-3" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div>
-<p>If this code errors, as below:</p>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="action-workflow.html#cb85-1" tabindex="-1"></a><span class="fu">f</span>(<span class="st">&quot;a&quot;</span>)</span>
-<span id="cb85-2"><a href="action-workflow.html#cb85-2" tabindex="-1"></a><span class="co">#&gt; Error in x * 2: non-numeric argument to binary operator</span></span></code></pre></div>
-<p>You can call <code>traceback()</code> to find the sequence of calls that to the problem:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="action-workflow.html#cb86-1" tabindex="-1"></a><span class="fu">traceback</span>()</span>
-<span id="cb86-2"><a href="action-workflow.html#cb86-2" tabindex="-1"></a><span class="co">#&gt; 3: h(x)</span></span>
-<span id="cb86-3"><a href="action-workflow.html#cb86-3" tabindex="-1"></a><span class="co">#&gt; 2: g(x)</span></span>
-<span id="cb86-4"><a href="action-workflow.html#cb86-4" tabindex="-1"></a><span class="co">#&gt; 1: f(&quot;a&quot;)</span></span></code></pre></div>
-<p>I think it’s easiest to understand the traceback by flipping it upside down:</p>
-<pre><code>1: f(&quot;a&quot;)
+<h3>
+<span class="header-section-number">5.2.1</span> Reading tracebacks<a class="anchor" aria-label="anchor" href="#reading-tracebacks"><i class="fas fa-link"></i></a>
+</h3>
+<p>在 R 中，每个错误都伴随着回溯或调用堆栈，它实际上可以追溯到导致错误的调用序列。
+例如，采用以下简单的调用序列：<code>f()</code> 调用 <code>g()</code> 调用 <code>h()</code>，后者调用乘法运算符：</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">g</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">h</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="va">h</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span></span></code></pre></div>
+<p>如果这段代码出错，如下：</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">f</span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error in x * 2: non-numeric argument to binary operator</span></span></code></pre></div>
+<p>您可以调用 <code><a href="https://rdrr.io/r/base/traceback.html">traceback()</a></code> 来查找问题的调用顺序：</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/traceback.html">traceback</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; 3: h(x)</span></span>
+<span><span class="co">#&gt; 2: g(x)</span></span>
+<span><span class="co">#&gt; 1: f("a")</span></span></code></pre></div>
+<p>我认为将回溯颠倒过来是最容易理解的：</p>
+<pre><code>1: f("a")
 2: g(x)
 3: h(x)</code></pre>
-<p>This now tells you the sequence of calls that lead to the error — <code>f()</code> called <code>g()</code> called <code>h()</code> (which errors).</p>
+<p>现在，这会告诉您导致错误的调用顺序 — <code>f()</code> 调用 <code>g()</code> 调用 <code>h()</code> （哪些错误）。</p>
 </div>
 <div id="tracebacks-in-shiny" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Tracebacks in Shiny</h3>
-<p>Unfortunately, you can’t use <code>traceback()</code> in Shiny because you can’t run code while an app is running.
-Instead, Shiny will automatically print the traceback for you.
-For example, take this simple app using the <code>f()</code> function I defined above:</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="action-workflow.html#cb88-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb88-2"><a href="action-workflow.html#cb88-2" tabindex="-1"></a></span>
-<span id="cb88-3"><a href="action-workflow.html#cb88-3" tabindex="-1"></a>f <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">g</span>(x)</span>
-<span id="cb88-4"><a href="action-workflow.html#cb88-4" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">h</span>(x)</span>
-<span id="cb88-5"><a href="action-workflow.html#cb88-5" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb88-6"><a href="action-workflow.html#cb88-6" tabindex="-1"></a></span>
-<span id="cb88-7"><a href="action-workflow.html#cb88-7" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb88-8"><a href="action-workflow.html#cb88-8" tabindex="-1"></a>  <span class="fu">selectInput</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
-<span id="cb88-9"><a href="action-workflow.html#cb88-9" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb88-10"><a href="action-workflow.html#cb88-10" tabindex="-1"></a>)</span>
-<span id="cb88-11"><a href="action-workflow.html#cb88-11" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb88-12"><a href="action-workflow.html#cb88-12" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb88-13"><a href="action-workflow.html#cb88-13" tabindex="-1"></a>    n <span class="ot">&lt;-</span> <span class="fu">f</span>(input<span class="sc">$</span>n)</span>
-<span id="cb88-14"><a href="action-workflow.html#cb88-14" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">head</span>(cars, n))</span>
-<span id="cb88-15"><a href="action-workflow.html#cb88-15" tabindex="-1"></a>  }, <span class="at">res =</span> <span class="dv">96</span>)</span>
-<span id="cb88-16"><a href="action-workflow.html#cb88-16" tabindex="-1"></a>}</span>
-<span id="cb88-17"><a href="action-workflow.html#cb88-17" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p>If you run this app, you’ll see an error message in the app, and a traceback in the console:</p>
+<h3>
+<span class="header-section-number">5.2.2</span> Tracebacks in Shiny<a class="anchor" aria-label="anchor" href="#tracebacks-in-shiny"><i class="fas fa-link"></i></a>
+</h3>
+<p>不幸的是，您无法在 Shiny 中使用 <code><a href="https://rdrr.io/r/base/traceback.html">traceback()</a></code>，因为您无法在 app 运行时运行代码。
+相反，Shiny 会自动为您打印回溯。
+例如，使用我上面定义的 <code>f()</code> 函数来获取这个简单的 app：</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">g</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">h</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="va">h</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"N"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">n</span> <span class="op">&lt;-</span> <span class="fu">f</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cars</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>如果您运行此 app，您将在 app 中看到一条错误消息，并在控制台中看到一条回溯：</p>
 <pre><code>Error in *: non-numeric argument to binary operator
   169: g [app.R#4]
   168: f [app.R#3]
@@ -251,7 +243,7 @@ For example, take this simple app using the <code>f()</code> function I defined 
    82: renderFunc
    81: output$plot
     1: runApp</code></pre>
-<p>To understand what’s going on we again start by flipping it upside down, so you can see the sequence of calls in the order they appear:</p>
+<p>为了了解发生了什么，我们再次将其颠倒过来，这样您就可以按照调用的出现顺序查看调用顺序：</p>
 <pre><code>Error in *: non-numeric argument to binary operator
    1: runApp
   81: output$plot
@@ -263,552 +255,607 @@ For example, take this simple app using the <code>f()</code> function I defined 
  167: renderPlot [app.R#13]
  168: f [app.R#3]
  169: g [app.R#4]</code></pre>
-<p>There are three basic parts to the call stack:</p>
+<p>调用堆栈由三个基本部分组成：</p>
 <ul>
-<li><p>The first few calls start the app. In this case, you just see <code>runApp()</code>, but depending on how you start the app, you might see something more complicated.
-For example, if you called <code>source()</code> to run the app, you might see this:</p>
+<li>
+<p>前几次调用会启动 app。在这种情况下，您只会看到 <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html">runApp()</a></code>，但根据您启动 app 的方式，您可能会看到更复杂的内容。
+例如，如果您调用 <code><a href="https://rdrr.io/r/base/source.html">source()</a></code> 来运行 app，您可能会看到以下内容：</p>
 <pre><code>1: source
 3: print.shiny.appobj
 5: runApp</code></pre>
-<p>In general, you can ignore anything before the first <code>runApp()</code>; this is just the setup code to get the app running.</p></li>
-<li><p>Next, you’ll see some internal Shiny code in charge of calling the reactive expression:</p>
+<p>一般来说，您可以忽略第一个 <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html">runApp()</a></code>; 之前的任何内容；这只是让 app 运行的设置代码。</p>
+</li>
+<li>
+<p>接下来，您将看到一些负责调用响应式表达式的内部 Shiny 代码：</p>
 <pre><code> 81: output$plot
  82: renderFunc
  95: drawReactive
 111: &lt;reactive:plotObj&gt;
 125: drawPlot
 165: func</code></pre>
-<p>Here, spotting <code>output$plot</code> is really important — that tells which of your reactives (<code>plot</code>) is causing the error.
-The next few functions are internal, and you can ignore them.</p></li>
-<li><p>Finally, at the very bottom, you’ll see the code that you have written:</p>
+<p>在这里，发现 <code>output$plot</code> 非常重要 — 它可以告诉您哪个响应式（<code>plot</code>）导致了错误。
+接下来的几个函数是内部函数，您可以忽略它们。</p>
+</li>
+<li>
+<p>最后，在最底部，您将看到您编写的代码：</p>
 <pre><code>167: renderPlot [app.R#13]
 168: f [app.R#3]
 169: g [app.R#4]</code></pre>
-<p>This is the code called inside of <code>renderPlot()</code>.
-You can tell you should pay attention here because of the file path and line number; this lets you know that it’s your code.</p></li>
+<p>这是 <code><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot()</a></code> 内部调用的代码。
+由于文件路径和行号，您可以告诉您应该注意这里；这让您知道这是您的代码。</p>
+</li>
 </ul>
-<p>If you get an error in your app but don’t see a traceback then make sure that you’re running the app using <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code> (or if not in RStudio, calling <code>runApp()</code>), and that you’ve saved the file that you’re running it from.
-Other ways of running the app don’t always capture the information necessary to make a traceback.</p>
+<p>如果您的 app 出现错误，但没有看到回溯，请确保您正在使用 <code>Cmd/Ctrl</code> + <code>Shift</code> + <code>Enter</code> 运行 app（或者如果不在 RStudio 中，则调用 <code><a href="https://rdrr.io/pkg/shiny/man/runApp.html">runApp()</a></code>），并且您已经保存了您运行它的文件。
+运行 app 的其他方式并不总能捕获进行回溯所需的信息。</p>
 </div>
 <div id="browser" class="section level3" number="5.2.3">
-<h3><span class="header-section-number">5.2.3</span> The interactive debugger</h3>
-<p>Once you’ve located the source of the error and want to figure out what’s causing it, the most powerful tool you have at your disposal is the <strong>interactive debugger</strong>.
-The debugger pauses execution and gives you an interactive R console where you can run any code to figure out what’s gone wrong.
-There are two ways to launch the debugger:</p>
+<h3>
+<span class="header-section-number">5.2.3</span> The interactive debugger<a class="anchor" aria-label="anchor" href="#browser"><i class="fas fa-link"></i></a>
+</h3>
+<p>一旦找到错误的根源并想找出导致错误的原因，您可以使用的最强大的工具就是交互式调试器。
+调试器会暂停执行，并为您提供一个交互式 R 控制台，您可以在其中运行任何代码来找出问题所在。
+有两种启动调试器的方法：</p>
 <ul>
-<li><p>Add a call to <code>browser()</code> in your source code.
-This is the standard R way of lauching the interactive debugger, and will work however you’re running Shiny.</p>
-<p>The other advantage of <code>browser()</code> is that because it’s R code, you can make it conditional by combining it with an <code>if</code> statement.
-This allows you to launch the debugger only for problematic inputs.</p>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="action-workflow.html#cb94-1" tabindex="-1"></a><span class="cf">if</span> (input<span class="sc">$</span>value <span class="sc">==</span> <span class="st">&quot;a&quot;</span>) {</span>
-<span id="cb94-2"><a href="action-workflow.html#cb94-2" tabindex="-1"></a>  <span class="fu">browser</span>()</span>
-<span id="cb94-3"><a href="action-workflow.html#cb94-3" tabindex="-1"></a>}</span>
-<span id="cb94-4"><a href="action-workflow.html#cb94-4" tabindex="-1"></a><span class="co"># Or maybe</span></span>
-<span id="cb94-5"><a href="action-workflow.html#cb94-5" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">my_reactive</span>() <span class="sc">&lt;</span> <span class="dv">0</span>) {</span>
-<span id="cb94-6"><a href="action-workflow.html#cb94-6" tabindex="-1"></a>  <span class="fu">browser</span>()</span>
-<span id="cb94-7"><a href="action-workflow.html#cb94-7" tabindex="-1"></a>}</span></code></pre></div></li>
-<li><p>Add an RStudio breakpoint by clicking to the left of the line number.
-You can remove the breakpoint by clicking on the red circle.</p>
-<p><img src="images/action-workflow/breakpoint.png" width="317" /></p>
-<p>The advantage of breakpoints is that they’re not code, so you never have to worry about accidentally checking them into your version control system.</p></li>
+<li>
+<p>在源代码中添加对 <code><a href="https://rdrr.io/r/base/browser.html">browser()</a></code> 的调用。
+这是启动交互式调试器的标准 R 方式，无论您如何运行 Shiny，它都可以工作。</p>
+<p><code><a href="https://rdrr.io/r/base/browser.html">browser()</a></code> 的另一个优点是，因为它是 R 代码，所以您可以通过将其与 <code>if</code> 语句组合来使其成为条件。
+这允许您仅针对有问题的输入启动调试器。</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">value</span> <span class="op">==</span> <span class="st">"a"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/browser.html">browser</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="co"># Or maybe</span></span>
+<span><span class="kw">if</span> <span class="op">(</span><span class="fu">my_reactive</span><span class="op">(</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/browser.html">browser</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+</li>
+<li>
+<p>单击行号左侧添加 RStudio 断点。
+您可以通过单击红色圆圈来删除断点。</p>
+<div class="inline-figure"><img src="images/action-workflow/breakpoint.png" width="317"></div>
+<p>断点的优点是它们不是代码，因此您永远不必担心意外地将它们签入版本控制系统。</p>
+</li>
 </ul>
-<p>If you’re using RStudio, the toolbar in Figure <a href="action-workflow.html#fig:debug-toolbar">5.2</a> will appear at the top of the console when you’re in the debugger.
-The toolbar is an easy way to remember the debugging commands that are now available to you.
-They’re also available outside of RStudio; you’ll just need to remember the one letter command to activate them.
-The three most useful commands are:</p>
+<p>如果您使用 RStudio，当您处于调试器中时，Figure <a href="action-workflow.html#fig:debug-toolbar">5.3</a> 中的工具栏将出现在控制台顶部。
+工具栏是记住现在可用的调试命令的简单方法。
+它们也可以在 RStudio 之外使用；您只需要记住一个字母命令即可激活它们。
+三个最有用的命令是：</p>
 <ul>
-<li><p>Next (press <code>n</code>): executes the next step in the function.
-Note that if you have a variable named <code>n</code>, you’ll need to use <code>print(n)</code> to display its value.</p></li>
-<li><p>Continue (press <code>c</code>): leaves interactive debugging and continues regular execution of the function.
-This is useful if you’ve fixed the bad state and want to check that the function proceeds correctly.</p></li>
-<li><p>Stop (press <code>Q</code>): stops debugging, terminates the function, and returns to the global workspace.
-Use this once you’ve figured out where the problem is, and you’re ready to fix it and reload the code.</p></li>
+<li><p>下一步（按 <code>n</code>）：执行函数中的下一步。
+请注意，如果您有一个名为 <code>n</code> 的变量，则需要使用 <code>print(n)</code> 来显示其值。</p></li>
+<li><p>继续（按 <code>c</code>）：离开交互式调试并继续函数的常规执行。
+如果您已经修复了错误状态并想要检查函数是否正常运行，这非常有用。</p></li>
+<li><p>停止（按 <code>Q</code>）：停止调试，终止函数，并返回全局工作区。
+一旦找出问题所在，并准备好修复它并重新加载代码，就可以使用它。</p></li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:debug-toolbar"></span>
-<img src="images/action-workflow/debug-toolbar.png" alt="RStudio's debugging toolbar" width="50%" />
-<p class="caption">
-Figure 5.2: RStudio’s debugging toolbar
+<div class="figure">
+<span style="display:block;" id="fig:debug-toolbar"></span>
+<img src="images/action-workflow/debug-toolbar.png" alt="RStudio's debugging toolbar" width="50%"><p class="caption">
+Figure 5.3: RStudio’s debugging toolbar
 </p>
 </div>
-<p>As well as stepping through the code line-by-line using these tools, you’ll also write and run a <em>bunch</em> of interactive code to track down what’s going wrong.
-Debugging is the process of systematically comparing your expectations to reality until you find the mismatch.
-If you’re new to debugging in R, you might want to read the <a href="https://adv-r.hadley.nz/debugging.html#debugging-strategy">Debugging chapter</a> of “Advanced R” to learn some general techniques.</p>
+<p>除了使用这些工具逐行执行代码之外，您还将编写并运行一堆交互式代码来跟踪出了什么问题。
+调试是系统地将您的期望与现实进行比较，直到发现不匹配的过程。
+如果您不熟悉 R 调试，您可能需要阅读 “Advanced R” 的 <a href="https://adv-r.hadley.nz/debugging.html#debugging-strategy">Debugging chapter</a> 来学习一些通用技术。</p>
 </div>
 <div id="case-study" class="section level3" number="5.2.4">
-<h3><span class="header-section-number">5.2.4</span> Case study</h3>
+<h3>
+<span class="header-section-number">5.2.4</span> Case study<a class="anchor" aria-label="anchor" href="#case-study"><i class="fas fa-link"></i></a>
+</h3>
 <blockquote>
 <p>Once you eliminate the impossible, whatever remains, no matter how improbable, must be the truth — Sherlock Holmes</p>
 </blockquote>
-<p>To demonstrate the basic debugging approach, I’ll show you a little problem I encountered when writing Section <a href="#hierarchical-select"><strong>??</strong></a>.
-I’ll first show you the basic context, then you’ll see a problem I resolved without interactive debugging tools, a problem that required interactive debugging, and discover a final suprise.</p>
-<p>The initial goal is pretty simple: I have a dataset of sales, and I want to filter it by territory.
-Here’s what the data looks like:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="action-workflow.html#cb95-1" tabindex="-1"></a>sales <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;sales-dashboard/sales_data_sample.csv&quot;</span>)</span>
-<span id="cb95-2"><a href="action-workflow.html#cb95-2" tabindex="-1"></a>sales <span class="ot">&lt;-</span> sales[<span class="fu">c</span>(</span>
-<span id="cb95-3"><a href="action-workflow.html#cb95-3" tabindex="-1"></a>  <span class="st">&quot;TERRITORY&quot;</span>, <span class="st">&quot;ORDERDATE&quot;</span>, <span class="st">&quot;ORDERNUMBER&quot;</span>, <span class="st">&quot;PRODUCTCODE&quot;</span>,</span>
-<span id="cb95-4"><a href="action-workflow.html#cb95-4" tabindex="-1"></a>  <span class="st">&quot;QUANTITYORDERED&quot;</span>, <span class="st">&quot;PRICEEACH&quot;</span></span>
-<span id="cb95-5"><a href="action-workflow.html#cb95-5" tabindex="-1"></a>)]</span>
-<span id="cb95-6"><a href="action-workflow.html#cb95-6" tabindex="-1"></a>sales</span>
-<span id="cb95-7"><a href="action-workflow.html#cb95-7" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,823 × 6</span></span>
-<span id="cb95-8"><a href="action-workflow.html#cb95-8" tabindex="-1"></a><span class="co">#&gt;   TERRITORY ORDERDATE      ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
-<span id="cb95-9"><a href="action-workflow.html#cb95-9" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb95-10"><a href="action-workflow.html#cb95-10" tabindex="-1"></a><span class="co">#&gt; 1 &lt;NA&gt;      2/24/2003 0:00       10107 S10_1678                 30      95.7</span></span>
-<span id="cb95-11"><a href="action-workflow.html#cb95-11" tabindex="-1"></a><span class="co">#&gt; 2 EMEA      5/7/2003 0:00        10121 S10_1678                 34      81.4</span></span>
-<span id="cb95-12"><a href="action-workflow.html#cb95-12" tabindex="-1"></a><span class="co">#&gt; 3 EMEA      7/1/2003 0:00        10134 S10_1678                 41      94.7</span></span>
-<span id="cb95-13"><a href="action-workflow.html#cb95-13" tabindex="-1"></a><span class="co">#&gt; 4 &lt;NA&gt;      8/25/2003 0:00       10145 S10_1678                 45      83.3</span></span>
-<span id="cb95-14"><a href="action-workflow.html#cb95-14" tabindex="-1"></a><span class="co">#&gt; # ℹ 2,819 more rows</span></span></code></pre></div>
-<p>And here are the territories:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="action-workflow.html#cb96-1" tabindex="-1"></a><span class="fu">unique</span>(sales<span class="sc">$</span>TERRITORY)</span>
-<span id="cb96-2"><a href="action-workflow.html#cb96-2" tabindex="-1"></a><span class="co">#&gt; [1] NA      &quot;EMEA&quot;  &quot;APAC&quot;  &quot;Japan&quot;</span></span></code></pre></div>
-<p>When I first started on this problem, I thought it was simple enough that I could just write the app without doing any other research:</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="action-workflow.html#cb97-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb97-2"><a href="action-workflow.html#cb97-2" tabindex="-1"></a>  <span class="fu">selectInput</span>(<span class="st">&quot;territory&quot;</span>, <span class="st">&quot;territory&quot;</span>, <span class="at">choices =</span> <span class="fu">unique</span>(sales<span class="sc">$</span>TERRITORY)),</span>
-<span id="cb97-3"><a href="action-workflow.html#cb97-3" tabindex="-1"></a>  <span class="fu">tableOutput</span>(<span class="st">&quot;selected&quot;</span>)</span>
-<span id="cb97-4"><a href="action-workflow.html#cb97-4" tabindex="-1"></a>)</span>
-<span id="cb97-5"><a href="action-workflow.html#cb97-5" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb97-6"><a href="action-workflow.html#cb97-6" tabindex="-1"></a>  selected <span class="ot">&lt;-</span> <span class="fu">reactive</span>(sales[sales<span class="sc">$</span>TERRITORY <span class="sc">==</span> input<span class="sc">$</span>territory, ])</span>
-<span id="cb97-7"><a href="action-workflow.html#cb97-7" tabindex="-1"></a>  output<span class="sc">$</span>selected <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(<span class="fu">head</span>(<span class="fu">selected</span>(), <span class="dv">10</span>))</span>
-<span id="cb97-8"><a href="action-workflow.html#cb97-8" tabindex="-1"></a>}</span></code></pre></div>
-<p>I thought, <em>it’s an eight line app, what could possibly go wrong?</em> Well, when I opened the app up I saw a <strong>lot</strong> of missing values, no matter what territory I selected.
-The code most likely to be the source of the problem was the reactive that selected the data to show: <code>sales[sales$TERRITORY == input$territory, ]</code>.
-So I stopped the app, and quickly verified that subsetting worked the way I thought it did:</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="action-workflow.html#cb98-1" tabindex="-1"></a>sales[sales<span class="sc">$</span>TERRITORY <span class="sc">==</span> <span class="st">&quot;EMEA&quot;</span>, ]</span>
-<span id="cb98-2"><a href="action-workflow.html#cb98-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 2,481 × 6</span></span>
-<span id="cb98-3"><a href="action-workflow.html#cb98-3" tabindex="-1"></a><span class="co">#&gt;   TERRITORY ORDERDATE     ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
-<span id="cb98-4"><a href="action-workflow.html#cb98-4" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb98-5"><a href="action-workflow.html#cb98-5" tabindex="-1"></a><span class="co">#&gt; 1 &lt;NA&gt;      &lt;NA&gt;                   NA &lt;NA&gt;                     NA      NA  </span></span>
-<span id="cb98-6"><a href="action-workflow.html#cb98-6" tabindex="-1"></a><span class="co">#&gt; 2 EMEA      5/7/2003 0:00       10121 S10_1678                 34      81.4</span></span>
-<span id="cb98-7"><a href="action-workflow.html#cb98-7" tabindex="-1"></a><span class="co">#&gt; 3 EMEA      7/1/2003 0:00       10134 S10_1678                 41      94.7</span></span>
-<span id="cb98-8"><a href="action-workflow.html#cb98-8" tabindex="-1"></a><span class="co">#&gt; 4 &lt;NA&gt;      &lt;NA&gt;                   NA &lt;NA&gt;                     NA      NA  </span></span>
-<span id="cb98-9"><a href="action-workflow.html#cb98-9" tabindex="-1"></a><span class="co">#&gt; # ℹ 2,477 more rows</span></span></code></pre></div>
-<p>Ooops!
-I’d forgotten that <code>TERRITORY</code> contained a bunch of missing values which means that <code>sales$TERRITORY == "EMEA"</code> would contain a bunch of missing values:</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="action-workflow.html#cb99-1" tabindex="-1"></a><span class="fu">head</span>(sales<span class="sc">$</span>TERRITORY <span class="sc">==</span> <span class="st">&quot;EMEA&quot;</span>, <span class="dv">25</span>)</span>
-<span id="cb99-2"><a href="action-workflow.html#cb99-2" tabindex="-1"></a><span class="co">#&gt;  [1]    NA  TRUE  TRUE    NA    NA    NA  TRUE  TRUE    NA  TRUE FALSE    NA</span></span>
-<span id="cb99-3"><a href="action-workflow.html#cb99-3" tabindex="-1"></a><span class="co">#&gt; [13]    NA    NA  TRUE    NA  TRUE  TRUE    NA    NA  TRUE FALSE  TRUE    NA</span></span>
-<span id="cb99-4"><a href="action-workflow.html#cb99-4" tabindex="-1"></a><span class="co">#&gt; [25]  TRUE</span></span></code></pre></div>
-<p>These missing values become missing rows when I use them to subset the <code>sales</code> data frame with <code>[</code>; any missing values in input will be preserved in the output.
-There are lots of way to resolve this problem but I decided to use <code>subset()</code><a href="#fn17" class="footnote-ref" id="fnref17"><sup>17</sup></a> because automatically removes missing values and reduces the number of times I need to type <code>sales</code>. I then double checked this actually worked:</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="action-workflow.html#cb100-1" tabindex="-1"></a><span class="fu">subset</span>(sales, TERRITORY <span class="sc">==</span> <span class="st">&quot;EMEA&quot;</span>)</span>
-<span id="cb100-2"><a href="action-workflow.html#cb100-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,407 × 6</span></span>
-<span id="cb100-3"><a href="action-workflow.html#cb100-3" tabindex="-1"></a><span class="co">#&gt;   TERRITORY ORDERDATE       ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
-<span id="cb100-4"><a href="action-workflow.html#cb100-4" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb100-5"><a href="action-workflow.html#cb100-5" tabindex="-1"></a><span class="co">#&gt; 1 EMEA      5/7/2003 0:00         10121 S10_1678                 34      81.4</span></span>
-<span id="cb100-6"><a href="action-workflow.html#cb100-6" tabindex="-1"></a><span class="co">#&gt; 2 EMEA      7/1/2003 0:00         10134 S10_1678                 41      94.7</span></span>
-<span id="cb100-7"><a href="action-workflow.html#cb100-7" tabindex="-1"></a><span class="co">#&gt; 3 EMEA      11/11/2003 0:00       10180 S10_1678                 29      86.1</span></span>
-<span id="cb100-8"><a href="action-workflow.html#cb100-8" tabindex="-1"></a><span class="co">#&gt; 4 EMEA      11/18/2003 0:00       10188 S10_1678                 48     100  </span></span>
-<span id="cb100-9"><a href="action-workflow.html#cb100-9" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,403 more rows</span></span></code></pre></div>
-<p>This fixed most of the problems, but I <strong>still</strong> had a problem when I selected <code>NA</code> in the territory dropdown: there were still no rows appearing.
-So again, I checked on the console:</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="action-workflow.html#cb101-1" tabindex="-1"></a><span class="fu">subset</span>(sales, TERRITORY <span class="sc">==</span> <span class="cn">NA</span>)</span>
-<span id="cb101-2"><a href="action-workflow.html#cb101-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 0 × 6</span></span>
-<span id="cb101-3"><a href="action-workflow.html#cb101-3" tabindex="-1"></a><span class="co">#&gt; # ℹ 6 variables: TERRITORY &lt;chr&gt;, ORDERDATE &lt;chr&gt;, ORDERNUMBER &lt;dbl&gt;,</span></span>
-<span id="cb101-4"><a href="action-workflow.html#cb101-4" tabindex="-1"></a><span class="co">#&gt; #   PRODUCTCODE &lt;chr&gt;, QUANTITYORDERED &lt;dbl&gt;, PRICEEACH &lt;dbl&gt;</span></span></code></pre></div>
-<p>And then I remembered that of course this won’t work because missing values are infectious:</p>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="action-workflow.html#cb102-1" tabindex="-1"></a><span class="fu">head</span>(sales<span class="sc">$</span>TERRITORY <span class="sc">==</span> <span class="cn">NA</span>, <span class="dv">25</span>)</span>
-<span id="cb102-2"><a href="action-workflow.html#cb102-2" tabindex="-1"></a><span class="co">#&gt;  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span></code></pre></div>
-<p>There’s another trick you can use to resolve this problem: switch from <code>==</code> to <code>%in%</code>:</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="action-workflow.html#cb103-1" tabindex="-1"></a><span class="fu">head</span>(sales<span class="sc">$</span>TERRITORY <span class="sc">%in%</span> <span class="cn">NA</span>, <span class="dv">25</span>)</span>
-<span id="cb103-2"><a href="action-workflow.html#cb103-2" tabindex="-1"></a><span class="co">#&gt;  [1]  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE</span></span>
-<span id="cb103-3"><a href="action-workflow.html#cb103-3" tabindex="-1"></a><span class="co">#&gt; [13]  TRUE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE</span></span>
-<span id="cb103-4"><a href="action-workflow.html#cb103-4" tabindex="-1"></a><span class="co">#&gt; [25] FALSE</span></span>
-<span id="cb103-5"><a href="action-workflow.html#cb103-5" tabindex="-1"></a><span class="fu">subset</span>(sales, TERRITORY <span class="sc">%in%</span> <span class="cn">NA</span>)</span>
-<span id="cb103-6"><a href="action-workflow.html#cb103-6" tabindex="-1"></a><span class="co">#&gt; # A tibble: 1,074 × 6</span></span>
-<span id="cb103-7"><a href="action-workflow.html#cb103-7" tabindex="-1"></a><span class="co">#&gt;   TERRITORY ORDERDATE       ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
-<span id="cb103-8"><a href="action-workflow.html#cb103-8" tabindex="-1"></a><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
-<span id="cb103-9"><a href="action-workflow.html#cb103-9" tabindex="-1"></a><span class="co">#&gt; 1 &lt;NA&gt;      2/24/2003 0:00        10107 S10_1678                 30      95.7</span></span>
-<span id="cb103-10"><a href="action-workflow.html#cb103-10" tabindex="-1"></a><span class="co">#&gt; 2 &lt;NA&gt;      8/25/2003 0:00        10145 S10_1678                 45      83.3</span></span>
-<span id="cb103-11"><a href="action-workflow.html#cb103-11" tabindex="-1"></a><span class="co">#&gt; 3 &lt;NA&gt;      10/10/2003 0:00       10159 S10_1678                 49     100  </span></span>
-<span id="cb103-12"><a href="action-workflow.html#cb103-12" tabindex="-1"></a><span class="co">#&gt; 4 &lt;NA&gt;      10/28/2003 0:00       10168 S10_1678                 36      96.7</span></span>
-<span id="cb103-13"><a href="action-workflow.html#cb103-13" tabindex="-1"></a><span class="co">#&gt; # ℹ 1,070 more rows</span></span></code></pre></div>
-<p>So I updated the app and tried again.
-It still didn’t work!
-When I selected “NA” in the drop down, I didn’t see any rows.</p>
-<p>At this point, I figured I’d done everything I could on the console, and I needed to perform an experiment to figure out why the code inside of Shiny wasn’t working the way I expected.
-I guessed that the most likely source of the problem would be in the <code>selected</code> reactive, so I added a <code>browser()</code> statement there.
-(This made it a two-line reactive, so I also needed to wrap it in <code>{}</code>.)</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="action-workflow.html#cb104-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb104-2"><a href="action-workflow.html#cb104-2" tabindex="-1"></a>  selected <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb104-3"><a href="action-workflow.html#cb104-3" tabindex="-1"></a>    <span class="fu">browser</span>()</span>
-<span id="cb104-4"><a href="action-workflow.html#cb104-4" tabindex="-1"></a>    <span class="fu">subset</span>(sales, TERRITORY <span class="sc">%in%</span> input<span class="sc">$</span>territory)</span>
-<span id="cb104-5"><a href="action-workflow.html#cb104-5" tabindex="-1"></a>  })</span>
-<span id="cb104-6"><a href="action-workflow.html#cb104-6" tabindex="-1"></a>  output<span class="sc">$</span>selected <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(<span class="fu">head</span>(<span class="fu">selected</span>(), <span class="dv">10</span>))</span>
-<span id="cb104-7"><a href="action-workflow.html#cb104-7" tabindex="-1"></a>}</span></code></pre></div>
-<p>Now when my app ran, I was immediately dumped into an interactive console.
-My first step was to verify that I was in the problematic situation so I ran <code>subset(sales, TERRITORY %in% input$territory)</code>.
-It returned an empty data frame, so I knew I was where I needed to be.
-If I hadn’t seen the problem, I would have typed <code>c</code> to let the app continuing running, then interacted with some more in order it to get to the failing state.</p>
-<p>I then checked that inputs to <code>subset()</code> were as I expected.
-I first double-check that that the <code>sales</code> dataset looked ok.
-I didn’t really expect it to be corrupted, since nothing in the app touches it, but it’s safest to carefully check every assumption that you’re making.
-<code>sales</code> looked ok, so the problem must be in <code>TERRITORY %in% input$territory</code>.
-Since <code>TERRITORY</code> is part of <code>sales</code>, I started by inspecting <code>input$territory</code>:</p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="action-workflow.html#cb105-1" tabindex="-1"></a>input<span class="sc">$</span>territory</span>
-<span id="cb105-2"><a href="action-workflow.html#cb105-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;NA&quot;</span></span></code></pre></div>
-<p>I stared at this for a while, because it also looked ok.
-Then it occurred to me!
-I was expecting it to be <code>NA</code>, but it’s actually <code>"NA"</code>!
-Now I could recreate the problem outside of the Shiny app:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="action-workflow.html#cb106-1" tabindex="-1"></a><span class="fu">subset</span>(sales, TERRITORY <span class="sc">%in%</span> <span class="st">&quot;NA&quot;</span>)</span>
-<span id="cb106-2"><a href="action-workflow.html#cb106-2" tabindex="-1"></a><span class="co">#&gt; # A tibble: 0 × 6</span></span>
-<span id="cb106-3"><a href="action-workflow.html#cb106-3" tabindex="-1"></a><span class="co">#&gt; # ℹ 6 variables: TERRITORY &lt;chr&gt;, ORDERDATE &lt;chr&gt;, ORDERNUMBER &lt;dbl&gt;,</span></span>
-<span id="cb106-4"><a href="action-workflow.html#cb106-4" tabindex="-1"></a><span class="co">#&gt; #   PRODUCTCODE &lt;chr&gt;, QUANTITYORDERED &lt;dbl&gt;, PRICEEACH &lt;dbl&gt;</span></span></code></pre></div>
-<p>Then I figured out a simple fix and applied to my server, and re-ran the app:</p>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="action-workflow.html#cb107-1" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb107-2"><a href="action-workflow.html#cb107-2" tabindex="-1"></a>  selected <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb107-3"><a href="action-workflow.html#cb107-3" tabindex="-1"></a>    <span class="cf">if</span> (input<span class="sc">$</span>territory <span class="sc">==</span> <span class="st">&quot;NA&quot;</span>) {</span>
-<span id="cb107-4"><a href="action-workflow.html#cb107-4" tabindex="-1"></a>      <span class="fu">subset</span>(sales, <span class="fu">is.na</span>(TERRITORY))</span>
-<span id="cb107-5"><a href="action-workflow.html#cb107-5" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
-<span id="cb107-6"><a href="action-workflow.html#cb107-6" tabindex="-1"></a>      <span class="fu">subset</span>(sales, TERRITORY <span class="sc">==</span> input<span class="sc">$</span>territory)</span>
-<span id="cb107-7"><a href="action-workflow.html#cb107-7" tabindex="-1"></a>    }</span>
-<span id="cb107-8"><a href="action-workflow.html#cb107-8" tabindex="-1"></a>  })</span>
-<span id="cb107-9"><a href="action-workflow.html#cb107-9" tabindex="-1"></a>  output<span class="sc">$</span>selected <span class="ot">&lt;-</span> <span class="fu">renderTable</span>(<span class="fu">head</span>(<span class="fu">selected</span>(), <span class="dv">10</span>))</span>
-<span id="cb107-10"><a href="action-workflow.html#cb107-10" tabindex="-1"></a>}</span></code></pre></div>
-<p>Hooray!
-The problem was fixed!
-But this felt pretty surprising to me — Shiny had silently converted an <code>NA</code> to an <code>"NA"</code>, so I also filed a bug report: <a href="https://github.com/rstudio/shiny/issues/2884" class="uri">https://github.com/rstudio/shiny/issues/2884</a>.</p>
-<p>Several weeks later, I looked at this example again, and started thinking about the different territories.
-We have Europe, Middle-East, and Africa (EMEA) and Asia-Pacific (APAC).
-Where was North America?
-Then it dawned on me: the source data probably used the abbreviation NA, and R was reading it in as a missing value.
-So the real fix should happen during the data loading:</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="action-workflow.html#cb108-1" tabindex="-1"></a>sales <span class="ot">&lt;-</span> readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;sales-dashboard/sales_data_sample.csv&quot;</span>, <span class="at">na =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb108-2"><a href="action-workflow.html#cb108-2" tabindex="-1"></a><span class="fu">unique</span>(sales<span class="sc">$</span>TERRITORY)</span>
-<span id="cb108-3"><a href="action-workflow.html#cb108-3" tabindex="-1"></a><span class="co">#&gt; [1] &quot;NA&quot;    &quot;EMEA&quot;  &quot;APAC&quot;  &quot;Japan&quot;</span></span></code></pre></div>
-<p>That made life much simpler!</p>
-<p>This is a common pattern when it comes to debugging: you often need to peel back multiple layers of the onion before you fully understand the source of the issue.</p>
+<p>为了演示基本的调试方法，我将向您展示我在编写 Section <a href="#hierarchical-select"><strong>??</strong></a> 时遇到的一个小问题。
+我将首先向您展示基本情景，然后您会看到一个我没有使用交互式调试工具解决的问题，一个需要交互式调试的问题，并发现最后的惊喜。</p>
+<p>最初的目标非常简单：我有一个销售数据集，我想按地区过滤它。
+数据如下：</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"sales-dashboard/sales_data_sample.csv"</span><span class="op">)</span></span>
+<span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="va">sales</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  <span class="st">"TERRITORY"</span>, <span class="st">"ORDERDATE"</span>, <span class="st">"ORDERNUMBER"</span>, <span class="st">"PRODUCTCODE"</span>,</span>
+<span>  <span class="st">"QUANTITYORDERED"</span>, <span class="st">"PRICEEACH"</span></span>
+<span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">sales</span></span>
+<span><span class="co">#&gt; # A tibble: 2,823 × 6</span></span>
+<span><span class="co">#&gt;   TERRITORY ORDERDATE      ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 &lt;NA&gt;      2/24/2003 0:00       10107 S10_1678                 30      95.7</span></span>
+<span><span class="co">#&gt; 2 EMEA      5/7/2003 0:00        10121 S10_1678                 34      81.4</span></span>
+<span><span class="co">#&gt; 3 EMEA      7/1/2003 0:00        10134 S10_1678                 41      94.7</span></span>
+<span><span class="co">#&gt; 4 &lt;NA&gt;      8/25/2003 0:00       10145 S10_1678                 45      83.3</span></span>
+<span><span class="co">#&gt; # ℹ 2,819 more rows</span></span></code></pre></div>
+<p>以下是 territories：</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] NA      "EMEA"  "APAC"  "Japan"</span></span></code></pre></div>
+<p>当我第一次开始解决这个问题时，我认为它很简单，我可以编写 app 而无需进行任何其他研究：</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"territory"</span>, <span class="st">"territory"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"selected"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="va">sales</span><span class="op">[</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">territory</span>, <span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>我想，这是一个八行 app，可能会出什么问题吗？好吧，当我打开 app 时，我看到很多缺失值，无论我选择哪个区域。
+最有可能成为问题根源的代码是选择要显示的数据的响应式：<code>sales[sales$TERRITORY == input$territory, ]</code>。
+因此，我停止了该 app，并快速验证了子集化是否按照我想象的方式工作：</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sales</span><span class="op">[</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op">==</span> <span class="st">"EMEA"</span>, <span class="op">]</span></span>
+<span><span class="co">#&gt; # A tibble: 2,481 × 6</span></span>
+<span><span class="co">#&gt;   TERRITORY ORDERDATE     ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;               &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 &lt;NA&gt;      &lt;NA&gt;                   NA &lt;NA&gt;                     NA      NA  </span></span>
+<span><span class="co">#&gt; 2 EMEA      5/7/2003 0:00       10121 S10_1678                 34      81.4</span></span>
+<span><span class="co">#&gt; 3 EMEA      7/1/2003 0:00       10134 S10_1678                 41      94.7</span></span>
+<span><span class="co">#&gt; 4 &lt;NA&gt;      &lt;NA&gt;                   NA &lt;NA&gt;                     NA      NA  </span></span>
+<span><span class="co">#&gt; # ℹ 2,477 more rows</span></span></code></pre></div>
+<p>哎呀！我忘记了 <code>TERRITORY</code> 包含一堆缺失值，这意味着 <code>sales$TERRITORY == "EMEA"</code> 将包含一堆缺失值：</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op">==</span> <span class="st">"EMEA"</span>, <span class="fl">25</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]    NA  TRUE  TRUE    NA    NA    NA  TRUE  TRUE    NA  TRUE FALSE    NA</span></span>
+<span><span class="co">#&gt; [13]    NA    NA  TRUE    NA  TRUE  TRUE    NA    NA  TRUE FALSE  TRUE    NA</span></span>
+<span><span class="co">#&gt; [25]  TRUE</span></span></code></pre></div>
+<p>当我使用 <code>[</code> 对 <code>sales</code> data frame 进行子集化时，这些缺失值将成为缺失行；输入中的任何缺失值都将保留在输出中。
+有很多方法可以解决这个问题，但我决定使用 <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;我正在使用 &lt;code&gt;subset()&lt;/code&gt;，这样我的 app 就不需要任何其他包了。
+在更大的 app 中，我可能更喜欢 &lt;code&gt;dplyr::filter()&lt;/code&gt;，因为我对它的行为更熟悉。&lt;/p&gt;"><sup>3</sup></a>，因为会自动删除缺失值并减少我需要输入 <code>sales</code> 的次数。然后我仔细检查了这是否确实有效：</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op">==</span> <span class="st">"EMEA"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1,407 × 6</span></span>
+<span><span class="co">#&gt;   TERRITORY ORDERDATE       ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 EMEA      5/7/2003 0:00         10121 S10_1678                 34      81.4</span></span>
+<span><span class="co">#&gt; 2 EMEA      7/1/2003 0:00         10134 S10_1678                 41      94.7</span></span>
+<span><span class="co">#&gt; 3 EMEA      11/11/2003 0:00       10180 S10_1678                 29      86.1</span></span>
+<span><span class="co">#&gt; 4 EMEA      11/18/2003 0:00       10188 S10_1678                 48     100  </span></span>
+<span><span class="co">#&gt; # ℹ 1,403 more rows</span></span></code></pre></div>
+<p>这解决了大部分问题，但当我在区域下拉列表中选择 <code>NA</code> 时仍然遇到问题：仍然没有出现行。
+于是，我再次检查控制台：</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op">==</span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 0 × 6</span></span>
+<span><span class="co">#&gt; # ℹ 6 variables: TERRITORY &lt;chr&gt;, ORDERDATE &lt;chr&gt;, ORDERNUMBER &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   PRODUCTCODE &lt;chr&gt;, QUANTITYORDERED &lt;dbl&gt;, PRICEEACH &lt;dbl&gt;</span></span></code></pre></div>
+<p>然后我想起这当然行不通，因为缺失值具有传染性：</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op">==</span> <span class="cn">NA</span>, <span class="fl">25</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span></code></pre></div>
+<p>您可以使用另一个技巧来解决此问题：从 <code>==</code> 切换到 <code>%in%</code>：</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="cn">NA</span>, <span class="fl">25</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE</span></span>
+<span><span class="co">#&gt; [13]  TRUE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE</span></span>
+<span><span class="co">#&gt; [25] FALSE</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="cn">NA</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 1,074 × 6</span></span>
+<span><span class="co">#&gt;   TERRITORY ORDERDATE       ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;     &lt;chr&gt;                 &lt;dbl&gt; &lt;chr&gt;                 &lt;dbl&gt;     &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt; 1 &lt;NA&gt;      2/24/2003 0:00        10107 S10_1678                 30      95.7</span></span>
+<span><span class="co">#&gt; 2 &lt;NA&gt;      8/25/2003 0:00        10145 S10_1678                 45      83.3</span></span>
+<span><span class="co">#&gt; 3 &lt;NA&gt;      10/10/2003 0:00       10159 S10_1678                 49     100  </span></span>
+<span><span class="co">#&gt; 4 &lt;NA&gt;      10/28/2003 0:00       10168 S10_1678                 36      96.7</span></span>
+<span><span class="co">#&gt; # ℹ 1,070 more rows</span></span></code></pre></div>
+<p>所以我更新了 app 并再次尝试。
+还是没成功！
+当我在下拉列表中选择 “NA” 时，我没有看到任何行。</p>
+<p>此时，我想我已经在控制台上做了我能做的一切，我需要进行一个实验来找出为什么 Shiny 内部的代码没有按照我预期的方式工作。
+我猜测问题最有可能的根源在于所选的响应式，因此我在那里添加了一个 <code><a href="https://rdrr.io/r/base/browser.html">browser()</a></code> 语句。
+（这使其成为两行响应式，因此我还需要将其包装在 <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> 中。）</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/browser.html">browser</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">input</span><span class="op">$</span><span class="va">territory</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>现在，当我的 app 运行时，我立即被转入交互式控制台。
+我的第一步是验证我是否处于有问题的情况，因此我运行了 <code>subset(sales, TERRITORY %in% input$territory)</code>。
+它返回一个空的数据框，所以我知道我在我需要的地方。
+如果我没有看到这个问题，我会输入 <code>c</code> 让 app 继续运行，然后与更多的交互以使其达到失败状态。</p>
+<p>然后我检查了 <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code> 的输入是否符合我的预期。
+我首先仔细检查 <code>sales</code> 数据集是否正常。
+我真的没想到它会被损坏，因为 app 中没有任何内容触及它，但仔细检查您所做的每一个假设是最安全的。
+<code>sales</code> 看起来不错，所以问题一定出在 <code>TERRITORY %in% input$territory</code> 中。
+由于 <code>TERRITORY</code> 是 <code>sales</code> 的一部分，我首先检查 <code>input$territory</code>：</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">input</span><span class="op">$</span><span class="va">territory</span></span>
+<span><span class="co">#&gt; [1] "NA"</span></span></code></pre></div>
+<p>我盯着这个看了一会儿，因为它看起来也不错。
+然后我想到了！
+我以为是 <code>NA</code>，但实际上是 <code>"NA"</code>！
+现在我可以在 Shiny app 之外重现问题：</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="st">"NA"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 0 × 6</span></span>
+<span><span class="co">#&gt; # ℹ 6 variables: TERRITORY &lt;chr&gt;, ORDERDATE &lt;chr&gt;, ORDERNUMBER &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   PRODUCTCODE &lt;chr&gt;, QUANTITYORDERED &lt;dbl&gt;, PRICEEACH &lt;dbl&gt;</span></span></code></pre></div>
+<p>然后我想出了一个简单的修复方法并将其应用于我的 server，然后重新运行该 app：</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">territory</span> <span class="op">==</span> <span class="st">"NA"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">TERRITORY</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">territory</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="fl">10</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>万岁！
+问题解决了！
+但这让我感到非常惊讶 — Shiny 默默地将 <code>NA</code> 转换为 <code>"NA"</code>，所以我还提交了一份错误报告：<a href="https://github.com/rstudio/shiny/issues/2884" class="uri">https://github.com/rstudio/shiny/issues/2884</a>。</p>
+<p>几周后，我再次查看这个示例，并开始思考不同的 territories。
+我们有 Europe、Middle-East、Africa (EMEA)、Asia-Pacific (APAC)。
+North America 在哪里？
+然后我突然意识到：源数据可能使用缩写 NA，而 R 将其作为缺失值读入。
+所以真正的修复应该发生在数据加载期间：</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"sales-dashboard/sales_data_sample.csv"</span>, na <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "NA"    "EMEA"  "APAC"  "Japan"</span></span></code></pre></div>
+<p>这让生活变得更加简单！</p>
+<p>这是调试时的常见模式：在完全了解问题的根源之前，您通常需要剥开多层洋葱。</p>
 </div>
 <div id="debugging-reactivity" class="section level3" number="5.2.5">
-<h3><span class="header-section-number">5.2.5</span> Debugging reactivity</h3>
-<p>The hardest type of problem to debug is when your reactives fire in an unexpected order.
-At this point in the book, we have relatively few tools to recommend to help you debug this issue.
-In the next section, you’ll learn how to create a minimal reprex which is crucial for this type of problem, and later in the book, you’ll learn more about the underlying theory, and about tools like the reactive log, <a href="https://github.com/rstudio/reactlog" class="uri">https://github.com/rstudio/reactlog</a>.
-But for now, we’ll focus on a classic technique that’s useful here: “print” debugging.</p>
-<p>The basic idea of print debugging is to call <code>print()</code> whenever you need to understand when a part of your code is evaluated, and to show the values of important variables.
-We call this “print” debugging (because in most languages you’d use a print function), but In R it makes more sense to use <code>message()</code> :</p>
+<h3>
+<span class="header-section-number">5.2.5</span> Debugging reactivity<a class="anchor" aria-label="anchor" href="#debugging-reactivity"><i class="fas fa-link"></i></a>
+</h3>
+<p>最难调试的问题是当你的响应式以意想不到的顺序触发时。
+在本书中，我们推荐的工具相对较少，可以帮助您调试此问题。
+在下一节中，您将学习如何创建一个最小的 reprex，这对于此类问题至关重要，在本书的后面部分，您将了解有关基础理论以及响应式日志等工具的更多信息，<a href="https://github.com/rstudio/reactlog" class="uri">https://github.com/rstudio/reactlog</a>。
+但现在，我们将重点关注这里有用的经典技术：“print” 调试。</p>
+<p>打印调试的基本思想是，只要您需要了解代码的一部分何时被评估，并显示重要变量的值，就调用 <code><a href="https://rdrr.io/r/base/print.html">print()</a></code>。
+我们称之为 “print” 调试（因为在大多数语言中你会使用打印函数），但在 R 中，使用 <code><a href="https://rdrr.io/r/base/message.html">message()</a></code> 更有意义：</p>
 <ul>
-<li><code>print()</code> is designed for displaying vectors of data so it puts quotes around strings and starts the first line with <code>[1]</code>.</li>
-<li><code>message()</code> sends its result to “standard error”, rather than “standard output”. These are technical terms describing output streams, which you don’t normally notice because they’re both displayed in the same way when running interactively. But if your app is hosted elsewhere, then output sent to “standard error” will be recorded in the logs.</li>
+<li>
+<code><a href="https://rdrr.io/r/base/print.html">print()</a></code> 设计用于显示数据向量，因此它在字符串周围加上引号，并以 <code>[1]</code> 开始第一行。</li>
+<li>
+<code><a href="https://rdrr.io/r/base/message.html">message()</a></code> 将其结果发送到“标准错误”，而不是“标准输出”。这些是描述输出流的技术术语，您通常不会注意到它们，因为它们在交互运行时以相同的方式显示。但如果您的 app 托管在其他地方，则发送到“标准错误”的输出将记录在日志中。</li>
 </ul>
-<p>I also recommend coupling <code>message()</code> with <code>glue::glue()</code>, which makes it easy to interleave text and values in a message.
-If you haven’t seen <a href="http://glue.tidyverse.org/" title="⌘+Click to follow link">glue</a> before, the basic idea is that anything wrapped inside <code>{}</code> will be evaluated and inserted into the output:</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="action-workflow.html#cb109-1" tabindex="-1"></a><span class="fu">library</span>(glue)</span>
-<span id="cb109-2"><a href="action-workflow.html#cb109-2" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="st">&quot;Hadley&quot;</span></span>
-<span id="cb109-3"><a href="action-workflow.html#cb109-3" tabindex="-1"></a><span class="fu">message</span>(<span class="fu">glue</span>(<span class="st">&quot;Hello {name}&quot;</span>))</span>
-<span id="cb109-4"><a href="action-workflow.html#cb109-4" tabindex="-1"></a><span class="co">#&gt; Hello Hadley</span></span></code></pre></div>
-<p>A final useful tool is <code>str()</code>, which prints the detailed structure of any object.
-This is particularly useful if you need to double check you have the type of object that you expect.</p>
-<p>Here’s a toy app that shows off some of the basic ideas.
-Note how I use <code>message()</code> inside a <code>reactive()</code>: I have to perform the computation, send the message, and then return the previously computed value.</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="action-workflow.html#cb110-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb110-2"><a href="action-workflow.html#cb110-2" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;x&quot;</span>, <span class="st">&quot;x&quot;</span>, <span class="at">value =</span> <span class="dv">1</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>),</span>
-<span id="cb110-3"><a href="action-workflow.html#cb110-3" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;y&quot;</span>, <span class="st">&quot;y&quot;</span>, <span class="at">value =</span> <span class="dv">2</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>),</span>
-<span id="cb110-4"><a href="action-workflow.html#cb110-4" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;z&quot;</span>, <span class="st">&quot;z&quot;</span>, <span class="at">value =</span> <span class="dv">3</span>, <span class="at">min =</span> <span class="dv">0</span>, <span class="at">max =</span> <span class="dv">10</span>),</span>
-<span id="cb110-5"><a href="action-workflow.html#cb110-5" tabindex="-1"></a>  <span class="fu">textOutput</span>(<span class="st">&quot;total&quot;</span>)</span>
-<span id="cb110-6"><a href="action-workflow.html#cb110-6" tabindex="-1"></a>)</span>
-<span id="cb110-7"><a href="action-workflow.html#cb110-7" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb110-8"><a href="action-workflow.html#cb110-8" tabindex="-1"></a>  <span class="fu">observeEvent</span>(input<span class="sc">$</span>x, {</span>
-<span id="cb110-9"><a href="action-workflow.html#cb110-9" tabindex="-1"></a>    <span class="fu">message</span>(<span class="fu">glue</span>(<span class="st">&quot;Updating y from {input$y} to {input$x * 2}&quot;</span>))</span>
-<span id="cb110-10"><a href="action-workflow.html#cb110-10" tabindex="-1"></a>    <span class="fu">updateSliderInput</span>(session, <span class="st">&quot;y&quot;</span>, <span class="at">value =</span> input<span class="sc">$</span>x <span class="sc">*</span> <span class="dv">2</span>)</span>
-<span id="cb110-11"><a href="action-workflow.html#cb110-11" tabindex="-1"></a>  })</span>
-<span id="cb110-12"><a href="action-workflow.html#cb110-12" tabindex="-1"></a>  </span>
-<span id="cb110-13"><a href="action-workflow.html#cb110-13" tabindex="-1"></a>  total <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb110-14"><a href="action-workflow.html#cb110-14" tabindex="-1"></a>    total <span class="ot">&lt;-</span> input<span class="sc">$</span>x <span class="sc">+</span> input<span class="sc">$</span>y <span class="sc">+</span> input<span class="sc">$</span>z</span>
-<span id="cb110-15"><a href="action-workflow.html#cb110-15" tabindex="-1"></a>    <span class="fu">message</span>(<span class="fu">glue</span>(<span class="st">&quot;New total is {total}&quot;</span>))</span>
-<span id="cb110-16"><a href="action-workflow.html#cb110-16" tabindex="-1"></a>    total</span>
-<span id="cb110-17"><a href="action-workflow.html#cb110-17" tabindex="-1"></a>  })</span>
-<span id="cb110-18"><a href="action-workflow.html#cb110-18" tabindex="-1"></a>  </span>
-<span id="cb110-19"><a href="action-workflow.html#cb110-19" tabindex="-1"></a>  output<span class="sc">$</span>total <span class="ot">&lt;-</span> <span class="fu">renderText</span>({</span>
-<span id="cb110-20"><a href="action-workflow.html#cb110-20" tabindex="-1"></a>    <span class="fu">total</span>()</span>
-<span id="cb110-21"><a href="action-workflow.html#cb110-21" tabindex="-1"></a>  })</span>
-<span id="cb110-22"><a href="action-workflow.html#cb110-22" tabindex="-1"></a>}</span></code></pre></div>
-<p>When I start the app, the console shows:</p>
+<p>我还建议将 <code><a href="https://rdrr.io/r/base/message.html">message()</a></code> 与 <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code> 结合起来，这样可以轻松地在消息中交错文本和值。
+如果您以前没有见过 <a href="http://glue.tidyverse.org/" title="⌘+Click to follow link">glue</a> ，其基本思想是，包装在 <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> 内的任何内容都将被评估并插入到输出中：</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
+<span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Hadley"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Hello {name}"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Hello Hadley</span></span></code></pre></div>
+<p>最后一个有用的工具是 <code><a href="https://rdrr.io/r/utils/str.html">str()</a></code>，它可以打印任何对象的详细结构。
+如果您需要仔细检查是否拥有所需的对象类型，这尤其有用。</p>
+<p>这是一个展示一些基本想法的玩具 app。
+请注意我如何在 <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive()</a></code> 中使用 <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>：我必须执行计算，发送消息，然后返回之前计算的值。</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"x"</span>, value <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"y"</span>, value <span class="op">=</span> <span class="fl">2</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"z"</span>, <span class="st">"z"</span>, value <span class="op">=</span> <span class="fl">3</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"total"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">x</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Updating y from {input$y} to {input$x * 2}"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput</a></span><span class="op">(</span><span class="va">session</span>, <span class="st">"y"</span>, value <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">x</span> <span class="op">*</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">total</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">total</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">x</span> <span class="op">+</span> <span class="va">input</span><span class="op">$</span><span class="va">y</span> <span class="op">+</span> <span class="va">input</span><span class="op">$</span><span class="va">z</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"New total is {total}"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="va">total</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">total</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">total</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>当我启动 app 时，控制台显示：</p>
 <pre><code>Updating y from 2 to 2
 New total is 6</code></pre>
-<p>And if I drag the <code>x</code> slider to <code>3</code> I see</p>
+<p>如果我将 <code>x</code> 滑块拖动到 <code>3</code>，我会看到</p>
 <pre><code>Updating y from 2 to 6
 New total is 8
 New total is 12</code></pre>
-<p>Don’t worry if you find the results a little surprising.
-You’ll learn more about what’s going on in Chapter <a href="action-feedback.html#action-feedback">8</a> and Chapter <a href="basic-reactivity.html#the-reactive-graph">3.3.3</a>.</p>
+<p>如果您发现结果有点令人惊讶，请不要担心。
+您将在 Chapter <a href="#action-feedback"><strong>??</strong></a> 和 Chapter <a href="basic-reactivity.html#the-reactive-graph">3.3.3</a> 中了解更多有关发生了什么的信息。</p>
 </div>
 </div>
 <div id="getting-help" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Getting help</h2>
-<p>If you’re still stuck after trying these techniques, it’s probably time to ask someone else.
-A great place to get help is the <a href="https://community.rstudio.com/c/shiny">Shiny community site</a>.
-This site is read by many Shiny users, as well as the developers of the Shiny package itself.
-It’s also a great place to visit if you want to improve your Shiny skills by helping others.</p>
-<p>To get the most useful help as quickly as possible, you need to create a reprex, or <strong>repr</strong>oducible <strong>ex</strong>ample.
-The goal of a reprex is to provide the smallest possible snippet of R code that illustrates the problem and can easily be run on another computer.
-It’s common courtesy (and in your own best interest) to create a reprex: if you want someone to help you, you should make it as easy as possible for them!</p>
-<p>Making a reprex is polite because it captures the essential elements of the problem into a form that anyone else can run so that whoever attempts to help you can quickly see exactly what the problem is, and can easily experiment with possible solutions.</p>
+<h2>
+<span class="header-section-number">5.3</span> Getting help<a class="anchor" aria-label="anchor" href="#getting-help"><i class="fas fa-link"></i></a>
+</h2>
+<p>如果您在尝试这些技术后仍然遇到困难，那么可能是时候询问其他人了。
+<a href="https://community.rstudio.com/c/shiny">Shiny community site</a> 是获得帮助的好地方。
+许多 Shiny 用户以及 Shiny 包本身的开发人员都会阅读该网站。
+如果您想通过帮助他人来提高自己的 Shiny 技能，这里也是一个值得参观的好地方。</p>
+<p>为了尽快获得最有用的帮助，您需要创建一个 reprex 或可重现的示例。
+reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且可以轻松地在另一台计算机上运行。
+创建 reprex 是一种常见的礼貌（并且符合您自己的最大利益）：如果您希望有人帮助您，您应该让他们尽可能轻松！</p>
+<p>制作 reprex 是有礼貌的，因为它将问题的基本要素捕获为其他任何人都可以运行的形式，以便任何试图帮助您的人都可以快速准确地了解问题是什么，并且可以轻松地尝试可能的解决方案。</p>
 <div id="reprex-basics" class="section level3" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Reprex basics</h3>
-<p>A reprex is just some R code that works when you copy and paste it into a R session on another computer.
-Here’s a simple Shiny app reprex:</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="action-workflow.html#cb113-1" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb113-2"><a href="action-workflow.html#cb113-2" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb113-3"><a href="action-workflow.html#cb113-3" tabindex="-1"></a>  <span class="fu">selectInput</span>(<span class="st">&quot;n&quot;</span>, <span class="st">&quot;N&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>),</span>
-<span id="cb113-4"><a href="action-workflow.html#cb113-4" tabindex="-1"></a>  <span class="fu">plotOutput</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb113-5"><a href="action-workflow.html#cb113-5" tabindex="-1"></a>)</span>
-<span id="cb113-6"><a href="action-workflow.html#cb113-6" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb113-7"><a href="action-workflow.html#cb113-7" tabindex="-1"></a>  output<span class="sc">$</span>plot <span class="ot">&lt;-</span> <span class="fu">renderPlot</span>({</span>
-<span id="cb113-8"><a href="action-workflow.html#cb113-8" tabindex="-1"></a>    n <span class="ot">&lt;-</span> input<span class="sc">$</span>n <span class="sc">*</span> <span class="dv">2</span></span>
-<span id="cb113-9"><a href="action-workflow.html#cb113-9" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="fu">head</span>(cars, n))</span>
-<span id="cb113-10"><a href="action-workflow.html#cb113-10" tabindex="-1"></a>  })</span>
-<span id="cb113-11"><a href="action-workflow.html#cb113-11" tabindex="-1"></a>}</span>
-<span id="cb113-12"><a href="action-workflow.html#cb113-12" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p>This code doesn’t make any assumptions about the computer on which it’s running (except that Shiny is installed!) so anyone can run this code and see the problem: the app throws an error saying “non-numeric argument to binary operator”.</p>
-<p>Clearly illustrating the problem is the first step to getting help, and because anyone can reproduce the problem by just copying and pasting the code, they can easily explore your code and test possible solutions.
-(In this case, you need <code>as.numeric(input$n)</code> since <code>selectInput()</code> creates a string in <code>input$n</code>.)</p>
+<h3>
+<span class="header-section-number">5.3.1</span> Reprex basics<a class="anchor" aria-label="anchor" href="#reprex-basics"><i class="fas fa-link"></i></a>
+</h3>
+<p>reprex 只是一些 R 代码，当您将其复制并粘贴到另一台计算机上的 R 会话中时，它就会起作用。
+这是一个简单的 Shiny app reprex：</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"N"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">n</span> <span class="op">&lt;-</span> <span class="va">input</span><span class="op">$</span><span class="va">n</span> <span class="op">*</span> <span class="fl">2</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">cars</span>, <span class="va">n</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>这段代码不会对运行它的计算机做出任何假设（除了安装了 Shiny！），因此任何人都可以运行这段代码并看到问题：app 抛出一个错误，指出 “non-numeric argument to binary operator”。</p>
+<p>清楚地说明问题是获得帮助的第一步，因为任何人都可以通过复制和粘贴代码来重现问题，因此他们可以轻松地探索您的代码并测试可能的解决方案。
+（在这种情况下，您需要 <code>as.numeric(input$n)</code> 因为 <code><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput()</a></code> 在 <code>input$n</code> 中创建一个字符串。）</p>
 </div>
 <div id="making-a-reprex" class="section level3" number="5.3.2">
-<h3><span class="header-section-number">5.3.2</span> Making a reprex</h3>
-<p>The first step in making a reprex is to create a single self-contained file that contains everything needed to run your code.
-You should check it works by starting a fresh R session and then running the code.
-Make sure you haven’t forgotten to load any packages<a href="#fn18" class="footnote-ref" id="fnref18"><sup>18</sup></a> that make your app work.</p>
-<p>Typically, the most challenging part of making your app work on someone else’s computer is eliminating the use of data that’s only stored on your computer.
-There are three useful patterns:</p>
+<h3>
+<span class="header-section-number">5.3.2</span> Making a reprex<a class="anchor" aria-label="anchor" href="#making-a-reprex"><i class="fas fa-link"></i></a>
+</h3>
+<p>制作 reprex 的第一步是创建一个独立的文件，其中包含运行代码所需的所有内容。
+您应该通过启动新的 R 会话然后运行代码来检查它是否有效。
+确保您没有忘记加载任何使您的 app 正常运行的软件包<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;无论您通常如何加载包，我强烈建议使用多个 &lt;code&gt;library()&lt;/code&gt; 调用。
+这可以消除不熟悉您所使用的工具的人可能产生的混淆。&lt;/p&gt;"><sup>4</sup></a>。</p>
+<p>通常，让您的 app 在其他人的计算机上运行的最具挑战性的部分是消除仅存储在您的计算机上的数据的使用。
+共有三种有用的模式：</p>
 <ul>
-<li><p>Often the data you’re using is not directly related to the problem, and you can instead use a built-in data set like <code>mtcars</code> or <code>iris</code>.</p></li>
-<li><p>Other times, you might be able to write a little R code that creates a dataset that illustrates the problem:</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="action-workflow.html#cb114-1" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>))</span></code></pre></div></li>
-<li><p>If both of those techniques fail, you can turn your data into code with <code>dput()</code>.
-For example, <code>dput(mydata)</code> generates the code that will recreate <code>mydata</code>:</p>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="action-workflow.html#cb115-1" tabindex="-1"></a><span class="fu">dput</span>(mydata)</span>
-<span id="cb115-2"><a href="action-workflow.html#cb115-2" tabindex="-1"></a><span class="co">#&gt; structure(list(x = 1:5, y = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;)), class = &quot;data.frame&quot;, row.names = c(NA, </span></span>
-<span id="cb115-3"><a href="action-workflow.html#cb115-3" tabindex="-1"></a><span class="co">#&gt; -5L))</span></span></code></pre></div>
-<p>Once you have that code, you can put this in your reprex to generate <code>mydata</code>:</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="action-workflow.html#cb116-1" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">y =</span> <span class="fu">structure</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="at">.Label =</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, </span>
-<span id="cb116-2"><a href="action-workflow.html#cb116-2" tabindex="-1"></a><span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>, <span class="st">&quot;e&quot;</span>), <span class="at">class =</span> <span class="st">&quot;factor&quot;</span>)), <span class="at">class =</span> <span class="st">&quot;data.frame&quot;</span>, <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, </span>
-<span id="cb116-3"><a href="action-workflow.html#cb116-3" tabindex="-1"></a><span class="sc">-</span>5L))</span></code></pre></div>
-<p>Often, running <code>dput()</code> on your original data will generate a huge amount of code, so find a subset of your data that illustrates the problem.
-The smaller the dataset that you supply, the easier it will be for others to help you with your problem.</p></li>
+<li><p>通常，您使用的数据与问题没有直接关系，您可以使用 <code>mtcars</code> 或 <code>iris</code> 等内置数据集。</p></li>
+<li><p>其他时候，您也许可以编写一些 R 代码来创建一个数据集来说明问题：</p></li>
 </ul>
-<p>If reading data from disk seems to be an irreducible part of the problem, a strategy of last resort is to provide a complete project containing both an <code>app.R</code> and the needed data files.
-The best way to provide this is as a RStudio project hosted on GitHub, but failing that, you can carefully make a zip file that can be run locally.
-Make sure that you use relative paths (i.e. <code>read.csv("my-data.csv"</code>) not <code>read.csv("c:\\my-user-name\\files\\my-data.csv")</code>) so that your code still works when run on a different computer.</p>
-<p>You should also consider the reader and spend some formatting your code so that it’s easy to read.
-If you adopt the <a href="http://style.tidyverse.org/">tidyverse style guide</a>, you can automatically reformat your code using the <a href="http://styler.r-lib.org">styler</a> package; that quickly gets your code to a place that’s easier to read.</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<ul>
+<li>如果这两种技术都失败了，您可以使用 <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> 将数据转换为代码。
+例如，<code>dput(mydata)</code> 生成重新创建 <code>mydata</code> 的代码：</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dput.html">dput</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span>
+<span><span class="co">#&gt; structure(list(x = 1:5, y = c("a", "b", "c", "d", "e")), class = "data.frame", row.names = c(NA, </span></span>
+<span><span class="co">#&gt; -5L))</span></span></code></pre></div>
+<p>获得该代码后，您可以将其放入您的 reprex 中以生成 <code>mydata</code>：</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, .Label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>,<span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"factor"</span><span class="op">)</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"data.frame"</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="op">-</span><span class="fl">5L</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>通常，在原始数据上运行 <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> 会生成大量代码，因此请找到能够说明问题的数据子集。
+您提供的数据集越小，其他人就越容易帮助您解决问题。</p>
+<p>如果从磁盘读取数据似乎是问题的一个不可简化的部分，那么最后的策略是提供一个包含 <code>app.R</code> 和所需数据文件的完整项目。
+提供此功能的最佳方法是作为托管在 GitHub 上的 RStudio 项目，但如果做不到这一点，您可以仔细制作一个可以在本地运行的 zip 文件。
+确保您使用相对路径（即 <code>read.csv("my-data.csv")</code> 而不是 <code>read.csv("c:\\my-user-name\\files\\my-data.csv")</code>），以便您的代码在另一台计算机上运行时仍然有效。</p>
+<p>您还应该考虑读者并花一些时间格式化您的代码，以便于阅读。
+如果您采用 <a href="http://style.tidyverse.org/">tidyverse style guide</a>，您可以使用 <a href="http://styler.r-lib.org">styler</a> 包自动重新格式化您的代码；这可以快速将您的代码转移到更易于阅读的位置。</p>
 </div>
 <div id="making-a-minimal-reprex" class="section level3" number="5.3.3">
-<h3><span class="header-section-number">5.3.3</span> Making a minimal reprex</h3>
-<p>Creating a reproducible example is a great first step because it allows someone else to precisely recreate your problem.
-However, often the problematic code will often be buried amongst code that works just fine, so you can make the life of a helper much easier by trimming out the code that’s ok.</p>
-<p>Creating the smallest possible reprex is particularly important for Shiny apps, which are often complicated.
-You will get faster, higher quality help, if you can extract out the exact piece of the app that you’re struggling with, rather than forcing a potential helper to understand your entire app.
-As an added benefit, this process will often lead you to discover what the problem is, so you don’t have to wait for help from someone else!</p>
-<p>Reducing a bunch of code to the essential problem is a skill, and you probably won’t be very good at it at first.
-That’s ok!
-Even the smallest reduction in code complexity helps the person helping you, and over time your reprex shrinking skills will improve.</p>
-<p>If you don’t know what part of your code is triggering the problem, a good way to find it is to remove sections of code from your application, piece by piece, until the problem goes away.
-If removing a particular piece of code makes the problem stop, it’s likely that that code is related to the problem.
-Alternatively, sometimes it’s simpler to start with a fresh, empty, app and progressively build it up until you find the problem once more.</p>
-<p>Once you’ve simplified your app to demonstrate the problem, it’s worthwhile to take a final pass through and check:</p>
+<h3>
+<span class="header-section-number">5.3.3</span> Making a minimal reprex<a class="anchor" aria-label="anchor" href="#making-a-minimal-reprex"><i class="fas fa-link"></i></a>
+</h3>
+<p>创建一个可重现的示例是一个很好的第一步，因为它允许其他人精确地重现您的问题。
+然而，有问题的代码通常会隐藏在运行良好的代码中，因此您可以通过删除正常的代码来使帮助者的工作变得更加轻松。</p>
+<p>创建尽可能最小的 reprex 对于 Shiny apps 尤其重要，因为这些 apps 通常很复杂。
+如果您能够提取出您遇到困难的 app 的确切部分，而不是强迫潜在的帮助者了解您的整个 app，您将获得更快、更高质量的帮助。
+作为一个额外的好处，这个过程通常会引导您发现问题所在，因此您不必等待其他人的帮助！</p>
+<p>将一堆代码简化为本质问题是一项技能，一开始你可能不会很擅长。
+没关系！
+即使代码复杂性的最小降低也会帮助帮助你的人，并且随着时间的推移，你的 reprex 缩减技能将会提高。</p>
+<p>如果您不知道代码的哪一部分触发了问题，找到它的一个好方法是从应用程序中逐段删除代码段，直到问题消失。
+如果删除特定代码段可以使问题停止，则该代码很可能与问题相关。
+或者，有时更简单的做法是从一个全新的、空的 app 开始，然后逐步构建它，直到再次发现问题。</p>
+<p>一旦您简化了 app 以演示问题，就值得进行最后一次检查：</p>
 <ul>
-<li><p>Is every input and output in <code>UI</code> related to the problem?</p></li>
-<li><p>Does your app have a complex layout that you can simplify to help focus on the problem at hand?
-Have you removed all UI customisation that makes your app look good, but isn’t related to the problem?</p></li>
-<li><p>Are there any reactives in <code>server()</code> that you can now remove?</p></li>
-<li><p>If you’ve tried multiple ways to solve the problem, have you removed all the vestiges of the attempts that didn’t work?</p></li>
-<li><p>Is every package that you load needed to illustrate the problem?
-Can you eliminate packages by replacing functions with dummy code?</p></li>
+<li><p><code>UI</code> 中的每个输入和输出都与问题相关吗？</p></li>
+<li><p>您的 app 是否具有复杂的布局，您可以简化该布局以帮助专注于手头的问题？
+您是否删除了所有使您的 app 看起来不错但与问题无关的 UI 自定义？</p></li>
+<li><p>现在可以删除 <code>server()</code> 中的任何响应式吗？</p></li>
+<li><p>如果您尝试了多种方法来解决问题，您是否已清除所有无效尝试的痕迹？</p></li>
+<li><p>您加载的每个包是否都需要说明问题？
+您可以通过用虚拟代码替换函数来消除包吗？</p></li>
 </ul>
-<p>This can be a lot of work, but the pay off is big: often you’ll discover the solution while you make the reprex, and if not, it’s much much easier to get help.</p>
+<p>这可能需要大量工作，但回报是巨大的：通常您会在进行 reprex 时发现解决方案，如果没有，获得帮助也会容易得多。</p>
 </div>
 <div id="case-study-1" class="section level3" number="5.3.4">
-<h3><span class="header-section-number">5.3.4</span> Case study</h3>
-<p>To illustrate the process of making a top-notch reprex I’m going to use an example from <a href="https://community.rstudio.com/u/sanovogo">Scott Novogoratz</a> posted on <a href="https://community.rstudio.com/t/37982">RStudio community</a>.
-The initial code was very close to being a reprex, but wasn’t quite reproducible because it forgot to load a pair of packages.
-As a starting point, I:</p>
+<h3>
+<span class="header-section-number">5.3.4</span> Case study<a class="anchor" aria-label="anchor" href="#case-study-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>为了说明制作一流 reprex 的过程，我将使用 <a href="https://community.rstudio.com/u/sanovogo">Scott Novogoratz</a> 在 <a href="https://community.rstudio.com/t/37982">RStudio community</a> 上发布的一个示例。
+最初的代码非常接近 reprex，但不太可重现，因为它忘记加载一对包。
+作为起点，我：</p>
 <ul>
-<li>Added missing <code>library(lubridate)</code> and <code>library(xts)</code>.</li>
-<li>Split apart <code>ui</code> and <code>server</code> into separate objects.</li>
-<li>Reformatted the code with <code>styler::style_selection()</code>.</li>
+<li>添加了缺失的 <code><a href="https://lubridate.tidyverse.org">library(lubridate)</a></code> 和 <code><a href="https://joshuaulrich.github.io/xts/">library(xts)</a></code>。</li>
+<li>将 <code>ui</code> 和 <code>server</code> 拆分为单独的对象。</li>
+<li>使用 <code>styler::style_selection()</code> 重新格式化代码。</li>
 </ul>
-<p>That yielded the following reprex:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="action-workflow.html#cb117-1" tabindex="-1"></a><span class="fu">library</span>(xts)</span>
-<span id="cb117-2"><a href="action-workflow.html#cb117-2" tabindex="-1"></a><span class="fu">library</span>(lubridate)</span>
-<span id="cb117-3"><a href="action-workflow.html#cb117-3" tabindex="-1"></a><span class="fu">library</span>(shiny)</span>
-<span id="cb117-4"><a href="action-workflow.html#cb117-4" tabindex="-1"></a></span>
-<span id="cb117-5"><a href="action-workflow.html#cb117-5" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb117-6"><a href="action-workflow.html#cb117-6" tabindex="-1"></a>  <span class="fu">uiOutput</span>(<span class="st">&quot;interaction_slider&quot;</span>),</span>
-<span id="cb117-7"><a href="action-workflow.html#cb117-7" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;breaks&quot;</span>)</span>
-<span id="cb117-8"><a href="action-workflow.html#cb117-8" tabindex="-1"></a>)</span>
-<span id="cb117-9"><a href="action-workflow.html#cb117-9" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb117-10"><a href="action-workflow.html#cb117-10" tabindex="-1"></a>  df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb117-11"><a href="action-workflow.html#cb117-11" tabindex="-1"></a>    <span class="at">dateTime =</span> <span class="fu">c</span>(</span>
-<span id="cb117-12"><a href="action-workflow.html#cb117-12" tabindex="-1"></a>      <span class="st">&quot;2019-08-20 16:00:00&quot;</span>,</span>
-<span id="cb117-13"><a href="action-workflow.html#cb117-13" tabindex="-1"></a>      <span class="st">&quot;2019-08-20 16:00:01&quot;</span>,</span>
-<span id="cb117-14"><a href="action-workflow.html#cb117-14" tabindex="-1"></a>      <span class="st">&quot;2019-08-20 16:00:02&quot;</span>,</span>
-<span id="cb117-15"><a href="action-workflow.html#cb117-15" tabindex="-1"></a>      <span class="st">&quot;2019-08-20 16:00:03&quot;</span>,</span>
-<span id="cb117-16"><a href="action-workflow.html#cb117-16" tabindex="-1"></a>      <span class="st">&quot;2019-08-20 16:00:04&quot;</span>,</span>
-<span id="cb117-17"><a href="action-workflow.html#cb117-17" tabindex="-1"></a>      <span class="st">&quot;2019-08-20 16:00:05&quot;</span></span>
-<span id="cb117-18"><a href="action-workflow.html#cb117-18" tabindex="-1"></a>    ),</span>
-<span id="cb117-19"><a href="action-workflow.html#cb117-19" tabindex="-1"></a>    <span class="at">var1 =</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">8</span>, <span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">16</span>, <span class="dv">1</span>),</span>
-<span id="cb117-20"><a href="action-workflow.html#cb117-20" tabindex="-1"></a>    <span class="at">var2 =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">15</span>, <span class="dv">12</span>, <span class="dv">11</span>, <span class="dv">19</span>),</span>
-<span id="cb117-21"><a href="action-workflow.html#cb117-21" tabindex="-1"></a>    <span class="at">var3 =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">11</span>, <span class="dv">9</span>, <span class="dv">7</span>, <span class="dv">14</span>, <span class="dv">1</span>)</span>
-<span id="cb117-22"><a href="action-workflow.html#cb117-22" tabindex="-1"></a>  )</span>
-<span id="cb117-23"><a href="action-workflow.html#cb117-23" tabindex="-1"></a></span>
-<span id="cb117-24"><a href="action-workflow.html#cb117-24" tabindex="-1"></a>  timeSeries <span class="ot">&lt;-</span> <span class="fu">as.xts</span>(df[, <span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>], </span>
-<span id="cb117-25"><a href="action-workflow.html#cb117-25" tabindex="-1"></a>    <span class="at">order.by =</span> <span class="fu">strptime</span>(df[, <span class="dv">1</span>], <span class="at">format =</span> <span class="st">&quot;%Y-%m-%d %H:%M:%S&quot;</span>)</span>
-<span id="cb117-26"><a href="action-workflow.html#cb117-26" tabindex="-1"></a>  )</span>
-<span id="cb117-27"><a href="action-workflow.html#cb117-27" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">min</span>(<span class="fu">time</span>(timeSeries)), <span class="fu">is.POSIXt</span>(<span class="fu">min</span>(<span class="fu">time</span>(timeSeries))), <span class="at">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb117-28"><a href="action-workflow.html#cb117-28" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="fu">max</span>(<span class="fu">time</span>(timeSeries)), <span class="fu">is.POSIXt</span>(<span class="fu">max</span>(<span class="fu">time</span>(timeSeries))), <span class="at">sep =</span> <span class="st">&quot; &quot;</span>))</span>
-<span id="cb117-29"><a href="action-workflow.html#cb117-29" tabindex="-1"></a></span>
-<span id="cb117-30"><a href="action-workflow.html#cb117-30" tabindex="-1"></a>  output<span class="sc">$</span>interaction_slider <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb117-31"><a href="action-workflow.html#cb117-31" tabindex="-1"></a>    <span class="fu">sliderInput</span>(</span>
-<span id="cb117-32"><a href="action-workflow.html#cb117-32" tabindex="-1"></a>      <span class="st">&quot;slider&quot;</span>,</span>
-<span id="cb117-33"><a href="action-workflow.html#cb117-33" tabindex="-1"></a>      <span class="st">&quot;Select Range:&quot;</span>,</span>
-<span id="cb117-34"><a href="action-workflow.html#cb117-34" tabindex="-1"></a>      <span class="at">min =</span> <span class="fu">min</span>(<span class="fu">time</span>(timeSeries)),</span>
-<span id="cb117-35"><a href="action-workflow.html#cb117-35" tabindex="-1"></a>      <span class="at">max =</span> <span class="fu">max</span>(<span class="fu">time</span>(timeSeries)),</span>
-<span id="cb117-36"><a href="action-workflow.html#cb117-36" tabindex="-1"></a>      <span class="at">value =</span> <span class="fu">c</span>(min, max)</span>
-<span id="cb117-37"><a href="action-workflow.html#cb117-37" tabindex="-1"></a>    )</span>
-<span id="cb117-38"><a href="action-workflow.html#cb117-38" tabindex="-1"></a>  })</span>
-<span id="cb117-39"><a href="action-workflow.html#cb117-39" tabindex="-1"></a></span>
-<span id="cb117-40"><a href="action-workflow.html#cb117-40" tabindex="-1"></a>  brks <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb117-41"><a href="action-workflow.html#cb117-41" tabindex="-1"></a>    <span class="fu">req</span>(input<span class="sc">$</span>slider)</span>
-<span id="cb117-42"><a href="action-workflow.html#cb117-42" tabindex="-1"></a>    <span class="fu">seq</span>(input<span class="sc">$</span>slider[<span class="dv">1</span>], input<span class="sc">$</span>slider[<span class="dv">2</span>], <span class="at">length.out =</span> <span class="dv">10</span>)</span>
-<span id="cb117-43"><a href="action-workflow.html#cb117-43" tabindex="-1"></a>  })</span>
-<span id="cb117-44"><a href="action-workflow.html#cb117-44" tabindex="-1"></a></span>
-<span id="cb117-45"><a href="action-workflow.html#cb117-45" tabindex="-1"></a>  output<span class="sc">$</span>breaks <span class="ot">&lt;-</span> brks</span>
-<span id="cb117-46"><a href="action-workflow.html#cb117-46" tabindex="-1"></a>}</span>
-<span id="cb117-47"><a href="action-workflow.html#cb117-47" tabindex="-1"></a><span class="fu">shinyApp</span>(ui, server)</span></code></pre></div>
-<p>If you run this reprex, you’ll see the same problem in the initial post: an error stating “Type mismatch for min, max, and value. Each must be Date, POSIXt, or number”.
-This is a solid reprex: I can easily run it on my computer, and it immediately illustrates the problem.
-However, it’s a bit long, so it’s not clear what’s causing the problem.</p>
-<p>To make this reprex simpler we can carefully work through each line of code and see if it’s important.
-While doing this, I discovered:</p>
+<p>这产生了以下 reprex：</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuaulrich.github.io/xts/">xts</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"interaction_slider"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"breaks"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>    dateTime <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>      <span class="st">"2019-08-20 16:00:00"</span>,</span>
+<span>      <span class="st">"2019-08-20 16:00:01"</span>,</span>
+<span>      <span class="st">"2019-08-20 16:00:02"</span>,</span>
+<span>      <span class="st">"2019-08-20 16:00:03"</span>,</span>
+<span>      <span class="st">"2019-08-20 16:00:04"</span>,</span>
+<span>      <span class="st">"2019-08-20 16:00:05"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    var1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">9</span>, <span class="fl">8</span>, <span class="fl">11</span>, <span class="fl">14</span>, <span class="fl">16</span>, <span class="fl">1</span><span class="op">)</span>,</span>
+<span>    var2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">15</span>, <span class="fl">12</span>, <span class="fl">11</span>, <span class="fl">19</span><span class="op">)</span>,</span>
+<span>    var3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">11</span>, <span class="fl">9</span>, <span class="fl">7</span>, <span class="fl">14</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">timeSeries</span> <span class="op">&lt;-</span> <span class="fu">as.xts</span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, </span>
+<span>    order.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://lubridate.tidyverse.org/reference/posix_utils.html">is.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://lubridate.tidyverse.org/reference/posix_utils.html">is.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">interaction_slider</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span></span>
+<span>      <span class="st">"slider"</span>,</span>
+<span>      <span class="st">"Select Range:"</span>,</span>
+<span>      min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">brks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">slider</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">slider</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">input</span><span class="op">$</span><span class="va">slider</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">breaks</span> <span class="op">&lt;-</span> <span class="va">brks</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/shinyApp.html">shinyApp</a></span><span class="op">(</span><span class="va">ui</span>, <span class="va">server</span><span class="op">)</span></span></code></pre></div>
+<p>如果您运行此 reprex，您将在最初的帖子中看到相同的问题：错误指出 “Type mismatch for min, max, and value. Each must be Date, POSIXt, or number”。
+这是一个可靠的 reprex：我可以轻松地在我的计算机上运行它，它立即说明了问题。
+不过，它有点长，所以还不清楚是什么原因造成的。</p>
+<p>为了使这个 reprex 更简单，我们可以仔细检查每一行代码，看看它是否重要。
+在这样做的过程中，我发现：</p>
 <ul>
-<li><p>Removing the two lines starting with <code>print()</code> didn’t affect the error.
-Those two lines used <code>lubridate::is.POSIXt()</code>, which was the only use of lubridate, so once I removed them, I no longer needed to load lubridate.</p></li>
-<li><p><code>df</code> is a data frame that’s converted to an xts data frame called <code>timeSeries</code>.
-But the only way <code>timeSeries</code> is used is via <code>time(timeSeries)</code> which returns a date-time.
-So I created a new variable <code>datetime</code> that contained some dummy date-time data.
-This still yielded the same error, so I removed <code>timeSeries</code> and <code>df</code>, and since that was the only place xts was used, I also removed <code>library(xts)</code></p></li>
+<li><p>删除以 <code><a href="https://rdrr.io/r/base/print.html">print()</a></code> 开头的两行不会影响错误。
+这两行使用了 <code><a href="https://lubridate.tidyverse.org/reference/posix_utils.html">lubridate::is.POSIXt()</a></code>，这是 lubridate 的唯一用途，所以一旦我删除它们，我就不再需要加载 lubridate。</p></li>
+<li><p><code>df</code> 是一个转换为 xts 数据框（称为 <code>timeSeries</code>）的数据帧。但使用 <code>timeSeries</code> 的唯一方法是通过 <code>time(timeSeries)</code> 返回日期时间。
+因此，我创建了一个新的变量 <code>datetime</code>，其中包含一些虚拟日期时间数据。
+这仍然产生相同的错误，所以我删除了 <code>timeSeries</code> 和 <code>df</code>，并且由于这是唯一使用 xts 的地方，我还删除了 <code><a href="https://joshuaulrich.github.io/xts/">library(xts)</a></code>。</p></li>
 </ul>
-<p>Together, those changes yielded a new <code>server()</code> that looked like this:</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="action-workflow.html#cb118-1" tabindex="-1"></a>datetime <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>() <span class="sc">+</span> (<span class="dv">86400</span> <span class="sc">*</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span>)</span>
-<span id="cb118-2"><a href="action-workflow.html#cb118-2" tabindex="-1"></a></span>
-<span id="cb118-3"><a href="action-workflow.html#cb118-3" tabindex="-1"></a>server <span class="ot">&lt;-</span> <span class="cf">function</span>(input, output, session) {</span>
-<span id="cb118-4"><a href="action-workflow.html#cb118-4" tabindex="-1"></a>  output<span class="sc">$</span>interaction_slider <span class="ot">&lt;-</span> <span class="fu">renderUI</span>({</span>
-<span id="cb118-5"><a href="action-workflow.html#cb118-5" tabindex="-1"></a>    <span class="fu">sliderInput</span>(</span>
-<span id="cb118-6"><a href="action-workflow.html#cb118-6" tabindex="-1"></a>      <span class="st">&quot;slider&quot;</span>,</span>
-<span id="cb118-7"><a href="action-workflow.html#cb118-7" tabindex="-1"></a>      <span class="st">&quot;Select Range:&quot;</span>,</span>
-<span id="cb118-8"><a href="action-workflow.html#cb118-8" tabindex="-1"></a>      <span class="at">min   =</span> <span class="fu">min</span>(datetime),</span>
-<span id="cb118-9"><a href="action-workflow.html#cb118-9" tabindex="-1"></a>      <span class="at">max   =</span> <span class="fu">max</span>(datetime),</span>
-<span id="cb118-10"><a href="action-workflow.html#cb118-10" tabindex="-1"></a>      <span class="at">value =</span> <span class="fu">c</span>(min, max)</span>
-<span id="cb118-11"><a href="action-workflow.html#cb118-11" tabindex="-1"></a>    )</span>
-<span id="cb118-12"><a href="action-workflow.html#cb118-12" tabindex="-1"></a>  })</span>
-<span id="cb118-13"><a href="action-workflow.html#cb118-13" tabindex="-1"></a>  </span>
-<span id="cb118-14"><a href="action-workflow.html#cb118-14" tabindex="-1"></a>  brks <span class="ot">&lt;-</span> <span class="fu">reactive</span>({</span>
-<span id="cb118-15"><a href="action-workflow.html#cb118-15" tabindex="-1"></a>    <span class="fu">req</span>(input<span class="sc">$</span>slider)</span>
-<span id="cb118-16"><a href="action-workflow.html#cb118-16" tabindex="-1"></a>    <span class="fu">seq</span>(input<span class="sc">$</span>slider[<span class="dv">1</span>], input<span class="sc">$</span>slider[<span class="dv">2</span>], <span class="at">length.out =</span> <span class="dv">10</span>)</span>
-<span id="cb118-17"><a href="action-workflow.html#cb118-17" tabindex="-1"></a>  })</span>
-<span id="cb118-18"><a href="action-workflow.html#cb118-18" tabindex="-1"></a>  </span>
-<span id="cb118-19"><a href="action-workflow.html#cb118-19" tabindex="-1"></a>  output<span class="sc">$</span>breaks <span class="ot">&lt;-</span> brks</span>
-<span id="cb118-20"><a href="action-workflow.html#cb118-20" tabindex="-1"></a>}</span></code></pre></div>
-<p>Next, I noticed that this example uses a relatively sophisticated Shiny technique where the UI is generated in the server function.
-But here <code>renderUI()</code> doesn’t use any reactive inputs, so it should work the same way if moved out of the server function and into the UI.</p>
-<p>This yielded a particularly nice result, because now the error occurs much earlier, before we even start the app:</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="action-workflow.html#cb119-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb119-2"><a href="action-workflow.html#cb119-2" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;slider&quot;</span>,</span>
-<span id="cb119-3"><a href="action-workflow.html#cb119-3" tabindex="-1"></a>    <span class="st">&quot;Select Range:&quot;</span>,</span>
-<span id="cb119-4"><a href="action-workflow.html#cb119-4" tabindex="-1"></a>    <span class="at">min   =</span> <span class="fu">min</span>(datetime),</span>
-<span id="cb119-5"><a href="action-workflow.html#cb119-5" tabindex="-1"></a>    <span class="at">max   =</span> <span class="fu">max</span>(datetime),</span>
-<span id="cb119-6"><a href="action-workflow.html#cb119-6" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">c</span>(min, max)</span>
-<span id="cb119-7"><a href="action-workflow.html#cb119-7" tabindex="-1"></a>  ),</span>
-<span id="cb119-8"><a href="action-workflow.html#cb119-8" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;breaks&quot;</span>)</span>
-<span id="cb119-9"><a href="action-workflow.html#cb119-9" tabindex="-1"></a>)</span>
-<span id="cb119-10"><a href="action-workflow.html#cb119-10" tabindex="-1"></a><span class="co">#&gt; Error: Type mismatch for `min`, `max`, and `value`.</span></span>
-<span id="cb119-11"><a href="action-workflow.html#cb119-11" tabindex="-1"></a><span class="co">#&gt; i All values must have same type: either numeric, Date, or POSIXt.</span></span></code></pre></div>
-<p>And now we can take the hint from the error message and look at each of the inputs we’re feeding to <code>min</code>, <code>max</code>, and <code>value</code> to see where the problem is:</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="action-workflow.html#cb120-1" tabindex="-1"></a><span class="fu">min</span>(datetime)</span>
-<span id="cb120-2"><a href="action-workflow.html#cb120-2" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2024-08-06 20:59:40 CST&quot;</span></span>
-<span id="cb120-3"><a href="action-workflow.html#cb120-3" tabindex="-1"></a><span class="fu">max</span>(datetime)</span>
-<span id="cb120-4"><a href="action-workflow.html#cb120-4" tabindex="-1"></a><span class="co">#&gt; [1] &quot;2024-08-16 20:59:40 CST&quot;</span></span>
-<span id="cb120-5"><a href="action-workflow.html#cb120-5" tabindex="-1"></a><span class="fu">c</span>(min, max)</span>
-<span id="cb120-6"><a href="action-workflow.html#cb120-6" tabindex="-1"></a><span class="co">#&gt; [[1]]</span></span>
-<span id="cb120-7"><a href="action-workflow.html#cb120-7" tabindex="-1"></a><span class="co">#&gt; function (..., na.rm = FALSE)  .Primitive(&quot;min&quot;)</span></span>
-<span id="cb120-8"><a href="action-workflow.html#cb120-8" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb120-9"><a href="action-workflow.html#cb120-9" tabindex="-1"></a><span class="co">#&gt; [[2]]</span></span>
-<span id="cb120-10"><a href="action-workflow.html#cb120-10" tabindex="-1"></a><span class="co">#&gt; function (..., na.rm = FALSE)  .Primitive(&quot;max&quot;)</span></span></code></pre></div>
-<p>Now the problem is obvious: we haven’t assigned <code>min</code> and <code>max</code> variables, so we’re accidentally passing the <code>min()</code> and <code>max()</code> functions into <code>sliderInput()</code>.
-One way to solve that problem is to use <code>range()</code> instead:</p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="action-workflow.html#cb121-1" tabindex="-1"></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
-<span id="cb121-2"><a href="action-workflow.html#cb121-2" tabindex="-1"></a>  <span class="fu">sliderInput</span>(<span class="st">&quot;slider&quot;</span>,</span>
-<span id="cb121-3"><a href="action-workflow.html#cb121-3" tabindex="-1"></a>    <span class="st">&quot;Select Range:&quot;</span>,</span>
-<span id="cb121-4"><a href="action-workflow.html#cb121-4" tabindex="-1"></a>    <span class="at">min   =</span> <span class="fu">min</span>(datetime),</span>
-<span id="cb121-5"><a href="action-workflow.html#cb121-5" tabindex="-1"></a>    <span class="at">max   =</span> <span class="fu">max</span>(datetime),</span>
-<span id="cb121-6"><a href="action-workflow.html#cb121-6" tabindex="-1"></a>    <span class="at">value =</span> <span class="fu">range</span>(datetime)</span>
-<span id="cb121-7"><a href="action-workflow.html#cb121-7" tabindex="-1"></a>  ),</span>
-<span id="cb121-8"><a href="action-workflow.html#cb121-8" tabindex="-1"></a>  <span class="fu">verbatimTextOutput</span>(<span class="st">&quot;breaks&quot;</span>)</span>
-<span id="cb121-9"><a href="action-workflow.html#cb121-9" tabindex="-1"></a>)</span></code></pre></div>
-<p>This is fairly typical outcome from creating a reprex: once you’ve simplified the problem to its key components, the solution becomes obvious.
-Creating a good reprex is an incredibly powerful debugging technique.</p>
-<p>To simplify this reprex, I had to do a bunch of experimenting and reading up on functions that I wasn’t very familiar with<a href="#fn19" class="footnote-ref" id="fnref19"><sup>19</sup></a>.
-It’s typically much easier to do this if it’s your reprex, because you already understand the intent of the code.
-Still, you’ll often need to do a bunch of experimentation to figure out where exactly the problem is coming from.
-That can be frustrating and feel time consuming, but it has a number of benefits:</p>
+<p>这些更改共同产生了一个新的 <code>server()</code>，如下所示：</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">86400</span> <span class="op">*</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">interaction_slider</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span></span>
+<span>      <span class="st">"slider"</span>,</span>
+<span>      <span class="st">"Select Range:"</span>,</span>
+<span>      min   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>,</span>
+<span>      max   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">brks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">slider</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">slider</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">input</span><span class="op">$</span><span class="va">slider</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, length.out <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">breaks</span> <span class="op">&lt;-</span> <span class="va">brks</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>接下来，我注意到这个示例使用了相对复杂的 Shiny 技术，其中 UI 是在 server 函数中生成的。
+但这里 <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI()</a></code> 不使用任何响应式输入，因此如果从 server 函数移出并进入 UI，它应该以相同的方式工作。</p>
+<p>这产生了一个特别好的结果，因为现在错误发生得更早，甚至在我们启动 app 之前：</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"slider"</span>,</span>
+<span>    <span class="st">"Select Range:"</span>,</span>
+<span>    min   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>,</span>
+<span>    max   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>,</span>
+<span>    value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"breaks"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; Error: Type mismatch for `min`, `max`, and `value`.</span></span>
+<span><span class="co">#&gt; i All values must have same type: either numeric, Date, or POSIXt.</span></span></code></pre></div>
+<p>现在我们可以从错误消息中获取提示，并查看我们提供给 <code>min</code>、<code>max</code> 和 <code>value</code> 的每个输入，以了解问题出在哪里：</p>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2024-08-10 19:39:40 CST"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "2024-08-20 19:39:40 CST"</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [[1]]</span></span>
+<span><span class="co">#&gt; function (..., na.rm = FALSE)  .Primitive("min")</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; [[2]]</span></span>
+<span><span class="co">#&gt; function (..., na.rm = FALSE)  .Primitive("max")</span></span></code></pre></div>
+<p>现在问题很明显：我们还没有分配 <code>min</code> 和 <code>max</code> 变量，所以我们不小心将 <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> 和 <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> 函数传递给了 <code><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput()</a></code>。
+解决该问题的一种方法是使用 <code><a href="https://rdrr.io/r/base/range.html">range()</a></code> 代替：</p>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"slider"</span>,</span>
+<span>              <span class="st">"Select Range:"</span>,</span>
+<span>              min   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>,</span>
+<span>              max   <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span>,</span>
+<span>              value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"breaks"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>这是创建 reprex 的相当典型的结果：一旦将问题简化为其关键组件，解决方案就变得显而易见。
+创建一个好的 reprex 是一种非常强大的调试技术。</p>
+<p>为了简化这个 reprex，我必须对我不太熟悉的函数进行大量实验和阅读。<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;例如，我不知道 &lt;code&gt;is.POSIXt()&lt;/code&gt; 是 lubridate 包的一部分！&lt;/p&gt;"><sup>5</sup></a>
+如果这是您的 reprex，那么通常会更容易做到这一点，因为您已经了解代码的意图。
+不过，您通常需要进行大量实验才能找出问题到底出在哪里。
+这可能会令人沮丧并且耗时，但它有很多好处：</p>
 <ul>
-<li><p>It enables you to create a description of the problem that is accessible to anyone who knows Shiny, not anyone who knows Shiny <strong>and</strong> the particular domain that you’re working in.</p></li>
-<li><p>You will build up a better mental model of how your code works, which means that you’re less likely to make the same or similar mistakes in the future.</p></li>
-<li><p>Over time, you’ll get faster and faster at creating reprexes, and this will become one of your go to techniques when debugging.</p></li>
-<li><p>Even if you don’t create a perfect reprex, any work you can do to improve your reprex is less work for someone else to do.
-This is particularly important if you’re trying to get help from package developers because they usually have many demands on their time.</p></li>
+<li><p>它使您能够创建问题的描述，任何了解 Shiny 的人都可以访问该描述，而不是任何了解 Shiny 和您正在工作的特定领域的人都可以访问。</p></li>
+<li><p>您将为代码的工作原理建立一个更好的思维模型，这意味着您将来不太可能犯相同或类似的错误。</p></li>
+<li><p>随着时间的推移，您创建 reprex 的速度会越来越快，这将成为调试时的常用技术之一。</p></li>
+<li><p>即使你没有创造出完美的 reprex，你可以做的任何改善你的 reprex 的工作都比别人做的工作要少。
+如果您试图从软件包开发人员那里获得帮助，这一点尤其重要，因为他们通常对时间有很多要求。</p></li>
 </ul>
-<p>When I try to help someone with their app on <a href="https://community.rstudio.com/tag/shiny">RStudio community</a>, creating a reprex is always the first thing I do.
-This isn’t some make work exercise I use to fob off people I don’t want to help: it’s exactly where I start!</p>
+<p>当我尝试在 <a href="https://community.rstudio.com/tag/shiny">RStudio community</a> 上帮助某人使用他们的 app 时，创建 reprex 始终是我做的第一件事。
+这不是我用来欺骗那些我不想帮助的人的工作练习：这正是我的起点！</p>
 </div>
 </div>
 <div id="summary-4" class="section level2" number="5.4">
-<h2><span class="header-section-number">5.4</span> Summary</h2>
-<p>This chapter has given you some useful workflows for developing apps, debugging problems, and getting help.
-These workflows might seem a little abstract and easy to dismiss because they’re not concretely improving an individual app.
-But I think of workflow as one of my “secret” powers: one of the reasons that I’ve been able to accomplish so much is that I devote time to analysing and improving my workflow.
-I highly encourage you to do the same!</p>
-<p>The next chapter on layouts and themes is the first of a grab bag of useful techniques.
-There’s no need to read in sequence; feel free to skip ahead to a chapter that you need for a current app.</p>
+<h2>
+<span class="header-section-number">5.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-4"><i class="fas fa-link"></i></a>
+</h2>
+<p>本章为您提供了一些用于开发 apps、调试问题和获取帮助的有用工作流程。
+这些工作流程可能看起来有点抽象并且很容易被忽视，因为它们并没有具体改进单个 app。
+但我认为工作流程是我的“秘密”力量之一：我能够取得如此多成就的原因之一是我投入时间来分析和改进我的工作流程。
+我强烈鼓励您也这样做！</p>
+<p>关于布局和主题的下一章是有用技术的第一章。
+无需按顺序阅读；请随意跳至当前 app 所需的章节。</p>
 
 </div>
 </div>
-<div class="footnotes">
-<hr />
-<ol start="15">
-<li id="fn15"><p>Snippets are text macros that you can use to insert common code fragments.
-See <a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" class="uri">https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets</a> for more details.
-If you enjoy using snippets, make sure to check the collection of Shiny specific snippets put together by ThinkR: <a href="https://github.com/ThinkR-open/shinysnippets" class="uri">https://github.com/ThinkR-open/shinysnippets</a>.<a href="action-workflow.html#fnref15" class="footnote-back">↩︎</a></p></li>
-<li id="fn16"><p>A project is a self-contained directory that is isolated from the other projects that you’re working on.
-If you use RStudio, but don’t currently use projects, I highly recommend reading about the <a href="https://whattheyforgot.org/project-oriented-workflow.html">project oriented lifestyle</a>.<a href="action-workflow.html#fnref16" class="footnote-back">↩︎</a></p></li>
-<li id="fn17"><p>I’m using <code>subset()</code> so that my app doesn’t require any other packages.
-In a bigger app, I’d probably prefer <code>dplyr::filter()</code> just because I’m a little more familiar with its behaviour.<a href="action-workflow.html#fnref17" class="footnote-back">↩︎</a></p></li>
-<li id="fn18"><p>Regardless of how you normally load packages, I strongly recommend using multiple <code>library()</code> calls.
-This eliminates a source of potential confusion for people who might not be familiar with the tool that you’re using.<a href="action-workflow.html#fnref18" class="footnote-back">↩︎</a></p></li>
-<li id="fn19"><p>For example, I had no idea that <code>is.POSIXt()</code> was part of the lubridate package!<a href="action-workflow.html#fnref19" class="footnote-back">↩︎</a></p></li>
-</ol>
-</div>
-  </main>
 
-  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page">
-      <h2>On this page</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="chapter-nav">
+<div class="empty"></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
-      </div>
+</div>
     </nav>
-  </div>
+</div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5">
-  <div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
     <p>"<strong>Mastering Shiny</strong>" was written by Hadley Wickham. </p>
@@ -820,8 +867,5 @@ This eliminates a source of potential confusion for people who might not be fami
 
 </div></div>
 </footer>
-
-
 </body>
-
 </html>

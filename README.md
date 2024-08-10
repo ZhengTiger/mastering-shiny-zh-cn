@@ -16,7 +16,7 @@ Try to translate **Mastering Shiny** into Simplified Chinese.
 | 2 Basic UI                       | ✔        | 2024.8.8  |
 | 3 Basic reactivity               | ✔        | 2024.8.8  |
 | 4 Case study: ER injuries        | ✔        | 2024.8.9  |
-| 5 Workflow                  |         |  |
+| 5 Workflow                       | ✔        | 2024.8.10 |
 | 6 Layout, themes, HTML               |         |  |
 | 7 Graphics      |         |  |
 | 8 User feedback                 |         |  |

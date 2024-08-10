@@ -2,24 +2,26 @@
 
 # Introduction {#action-intro .unnumbered}
 
-The following chapters give you a grab bag of useful techniques.
-I think everyone should start with Chapter \@ref(workflow), because it gives you important tools for developing and debugging apps, and getting help when you're stuck.
+以下章节为您提供了一系列有用的技术。
+我认为每个人都应该从 Chapter \@ref(workflow) 开始，因为它为您提供了开发和调试 apps 的重要工具，并在遇到困难时获得帮助。
 
-After that, there's no prescribed order and relatively few connections between the chapters: I'd suggest quickly skimming to get the lay of the land (and so you might remember these tools if related problems crop up in the future), and otherwise only deeply reading the bits that you currently need.
-Here's a quick run down of the main topics:
+之后，没有规定的顺序，各章之间的联系也相对较少：我建议快速浏览以了解总体情况（因此，如果将来出现相关问题，您可能会记住这些工具），否则只能深入了解读取您当前需要的位。
+以下是主要主题的快速概述：
 
--   Chapter \@ref(action-layout) details the various ways you can layout input and output components on a page, and how you can customise their appearance with themes.
+-   Chapter \@ref(action-layout) 详细介绍了在页面上布局输入和输出组件的各种方法，以及如何使用主题自定义它们的外观。
 
--   Chapter \@ref(action-graphics) shows you how to add direct interaction to your plot and how to display images generated in other ways.
+-   Chapter \@ref(action-graphics) 向您展示如何向绘图添加直接交互以及如何显示以其他方式生成的图像。
 
--   Chapter \@ref(action-feedback) covers a family of techniques (including inline errors, notifications, progress bars, and dialog boxes) for giving feedback to your users while you app runs.
+-   Chapter \@ref(action-feedback) 介绍了一系列技术（包括内联错误、通知、进度条和对话框），用于在 app 运行时向用户提供反馈。
 
--   Chapter \@ref(action-transfer) discusses how to transfer files to and from your app.
+-   Chapter \@ref(action-transfer) 讨论如何在 app 之间传输文件。
 
--   Chapter \@ref(action-dynamic) shows you how to dynamic modify your apps user interface while it runs.
+-   Chapter \@ref(action-dynamic) 向您展示如何在 apps 运行时动态修改 apps 用户界面。
 
--   Chapter \@ref(action-bookmark) shows how to record app state in such a way that your users can bookmark it.
+-   Chapter \@ref(action-bookmark) 展示了如何以用户可以为其添加书签的方式记录 app 状态。
 
--   Chapter \@ref(action-tidy) shows you how to allow users to select variables when working with tidyverse packages.
+-   Chapter \@ref(action-tidy) 向您展示如何允许用户在使用 tidyverse 包时选择变量。
 
-Let's begin by working on your workflow for developing apps.
+让我们从开发 apps 的工作流程开始。
+
+
