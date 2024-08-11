@@ -21,7 +21,7 @@ Try to translate **Mastering Shiny** into Simplified Chinese.
 | 7 Graphics      |         |  |
 | 8 User feedback                 |         |  |
 | 9 Uploads and downloads       |         |  |
-| 10 Dynamic UI                           |         |  |
+| 10 Dynamic UI                    | ✔        | 2024.8.11 |
 | 11 Bookmarking        |         | |
 | 12 Tidy evaluation                |         |  |
 | 13 Why reactivity?                      |         |  |

@@ -25,7 +25,7 @@ rmd_files:
     #"action-graphics.Rmd",
     #"action-feedback.Rmd",
     #"action-transfer.Rmd",
-    #"action-dynamic.Rmd",
+    "action-dynamic.Rmd",
     #"action-bookmark.Rmd",
     #"action-tidy.Rmd",
 

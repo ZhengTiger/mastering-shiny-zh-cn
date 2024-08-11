@@ -463,8 +463,8 @@ x2 <- rnorm(200, mean = 0.15, sd = 0.9)
 
 freqpoly(x1, x2)
 cat(t_test(x1, x2))
-#> p value: 0.001
-#> [-0.40, -0.10]
+#> p value: 0.008
+#> [-0.37, -0.06]
 ```
 
 <img src="basic-reactivity_files/figure-html/unnamed-chunk-19-1.png" width="70%" />

@@ -59,6 +59,7 @@
 <li class="book-part">Shiny in action</li>
 <li><a class="" href="action-intro.html">Introduction</a></li>
 <li><a class="" href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></li>
+<li><a class="" href="action-dynamic.html"><span class="header-section-number">6</span> Dynamic UI</a></li>
 </ul>
 
         <div class="book-extra">
@@ -396,7 +397,7 @@ Figure 3.4: 响应式表达式两边都有角度，因为它将输入连接到�
 <span>  <span class="va">d</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">)</span> <span class="op">^</span> <span class="va">input</span><span class="op">$</span><span class="va">d</span><span class="op">)</span></span>
 <span>  <span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">a</span> <span class="op">*</span> <span class="fl">10</span><span class="op">)</span></span>
 <span>  <span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu">b</span><span class="op">(</span><span class="op">)</span> <span class="op">/</span> <span class="va">input</span><span class="op">$</span><span class="va">c</span><span class="op">)</span> </span>
-<span>  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html">a</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="va">input</span><span class="op">$</span><span class="va">b</span><span class="op">)</span></span>
+<span>  <span class="va">b</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/htmltools/man/builder.html">a</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="va">input</span><span class="op">$</span><span class="va">b</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
 </li>
 <li>
@@ -467,8 +468,8 @@ Figure 3.5: 输入和表达式是响应式生产者；表达式和输出是响�
 <span></span>
 <span><span class="fu">freqpoly</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="fu">t_test</span><span class="op">(</span><span class="va">x1</span>, <span class="va">x2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; p value: 0.001</span></span>
-<span><span class="co">#&gt; [-0.40, -0.10]</span></span></code></pre></div>
+<span><span class="co">#&gt; p value: 0.008</span></span>
+<span><span class="co">#&gt; [-0.37, -0.06]</span></span></code></pre></div>
 <div class="inline-figure"><img src="basic-reactivity_files/figure-html/unnamed-chunk-19-1.png" width="70%"></div>
 <p>在真正的分析中，您可能会在最终使用这些函数之前进行大量探索。
 我在这里跳过了该探索，以便我们可以尽快使用该 app。

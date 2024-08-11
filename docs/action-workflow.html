@@ -47,7 +47,20 @@
 </form>
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled"><li><a class="" href="index.html"><span class="header-section-number">Chapter 5</span> Workflow</a></li></ul>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="basic-intro.html">Introduction</a></li>
+<li><a class="" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
+<li><a class="" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
+<li><a class="" href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></li>
+<li><a class="" href="basic-case-study.html"><span class="header-section-number">4</span> Case study: ER injuries</a></li>
+<li class="book-part">Shiny in action</li>
+<li><a class="" href="action-intro.html">Introduction</a></li>
+<li><a class="active" href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></li>
+<li><a class="" href="action-dynamic.html"><span class="header-section-number">6</span> Dynamic UI</a></li>
+</ul>
 
         <div class="book-extra">
           <p><a id="book-repo" href="https://github.com/zhenghu159/mastering-shiny-zh-cn">View book source <i class="fab fa-github"></i></a></p>
@@ -80,7 +93,7 @@ Reprexes 是一种强大的调试技术，如果您想从其他人那里获得�
 <span class="header-section-number">5.1.1</span> Creating the app<a class="anchor" aria-label="anchor" href="#creating-the-app"><i class="fas fa-link"></i></a>
 </h3>
 <p>您将使用相同的六行 R 代码启动每个 app：</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb83"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span><span class="op">)</span></span>
@@ -91,9 +104,9 @@ Reprexes 是一种强大的调试技术，如果您想从其他人那里获得�
 <ul>
 <li><p>如果您已经打开了未来的 <code>app.R</code>，请输入 <code>shinyapp</code>，然后按 <code>Shift</code> + <code>Tab</code> 插入 Shiny app 片段。<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;Snippets 是文本宏，可用于插入常见代码片段。
 有关更多详细信息，请参阅 &lt;a href="https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets" class="uri"&gt;https://support.rstudio.com/hc/en-us/articles/204463668-Code-Snippets&lt;/a&gt;。
-如果您喜欢使用 snippets，请务必查看 ThinkR 整理的 Shiny 特定 snippets 集合：&lt;a href="https://github.com/ThinkR-open/shinysnippets" class="uri"&gt;https://github.com/ThinkR-open/shinysnippets&lt;/a&gt;。&lt;/p&gt;'><sup>1</sup></a></p></li>
+如果您喜欢使用 snippets，请务必查看 ThinkR 整理的 Shiny 特定 snippets 集合：&lt;a href="https://github.com/ThinkR-open/shinysnippets" class="uri"&gt;https://github.com/ThinkR-open/shinysnippets&lt;/a&gt;。&lt;/p&gt;'><sup>15</sup></a></p></li>
 <li><p>如果您想启动一个新项目<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;项目是一个独立的目录，与您正在处理的其他项目隔离。
-如果您使用 RStudio，但目前不使用项目，我强烈建议您阅读有关 &lt;a href="https://whattheyforgot.org/project-oriented-workflow.html"&gt;project oriented lifestyle&lt;/a&gt; 的文章。&lt;/p&gt;'><sup>2</sup></a>，请进入 File 菜单，选择 “New Project”，然后选择 “Shiny Web Application”，如 Figure <a href="action-workflow.html#fig:new-project">5.1</a> 所示。</p></li>
+如果您使用 RStudio，但目前不使用项目，我强烈建议您阅读有关 &lt;a href="https://whattheyforgot.org/project-oriented-workflow.html"&gt;project oriented lifestyle&lt;/a&gt; 的文章。&lt;/p&gt;'><sup>16</sup></a>，请进入 File 菜单，选择 “New Project”，然后选择 “Shiny Web Application”，如 Figure <a href="action-workflow.html#fig:new-project">5.1</a> 所示。</p></li>
 </ul>
 <div class="figure">
 <span style="display:block;" id="fig:new-project"></span>
@@ -137,7 +150,7 @@ Figure 5.1: 要在 RStudio 中创建新的 Shiny app，请选择 ‘Shiny Web Ap
 <span class="header-section-number">5.1.3</span> Controlling the view<a class="anchor" aria-label="anchor" href="#controlling-the-view"><i class="fas fa-link"></i></a>
 </h3>
 <p>默认情况下，当您运行 app 时，它将显示在弹出窗口中。
-您可以从 Run App 下拉列表中选择其他两个选项，如 Figure <a href="action-workflow.html#fig:run-app">5.2</a> 所示：</p>
+您可以从 Run App 下拉列表中选择其他两个选项，如 Figure <a href="basic-app.html#fig:run-app">1.1</a> 所示：</p>
 <ul>
 <li><p><strong>Run in Viewer Pane</strong> 会在 viewer 窗格（通常位于 IDE 的右侧）中打开 app。
 它对于较小的 apps 很有用，因为您可以在运行 app 代码的同时看到它。</p></li>
@@ -147,7 +160,7 @@ Figure 5.1: 要在 RStudio 中创建新的 Shiny app，请选择 ‘Shiny Web Ap
 <div class="figure">
 <span style="display:block;" id="fig:run-app"></span>
 <img src="images/action-workflow/run-app.png" alt="Run App 按钮允许您选择如何显示正在运行的 app。" width="125"><p class="caption">
-Figure 5.2: Run App 按钮允许您选择如何显示正在运行的 app。
+Figure 1.1: Run App 按钮允许您选择如何显示正在运行的 app。
 </p>
 </div>
 </div>
@@ -186,16 +199,16 @@ Figure 5.2: Run App 按钮允许您选择如何显示正在运行的 app。
 </h3>
 <p>在 R 中，每个错误都伴随着回溯或调用堆栈，它实际上可以追溯到导致错误的调用序列。
 例如，采用以下简单的调用序列：<code>f()</code> 调用 <code>g()</code> 调用 <code>h()</code>，后者调用乘法运算符：</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb84"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">g</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">g</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">h</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span><span class="va">h</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span> <span class="op">*</span> <span class="fl">2</span></span></code></pre></div>
 <p>如果这段代码出错，如下：</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb85"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">f</span><span class="op">(</span><span class="st">"a"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Error in x * 2: non-numeric argument to binary operator</span></span></code></pre></div>
 <p>您可以调用 <code><a href="https://rdrr.io/r/base/traceback.html">traceback()</a></code> 来查找问题的调用顺序：</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb86"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/traceback.html">traceback</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; 3: h(x)</span></span>
 <span><span class="co">#&gt; 2: g(x)</span></span>
@@ -213,7 +226,7 @@ Figure 5.2: Run App 按钮允许您选择如何显示正在运行的 app。
 <p>不幸的是，您无法在 Shiny 中使用 <code><a href="https://rdrr.io/r/base/traceback.html">traceback()</a></code>，因为您无法在 app 运行时运行代码。
 相反，Shiny 会自动为您打印回溯。
 例如，使用我上面定义的 <code>f()</code> 函数来获取这个简单的 app：</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">f</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu">g</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
@@ -301,7 +314,7 @@ Figure 5.2: Run App 按钮允许您选择如何显示正在运行的 app。
 这是启动交互式调试器的标准 R 方式，无论您如何运行 Shiny，它都可以工作。</p>
 <p><code><a href="https://rdrr.io/r/base/browser.html">browser()</a></code> 的另一个优点是，因为它是 R 代码，所以您可以通过将其与 <code>if</code> 语句组合来使其成为条件。
 这允许您仅针对有问题的输入启动调试器。</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb94"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">value</span> <span class="op">==</span> <span class="st">"a"</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/browser.html">browser</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
@@ -317,7 +330,7 @@ Figure 5.2: Run App 按钮允许您选择如何显示正在运行的 app。
 <p>断点的优点是它们不是代码，因此您永远不必担心意外地将它们签入版本控制系统。</p>
 </li>
 </ul>
-<p>如果您使用 RStudio，当您处于调试器中时，Figure <a href="action-workflow.html#fig:debug-toolbar">5.3</a> 中的工具栏将出现在控制台顶部。
+<p>如果您使用 RStudio，当您处于调试器中时，Figure <a href="action-workflow.html#fig:debug-toolbar">5.2</a> 中的工具栏将出现在控制台顶部。
 工具栏是记住现在可用的调试命令的简单方法。
 它们也可以在 RStudio 之外使用；您只需要记住一个字母命令即可激活它们。
 三个最有用的命令是：</p>
@@ -332,7 +345,7 @@ Figure 5.2: Run App 按钮允许您选择如何显示正在运行的 app。
 <div class="figure">
 <span style="display:block;" id="fig:debug-toolbar"></span>
 <img src="images/action-workflow/debug-toolbar.png" alt="RStudio's debugging toolbar" width="50%"><p class="caption">
-Figure 5.3: RStudio’s debugging toolbar
+Figure 5.2: RStudio’s debugging toolbar
 </p>
 </div>
 <p>除了使用这些工具逐行执行代码之外，您还将编写并运行一堆交互式代码来跟踪出了什么问题。
@@ -346,11 +359,11 @@ Figure 5.3: RStudio’s debugging toolbar
 <blockquote>
 <p>Once you eliminate the impossible, whatever remains, no matter how improbable, must be the truth — Sherlock Holmes</p>
 </blockquote>
-<p>为了演示基本的调试方法，我将向您展示我在编写 Section <a href="#hierarchical-select"><strong>??</strong></a> 时遇到的一个小问题。
+<p>为了演示基本的调试方法，我将向您展示我在编写 Section <a href="action-dynamic.html#hierarchical-select">6.1.2</a> 时遇到的一个小问题。
 我将首先向您展示基本情景，然后您会看到一个我没有使用交互式调试工具解决的问题，一个需要交互式调试的问题，并发现最后的惊喜。</p>
 <p>最初的目标非常简单：我有一个销售数据集，我想按地区过滤它。
 数据如下：</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb95"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"sales-dashboard/sales_data_sample.csv"</span><span class="op">)</span></span>
 <span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="va">sales</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
 <span>  <span class="st">"TERRITORY"</span>, <span class="st">"ORDERDATE"</span>, <span class="st">"ORDERNUMBER"</span>, <span class="st">"PRODUCTCODE"</span>,</span>
@@ -366,11 +379,11 @@ Figure 5.3: RStudio’s debugging toolbar
 <span><span class="co">#&gt; 4 &lt;NA&gt;      8/25/2003 0:00       10145 S10_1678                 45      83.3</span></span>
 <span><span class="co">#&gt; # ℹ 2,819 more rows</span></span></code></pre></div>
 <p>以下是 territories：</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb96"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] NA      "EMEA"  "APAC"  "Japan"</span></span></code></pre></div>
 <p>当我第一次开始解决这个问题时，我认为它很简单，我可以编写 app 而无需进行任何其他研究：</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"territory"</span>, <span class="st">"territory"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"selected"</span><span class="op">)</span></span>
@@ -382,7 +395,7 @@ Figure 5.3: RStudio’s debugging toolbar
 <p>我想，这是一个八行 app，可能会出什么问题吗？好吧，当我打开 app 时，我看到很多缺失值，无论我选择哪个区域。
 最有可能成为问题根源的代码是选择要显示的数据的响应式：<code>sales[sales$TERRITORY == input$territory, ]</code>。
 因此，我停止了该 app，并快速验证了子集化是否按照我想象的方式工作：</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb98"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span><span class="op">[</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op">==</span> <span class="st">"EMEA"</span>, <span class="op">]</span></span>
 <span><span class="co">#&gt; # A tibble: 2,481 × 6</span></span>
 <span><span class="co">#&gt;   TERRITORY ORDERDATE     ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
@@ -393,15 +406,15 @@ Figure 5.3: RStudio’s debugging toolbar
 <span><span class="co">#&gt; 4 &lt;NA&gt;      &lt;NA&gt;                   NA &lt;NA&gt;                     NA      NA  </span></span>
 <span><span class="co">#&gt; # ℹ 2,477 more rows</span></span></code></pre></div>
 <p>哎呀！我忘记了 <code>TERRITORY</code> 包含一堆缺失值，这意味着 <code>sales$TERRITORY == "EMEA"</code> 将包含一堆缺失值：</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op">==</span> <span class="st">"EMEA"</span>, <span class="fl">25</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]    NA  TRUE  TRUE    NA    NA    NA  TRUE  TRUE    NA  TRUE FALSE    NA</span></span>
 <span><span class="co">#&gt; [13]    NA    NA  TRUE    NA  TRUE  TRUE    NA    NA  TRUE FALSE  TRUE    NA</span></span>
 <span><span class="co">#&gt; [25]  TRUE</span></span></code></pre></div>
 <p>当我使用 <code>[</code> 对 <code>sales</code> data frame 进行子集化时，这些缺失值将成为缺失行；输入中的任何缺失值都将保留在输出中。
 有很多方法可以解决这个问题，但我决定使用 <code><a href="https://rdrr.io/r/base/subset.html">subset()</a></code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;我正在使用 &lt;code&gt;subset()&lt;/code&gt;，这样我的 app 就不需要任何其他包了。
-在更大的 app 中，我可能更喜欢 &lt;code&gt;dplyr::filter()&lt;/code&gt;，因为我对它的行为更熟悉。&lt;/p&gt;"><sup>3</sup></a>，因为会自动删除缺失值并减少我需要输入 <code>sales</code> 的次数。然后我仔细检查了这是否确实有效：</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+在更大的 app 中，我可能更喜欢 &lt;code&gt;dplyr::filter()&lt;/code&gt;，因为我对它的行为更熟悉。&lt;/p&gt;"><sup>17</sup></a>，因为会自动删除缺失值并减少我需要输入 <code>sales</code> 的次数。然后我仔细检查了这是否确实有效：</p>
+<div class="sourceCode" id="cb100"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op">==</span> <span class="st">"EMEA"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 1,407 × 6</span></span>
 <span><span class="co">#&gt;   TERRITORY ORDERDATE       ORDERNUMBER PRODUCTCODE QUANTITYORDERED PRICEEACH</span></span>
@@ -413,17 +426,17 @@ Figure 5.3: RStudio’s debugging toolbar
 <span><span class="co">#&gt; # ℹ 1,403 more rows</span></span></code></pre></div>
 <p>这解决了大部分问题，但当我在区域下拉列表中选择 <code>NA</code> 时仍然遇到问题：仍然没有出现行。
 于是，我再次检查控制台：</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb101"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op">==</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 0 × 6</span></span>
 <span><span class="co">#&gt; # ℹ 6 variables: TERRITORY &lt;chr&gt;, ORDERDATE &lt;chr&gt;, ORDERNUMBER &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   PRODUCTCODE &lt;chr&gt;, QUANTITYORDERED &lt;dbl&gt;, PRICEEACH &lt;dbl&gt;</span></span></code></pre></div>
 <p>然后我想起这当然行不通，因为缺失值具有传染性：</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb102"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op">==</span> <span class="cn">NA</span>, <span class="fl">25</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1] NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA</span></span></code></pre></div>
 <p>您可以使用另一个技巧来解决此问题：从 <code>==</code> 切换到 <code>%in%</code>：</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb103"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="cn">NA</span>, <span class="fl">25</span><span class="op">)</span></span>
 <span><span class="co">#&gt;  [1]  TRUE FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE</span></span>
 <span><span class="co">#&gt; [13]  TRUE  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE</span></span>
@@ -443,7 +456,7 @@ Figure 5.3: RStudio’s debugging toolbar
 <p>此时，我想我已经在控制台上做了我能做的一切，我需要进行一个实验来找出为什么 Shiny 内部的代码没有按照我预期的方式工作。
 我猜测问题最有可能的根源在于所选的响应式，因此我在那里添加了一个 <code><a href="https://rdrr.io/r/base/browser.html">browser()</a></code> 语句。
 （这使其成为两行响应式，因此我还需要将其包装在 <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> 中。）</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb104"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/browser.html">browser</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -460,20 +473,20 @@ Figure 5.3: RStudio’s debugging toolbar
 我真的没想到它会被损坏，因为 app 中没有任何内容触及它，但仔细检查您所做的每一个假设是最安全的。
 <code>sales</code> 看起来不错，所以问题一定出在 <code>TERRITORY %in% input$territory</code> 中。
 由于 <code>TERRITORY</code> 是 <code>sales</code> 的一部分，我首先检查 <code>input$territory</code>：</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb105"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">input</span><span class="op">$</span><span class="va">territory</span></span>
 <span><span class="co">#&gt; [1] "NA"</span></span></code></pre></div>
 <p>我盯着这个看了一会儿，因为它看起来也不错。
 然后我想到了！
 我以为是 <code>NA</code>，但实际上是 <code>"NA"</code>！
 现在我可以在 Shiny app 之外重现问题：</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb106"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/subset.html">subset</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="st">"NA"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 0 × 6</span></span>
 <span><span class="co">#&gt; # ℹ 6 variables: TERRITORY &lt;chr&gt;, ORDERDATE &lt;chr&gt;, ORDERNUMBER &lt;dbl&gt;,</span></span>
 <span><span class="co">#&gt; #   PRODUCTCODE &lt;chr&gt;, QUANTITYORDERED &lt;dbl&gt;, PRICEEACH &lt;dbl&gt;</span></span></code></pre></div>
 <p>然后我想出了一个简单的修复方法并将其应用于我的 server，然后重新运行该 app：</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb107"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">territory</span> <span class="op">==</span> <span class="st">"NA"</span><span class="op">)</span> <span class="op">{</span></span>
@@ -492,7 +505,7 @@ Figure 5.3: RStudio’s debugging toolbar
 North America 在哪里？
 然后我突然意识到：源数据可能使用缩写 NA，而 R 将其作为缺失值读入。
 所以真正的修复应该发生在数据加载期间：</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb108"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span><span class="st">"sales-dashboard/sales_data_sample.csv"</span>, na <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "NA"    "EMEA"  "APAC"  "Japan"</span></span></code></pre></div>
@@ -517,7 +530,7 @@ North America 在哪里？
 </ul>
 <p>我还建议将 <code><a href="https://rdrr.io/r/base/message.html">message()</a></code> 与 <code><a href="https://glue.tidyverse.org/reference/glue.html">glue::glue()</a></code> 结合起来，这样可以轻松地在消息中交错文本和值。
 如果您以前没有见过 <a href="http://glue.tidyverse.org/" title="⌘+Click to follow link">glue</a> ，其基本思想是，包装在 <code><a href="https://rdrr.io/r/base/Paren.html">{}</a></code> 内的任何内容都将被评估并插入到输出中：</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb109"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span></span>
 <span><span class="va">name</span> <span class="op">&lt;-</span> <span class="st">"Hadley"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span><span class="op">(</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="st">"Hello {name}"</span><span class="op">)</span><span class="op">)</span></span>
@@ -526,7 +539,7 @@ North America 在哪里？
 如果您需要仔细检查是否拥有所需的对象类型，这尤其有用。</p>
 <p>这是一个展示一些基本想法的玩具 app。
 请注意我如何在 <code><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive()</a></code> 中使用 <code><a href="https://rdrr.io/r/base/message.html">message()</a></code>：我必须执行计算，发送消息，然后返回之前计算的值。</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb110"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"x"</span>, <span class="st">"x"</span>, value <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"y"</span>, <span class="st">"y"</span>, value <span class="op">=</span> <span class="fl">2</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
@@ -578,7 +591,7 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 </h3>
 <p>reprex 只是一些 R 代码，当您将其复制并粘贴到另一台计算机上的 R 会话中时，它就会起作用。
 这是一个简单的 Shiny app reprex：</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb113"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"N"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>,</span>
@@ -602,25 +615,23 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 <p>制作 reprex 的第一步是创建一个独立的文件，其中包含运行代码所需的所有内容。
 您应该通过启动新的 R 会话然后运行代码来检查它是否有效。
 确保您没有忘记加载任何使您的 app 正常运行的软件包<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;无论您通常如何加载包，我强烈建议使用多个 &lt;code&gt;library()&lt;/code&gt; 调用。
-这可以消除不熟悉您所使用的工具的人可能产生的混淆。&lt;/p&gt;"><sup>4</sup></a>。</p>
+这可以消除不熟悉您所使用的工具的人可能产生的混淆。&lt;/p&gt;"><sup>18</sup></a>。</p>
 <p>通常，让您的 app 在其他人的计算机上运行的最具挑战性的部分是消除仅存储在您的计算机上的数据的使用。
 共有三种有用的模式：</p>
 <ul>
 <li><p>通常，您使用的数据与问题没有直接关系，您可以使用 <code>mtcars</code> 或 <code>iris</code> 等内置数据集。</p></li>
 <li><p>其他时候，您也许可以编写一些 R 代码来创建一个数据集来说明问题：</p></li>
 </ul>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb114"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>, <span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul>
 <li>如果这两种技术都失败了，您可以使用 <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> 将数据转换为代码。
 例如，<code>dput(mydata)</code> 生成重新创建 <code>mydata</code> 的代码：</li>
 </ul>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dput.html">dput</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span>
-<span><span class="co">#&gt; structure(list(x = 1:5, y = c("a", "b", "c", "d", "e")), class = "data.frame", row.names = c(NA, </span></span>
-<span><span class="co">#&gt; -5L))</span></span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dput.html">dput</a></span><span class="op">(</span><span class="va">mydata</span><span class="op">)</span></span></code></pre></div>
 <p>获得该代码后，您可以将其放入您的 reprex 中以生成 <code>mydata</code>：</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb116"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mydata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, y <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/structure.html">structure</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, .Label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"a"</span>, <span class="st">"b"</span>,<span class="st">"c"</span>, <span class="st">"d"</span>, <span class="st">"e"</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"factor"</span><span class="op">)</span><span class="op">)</span>, class <span class="op">=</span> <span class="st">"data.frame"</span>, row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="op">-</span><span class="fl">5L</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>通常，在原始数据上运行 <code><a href="https://rdrr.io/r/base/dput.html">dput()</a></code> 会生成大量代码，因此请找到能够说明问题的数据子集。
 您提供的数据集越小，其他人就越容易帮助您解决问题。</p>
@@ -667,10 +678,10 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 <ul>
 <li>添加了缺失的 <code><a href="https://lubridate.tidyverse.org">library(lubridate)</a></code> 和 <code><a href="https://joshuaulrich.github.io/xts/">library(xts)</a></code>。</li>
 <li>将 <code>ui</code> 和 <code>server</code> 拆分为单独的对象。</li>
-<li>使用 <code>styler::style_selection()</code> 重新格式化代码。</li>
+<li>使用 <code><a href="https://rdrr.io/pkg/styler/man/style_selection.html">styler::style_selection()</a></code> 重新格式化代码。</li>
 </ul>
 <p>这产生了以下 reprex：</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb117"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://joshuaulrich.github.io/xts/">xts</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
@@ -694,7 +705,7 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 <span>    var3 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">11</span>, <span class="fl">9</span>, <span class="fl">7</span>, <span class="fl">14</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span>  <span class="va">timeSeries</span> <span class="op">&lt;-</span> <span class="fu">as.xts</span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, </span>
+<span>  <span class="va">timeSeries</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/xts/man/as.xts.html">as.xts</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, </span>
 <span>    order.by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/strptime.html">strptime</a></span><span class="op">(</span><span class="va">df</span><span class="op">[</span>, <span class="fl">1</span><span class="op">]</span>, format <span class="op">=</span> <span class="st">"%Y-%m-%d %H:%M:%S"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://lubridate.tidyverse.org/reference/posix_utils.html">is.POSIXt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/time.html">time</a></span><span class="op">(</span><span class="va">timeSeries</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">" "</span><span class="op">)</span><span class="op">)</span></span>
@@ -731,7 +742,7 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 这仍然产生相同的错误，所以我删除了 <code>timeSeries</code> 和 <code>df</code>，并且由于这是唯一使用 xts 的地方，我还删除了 <code><a href="https://joshuaulrich.github.io/xts/">library(xts)</a></code>。</p></li>
 </ul>
 <p>这些更改共同产生了一个新的 <code>server()</code>，如下所示：</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb118"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">datetime</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.time</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">86400</span> <span class="op">*</span> <span class="fl">0</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
@@ -755,7 +766,7 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 <p>接下来，我注意到这个示例使用了相对复杂的 Shiny 技术，其中 UI 是在 server 函数中生成的。
 但这里 <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI()</a></code> 不使用任何响应式输入，因此如果从 server 函数移出并进入 UI，它应该以相同的方式工作。</p>
 <p>这产生了一个特别好的结果，因为现在错误发生得更早，甚至在我们启动 app 之前：</p>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb119"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"slider"</span>,</span>
 <span>    <span class="st">"Select Range:"</span>,</span>
@@ -768,20 +779,13 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 <span><span class="co">#&gt; Error: Type mismatch for `min`, `max`, and `value`.</span></span>
 <span><span class="co">#&gt; i All values must have same type: either numeric, Date, or POSIXt.</span></span></code></pre></div>
 <p>现在我们可以从错误消息中获取提示，并查看我们提供给 <code>min</code>、<code>max</code> 和 <code>value</code> 的每个输入，以了解问题出在哪里：</p>
-<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2024-08-10 19:39:40 CST"</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">datetime</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "2024-08-20 19:39:40 CST"</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [[1]]</span></span>
-<span><span class="co">#&gt; function (..., na.rm = FALSE)  .Primitive("min")</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [[2]]</span></span>
-<span><span class="co">#&gt; function (..., na.rm = FALSE)  .Primitive("max")</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">min</span>, <span class="va">max</span><span class="op">)</span></span></code></pre></div>
 <p>现在问题很明显：我们还没有分配 <code>min</code> 和 <code>max</code> 变量，所以我们不小心将 <code><a href="https://rdrr.io/r/base/Extremes.html">min()</a></code> 和 <code><a href="https://rdrr.io/r/base/Extremes.html">max()</a></code> 函数传递给了 <code><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput()</a></code>。
 解决该问题的一种方法是使用 <code><a href="https://rdrr.io/r/base/range.html">range()</a></code> 代替：</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb121"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"slider"</span>,</span>
 <span>              <span class="st">"Select Range:"</span>,</span>
@@ -793,7 +797,7 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 <span><span class="op">)</span></span></code></pre></div>
 <p>这是创建 reprex 的相当典型的结果：一旦将问题简化为其关键组件，解决方案就变得显而易见。
 创建一个好的 reprex 是一种非常强大的调试技术。</p>
-<p>为了简化这个 reprex，我必须对我不太熟悉的函数进行大量实验和阅读。<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;例如，我不知道 &lt;code&gt;is.POSIXt()&lt;/code&gt; 是 lubridate 包的一部分！&lt;/p&gt;"><sup>5</sup></a>
+<p>为了简化这个 reprex，我必须对我不太熟悉的函数进行大量实验和阅读。<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;例如，我不知道 &lt;code&gt;is.POSIXt()&lt;/code&gt; 是 lubridate 包的一部分！&lt;/p&gt;"><sup>19</sup></a>
 如果这是您的 reprex，那么通常会更容易做到这一点，因为您已经了解代码的意图。
 不过，您通常需要进行大量实验才能找出问题到底出在哪里。
 这可能会令人沮丧并且耗时，但它有很多好处：</p>
@@ -822,31 +826,44 @@ reprex 的目标是提供尽可能最小的 R 代码片段来说明问题并且�
 </div>
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="empty"></div>
+<div class="prev"><a href="action-intro.html">Introduction</a></div>
+<div class="next"><a href="action-dynamic.html"><span class="header-section-number">6</span> Dynamic UI</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#action-workflow"><span class="header-section-number">5</span> Workflow</a></li>
+<li>
+<a class="nav-link" href="#development-workflow"><span class="header-section-number">5.1</span> Development workflow</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#creating-the-app"><span class="header-section-number">5.1.1</span> Creating the app</a></li>
+<li><a class="nav-link" href="#seeing-your-changes"><span class="header-section-number">5.1.2</span> Seeing your changes</a></li>
+<li><a class="nav-link" href="#controlling-the-view"><span class="header-section-number">5.1.3</span> Controlling the view</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#debugging"><span class="header-section-number">5.2</span> Debugging</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reading-tracebacks"><span class="header-section-number">5.2.1</span> Reading tracebacks</a></li>
+<li><a class="nav-link" href="#tracebacks-in-shiny"><span class="header-section-number">5.2.2</span> Tracebacks in Shiny</a></li>
+<li><a class="nav-link" href="#browser"><span class="header-section-number">5.2.3</span> The interactive debugger</a></li>
+<li><a class="nav-link" href="#case-study"><span class="header-section-number">5.2.4</span> Case study</a></li>
+<li><a class="nav-link" href="#debugging-reactivity"><span class="header-section-number">5.2.5</span> Debugging reactivity</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#getting-help"><span class="header-section-number">5.3</span> Getting help</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#reprex-basics"><span class="header-section-number">5.3.1</span> Reprex basics</a></li>
+<li><a class="nav-link" href="#making-a-reprex"><span class="header-section-number">5.3.2</span> Making a reprex</a></li>
+<li><a class="nav-link" href="#making-a-minimal-reprex"><span class="header-section-number">5.3.3</span> Making a minimal reprex</a></li>
+<li><a class="nav-link" href="#case-study-1"><span class="header-section-number">5.3.4</span> Case study</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#summary-4"><span class="header-section-number">5.4</span> Summary</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+<li><a id="book-source" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/blob/master/action-workflow.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/edit/master/action-workflow.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
 </div>
     </nav>

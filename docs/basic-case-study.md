@@ -250,16 +250,16 @@ summary %>%
 selected %>% 
   sample_n(10) %>% 
   pull(narrative)
-#>  [1] "3 YOF STANDING ON TOILET WASHING HANDS LOST BALANCE FELL BACK HIT HEADON TILE FLOOR DX CLOSED HEAD INJURY"                           
-#>  [2] "41YOM INJ/BP NS- VOMITING IN TOILET, FELL TO FLOOR"                                                                                  
-#>  [3] "65YOF TRANSFERING FROM BEDSIDE COMMODE TO WHEELCHAIR FORGOT TO LOCK WHEELS, FELL TO CARPETED FLOOR ON BUTTOCKS/LUMBAR SPINE & RIB CT"
-#>  [4] "94 YOF COLLAPSED ON COMMODE AND HIT HEAD ON BATHTUB.DX:  NEARY SYNCOPE, CLOSED HEAD INJURY."                                         
-#>  [5] "85YOF GLG GET' UP OFF TOILET FELL; HITTING HEAD ON A MOBILE HEATER: DXFX METATRSAL/CHI"                                              
-#>  [6] "18YOF-LAST NIGHT WAS PLAYING WITH DOG & HIT HAND/FINGER ONTO THETOILET WEARS ACRYLIC NAILS. DX- RIGHT 3RD FINGERNAIL INJURY."        
-#>  [7] "9 Y/O M CONTUSION TO RING FINGER WHEN AT FAIR CAUGHT FINGER IN***."                                                                  
-#>  [8] "26YOF HIT HAED AND FACE ON TOILET W DOING HAIR: DX CHI"                                                                              
-#>  [9] "89 YOF FELL FROM TOILET AND HIT CHEST WALL - TRAUMATIC PNEUMOTHORAX"                                                                 
-#> [10] "81YM H/O HIP REPLACEMENT, FROM ALF WHERE ATTEMPTED TO GET UP OFF TOILET, LEGS GAVE OUT&FELL>>FEMUR FX"
+#>  [1] "LUMBAR STR.  19YOM STRAINED LOWER BACK GETTING UP FROM TOILET AT HOME."                                                                
+#>  [2] "77 YO M PT LOST HIS BALANCE FELL OFF THE TOILET ONTO FLOOR HITTING HEADDX CHI"                                                         
+#>  [3] "76 YO M C/O TOE INJURY S/P TRIP AND FALL AND HIT TOE ON BOTTOM OF TOILET DX CLOSED NONDISPLACED FX DISTAL PHALANX LEFT GREAT TOE, FALL"
+#>  [4] "93YOM WAS TRANSFERRING OFF THE TOILET AT THE NURSING HOME AND LANDED ONTO HEAD CLOSED HEAD INJURY"                                     
+#>  [5] "7YOF LAC CHIN- FELL OFF TOILET, STRUCK TUB"                                                                                            
+#>  [6] "25 YOM  CUT FINGER ON BROKEN TOILET.DX:  FINGER LAC 3 CM."                                                                             
+#>  [7] "17 YO F C/O LT BACK PAIN BEGAN AFTER GETTING UP FROM SEATED POSITION ONTOILET DX PROBABLY MUSCLE PAIN"                                 
+#>  [8] "18 YOM WAS URINATING, PASSED OUT, STRUCK HEAD ON TOILET. NO TRAUMATIC INJURY NOTED. DX VASOVAGAL SYNCOPE"                              
+#>  [9] "SCROTUM HEMATOMA.  87YOM FELL AGAINST TOILET BOWL AT HOME."                                                                            
+#> [10] "69YOF GETTING ON HER TOILET AND MISSED IT HIT HEAD ON THE FLOOR CLOSEDHEAD INJURY"
 ```
 
 在对一个产品进行了这种探索之后，如果我们可以轻松地对其他产品进行此探索，而无需重新输入代码，那就太好了。

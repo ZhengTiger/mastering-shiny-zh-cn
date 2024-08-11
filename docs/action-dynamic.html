@@ -1,0 +1,1078 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 6 Dynamic UI | Mastering Shiny</title>
+<meta name="author" content="Hadley Wickham">
+<meta name="generator" content="bookdown 0.34.2 with bs4_book()">
+<meta property="og:title" content="Chapter 6 Dynamic UI | Mastering Shiny">
+<meta property="og:type" content="book">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 6 Dynamic UI | Mastering Shiny">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.5.0/transition.js"></script><script src="libs/bs3compat-0.5.0/tabs.js"></script><script src="libs/bs3compat-0.5.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-141197094-1"></script><script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-141197094-1');
+    </script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<meta name="description" content="到目前为止，我们已经看到用户界面和 server 函数之间的清晰分离：用户界面是在 app 启动时静态定义的，因此它无法响应 app 中发生的任何情况。 在本章中，您将学习如何创建动态（dynamic）用户界面，使用在 server 函数中运行的代码更改 UI。 创建动态用户界面有以下三种关键技术： 使用 update 系列函数修改输入控件的参数。 使用 tabsetPanel()...">
+<meta property="og:description" content="到目前为止，我们已经看到用户界面和 server 函数之间的清晰分离：用户界面是在 app 启动时静态定义的，因此它无法响应 app 中发生的任何情况。 在本章中，您将学习如何创建动态（dynamic）用户界面，使用在 server 函数中运行的代码更改 UI。 创建动态用户界面有以下三种关键技术： 使用 update 系列函数修改输入控件的参数。 使用 tabsetPanel()...">
+<meta name="twitter:description" content="到目前为止，我们已经看到用户界面和 server 函数之间的清晰分离：用户界面是在 app 启动时静态定义的，因此它无法响应 app 中发生的任何情况。 在本章中，您将学习如何创建动态（dynamic）用户界面，使用在 server 函数中运行的代码更改 UI。 创建动态用户界面有以下三种关键技术： 使用 update 系列函数修改输入控件的参数。 使用 tabsetPanel()...">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Mastering Shiny</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="preface.html">Preface</a></li>
+<li class="book-part">Getting started</li>
+<li><a class="" href="basic-intro.html">Introduction</a></li>
+<li><a class="" href="basic-app.html"><span class="header-section-number">1</span> Your first Shiny app</a></li>
+<li><a class="" href="basic-ui.html"><span class="header-section-number">2</span> Basic UI</a></li>
+<li><a class="" href="basic-reactivity.html"><span class="header-section-number">3</span> Basic reactivity</a></li>
+<li><a class="" href="basic-case-study.html"><span class="header-section-number">4</span> Case study: ER injuries</a></li>
+<li class="book-part">Shiny in action</li>
+<li><a class="" href="action-intro.html">Introduction</a></li>
+<li><a class="" href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></li>
+<li><a class="active" href="action-dynamic.html"><span class="header-section-number">6</span> Dynamic UI</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/zhenghu159/mastering-shiny-zh-cn">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="action-dynamic" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Dynamic UI<a class="anchor" aria-label="anchor" href="#action-dynamic"><i class="fas fa-link"></i></a>
+</h1>
+<p>到目前为止，我们已经看到用户界面和 server 函数之间的清晰分离：用户界面是在 app 启动时静态定义的，因此它无法响应 app 中发生的任何情况。
+在本章中，您将学习如何创建<strong>动态（dynamic）</strong>用户界面，使用在 server 函数中运行的代码更改 UI。</p>
+<p>创建动态用户界面有以下三种关键技术：</p>
+<ul>
+<li><p>使用 <code>update</code> 系列函数修改输入控件的参数。</p></li>
+<li><p>使用 <code><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel()</a></code> 有条件地显示和隐藏部分用户界面。</p></li>
+<li><p>使用 <code><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput()</a></code> 和 <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI()</a></code> 通过代码生成用户界面的选定部分。</p></li>
+</ul>
+<p>这三个工具使您能够通过修改输入和输出来响应用户。
+我将演示一些更有用的方法来应用它们，但最终您只会受到创造力的限制。
+同时，这些工具可能会使您的 app 更加难以推理，因此请谨慎部署它们，并始终努力使用最简单的技术来解决您的问题。</p>
+<div class="sourceCode" id="cb122"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.rstudio.com/">shiny</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<div id="updating-inputs" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> Updating inputs<a class="anchor" aria-label="anchor" href="#updating-inputs"><i class="fas fa-link"></i></a>
+</h2>
+<p>我们将从一种简单的技术开始，该技术允许您在创建输入后对其进行修改：更新函数系列。
+每个输入控件，例如 <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput()</a></code> 与更新函数配对，例如 <code><a href="https://rdrr.io/pkg/shiny/man/updateTextInput.html">updateTextInput()</a></code>，允许您在创建控件后对其进行修改。</p>
+<p>以下面代码为例，结果如 Figure <a href="action-dynamic.html#fig:update-basics">6.1</a> 所示。
+该 app 有两个输入，用于控制另一个输入（滑块）的范围（<code>min</code> 和 <code>max</code>）。
+关键思想是每当 <code>min</code> 或 <code>max</code> 输入发生变化时，使用 <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent()</a></code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content='&lt;p&gt;我在 Section &lt;a href="basic-reactivity.html#observers"&gt;3.6&lt;/a&gt; 中介绍了 &lt;code&gt;observeEvent()&lt;/code&gt;，并将在 Section &lt;a href="#observers-details"&gt;&lt;strong&gt;??&lt;/strong&gt;&lt;/a&gt; 中更详细地讨论。&lt;/p&gt;'><sup>20</sup></a> 触发 <code><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput()</a></code>。</p>
+<div class="sourceCode" id="cb123"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"min"</span>, <span class="st">"Minimum"</span>, <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"max"</span>, <span class="st">"Maximum"</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"n"</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">3</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">min</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"n"</span>, min <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">min</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">max</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"n"</span>, max <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">max</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:update-basics"></span>
+<img src="demos/action-dynamic/update-basics-onload.png" alt="加载时的 app（左），增加 max（中），然后减少 min（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-basics&gt;." width="33%"><img src="demos/action-dynamic/update-basics-max-increase.png" alt="加载时的 app（左），增加 max（中），然后减少 min（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-basics&gt;." width="33%"><img src="demos/action-dynamic/update-basics-min-decrease.png" alt="加载时的 app（左），增加 max（中），然后减少 min（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-basics&gt;." width="33%"><p class="caption">
+Figure 6.1: 加载时的 app（左），增加 max（中），然后减少 min（右）。 See live at <a href="https://hadley.shinyapps.io/ms-update-basics" class="uri">https://hadley.shinyapps.io/ms-update-basics</a>.
+</p>
+</div>
+<p>更新函数看起来与其他 Shiny 函数略有不同：它们都将输入的名称（作为字符串）作为 <code>inputId</code> 参数<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;第一个参数 &lt;code&gt;session&lt;/code&gt; 是为了向后兼容而存在的，但是很少需要。&lt;/p&gt;"><sup>21</sup></a>。
+其余参数对应于输入构造函数的参数，可以在创建后进行修改。</p>
+<p>为了帮助您掌握更新函数，我将展示几个更简单的示例，然后我们将使用分层选择框深入研究更复杂的案例，最后讨论循环引用问题。</p>
+<div id="simple-uses" class="section level3" number="6.1.1">
+<h3>
+<span class="header-section-number">6.1.1</span> Simple uses<a class="anchor" aria-label="anchor" href="#simple-uses"><i class="fas fa-link"></i></a>
+</h3>
+<p>更新函数最简单的用途是为用户提供一些小便利。
+例如，也许您希望能够轻松地将参数重置回其初始值。
+下面的代码片段展示了如何组合 <code><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton()</a></code>、<code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent()</a></code> 和 <code><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput()</a></code>，输出如 Figure <a href="action-dynamic.html#fig:update-reset">6.2</a> 所示。</p>
+<div class="sourceCode" id="cb124"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"x1"</span>, <span class="st">"x1"</span>, <span class="fl">0</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"x2"</span>, <span class="st">"x2"</span>, <span class="fl">0</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"x3"</span>, <span class="st">"x3"</span>, <span class="fl">0</span>, min <span class="op">=</span> <span class="op">-</span><span class="fl">10</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"reset"</span>, <span class="st">"Reset"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">reset</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"x1"</span>, value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"x2"</span>, value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSliderInput.html">updateSliderInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"x3"</span>, value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:update-reset"></span>
+<img src="demos/action-dynamic/update-reset-onload.png" alt="加载 app（左），拖动一些滑块后（中），后然后单击 reset（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-reset&gt;." width="33%"><img src="demos/action-dynamic/update-reset-set.png" alt="加载 app（左），拖动一些滑块后（中），后然后单击 reset（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-reset&gt;." width="33%"><img src="demos/action-dynamic/update-reset-reset.png" alt="加载 app（左），拖动一些滑块后（中），后然后单击 reset（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-reset&gt;." width="33%"><p class="caption">
+Figure 6.2: 加载 app（左），拖动一些滑块后（中），后然后单击 reset（右）。 See live at <a href="https://hadley.shinyapps.io/ms-update-reset" class="uri">https://hadley.shinyapps.io/ms-update-reset</a>.
+</p>
+</div>
+<p>类似的应用程序是调整操作按钮的文本，以便您确切地知道它将做什么。
+Figure <a href="action-dynamic.html#fig:update-button">6.3</a> 显示了下面代码的结果。</p>
+<div class="sourceCode" id="cb125"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Simulations"</span>, <span class="fl">10</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"simulate"</span>, <span class="st">"Simulate"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span>, <span class="op">{</span></span>
+<span>    <span class="va">label</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"Simulate "</span>, <span class="va">input</span><span class="op">$</span><span class="va">n</span>, <span class="st">" times"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateActionButton.html">updateActionButton</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"simulate"</span>, label <span class="op">=</span> <span class="va">label</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:update-button"></span>
+<img src="demos/action-dynamic/update-button-onload.png" alt="加载时的 app（左），将 simulations 设置为 1（中），然后将 simulations 设置为 100（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-button&gt;." width="33%"><img src="demos/action-dynamic/update-button-set1.png" alt="加载时的 app（左），将 simulations 设置为 1（中），然后将 simulations 设置为 100（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-button&gt;." width="33%"><img src="demos/action-dynamic/update-button-set100.png" alt="加载时的 app（左），将 simulations 设置为 1（中），然后将 simulations 设置为 100（右）。 See live at &lt;https://hadley.shinyapps.io/ms-update-button&gt;." width="33%"><p class="caption">
+Figure 6.3: 加载时的 app（左），将 simulations 设置为 1（中），然后将 simulations 设置为 100（右）。 See live at <a href="https://hadley.shinyapps.io/ms-update-button" class="uri">https://hadley.shinyapps.io/ms-update-button</a>.
+</p>
+</div>
+<p>以这种方式使用更新函数的方法有很多种；当您开发复杂的应用程序时，请寻找向用户提供更多信息的方法。
+一个特别重要的应用是通过逐步过滤，可以更轻松地从一长串可能的选项中进行选择。
+这通常是“分层选择框”的问题。</p>
+</div>
+<div id="hierarchical-select" class="section level3" number="6.1.2">
+<h3>
+<span class="header-section-number">6.1.2</span> Hierarchical select boxes<a class="anchor" aria-label="anchor" href="#hierarchical-select"><i class="fas fa-link"></i></a>
+</h3>
+<p>更新函数的一个更复杂但特别有用的应用是允许跨多个类别进行交互式钻取。
+我将使用来自 <a href="https://www.kaggle.com/kyanyoga/sample-sales-data" class="uri">https://www.kaggle.com/kyanyoga/sample-sales-data</a> 的销售仪表盘的一些虚构数据来说明它们的用法。</p>
+<div class="sourceCode" id="cb126"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sales</span> <span class="op">&lt;-</span> <span class="fu">vroom</span><span class="fu">::</span><span class="fu"><a href="https://vroom.r-lib.org/reference/vroom.html">vroom</a></span><span class="op">(</span><span class="st">"sales-dashboard/sales_data_sample.csv"</span>, col_types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>, na <span class="op">=</span> <span class="st">""</span><span class="op">)</span></span>
+<span><span class="va">sales</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">TERRITORY</span>, <span class="va">CUSTOMERNAME</span>, <span class="va">ORDERNUMBER</span>, <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html">everything</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">ORDERNUMBER</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2,823 × 25</span></span>
+<span><span class="co">#&gt;    TERRITORY CUSTOMERNAME   ORDERNUMBER QUANTITYORDERED PRICEEACH ORDERLINENUMBER</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt;           &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;</span></span>
+<span><span class="co">#&gt;  1 NA        Online Diecas…       10100              30     100                 3</span></span>
+<span><span class="co">#&gt;  2 NA        Online Diecas…       10100              50      67.8               2</span></span>
+<span><span class="co">#&gt;  3 NA        Online Diecas…       10100              22      86.5               4</span></span>
+<span><span class="co">#&gt;  4 NA        Online Diecas…       10100              49      34.5               1</span></span>
+<span><span class="co">#&gt;  5 EMEA      Blauer See Au…       10101              25     100                 4</span></span>
+<span><span class="co">#&gt;  6 EMEA      Blauer See Au…       10101              26     100                 1</span></span>
+<span><span class="co">#&gt;  7 EMEA      Blauer See Au…       10101              45      31.2               3</span></span>
+<span><span class="co">#&gt;  8 EMEA      Blauer See Au…       10101              46      53.8               2</span></span>
+<span><span class="co">#&gt;  9 NA        Vitachrome In…       10102              39     100                 2</span></span>
+<span><span class="co">#&gt; 10 NA        Vitachrome In…       10102              41      50.1               1</span></span>
+<span><span class="co">#&gt; # ℹ 2,813 more rows</span></span>
+<span><span class="co">#&gt; # ℹ 19 more variables: SALES &lt;dbl&gt;, ORDERDATE &lt;chr&gt;, STATUS &lt;chr&gt;, QTR_ID &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   MONTH_ID &lt;dbl&gt;, YEAR_ID &lt;dbl&gt;, PRODUCTLINE &lt;chr&gt;, MSRP &lt;dbl&gt;,</span></span>
+<span><span class="co">#&gt; #   PRODUCTCODE &lt;chr&gt;, PHONE &lt;chr&gt;, ADDRESSLINE1 &lt;chr&gt;, ADDRESSLINE2 &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   CITY &lt;chr&gt;, STATE &lt;chr&gt;, POSTALCODE &lt;chr&gt;, COUNTRY &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   CONTACTLASTNAME &lt;chr&gt;, CONTACTFIRSTNAME &lt;chr&gt;, DEALSIZE &lt;chr&gt;</span></span></code></pre></div>
+<p>在这个演示中，我将重点关注数据中的自然层次结构：</p>
+<ul>
+<li>每个 territory 都包含 customers。</li>
+<li>每个 customer 有多个 orders。</li>
+<li>每个 order 包含多行。</li>
+</ul>
+<p>我想创建一个用户界面，您可以：</p>
+<ul>
+<li>选择一个 territory 以查看所有 customers。</li>
+<li>选择一个 customer 以查看所有 orders。</li>
+<li>选择一个 order 以查看基础行。</li>
+</ul>
+<p>UI 的本质很简单：我将创建三个选择框和一个输出表。
+<code>customername</code> 和 <code>ordernumber</code> 选择框的选项将动态生成，因此我设置 <code>choices = NULL</code>。</p>
+<div class="sourceCode" id="cb127"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"territory"</span>, <span class="st">"Territory"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">sales</span><span class="op">$</span><span class="va">TERRITORY</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"customername"</span>, <span class="st">"Customer"</span>, choices <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"ordernumber"</span>, <span class="st">"Order number"</span>, choices <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>在 server 函数中，我自上而下地工作：</p>
+<ol style="list-style-type: decimal">
+<li><p>我创建了一个响应式 <code>territory()</code>，其中包含与来自 <code>sales</code> 所选 territory 匹配的行。</p></li>
+<li><p>每当 <code>territory()</code> 发生变化时，我都会更新 <code>input$customername</code> 选择框中的 <code>choices</code> 列表。</p></li>
+<li><p>我创建了另一个响应式 <code>customer()</code>，其中包含与来自 <code>territory()</code> 所选 customer 匹配的行。</p></li>
+<li><p>每当 <code>customer()</code> 更改时，我都会更新 <code>input$ordernumber</code> 选择框中的 <code>choices</code> 列表。</p></li>
+<li><p>我在 <code>output$data</code> 中显示选定的 orders。</p></li>
+</ol>
+<p>您可以在下面看到该组织：</p>
+<div class="sourceCode" id="cb128"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">territory</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">sales</span>, <span class="va">TERRITORY</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">territory</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="fu">territory</span><span class="op">(</span><span class="op">)</span>, <span class="op">{</span></span>
+<span>    <span class="va">choices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="fu">territory</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">CUSTOMERNAME</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"customername"</span>, choices <span class="op">=</span> <span class="va">choices</span><span class="op">)</span> </span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">customer</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">customername</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="fu">territory</span><span class="op">(</span><span class="op">)</span>, <span class="va">CUSTOMERNAME</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">customername</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="fu">customer</span><span class="op">(</span><span class="op">)</span>, <span class="op">{</span></span>
+<span>    <span class="va">choices</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="fu">customer</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">ORDERNUMBER</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"ordernumber"</span>, choices <span class="op">=</span> <span class="va">choices</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/req.html">req</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">ordernumber</span><span class="op">)</span></span>
+<span>    <span class="fu">customer</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">ORDERNUMBER</span> <span class="op">==</span> <span class="va">input</span><span class="op">$</span><span class="va">ordernumber</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> </span>
+<span>      <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">QUANTITYORDERED</span>, <span class="va">PRICEEACH</span>, <span class="va">PRODUCTCODE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:update-nested"></span>
+<img src="demos/action-dynamic/update-nested-territory.png" alt='我选择 "EMEA"（左），然后选择 "Lyon Souveniers"（中），然后（右）查看 orders。 See live at &lt;https://hadley.shinyapps.io/ms-update-nested&gt;.' width="33%"><img src="demos/action-dynamic/update-nested-customername.png" alt='我选择 "EMEA"（左），然后选择 "Lyon Souveniers"（中），然后（右）查看 orders。 See live at &lt;https://hadley.shinyapps.io/ms-update-nested&gt;.' width="33%"><img src="demos/action-dynamic/update-nested-orders.png" alt='我选择 "EMEA"（左），然后选择 "Lyon Souveniers"（中），然后（右）查看 orders。 See live at &lt;https://hadley.shinyapps.io/ms-update-nested&gt;.' width="33%"><p class="caption">
+Figure 6.4: 我选择 “EMEA”（左），然后选择 “Lyon Souveniers”（中），然后（右）查看 orders。 See live at <a href="https://hadley.shinyapps.io/ms-update-nested" class="uri">https://hadley.shinyapps.io/ms-update-nested</a>.
+</p>
+</div>
+<p>在 <a href="https://hadley.shinyapps.io/ms-update-nested" class="uri">https://hadley.shinyapps.io/ms-update-nested</a> 尝试这个简单的示例，或者在 <a href="https://github.com/hadley/mastering-shiny/tree/master/sales-dashboard" class="uri">https://github.com/hadley/mastering-shiny/tree/master/sales-dashboard</a> 查看更完整的应用程序仪表盘。</p>
+</div>
+<div id="freezing-reactive-inputs" class="section level3" number="6.1.3">
+<h3>
+<span class="header-section-number">6.1.3</span> Freezing reactive inputs<a class="anchor" aria-label="anchor" href="#freezing-reactive-inputs"><i class="fas fa-link"></i></a>
+</h3>
+<p>有时，这种分层选择可能会短暂地创建一组无效的输入，从而导致出现不希望的输出。
+例如，考虑这个简单的 app，您可以在其中选择数据集，然后选择要汇总的变量：</p>
+<div class="sourceCode" id="cb129"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"dataset"</span>, <span class="st">"Choose a dataset"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pressure"</span>, <span class="st">"cars"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"column"</span>, <span class="st">"Choose column"</span>, <span class="fu"><a href="https://rdrr.io/r/base/character.html">character</a></span><span class="op">(</span><span class="fl">0</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"summary"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"column"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="fu">dataset</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu">dataset</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="va">input</span><span class="op">$</span><span class="va">column</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>如果您尝试 <a href="https://hadley.shinyapps.io/ms-freeze" class="uri">https://hadley.shinyapps.io/ms-freeze</a> 上的实时 app，您会注意到当您切换数据集时，摘要输出会短暂闪烁。
+这是因为 <code><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput()</a></code> 仅在所有输出和观察者运行后才产生影响，因此暂时存在一种状态，其中具有数据集 B 和数据集 A 中的变量，因此输出包含 <code>summary(NULL)</code>。</p>
+<p>您可以通过使用 <code><a href="https://rdrr.io/pkg/shiny/man/freezeReactiveValue.html">freezeReactiveValue()</a></code> “冻结（freezing）”输入来解决此问题。
+这确保了使用输入的任何响应式或输出在下一轮完整的失效之前不会被更新<a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;更准确地说，任何尝试读取冻结输入的尝试都将导致 &lt;code&gt;req(FALSE)&lt;/code&gt;。&lt;/p&gt;"><sup>22</sup></a>。</p>
+<div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/freezeReactiveValue.html">freezeReactiveValue</a></span><span class="op">(</span><span class="va">input</span>, <span class="st">"column"</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateSelectInput.html">updateSelectInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"column"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="fu">dataset</span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">summary</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderPrint</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="fu">dataset</span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="va">input</span><span class="op">$</span><span class="va">column</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>请注意，无需“解冻”输入值；在 Shiny 检测到会话和 server 再次同步后，这种情况会自动发生。</p>
+<p>您可能想知道何时应该使用 <code><a href="https://rdrr.io/pkg/shiny/man/freezeReactiveValue.html">freezeReactiveValue()</a></code>：当您动态更改输入 <code>value</code> 时始终使用它实际上是一个很好的做法。
+实际的修改需要一些时间才能流到浏览器，然后返回到 Shiny，在此期间，任何值的读取充其量都是浪费，最坏的情况会导致错误。
+使用 <code><a href="https://rdrr.io/pkg/shiny/man/freezeReactiveValue.html">freezeReactiveValue()</a></code> 告诉所有下游计算输入值已过时，他们应该节省精力直到它有用为止。</p>
+</div>
+<div id="circular-references" class="section level3" number="6.1.4">
+<h3>
+<span class="header-section-number">6.1.4</span> Circular references<a class="anchor" aria-label="anchor" href="#circular-references"><i class="fas fa-link"></i></a>
+</h3>
+<p>如果您想使用更新函数来更改输入的当前 <code>value</code><a class="footnote-ref" tabindex="0" data-toggle="popover" data-content="&lt;p&gt;这通常仅在您更改 &lt;code&gt;value&lt;/code&gt; 时才需要担心，但其他一些参数可能会间接更改 &lt;code&gt;value&lt;/code&gt;。
+例如，如果您修改 &lt;code&gt;selectInput()&lt;/code&gt; 的 &lt;code&gt;choices&lt;/code&gt; 或 &lt;code&gt;selectInput()&lt;/code&gt; 的 &lt;code&gt;min&lt;/code&gt; 和 &lt;code&gt;max&lt;/code&gt;，则如果当前 &lt;code&gt;value&lt;/code&gt; 不再位于允许的 values 集中，则会对其进行修改。&lt;/p&gt;"><sup>23</sup></a>，我们需要讨论一个重要问题。
+从 Shiny 的角度来看，使用更新函数修改 <code>value</code> 与用户通过单击或键入来修改 <code>value</code> 没有什么不同。
+这意味着更新函数可以以与人类完全相同的方式触发响应式更新。
+这意味着您现在已经超出了纯响应式编程的范围，并且您需要开始担心循环引用和无限循环。</p>
+<p>例如，采用以下简单的 app。
+它包含一个输入控件和一个将其值加一的观察者。
+每次 <code><a href="https://rdrr.io/pkg/shiny/man/updateNumericInput.html">updateNumericInput()</a></code> 运行时，它都会更改 <code>input$n</code>，导致 <code><a href="https://rdrr.io/pkg/shiny/man/updateNumericInput.html">updateNumericInput()</a></code> 再次运行，因此 app 陷入无限循环，不断增加 <code>input$n</code> 的值。</p>
+<div class="sourceCode" id="cb131"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"n"</span>, <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span>,</span>
+<span>               <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateNumericInput.html">updateNumericInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"n"</span>, value <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">n</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>您不太可能在自己的 app 中产生如此明显的问题，但如果您更新彼此依赖的多个控件，则可能会出现这种问题，如下一个示例所示。</p>
+</div>
+<div id="inter-related-inputs" class="section level3" number="6.1.5">
+<h3>
+<span class="header-section-number">6.1.5</span> Inter-related inputs<a class="anchor" aria-label="anchor" href="#inter-related-inputs"><i class="fas fa-link"></i></a>
+</h3>
+<p>当 app 中有多个“事实来源”时，很容易出现循环引用。
+例如，假设您想要创建一个温度转换 app，您可以在其中输入摄氏温度或华氏温度：</p>
+<div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"temp_c"</span>, <span class="st">"Celsius"</span>, <span class="cn">NA</span>, step <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"temp_f"</span>, <span class="st">"Fahrenheit"</span>, <span class="cn">NA</span>, step <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">temp_f</span>, <span class="op">{</span></span>
+<span>    <span class="va">c</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">temp_f</span> <span class="op">-</span> <span class="fl">32</span><span class="op">)</span> <span class="op">*</span> <span class="fl">5</span> <span class="op">/</span> <span class="fl">9</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateNumericInput.html">updateNumericInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"temp_c"</span>, value <span class="op">=</span> <span class="va">c</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">temp_c</span>, <span class="op">{</span></span>
+<span>    <span class="va">f</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">temp_c</span> <span class="op">*</span> <span class="fl">9</span> <span class="op">/</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span> <span class="fl">32</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateNumericInput.html">updateNumericInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"temp_f"</span>, value <span class="op">=</span> <span class="va">f</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>如果您使用这个 app，<a href="https://hadley.shinyapps.io/ms-temperature" class="uri">https://hadley.shinyapps.io/ms-temperature</a>，您会发现它大部分工作正常，但您可能会注意到它有时会触发多个更改。
+例如：</p>
+<ul>
+<li>设置 120 F，然后单击向下箭头。</li>
+<li>F 更改为 119，C 更新为 48。</li>
+<li>48 C 转换为 118 F，因此 F 再次变为 118。</li>
+<li>幸运的是 118 F 仍然是 48 C，所以更新就到此为止。</li>
+</ul>
+<p>这个问题没有办法解决，因为您只有一个想法（温度），app 中有两种表达式（摄氏度和华氏度）。
+幸运的是，循环很快收敛到满足这两个约束的值。
+一般来说，最好避免这些情况，除非您愿意非常仔细地分析您所创建的底层动态系统的收敛特性。</p>
+</div>
+<div id="exercises-5" class="section level3" number="6.1.6">
+<h3>
+<span class="header-section-number">6.1.6</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-5"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>使用更新 <code>input$date</code> 的 server 函数完成下面的用户界面，以便您只能选择 <code>input$year</code> 中的日期。</li>
+</ol>
+<div class="sourceCode" id="cb133"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"year"</span>, value <span class="op">=</span> <span class="fl">2020</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/dateInput.html">dateInput</a></span><span class="op">(</span><span class="st">"date"</span>, <span class="st">"date"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>使用 server 函数完成下面的用户界面，该函数根据 <code>input$state</code> 更新 <code>input$county</code> 选择。
+对于额外的挑战，还可以将 Louisiana 的标签从 “County” 更改为 “Parish”，将 Alaska 的标签从 “County” 更改为 “Borough”。</li>
+</ol>
+<div class="sourceCode" id="cb134"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://openintrostat.github.io/openintro/">openintro</a></span>, warn.conflicts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: airports</span></span>
+<span><span class="co">#&gt; Loading required package: cherryblossom</span></span>
+<span><span class="co">#&gt; Loading required package: usdata</span></span>
+<span><span class="co">#&gt; Registered S3 methods overwritten by 'readr':</span></span>
+<span><span class="co">#&gt;   method                    from </span></span>
+<span><span class="co">#&gt;   as.data.frame.spec_tbl_df vroom</span></span>
+<span><span class="co">#&gt;   as_tibble.spec_tbl_df     vroom</span></span>
+<span><span class="co">#&gt;   format.col_spec           vroom</span></span>
+<span><span class="co">#&gt;   print.col_spec            vroom</span></span>
+<span><span class="co">#&gt;   print.collector           vroom</span></span>
+<span><span class="co">#&gt;   print.date_names          vroom</span></span>
+<span><span class="co">#&gt;   print.locale              vroom</span></span>
+<span><span class="co">#&gt;   str.col_spec              vroom</span></span>
+<span><span class="va">states</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">county</span><span class="op">$</span><span class="va">state</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"state"</span>, <span class="st">"State"</span>, choices <span class="op">=</span> <span class="va">states</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"county"</span>, <span class="st">"County"</span>, choices <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>使用 server 函数完成下面的用户界面，该函数根据 <code>input$continent</code> 更新 <code>input$country</code> 选择。
+使用 <code>output$data</code> 显示所有匹配的行。</li>
+</ol>
+<div class="sourceCode" id="cb135"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jennybc/gapminder">gapminder</a></span><span class="op">)</span></span>
+<span><span class="va">continents</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">gapminder</span><span class="op">$</span><span class="va">continent</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"continent"</span>, <span class="st">"Continent"</span>, choices <span class="op">=</span> <span class="va">continents</span><span class="op">)</span>, </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"country"</span>, <span class="st">"Country"</span>, choices <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li><p>扩展之前的 app，以便您还可以选择所有 continents，从而查看所有 countries。
+您需要将 <code>"(All)"</code> 添加到选项列表中，然后在过滤时特殊处理。</p></li>
+<li><p><a href="https://community.rstudio.com/t/29307" class="uri">https://community.rstudio.com/t/29307</a> 所描述问题的核心是什么 ?</p></li>
+</ol>
+</div>
+</div>
+<div id="dynamic-visibility" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> Dynamic visibility<a class="anchor" aria-label="anchor" href="#dynamic-visibility"><i class="fas fa-link"></i></a>
+</h2>
+<p>复杂性的下一步是有选择地显示和隐藏部分 UI。
+如果您了解一点 JavaScript 和 CSS，还有更复杂的方法，但有一种不需要任何额外知识的有用技术：使用选项卡集隐藏可选 UI（如 Section <a href="#tabsets"><strong>??</strong></a> 中介绍的）。
+这是一个聪明的技巧，允许您根据需要显示和隐藏 UI，而无需从头开始重新生成它（正如您将在下一节中学到的）。</p>
+<div class="sourceCode" id="cb136"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"controller"</span>, <span class="st">"Show"</span>, choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"panel"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel</a></span><span class="op">(</span></span>
+<span>        id <span class="op">=</span> <span class="st">"switcher"</span>,</span>
+<span>        type <span class="op">=</span> <span class="st">"hidden"</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanelBody</a></span><span class="op">(</span><span class="st">"panel1"</span>, <span class="st">"Panel 1 content"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanelBody</a></span><span class="op">(</span><span class="st">"panel2"</span>, <span class="st">"Panel 2 content"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanelBody</a></span><span class="op">(</span><span class="st">"panel3"</span>, <span class="st">"Panel 3 content"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">controller</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateTabsetPanel.html">updateTabsetPanel</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"switcher"</span>, selected <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">controller</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:dynamic-panels"></span>
+<img src="demos/action-dynamic/dynamic-panels.png" alt="选择 panel1（左），然后选择 panel2（中），然后选择 panel3（右）。 See live at &lt;https://hadley.shinyapps.io/ms-dynamic-panels&gt;." width="33%"><img src="demos/action-dynamic/dynamic-panels-panel2.png" alt="选择 panel1（左），然后选择 panel2（中），然后选择 panel3（右）。 See live at &lt;https://hadley.shinyapps.io/ms-dynamic-panels&gt;." width="33%"><img src="demos/action-dynamic/dynamic-panels-panel3.png" alt="选择 panel1（左），然后选择 panel2（中），然后选择 panel3（右）。 See live at &lt;https://hadley.shinyapps.io/ms-dynamic-panels&gt;." width="33%"><p class="caption">
+Figure 6.5: 选择 panel1（左），然后选择 panel2（中），然后选择 panel3（右）。 See live at <a href="https://hadley.shinyapps.io/ms-dynamic-panels" class="uri">https://hadley.shinyapps.io/ms-dynamic-panels</a>.
+</p>
+</div>
+<p>这里有两个主要想法：</p>
+<ul>
+<li>使用带有隐藏选项卡的选项卡集面板。</li>
+<li>使用 <code><a href="https://rdrr.io/pkg/shiny/man/updateTabsetPanel.html">updateTabsetPanel()</a></code> 从 server 切换选项卡。</li>
+</ul>
+<p>这是一个简单的想法，但是当与一点创造力相结合时，它会给你带来相当大的力量。
+以下两节介绍了如何在实践中使用它的几个小示例。</p>
+<div id="conditional-ui" class="section level3" number="6.2.1">
+<h3>
+<span class="header-section-number">6.2.1</span> Conditional UI<a class="anchor" aria-label="anchor" href="#conditional-ui"><i class="fas fa-link"></i></a>
+</h3>
+<p>想象一下，您想要一个允许用户模拟正态分布、均匀分布和指数分布的 app。
+每个分布都有不同的参数，因此我们需要某种方法来显示不同分布的不同控件。
+在这里，我将把每个发行版的唯一用户界面放在自己的 <code><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel()</a></code> 中，然后将三个选项卡排列到一个 <code><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel()</a></code> 中。</p>
+<div class="sourceCode" id="cb137"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">parameter_tabs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel</a></span><span class="op">(</span></span>
+<span>  id <span class="op">=</span> <span class="st">"params"</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"hidden"</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span><span class="st">"normal"</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"mean"</span>, <span class="st">"mean"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"sd"</span>, <span class="st">"standard deviation"</span>, min <span class="op">=</span> <span class="fl">0</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span><span class="st">"uniform"</span>, </span>
+<span>           <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"min"</span>, <span class="st">"min"</span>, value <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"max"</span>, <span class="st">"max"</span>, value <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>  <span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span><span class="st">"exponential"</span>,</span>
+<span>           <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"rate"</span>, <span class="st">"rate"</span>, value <span class="op">=</span> <span class="fl">1</span>, min <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>,</span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>然后，我将其嵌入到更完整的 UI 中，该 UI 允许用户选择样本数量并显示结果的直方图：</p>
+<div class="sourceCode" id="cb138"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"dist"</span>, <span class="st">"Distribution"</span>, </span>
+<span>        choices <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"normal"</span>, <span class="st">"uniform"</span>, <span class="st">"exponential"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Number of samples"</span>, value <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>,</span>
+<span>      <span class="va">parameter_tabs</span>,</span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"hist"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>请注意，我已经仔细地将 <code>input$dist</code> 中的 <code>choices</code> 与选项卡面板的名称进行了匹配。
+这使得编写下面的 <code><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent()</a></code> 代码变得很容易，该代码可以在分布发生变化时自动切换控件。
+该 app 的其余部分使用您已经熟悉的技术。
+最终结果如 Figure <a href="action-dynamic.html#fig:dynamic-conditional">6.6</a> 所示。</p>
+<div class="sourceCode" id="cb139"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dist</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateTabsetPanel.html">updateTabsetPanel</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"params"</span>, selected <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">dist</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span> </span>
+<span>  </span>
+<span>  <span class="va">sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="kw"><a href="https://rdrr.io/r/base/switch.html">switch</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dist</span>,</span>
+<span>      normal <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span>, <span class="va">input</span><span class="op">$</span><span class="va">mean</span>, <span class="va">input</span><span class="op">$</span><span class="va">sd</span><span class="op">)</span>,</span>
+<span>      uniform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span>, <span class="va">input</span><span class="op">$</span><span class="va">min</span>, <span class="va">input</span><span class="op">$</span><span class="va">max</span><span class="op">)</span>,</span>
+<span>      exponential <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Exponential.html">rexp</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span>, <span class="va">input</span><span class="op">$</span><span class="va">rate</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">hist</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:dynamic-conditional"></span>
+<img src="demos/action-dynamic/dynamic-conditional-normal.png" alt="正态分布（左）、均匀分布（中）和指数分布（右）的结果。 See live at &lt;https://hadley.shinyapps.io/ms-dynamic-conditional&gt;." width="33%"><img src="demos/action-dynamic/dynamic-conditional-uniform.png" alt="正态分布（左）、均匀分布（中）和指数分布（右）的结果。 See live at &lt;https://hadley.shinyapps.io/ms-dynamic-conditional&gt;." width="33%"><img src="demos/action-dynamic/dynamic-conditional-exponential.png" alt="正态分布（左）、均匀分布（中）和指数分布（右）的结果。 See live at &lt;https://hadley.shinyapps.io/ms-dynamic-conditional&gt;." width="33%"><p class="caption">
+Figure 6.6: 正态分布（左）、均匀分布（中）和指数分布（右）的结果。 See live at <a href="https://hadley.shinyapps.io/ms-dynamic-conditional" class="uri">https://hadley.shinyapps.io/ms-dynamic-conditional</a>.
+</p>
+</div>
+<p>请注意，（例如）<code>input$mean</code> 的值与其对用户是否可见无关。
+底层的 HTML 控件仍然存在；你只是看不到它。</p>
+</div>
+<div id="dynamic-wizard" class="section level3" number="6.2.2">
+<h3>
+<span class="header-section-number">6.2.2</span> Wizard interface<a class="anchor" aria-label="anchor" href="#dynamic-wizard"><i class="fas fa-link"></i></a>
+</h3>
+<p>您还可以使用这个想法来创建一个“向导（wizard）”，这是一种界面，可以通过将大量信息分布在多个页面上来更轻松地收集信息。
+在这里，我们在每个“页面”中嵌入了操作按钮，以便轻松前进和后退。
+结果如 Figure <a href="action-dynamic.html#fig:wizard">6.7</a> 所示。</p>
+<div class="sourceCode" id="cb140"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabsetPanel.html">tabsetPanel</a></span><span class="op">(</span></span>
+<span>    id <span class="op">=</span> <span class="st">"wizard"</span>,</span>
+<span>    type <span class="op">=</span> <span class="st">"hidden"</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span><span class="st">"page_1"</span>, </span>
+<span>             <span class="st">"Welcome!"</span>,</span>
+<span>             <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"page_12"</span>, <span class="st">"next"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span><span class="st">"page_2"</span>, </span>
+<span>             <span class="st">"Only one page to go"</span>,</span>
+<span>             <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"page_21"</span>, <span class="st">"prev"</span><span class="op">)</span>,</span>
+<span>             <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"page_23"</span>, <span class="st">"next"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/tabPanel.html">tabPanel</a></span><span class="op">(</span><span class="st">"page_3"</span>, </span>
+<span>             <span class="st">"You're done!"</span>,</span>
+<span>             <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"page_32"</span>, <span class="st">"prev"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">switch_page</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">i</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/updateTabsetPanel.html">updateTabsetPanel</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"wizard"</span>, selected <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"page_"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span></span>
+<span>  </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">page_12</span>, <span class="fu">switch_page</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">page_21</span>, <span class="fu">switch_page</span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">page_23</span>, <span class="fu">switch_page</span><span class="op">(</span><span class="fl">3</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">page_32</span>, <span class="fu">switch_page</span><span class="op">(</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:wizard"></span>
+<img src="demos/action-dynamic/wizard-1.png" alt="向导界面将复杂的 UI 划分为多个页面。在这里，我们通过一个非常简单的示例来演示这个想法，单击 next 前进到下一页。 See live at &lt;https://hadley.shinyapps.io/ms-wizard&gt;." width="33%"><img src="demos/action-dynamic/wizard-2.png" alt="向导界面将复杂的 UI 划分为多个页面。在这里，我们通过一个非常简单的示例来演示这个想法，单击 next 前进到下一页。 See live at &lt;https://hadley.shinyapps.io/ms-wizard&gt;." width="33%"><img src="demos/action-dynamic/wizard-3.png" alt="向导界面将复杂的 UI 划分为多个页面。在这里，我们通过一个非常简单的示例来演示这个想法，单击 next 前进到下一页。 See live at &lt;https://hadley.shinyapps.io/ms-wizard&gt;." width="33%"><p class="caption">
+Figure 6.7: 向导界面将复杂的 UI 划分为多个页面。在这里，我们通过一个非常简单的示例来演示这个想法，单击 next 前进到下一页。 See live at <a href="https://hadley.shinyapps.io/ms-wizard" class="uri">https://hadley.shinyapps.io/ms-wizard</a>.
+</p>
+</div>
+<p>请注意使用 <code>switch_page()</code> 函数来减少 server 代码中的重复量。
+我们将在 Chapter <a href="#scaling-functions"><strong>??</strong></a> 中回到这个想法，然后在 Section <a href="#module-wizard"><strong>??</strong></a> 中创建一个模块来自动化向导界面。</p>
+</div>
+<div id="exercises-6" class="section level3" number="6.2.3">
+<h3>
+<span class="header-section-number">6.2.3</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-6"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>仅当用户选中 “advanced” 复选框时，才使用隐藏选项卡集显示其他控件。</li>
+<li>创建一个绘制 <code>ggplot(diamonds, aes(carat))</code> 的 app，但允许用户选择要使用的 geom：<code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code>、<code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly()</a></code> 或 <code><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density()</a></code>。
+使用隐藏选项卡集允许用户根据 geom 选择不同的参数：<code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram()</a></code> 和 <code><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_freqpoly()</a></code> 有一个 binwidth 参数；<code><a href="https://ggplot2.tidyverse.org/reference/geom_density.html">geom_density()</a></code> 有一个 <code>bw</code> 参数。</li>
+<li>修改您在上一个练习中创建的 app，以允许用户选择是否显示每个 geom（即，他们可以选择 0、1、2 或 3，而不是始终使用一个 geom）。确保您可以独立控制 histogram 和 frequency polygon 的 binwidth。</li>
+</ol>
+</div>
+</div>
+<div id="programming-ui" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> Creating UI with code<a class="anchor" aria-label="anchor" href="#programming-ui"><i class="fas fa-link"></i></a>
+</h2>
+<p>有时，上述技术都无法为您提供所需的动态级别：更新函数仅允许您更改现有输入，而选项卡集仅在您拥有一组固定且已知的可能组合时才起作用。
+有时，您需要根据其他输入创建不同类型或数量的输入（或输出）。
+最后一项技术使您能够做到这一点。</p>
+<p>值得注意的是，您始终使用代码创建用户界面，但到目前为止您总是在 app 启动之前完成。
+此技术使您能够在 app 运行时创建和修改用户界面。
+该解决方案有两个部分：</p>
+<ul>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput()</a></code> 在您的 <code>ui</code> 中插入一个占位符。
+这会留下一个“空位（hole）”，您的 server 代码可以稍后填充。</p></li>
+<li><p><code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI()</a></code> 在 <code>server()</code> 中调用，用动态生成的 UI 填充占位符。</p></li>
+</ul>
+<p>我们将通过一个简单的示例来了解它是如何工作的，然后深入研究一些实际用途。</p>
+<div id="dynamic-basics" class="section level3" number="6.3.1">
+<h3>
+<span class="header-section-number">6.3.1</span> Getting started<a class="anchor" aria-label="anchor" href="#dynamic-basics"><i class="fas fa-link"></i></a>
+</h3>
+<p>让我们从一个简单的 app 开始，该 app 动态创建一个输入控件，并通过其他两个输入来控制类型和标签。
+生成的 app 如 Figure <a href="action-dynamic.html#fig:render-simple">6.8</a> 所示。</p>
+<div class="sourceCode" id="cb141"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput</a></span><span class="op">(</span><span class="st">"label"</span>, <span class="st">"label"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"type"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slider"</span>, <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"numeric"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">numeric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="st">"slider"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"dynamic"</span>, <span class="va">input</span><span class="op">$</span><span class="va">label</span>, value <span class="op">=</span> <span class="fl">0</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"dynamic"</span>, <span class="va">input</span><span class="op">$</span><span class="va">label</span>, value <span class="op">=</span> <span class="fl">0</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> </span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:render-simple"></span>
+<img src="demos/action-dynamic/render-simple-onload.png" alt="加载 app（左），然后将类型更改为数字（中），然后将标签更改为 'my label'。 See live at &lt;https://hadley.shinyapps.io/ms-render-simple&gt;." width="33%"><img src="demos/action-dynamic/render-simple-numeric.png" alt="加载 app（左），然后将类型更改为数字（中），然后将标签更改为 'my label'。 See live at &lt;https://hadley.shinyapps.io/ms-render-simple&gt;." width="33%"><img src="demos/action-dynamic/render-simple-label.png" alt="加载 app（左），然后将类型更改为数字（中），然后将标签更改为 'my label'。 See live at &lt;https://hadley.shinyapps.io/ms-render-simple&gt;." width="33%"><p class="caption">
+Figure 6.8: 加载 app（左），然后将类型更改为数字（中），然后将标签更改为 ‘my label’。 See live at <a href="https://hadley.shinyapps.io/ms-render-simple" class="uri">https://hadley.shinyapps.io/ms-render-simple</a>.
+</p>
+</div>
+<p>如果您自己运行此代码，您会注意到 app 加载后需要不到一秒的时间才会出现。
+这是因为它是响应式的：app 必须加载、触发响应式事件，该事件调用 server 函数，生成要插入到页面中的 HTML。
+这是 <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI()</a></code> 的缺点之一；过度依赖它可能会导致用户界面滞后。
+为了获得良好的性能，请使用本章前面描述的技术尽可能多地保持用户界面的固定。</p>
+<p>这种方法还有另一个问题：当您更改控件时，您会丢失当前选择的值。
+维护现有状态是使用代码创建 UI 的一大挑战。
+这就是有选择地显示和隐藏 UI 是一种更好的方法（如果它适合您）的原因之一 — 因为您没有销毁和重新创建控件，因此不需要执行任何操作来保留值。
+但是，在许多情况下，我们可以通过将新输入的值设置为现有控件的当前值来解决问题：</p>
+<div class="sourceCode" id="cb142"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">numeric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">value</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html">isolate</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dynamic</span><span class="op">)</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="st">"slider"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"dynamic"</span>, <span class="va">input</span><span class="op">$</span><span class="va">label</span>, value <span class="op">=</span> <span class="va">value</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"dynamic"</span>, <span class="va">input</span><span class="op">$</span><span class="va">label</span>, value <span class="op">=</span> <span class="va">value</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p><code><a href="https://rdrr.io/pkg/shiny/man/isolate.html">isolate()</a></code> 的使用很重要。
+我们将回到它在 Section <a href="#isolate"><strong>??</strong></a> 中的作用，但这里它确保我们不会创建响应式依赖关系，这会导致每次 <code>input$dynamic</code> 更改时重新运行此代码（每当用户修改值时就会发生这种情况）。我们只希望它在 <code>input$type</code> 或 <code>input$label</code> 更改时更改。</p>
+</div>
+<div id="multiple-controls" class="section level3" number="6.3.2">
+<h3>
+<span class="header-section-number">6.3.2</span> Multiple controls<a class="anchor" aria-label="anchor" href="#multiple-controls"><i class="fas fa-link"></i></a>
+</h3>
+<p>当您生成任意数量或类型的控件时，动态 UI 最有用。
+这意味着您将使用代码生成 UI，我建议使用函数式编程来完成此类任务。
+在这里，我将使用 <code><a href="https://purrr.tidyverse.org/reference/map.html">purrr::map()</a></code> 和 <code><a href="https://purrr.tidyverse.org/reference/reduce.html">purrr::reduce()</a></code>，但您当然可以对基本 <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> 和 <code><a href="https://rdrr.io/r/base/funprog.html">Reduce()</a></code> 函数执行相同的操作。</p>
+<div class="sourceCode" id="cb143"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://purrr.tidyverse.org/">purrr</a></span><span class="op">)</span></span></code></pre></div>
+<p>如果您不熟悉函数式编程的 <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> 和 <code><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce()</a></code>，您可能需要在继续之前先阅读一下 <a href="https://adv-r.hadley.nz/functionals.html"><em>Functional programming</em></a>。
+我们还将在 Chapter <a href="#scaling-functions"><strong>??</strong></a> 中回到这个想法。
+这些都是复杂的想法，所以如果您第一次阅读时没有理解，请不要紧张。</p>
+<p>为了具体说明这一点，假设您希望用户能够提供他们自己的调色板。
+他们首先会指定需要多少种颜色，然后为每种颜色提供一个值。
+<code>ui</code> 非常简单：我们有一个 <code><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput()</a></code> 来控制输入数量，一个 <code><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput()</a></code> 用来生成生成的文本框，还有一个 <code><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput()</a></code> 来证明我们已经将所有内容正确地组合在一起。</p>
+<div class="sourceCode" id="cb144"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Number of colours"</span>, value <span class="op">=</span> <span class="fl">5</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"col"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"palette"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>server 函数很短，但包含一些重要的想法：</p>
+<div class="sourceCode" id="cb145"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">col_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"col"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu">col_names</span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput</a></span><span class="op">(</span><span class="va">.x</span>, <span class="cn">NULL</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">palette</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="fu">col_names</span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="va">input</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rlang.r-lib.org/reference/op-null-default.html">%||%</a></span> <span class="st">""</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<ul>
+<li><p>我使用响应式 <code>col_names()</code> 来存储我将要生成的每个颜色输入的名称。</p></li>
+<li><p>然后，我使用 <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> 创建一个 <code><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput()</a></code> 列表，每个文本输入对应 <code>col_names()</code> 中的每个名称。
+<code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI()</a></code> 然后获取此 HTML 组件列表并将其添加到 UI。</p></li>
+<li><p>我需要使用一种新技巧来访问输入值的值。
+到目前为止，我们总是使用 <code>$</code> 访问输入的组成部分，例如 <code>input$col1</code>。
+但这里我们有字符向量中的输入名称，例如 <code>var &lt;- "col1"</code>。
+<code>$</code> 在这种情况下不再起作用，因此我们需要切换到 <code>[[</code>，即 <code>input[[var]]</code>。</p></li>
+<li><p>我使用 <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> 将所有值收集到字符向量中，并将其显示在 <code>output$palette</code> 中。
+不幸的是，在浏览器渲染新输入之前，有一段短暂的时间，它们的值为 <code>NULL</code>。
+这会导致 <code><a href="https://purrr.tidyverse.org/reference/map.html">map_chr()</a></code> 出错，我们通过使用方便的 <code>%||%</code> 函数来修复该错误：只要左侧为 <code>NULL</code>，它就会返回右侧。</p></li>
+</ul>
+<p>您可以在 Figure <a href="action-dynamic.html#fig:render-palette">6.9</a> 中看到结果。</p>
+<div class="figure">
+<span style="display:block;" id="fig:render-palette"></span>
+<img src="demos/action-dynamic/render-palette-onload.png" alt="加载时的 app（左），将 n 设置为 3（中），然后输入一些颜色（右）。 See live at &lt;https://hadley.shinyapps.io/ms-render-palette&gt;." width="33%"><img src="demos/action-dynamic/render-palette-change-n.png" alt="加载时的 app（左），将 n 设置为 3（中），然后输入一些颜色（右）。 See live at &lt;https://hadley.shinyapps.io/ms-render-palette&gt;." width="33%"><img src="demos/action-dynamic/render-palette-set-cols.png" alt="加载时的 app（左），将 n 设置为 3（中），然后输入一些颜色（右）。 See live at &lt;https://hadley.shinyapps.io/ms-render-palette&gt;." width="33%"><p class="caption">
+Figure 6.9: 加载时的 app（左），将 n 设置为 3（中），然后输入一些颜色（右）。 See live at <a href="https://hadley.shinyapps.io/ms-render-palette" class="uri">https://hadley.shinyapps.io/ms-render-palette</a>.
+</p>
+</div>
+<p>如果您运行此 app，您会发现一个非常烦人的行为：每当您更改颜色数量时，您输入的所有数据都会消失。
+我们可以使用与之前相同的技术来解决此问题：将 <code>value</code> 设置为（isolated）当前值。
+我还将调整外观，使其看起来更好一些，包括在绘图中显示选定的颜色。
+示例屏幕截图如 Figure <a href="action-dynamic.html#fig:render-palette-full">6.10</a> 所示。</p>
+<div class="sourceCode" id="cb146"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"Number of colours"</span>, value <span class="op">=</span> <span class="fl">5</span>, min <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"col"</span><span class="op">)</span>,</span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/plotOutput.html">plotOutput</a></span><span class="op">(</span><span class="st">"plot"</span><span class="op">)</span>  </span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">col_names</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"col"</span>, <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">n</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">col</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu">col_names</span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textInput.html">textInput</a></span><span class="op">(</span><span class="va">.x</span>, <span class="cn">NULL</span>, value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isolate.html">isolate</a></span><span class="op">(</span><span class="va">input</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPlot.html">renderPlot</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span><span class="op">(</span><span class="fu">col_names</span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="va">input</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span> <span class="op"><a href="https://rlang.r-lib.org/reference/op-null-default.html">%||%</a></span> <span class="st">""</span><span class="op">)</span></span>
+<span>    <span class="co"># convert empty inputs to transparent</span></span>
+<span>    <span class="va">cols</span><span class="op">[</span><span class="va">cols</span> <span class="op">==</span> <span class="st">""</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
+<span>    </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/barplot.html">barplot</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span><span class="op">(</span><span class="va">cols</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>      col <span class="op">=</span> <span class="va">cols</span>,</span>
+<span>      space <span class="op">=</span> <span class="fl">0</span>, </span>
+<span>      axes <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">}</span>, res <span class="op">=</span> <span class="fl">96</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:render-palette-full"></span>
+<img src="demos/action-dynamic/render-palette-full-rainbow.png" alt="填充彩虹颜色（左），然后将颜色数量减少到 3（右）；请注意，现有颜色将被保留。 See live at &lt;https://hadley.shinyapps.io/ms-render-palette-full&gt;." width="50%"><img src="demos/action-dynamic/render-palette-full-change-n.png" alt="填充彩虹颜色（左），然后将颜色数量减少到 3（右）；请注意，现有颜色将被保留。 See live at &lt;https://hadley.shinyapps.io/ms-render-palette-full&gt;." width="50%"><p class="caption">
+Figure 6.10: 填充彩虹颜色（左），然后将颜色数量减少到 3（右）；请注意，现有颜色将被保留。 See live at <a href="https://hadley.shinyapps.io/ms-render-palette-full" class="uri">https://hadley.shinyapps.io/ms-render-palette-full</a>.
+</p>
+</div>
+</div>
+<div id="dynamic-filter" class="section level3" number="6.3.3">
+<h3>
+<span class="header-section-number">6.3.3</span> Dynamic filtering<a class="anchor" aria-label="anchor" href="#dynamic-filter"><i class="fas fa-link"></i></a>
+</h3>
+<p>为了结束本章，我将创建一个 app，让您可以动态过滤任何数据框。
+每个数字变量将获得一个范围滑块，每个因子变量将获得多项选择，因此（例如）如果数据框具有三个数字变量和两个因子，则 app 将具有三个滑块和两个选择框。</p>
+<p>我将从一个为单个变量创建 UI 的函数开始。
+它将返回数字输入的范围滑块、因子输入的多重选择以及所有其他类型的 NULL（无）。</p>
+<div class="sourceCode" id="cb147"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">make_ui</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">var</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">rng</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">x</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="va">var</span>, <span class="va">var</span>, min <span class="op">=</span> <span class="va">rng</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, max <span class="op">=</span> <span class="va">rng</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, value <span class="op">=</span> <span class="va">rng</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">levs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/levels.html">levels</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="va">var</span>, <span class="va">var</span>, choices <span class="op">=</span> <span class="va">levs</span>, selected <span class="op">=</span> <span class="va">levs</span>, multiple <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="co"># Not supported</span></span>
+<span>    <span class="cn">NULL</span></span>
+<span>  <span class="op">}</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>然后，我将编写与此函数等效的 server 端：它接受输入控件的变量和值，并返回一个逻辑向量，说明是否包含每个观察结果。
+使用逻辑向量可以轻松组合多个列的结果。</p>
+<div class="sourceCode" id="cb148"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">filter_var</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">val</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/numeric.html">is.numeric</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">&amp;</span> <span class="va">x</span> <span class="op">&gt;=</span> <span class="va">val</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&amp;</span> <span class="va">x</span> <span class="op">&lt;=</span> <span class="va">val</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">is.factor</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="va">x</span> <span class="op"><a href="https://rdrr.io/r/base/match.html">%in%</a></span> <span class="va">val</span></span>
+<span>  <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>    <span class="co"># No control, so don't filter</span></span>
+<span><span class="cn">TRUE</span></span>
+<span><span class="op">}</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>然后，我可以“手动”使用这些函数为 <code>iris</code> 数据集生成一个简单的过滤 UI：</p>
+<div class="sourceCode" id="cb149"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu">make_ui</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="st">"Sepal.Length"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">make_ui</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="st">"Sepal.Width"</span><span class="op">)</span>,</span>
+<span>      <span class="fu">make_ui</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span>, <span class="st">"Species"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu">filter_var</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Length</span>, <span class="va">input</span><span class="op">$</span><span class="va">Sepal.Length</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>      <span class="fu">filter_var</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Sepal.Width</span>, <span class="va">input</span><span class="op">$</span><span class="va">Sepal.Width</span><span class="op">)</span> <span class="op">&amp;</span></span>
+<span>      <span class="fu">filter_var</span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span>, <span class="va">input</span><span class="op">$</span><span class="va">Species</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="op">]</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:render-filter-1"></span>
+<img src="demos/action-dynamic/render-filter-1.png" alt="iris 数据集的简单过滤器接口" width="75%"><p class="caption">
+Figure 6.11: iris 数据集的简单过滤器接口
+</p>
+</div>
+<p>您可能会注意到，我厌倦了复制和粘贴，因此该 app 仅适用于三列。
+我可以通过使用一些函数式编程使其适用于所有列：</p>
+<ul>
+<li><p>在 <code>ui</code> 中使用 <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> 为每个变量生成一个控件。</p></li>
+<li><p>在 <code>server()</code> 中，我使用 <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code> 为每个变量生成选择向量。
+然后，我使用 <code><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce()</a></code> 获取每个变量的逻辑向量，并通过将每个向量组合成一个逻辑向量。</p></li>
+</ul>
+<p>再次强调，如果您不完全了解这里发生的情况，请不要太担心。
+主要的收获是，一旦掌握了函数式编程，您就可以编写非常简洁的代码来生成复杂的动态 apps。</p>
+<div class="sourceCode" id="cb150"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, <span class="op">~</span> <span class="fu">make_ui</span><span class="op">(</span><span class="va">iris</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">each_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">iris</span><span class="op">)</span>, <span class="op">~</span> <span class="fu">filter_var</span><span class="op">(</span><span class="va">iris</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span>, <span class="va">input</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">each_var</span>, <span class="op">~</span> <span class="va">.x</span> <span class="op">&amp;</span> <span class="va">.y</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="op">]</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:render-filter-2"></span>
+<img src="demos/action-dynamic/render-filter-2.png" alt="使用函数式编程为 `iris` 数据集构建过滤 app。" width="75%"><p class="caption">
+Figure 6.12: 使用函数式编程为 <code>iris</code> 数据集构建过滤 app。
+</p>
+</div>
+<p>从这里开始，这是一个适用于任何数据框的简单概括。
+在这里，我将使用数据集包中的数据框来说明它，但是您可以轻松想象如何将其扩展到用户上传的数据。
+结果如 Figure <a href="action-dynamic.html#fig:filtering-final">6.13</a> 所示。</p>
+<div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dfs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/keep.html">keep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="st">"package:datasets"</span><span class="op">)</span>, <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html">is.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">.x</span>, <span class="st">"package:datasets"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarLayout</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">sidebarPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"dataset"</span>, label <span class="op">=</span> <span class="st">"Dataset"</span>, choices <span class="op">=</span> <span class="va">dfs</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"filter"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sidebarLayout.html">mainPanel</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">tableOutput</a></span><span class="op">(</span><span class="st">"data"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/get.html">get</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">dataset</span>, <span class="st">"package:datasets"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  <span class="va">vars</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">filter</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="fu">make_ui</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span>, <span class="va">.x</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">selected</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/reactive.html">reactive</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="va">each_var</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/vars.html">vars</a></span><span class="op">(</span><span class="op">)</span>, <span class="op">~</span> <span class="fu">filter_var</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="op">)</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span>, <span class="va">input</span><span class="op">[[</span><span class="va">.x</span><span class="op">]</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
+<span>    <span class="fu"><a href="https://purrr.tidyverse.org/reference/reduce.html">reduce</a></span><span class="op">(</span><span class="va">each_var</span>, <span class="va">`&amp;`</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderTable.html">renderTable</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="op">)</span><span class="op">[</span><span class="fu">selected</span><span class="op">(</span><span class="op">)</span>, <span class="op">]</span>, <span class="fl">12</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<div class="figure">
+<span style="display:block;" id="fig:filtering-final"></span>
+<img src="demos/action-dynamic/filtering-final.png" alt="根据所选数据集的字段自动生成的动态用户界面。 See live at &lt;https://hadley.shinyapps.io/ms-filtering-final&gt;." width="100%"><p class="caption">
+Figure 6.13: 根据所选数据集的字段自动生成的动态用户界面。 See live at <a href="https://hadley.shinyapps.io/ms-filtering-final" class="uri">https://hadley.shinyapps.io/ms-filtering-final</a>.
+</p>
+</div>
+</div>
+<div id="dialog-boxes" class="section level3" number="6.3.4">
+<h3>
+<span class="header-section-number">6.3.4</span> Dialog boxes<a class="anchor" aria-label="anchor" href="#dialog-boxes"><i class="fas fa-link"></i></a>
+</h3>
+<p>在我们结束之前，想提一下相关的技术：对话框。
+您已经在 Section <a href="#feedback-modal"><strong>??</strong></a> 中看到了它们，其中对话框的内容是固定的文本字符串。
+但由于 <code><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html">modalDialog()</a></code> 是从 server 函数内部调用的，因此您实际上可以以与 <code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI()</a></code> 相同的方式动态生成内容。
+如果您想迫使用户在继续常规应用程序流程之前做出某些决定，那么这是一项非常有用的技术。</p>
+</div>
+<div id="exercises-7" class="section level3" number="6.3.5">
+<h3>
+<span class="header-section-number">6.3.5</span> Exercises<a class="anchor" aria-label="anchor" href="#exercises-7"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>根据本节中的初始示例采用这个非常简单的 app：</li>
+</ol>
+<div class="sourceCode" id="cb152"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/selectInput.html">selectInput</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"type"</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"slider"</span>, <span class="st">"numeric"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html">uiOutput</a></span><span class="op">(</span><span class="st">"numeric"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">numeric</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">type</span> <span class="op">==</span> <span class="st">"slider"</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/sliderInput.html">sliderInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"n"</span>, value <span class="op">=</span> <span class="fl">0</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/numericInput.html">numericInput</a></span><span class="op">(</span><span class="st">"n"</span>, <span class="st">"n"</span>, value <span class="op">=</span> <span class="fl">0</span>, min <span class="op">=</span> <span class="fl">0</span>, max <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>  </span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<p>您如何使用动态可见性来实现它？
+如果您实现动态可见性，那么当您更改控件时如何保持值同步？</p>
+<ol start="2" style="list-style-type: decimal">
+<li>解释一下这个 app 是如何工作的。
+为什么当您第二次单击输入密码按钮时密码消失了？</li>
+</ol>
+<div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html">fluidPage</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/actionButton.html">actionButton</a></span><span class="op">(</span><span class="st">"go"</span>, <span class="st">"Enter password"</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html">textOutput</a></span><span class="op">(</span><span class="st">"text"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/observeEvent.html">observeEvent</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">go</span>, <span class="op">{</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/showModal.html">showModal</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/modalDialog.html">modalDialog</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/passwordInput.html">passwordInput</a></span><span class="op">(</span><span class="st">"password"</span>, <span class="cn">NULL</span><span class="op">)</span>,</span>
+<span>      title <span class="op">=</span> <span class="st">"Please enter your password"</span></span>
+<span>    <span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span>  </span>
+<span>  <span class="va">output</span><span class="op">$</span><span class="va">text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderPrint.html">renderText</a></span><span class="op">(</span><span class="op">{</span></span>
+<span>    <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/isTruthy.html">isTruthy</a></span><span class="op">(</span><span class="va">input</span><span class="op">$</span><span class="va">password</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>      <span class="st">"No password"</span></span>
+<span>    <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>      <span class="st">"Password entered"</span></span>
+<span>    <span class="op">}</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li><p>在 Section <a href="action-dynamic.html#dynamic-basics">6.3.1</a> 的 app 中，如果从 <code>value &lt;- isolate(input$dynamic)</code> 中删除 <code><a href="https://rdrr.io/pkg/shiny/man/isolate.html">isolate()</a></code>，会发生什么情况？</p></li>
+<li><p>添加对日期和日期时间列 <code>make_ui()</code> 和 <code>filter_var()</code> 的支持。</p></li>
+<li><p>（Advanced）如果您了解 <a href="http://adv-r.hadley.nz/S3.html">S3 OOP</a> 系统，请考虑如何使用泛型函数替换 <code>make_ui()</code> 和 <code>filter_var()</code> 中的 <code>if</code> 块。</p></li>
+</ol>
+</div>
+</div>
+<div id="summary-5" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> Summary<a class="anchor" aria-label="anchor" href="#summary-5"><i class="fas fa-link"></i></a>
+</h2>
+<p>在阅读本章之前，您只能在运行 server 函数之前静态创建用户界面。
+现在您已经学习了如何修改用户界面并完全重新创建它以响应用户操作。
+动态用户界面将极大地增加 app 的复杂性，因此，如果您发现自己很难调试正在发生的内容，请不要感到惊讶。
+始终记住使用最简单的技术来解决您的问题，然后回到 Section <a href="action-workflow.html#debugging">5.2</a> 中的调试建议。</p>
+<p>下一章转向讨论书（bookmarking），使与其他人共享 app 的当前状态成为可能。</p>
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="chapter-nav">
+<div class="prev"><a href="action-workflow.html"><span class="header-section-number">5</span> Workflow</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#action-dynamic"><span class="header-section-number">6</span> Dynamic UI</a></li>
+<li>
+<a class="nav-link" href="#updating-inputs"><span class="header-section-number">6.1</span> Updating inputs</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#simple-uses"><span class="header-section-number">6.1.1</span> Simple uses</a></li>
+<li><a class="nav-link" href="#hierarchical-select"><span class="header-section-number">6.1.2</span> Hierarchical select boxes</a></li>
+<li><a class="nav-link" href="#freezing-reactive-inputs"><span class="header-section-number">6.1.3</span> Freezing reactive inputs</a></li>
+<li><a class="nav-link" href="#circular-references"><span class="header-section-number">6.1.4</span> Circular references</a></li>
+<li><a class="nav-link" href="#inter-related-inputs"><span class="header-section-number">6.1.5</span> Inter-related inputs</a></li>
+<li><a class="nav-link" href="#exercises-5"><span class="header-section-number">6.1.6</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#dynamic-visibility"><span class="header-section-number">6.2</span> Dynamic visibility</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#conditional-ui"><span class="header-section-number">6.2.1</span> Conditional UI</a></li>
+<li><a class="nav-link" href="#dynamic-wizard"><span class="header-section-number">6.2.2</span> Wizard interface</a></li>
+<li><a class="nav-link" href="#exercises-6"><span class="header-section-number">6.2.3</span> Exercises</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#programming-ui"><span class="header-section-number">6.3</span> Creating UI with code</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#dynamic-basics"><span class="header-section-number">6.3.1</span> Getting started</a></li>
+<li><a class="nav-link" href="#multiple-controls"><span class="header-section-number">6.3.2</span> Multiple controls</a></li>
+<li><a class="nav-link" href="#dynamic-filter"><span class="header-section-number">6.3.3</span> Dynamic filtering</a></li>
+<li><a class="nav-link" href="#dialog-boxes"><span class="header-section-number">6.3.4</span> Dialog boxes</a></li>
+<li><a class="nav-link" href="#exercises-7"><span class="header-section-number">6.3.5</span> Exercises</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#summary-5"><span class="header-section-number">6.4</span> Summary</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/blob/master/action-dynamic.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/zhenghu159/mastering-shiny-zh-cn/edit/master/action-dynamic.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Mastering Shiny</strong>" was written by Hadley Wickham. </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+</body>
+</html>

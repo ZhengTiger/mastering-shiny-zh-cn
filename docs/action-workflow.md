@@ -656,27 +656,25 @@ shinyApp(ui, server)
 
 -   其他时候，您也许可以编写一些 R 代码来创建一个数据集来说明问题：
   
-  
-  ```r
-  mydata <- data.frame(x = 1:5, y = c("a", "b", "c", "d", "e"))
-  ```
+
+```r
+mydata <- data.frame(x = 1:5, y = c("a", "b", "c", "d", "e"))
+```
 
 -   如果这两种技术都失败了，您可以使用 `dput()` 将数据转换为代码。
 例如，`dput(mydata)` 生成重新创建 `mydata` 的代码：
   
-  
-  ```r
-  dput(mydata)
-  #> structure(list(x = 1:5, y = c("a", "b", "c", "d", "e")), class = "data.frame", row.names = c(NA, 
-  #> -5L))
-  ```
+
+```r
+dput(mydata)
+```
 
 获得该代码后，您可以将其放入您的 reprex 中以生成 `mydata`：
   
-  
-  ```r
-  mydata <- structure(list(x = 1:5, y = structure(1:5, .Label = c("a", "b","c", "d", "e"), class = "factor")), class = "data.frame", row.names = c(NA, -5L))
-  ```
+
+```r
+mydata <- structure(list(x = 1:5, y = structure(1:5, .Label = c("a", "b","c", "d", "e"), class = "factor")), class = "data.frame", row.names = c(NA, -5L))
+```
 
 通常，在原始数据上运行 `dput()` 会生成大量代码，因此请找到能够说明问题的数据子集。
 您提供的数据集越小，其他人就越容易帮助您解决问题。
@@ -707,10 +705,10 @@ shinyApp(ui, server)
 
 一旦您简化了 app 以演示问题，就值得进行最后一次检查：
   
-  -   `UI` 中的每个输入和输出都与问题相关吗？
+-   `UI` 中的每个输入和输出都与问题相关吗？
   
-  -   您的 app 是否具有复杂的布局，您可以简化该布局以帮助专注于手头的问题？
-  您是否删除了所有使您的 app 看起来不错但与问题无关的 UI 自定义？
+-   您的 app 是否具有复杂的布局，您可以简化该布局以帮助专注于手头的问题？
+您是否删除了所有使您的 app 看起来不错但与问题无关的 UI 自定义？
 
 -   现在可以删除 `server()` 中的任何响应式吗？
 
@@ -849,15 +847,8 @@ ui <- fluidPage(
 
 ```r
 min(datetime)
-#> [1] "2024-08-10 19:39:40 CST"
 max(datetime)
-#> [1] "2024-08-20 19:39:40 CST"
 c(min, max)
-#> [[1]]
-#> function (..., na.rm = FALSE)  .Primitive("min")
-#> 
-#> [[2]]
-#> function (..., na.rm = FALSE)  .Primitive("max")
 ```
 
 现在问题很明显：我们还没有分配 `min` 和 `max` 变量，所以我们不小心将 `min()` 和 `max()` 函数传递给了 `sliderInput()`。
@@ -907,4 +898,3 @@ ui <- fluidPage(
 
 关于布局和主题的下一章是有用技术的第一章。
 无需按顺序阅读；请随意跳至当前 app 所需的章节。
-
